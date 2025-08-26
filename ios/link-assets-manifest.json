@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/DMSans-Black.ttf",
+      "sha1": "d93992036c4572e118b43753c05b70d958fee01a"
+    },
+    {
+      "path": "assets/fonts/DMSans-Bold.ttf",
+      "sha1": "d00fcef1bf7fa3ed01854bca4eff67835f9cf04e"
+    },
+    {
+      "path": "assets/fonts/DMSans-ExtraBold.ttf",
+      "sha1": "883c300678833e5e9ce4640aa89ca6c8581d2eec"
+    },
+    {
+      "path": "assets/fonts/DMSans-ExtraLight.ttf",
+      "sha1": "fd0befce0a82ccde78608de3ad4e9e13f0780cc0"
+    },
+    {
+      "path": "assets/fonts/DMSans-Light.ttf",
+      "sha1": "639a9a8954ed867828184e4affc6a45fc25b0334"
+    },
+    {
+      "path": "assets/fonts/DMSans-Medium.ttf",
+      "sha1": "98848b759c488bac3d85c864b793c1e29e9c1944"
+    },
+    {
+      "path": "assets/fonts/DMSans-Regular.ttf",
+      "sha1": "ea29eece15a0fa96acdd1b19a232a08b696c7bb0"
+    },
+    {
+      "path": "assets/fonts/DMSans-SemiBold.ttf",
+      "sha1": "504fc1e1ece12a5c98da275e0789a88184a534dd"
+    },
+    {
+      "path": "assets/fonts/DMSans-Thin.ttf",
+      "sha1": "70dbe045511764370ac685aa0e7dfbc15867b11d"
+    }
+  ]
+}
