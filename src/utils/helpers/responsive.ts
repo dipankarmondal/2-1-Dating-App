@@ -1,5 +1,5 @@
-import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import Toast from 'react-native-toast-message';
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 const hs = (size: number) => scale(size);
 const vs = (size: number) => verticalScale(size);

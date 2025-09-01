@@ -1,0 +1,22 @@
+{
+    "login": {
+        "username": {
+            "label": "User name",
+            "placeholder": "Enter your user name",
+            "errors": {
+                "required": "user name is required"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter your password",
+            "errors": { 
+                "required": "password is required",
+                "pattern": {
+                    "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$",
+                    "message": "Min 8 chars, must mix upper/lower, number & special."
+                }
+            }
+        }
+    }
+}
