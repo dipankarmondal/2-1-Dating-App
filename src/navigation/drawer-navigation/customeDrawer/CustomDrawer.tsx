@@ -39,7 +39,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             <TouchableOpacity style={styles.header} activeOpacity={0.7}>
                 <View style={styles.sa_avatar}>
                     <Image
-                        source={require('@images/logo.png')}
+                        source={require('@images/user.png')}
                         style={styles.sa_img}
                     />
                 </View>

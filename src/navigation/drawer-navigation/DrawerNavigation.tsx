@@ -11,6 +11,7 @@ import CustomDrawerContent from './customeDrawer/CustomDrawer';
 import { DrawerScreens } from '../navigation-helper/helper';
 import { ms } from '../../utils/helpers/responsive';
 import { Colors } from '../../utils/constant/Constant';
+import FeedScreen from '../../screens/screens/drawer-navigation-screens/feed-screen';
 
 /**Main export*/
 const DrawerNavigator: React.FC = () => {
@@ -30,6 +31,7 @@ const DrawerNavigator: React.FC = () => {
             drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
                 drawerType: 'slide',
+                drawerPosition: 'left',
                 drawerStyle,
                 drawerLabelStyle,
                 headerShown: false

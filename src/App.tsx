@@ -7,6 +7,7 @@ import { AuthProvider } from './utils/context/auth-context/AuthContext';
 import { AppNavigation } from './navigation/stack-navigation/StackNavigation';
 import CustomeToast from './components/custom-toast';
 import NetworkNotConnect from './components/network-not-connect';
+import { RightDrawerProvider } from './utils/context/right-drawer/RightDrawer';
 
 const App = () => {
     const [IsConnected, SetIsConnected] = useState(true);
@@ -30,7 +31,9 @@ const App = () => {
                     <QueryClientProvider client={queryClient}>
                         <NavigationContainer>
                             <AuthProvider>
-                                <AppNavigation />
+                                <RightDrawerProvider>
+                                    <AppNavigation />
+                                </RightDrawerProvider>
                             </AuthProvider>
                         </NavigationContainer>
                         <CustomeToast />

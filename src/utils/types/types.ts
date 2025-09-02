@@ -52,3 +52,12 @@ export type DrawerScreenType = {
   Icon: React.FC<React.SVGProps<SVGSVGElement>>;
   size: number;
 }
+
+export type ScreenLayoutProps = {
+    children: React.ReactNode
+}
+
+export type HeaderIconProps = {
+    Icon: React.ComponentType<any>;
+    onPress?: () => void;
+}

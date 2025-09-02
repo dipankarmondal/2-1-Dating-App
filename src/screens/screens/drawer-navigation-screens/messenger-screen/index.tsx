@@ -1,12 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { HomeScreenStyles as styles } from './styles'
+import ScreenLayout from '../../common/ScreenLayout'
 
 const MessengerScreen: React.FC = () => {
     return (
-        <View>
-            <Text>HomeScreen</Text>
-        </View>
+        <ScreenLayout>
+            <Text style={{ color: "white" }}>MessengerScreen</Text>
+        </ScreenLayout>
     )
 }
 

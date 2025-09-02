@@ -14,9 +14,6 @@ export const CustomDrawerStyles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: ms(1),
         borderColor: Colors.dt_white,
-        // marginBottom: ms(8),
-        elevation: 5,
-        shadowColor: Colors.dt_black,
         zIndex: 1000
     },
     sa_avatar: {
@@ -44,7 +41,7 @@ export const CustomDrawerStyles = StyleSheet.create({
         width:ms(30),
         height:ms(30),
         borderRadius:ms(50),
-        backgroundColor:Colors.dt_gray + "26",
+        backgroundColor:Colors.dt_gray + "33",
         alignItems:'center',
         justifyContent:'center'
     },

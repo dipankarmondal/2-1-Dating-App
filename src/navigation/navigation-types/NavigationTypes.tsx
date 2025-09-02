@@ -29,6 +29,7 @@ export type LoginScreenNavigationProp = StackNavigation<"LoginScreen">;
 export type DrawerParamList = {
   FeedScreen: undefined;
   MessengerScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 export const Drawer = createDrawerNavigator<DrawerParamList>();
