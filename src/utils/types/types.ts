@@ -1,5 +1,6 @@
 import { StatusBarStyle, StyleProp, TextInputProps } from "react-native";
 import { TextStyle, ViewStyle } from "react-native-size-matters";
+import { DrawerParamList } from "../../navigation/navigation-types/NavigationTypes";
 
 export type CustomStatusBarProps = {
     color: string;
@@ -42,4 +43,12 @@ export type CheckTypes= {
   errorMessage?: string;
   name: string,
   text: string
+}
+
+export type DrawerScreenType = {
+  name: keyof DrawerParamList;
+  component: React.ComponentType<any>;
+  label: string;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  size: number;
 }

@@ -9,8 +9,8 @@ import { DrawerNavigationProp, createDrawerNavigator } from "@react-navigation/d
 // Stack Param List
 export type RootStackParamList = {
   LoginScreen: undefined;
-  HomeScreen: undefined;
   RegistrationScreen: undefined;
+  DrawerNavigator: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,7 +27,8 @@ export type LoginScreenNavigationProp = StackNavigation<"LoginScreen">;
 // -----------------------------
 
 export type DrawerParamList = {
-  HomeScreen: undefined;
+  FeedScreen: undefined;
+  MessengerScreen: undefined;
 };
 
 export const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -37,5 +38,6 @@ export type DrawerNavigation<Screen extends keyof DrawerParamList> =
   DrawerNavigationProp<DrawerParamList, Screen>;
 
 // Usage Drawer Navigation Prop Example:
-export type HomeScreenDrawerNavigationProp = DrawerNavigation<"HomeScreen">;
+export type FeedScreenDrawerNavigationProp = DrawerNavigation<"FeedScreen">;
+export type MessengerScreenDrawerNavigationProp = DrawerNavigation<"MessengerScreen">;
 

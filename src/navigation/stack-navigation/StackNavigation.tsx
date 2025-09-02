@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import LoginScreen from "../../screens/auth/login-screen"
-import HomeScreen from "../../screens/screens/drawer-navigation-screens/home-screen"
 import { useAuth } from "../../utils/context/auth-context/AuthContext"
 import { Stack } from "../navigation-types/NavigationTypes"
 import { SafeAreaView } from "react-native-safe-area-context"
 import Splash from "../../components/splash"
 import { Colors } from "../../utils/constant/Constant"
 import RegistrationScreen from "../../screens/auth/registration-screen"
+import DrawerNavigator from "../drawer-navigation/DrawerNavigation"
 
 export const AuthStack = () => {
     return (
@@ -25,10 +25,10 @@ export const MainStack = () => {
     return (
         <Stack.Navigator
             id={undefined}
-            initialRouteName="HomeScreen"
+            initialRouteName="DrawerNavigator"
             screenOptions={{ headerShown: false }}
         >
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+             <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         </Stack.Navigator>
     )
 }

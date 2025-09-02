@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { HomeScreenStyles as styles } from './styles'
 
-const HomeScreen: React.FC = () => {
+const MessengerScreen: React.FC = () => {
     return (
         <View>
             <Text>HomeScreen</Text>
@@ -10,4 +10,4 @@ const HomeScreen: React.FC = () => {
     )
 }
 
-export default HomeScreen
+export default MessengerScreen

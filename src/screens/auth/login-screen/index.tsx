@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native'
 import CustomInput from '../../../components/form-utils/custom-input'
 import SubmitButton from '../../../components/submit-button'
 import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Main export*/
 const LoginScreen: React.FC = () => {
@@ -26,9 +27,11 @@ const LoginScreen: React.FC = () => {
         resolver: yupResolver(LoginSchema),
     })
     const captchaRef = useRef<CaptchaBoxRef>(null);
+    const { login } = useAuth();
 
     const Navigation = useNavigation<any>()
 
+    const Token = "12345678"
     const OnSubmit = (data: LoginForm) => {
         const isCaptchaValid = captchaRef.current?.validate();
         if (!isCaptchaValid) {
@@ -36,6 +39,11 @@ const LoginScreen: React.FC = () => {
             captchaRef.current?.reset();
             return;
         }
+
+        login({
+            Token: Token || null,
+            user: data || null
+        });
 
         console.log("✅ Form Data:", data);
     };
