@@ -14,7 +14,7 @@ export type CustomInputProps = {
     type?: string;
     label?: boolean;
     isCart?: boolean;
-    styles: any;
+    styles?: any;
     keyboardType?: TextInputProps["keyboardType"];
 };
 
@@ -27,4 +27,19 @@ export type SubmitButtonProps = {
   text: string,
   loading?: boolean,
   onPress: () => void,
+}
+
+export type AuthProps = {
+    children: React.ReactNode,
+    titile: string
+}
+
+export type CheckTypes= {
+  control: any;
+  setValue?: (name: string, value: boolean) => void;
+  isChecked: boolean;
+  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  errorMessage?: string;
+  name: string,
+  text: string
 }

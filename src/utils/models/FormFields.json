@@ -4,18 +4,71 @@
             "label": "User name",
             "placeholder": "Enter your user name",
             "errors": {
-                "required": "user name is required"
+                "required": "user name is required",
+                "min": "user name must be at least 3 characters"
             }
         },
         "password": {
             "label": "Password",
             "placeholder": "Enter your password",
-            "errors": { 
+            "errors": {
+                "required": "password is required",
+                "pattern": {
+                    "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$",
+                    "message": "min 8 chars, must mix upper/lower, number & special."
+                }
+            }
+        }
+    },
+    "create_account": {
+        "username": {
+            "label": "User name",
+            "placeholder": "Enter your user name",
+            "errors": {
+                "required": "user name is required",
+                "min": "user name must be at least 3 characters"
+            }
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "errors": {
+                "required": "email is required",
+                "pattern": "enter a valid email address"
+            }
+        },
+        "phone": {
+            "label": "Phone",
+            "placeholder": "Enter your phone number",
+            "errors": {
+                "required": "Phone is required",
+                "pattern": "enter a valid phone number"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter your password",
+            "errors": {
                 "required": "password is required",
                 "pattern": {
                     "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$",
                     "message": "Min 8 chars, must mix upper/lower, number & special."
                 }
+            }
+        },
+        "confirm_password": {
+            "label": "Confirm Password",
+            "placeholder": "Re-enter your password",
+            "errors": {
+                "required": "Confirm password is required",
+                "match": "Passwords must match"
+            }
+        },
+        "otp": {
+            "label": "OTP",
+            "placeholder": "Enter your OTP",
+            "errors": {
+                "required": "OTP is required"
             }
         }
     }

@@ -1,18 +1,26 @@
+/**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useRef } from 'react'
+
+/**Local imports*/
 import { LoginScreenStyles as styles } from './styles'
 import AuthLayout from '../common/AuthLayout'
-import { useForm } from 'react-hook-form'
 import { LoginForm } from '../../../utils/types/types'
 import { LoginBuilder } from '../../../utils/builders'
-import CustomInput from '../../../components/form-utils/custom-input'
-import SubmitButton from '../../../components/submit-button'
-import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
 import { ms } from '../../../utils/helpers/responsive'
 import { LoginSchema } from '../../../utils/schemas/Schemas'
+
+/** Liabary*/
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 
+/**Components */
+import CustomInput from '../../../components/form-utils/custom-input'
+import SubmitButton from '../../../components/submit-button'
+import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
+
+/**Main export*/
 const LoginScreen: React.FC = () => {
     const { control, handleSubmit, setValue, formState: { errors }, reset } = useForm<LoginForm>({
         resolver: yupResolver(LoginSchema),

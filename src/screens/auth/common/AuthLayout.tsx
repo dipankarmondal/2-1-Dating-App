@@ -1,13 +1,13 @@
+/**React Imports */
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { AuthLayoutStyles as styles } from './styles'
+import { AuthProps } from '../../../utils/types/types'
 
-type AuthProps = {
-    children: React.ReactNode,
-    titile: string
-}
-
-const AuthLayout: React.FC<AuthProps> = ({ children,titile }) => {
+/**Main export*/
+const AuthLayout: React.FC<AuthProps> = ({ children, titile }) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
