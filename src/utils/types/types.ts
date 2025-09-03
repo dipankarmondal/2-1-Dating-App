@@ -32,7 +32,8 @@ export type SubmitButtonProps = {
 
 export type AuthProps = {
     children: React.ReactNode,
-    titile: string
+    titile: string,
+    type: string
 }
 
 export type CheckTypes= {
@@ -60,4 +61,16 @@ export type ScreenLayoutProps = {
 export type HeaderIconProps = {
     Icon: React.ComponentType<any>;
     onPress?: () => void;
+}
+
+export type ModalActionProps = {
+    isModalVisible: boolean,
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+    children: React.ReactNode,
+    headerText: string,
+    type?: string
+}
+
+export type LogoutContentProps = {
+    setShowDropdown: (value: boolean) => void
 }

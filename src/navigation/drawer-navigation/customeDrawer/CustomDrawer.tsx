@@ -17,6 +17,8 @@ import { Colors } from '../../../utils/constant/Constant';
 import RightIcon from '@svgs/angle-small-right.svg'
 import ReportIcon from '@svgs/report.svg'
 import LogoutIcon from '@svgs/user-logout.svg'
+import LogoutContent from '../../../components/modal/modal-content/logout-content/LogoutContent';
+import ModalAction from '../../../components/modal/modal-action/ModalAction';
 
 /**Components */
 // import ModalAction from '../../../components/modal/modal-action/ModalAction';
@@ -25,6 +27,7 @@ import LogoutIcon from '@svgs/user-logout.svg'
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, navigation, descriptors }) => {
     const { logout, Token } = useAuth();
     const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
+    const [showDropdown , setShowDropdown] = useState(false)
 
     const handleLogoutPress = () => setIsLogoutModalVisible(true);
     const handleLogoutConfirm = () => {
@@ -84,7 +87,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             </ScrollView>
             {/* Footer - Logout */}
             <TouchableOpacity
-                style={[styles.logout,  { marginBottom: ms(0), backgroundColor: Colors.dt_gray + "36" }]}
+                style={[styles.logout, { marginBottom: ms(0), backgroundColor: Colors.dt_gray + "36" }]}
                 // onPress={handleLogoutPress}
                 activeOpacity={0.7}
             >
@@ -93,39 +96,24 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.logout,]}
-                onPress={logout}
+                onPress={() => setShowDropdown(true)}
                 activeOpacity={0.7}
             >
                 <LogoutIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
                 <Text style={styles.logoutText}>Logout</Text>
             </TouchableOpacity>
-            {/* <ModalAction
-                {...{
-                    isModalVisible: isLogoutModalVisible,
-                    setModalVisible: setIsLogoutModalVisible,
-                    headerText: "Confirm logout?",
-                }}
+            <ModalAction
+                isModalVisible={showDropdown}
+                setModalVisible={setShowDropdown}
+                headerText="Are you sure you want to logout?"
+                type="logout"
             >
-                <View>
-                    <Text style={styles.dt_logout_text}>
-                        Do you want to log out from your account?
-                    </Text>
-                    <View style={styles.dt_button_container}>
-                        <TouchableOpacity
-                            style={styles.dt_cancel_button}
-                            onPress={handleCancel}
-                        >
-                            <Text style={[styles.dt_btn_text, { color: Colors.dt_black }]}>No, Stay Logged In</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.dt_logout_confirm_button}
-                            onPress={handleLogoutConfirm}
-                        >
-                            <Text style={[styles.dt_btn_text, { color: Colors.dt_white }]}>Yes, Log Me Out</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ModalAction> */}
+                <LogoutContent
+                    {...{
+                        setShowDropdown,
+                    }}
+                />
+            </ModalAction>
         </View>
     );
 };

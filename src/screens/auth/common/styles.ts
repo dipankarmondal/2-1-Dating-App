@@ -18,12 +18,25 @@ export const AuthLayoutStyles = StyleSheet.create({
     color:Colors.dt_white,
     textAlign:"center",
     fontFamily:Fonts.Font_600,
-    marginBottom:ms(20),
+    // marginBottom:ms(20),
   },
   dt_content:{
     padding:spacing.md,
     alignItems:"center",
     justifyContent:"center",
     flex:1,
+  },
+  dt_header:{
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-between",
+  },
+  dt_logout:{
+    width:ms(35),
+    height:ms(35),
+    borderRadius:ms(50),
+    backgroundColor:Colors.dt_gray + "33",
+    alignItems:"center",
+    justifyContent:"center"
   }
 })
