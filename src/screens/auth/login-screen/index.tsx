@@ -1,17 +1,17 @@
 /**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 /**Local imports*/
 import { LoginScreenStyles as styles } from './styles'
 import AuthLayout from '../common/AuthLayout'
 import { LoginForm } from '../../../utils/types/types'
 import { LoginBuilder } from '../../../utils/builders'
-import { ms } from '../../../utils/helpers/responsive'
+import { ms, toast } from '../../../utils/helpers/responsive'
 import { LoginSchema } from '../../../utils/schemas/Schemas'
 
 /** Liabary*/
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 
@@ -20,6 +20,8 @@ import CustomInput from '../../../components/form-utils/custom-input'
 import SubmitButton from '../../../components/submit-button'
 import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
+import { useMutation } from '@tanstack/react-query'
+import { LoginUser } from '../../../utils/api-calls/auth-calls/AuthCall'
 
 /**Main export*/
 const LoginScreen: React.FC = () => {
@@ -31,7 +33,20 @@ const LoginScreen: React.FC = () => {
 
     const Navigation = useNavigation<any>()
 
-    const Token = "12345678"
+    const LoginMutation = useMutation({
+        mutationFn: (data: any) => LoginUser(data),
+        onSuccess: (res) => {
+            console.log("object", res);
+            if (res?.success === true) {
+                login({
+                    Token: res?.data?.token || null,
+                    user: res?.data?.user || null,
+                });
+                toast("success", { title: res?.message });
+            }
+        }
+    })
+
     const OnSubmit = (data: LoginForm) => {
         const isCaptchaValid = captchaRef.current?.validate();
         if (!isCaptchaValid) {
@@ -40,13 +55,18 @@ const LoginScreen: React.FC = () => {
             return;
         }
 
-        login({
-            Token: Token || null,
-            user: data || null
-        });
+        const payload = {
+            identifier: data?.username,
+            password: data?.password
+        }
 
-        console.log("✅ Form Data:", data);
+        LoginMutation.mutate(payload);
     };
+
+    useEffect(() => {
+       setValue("username", "pdas123");
+       setValue("password", "Pdas123@");
+    }, []);
 
     return (
         <AuthLayout
@@ -74,7 +94,7 @@ const LoginScreen: React.FC = () => {
                 <SubmitButton
                     {...{
                         text: "Login",
-                        loading: false,
+                        loading: LoginMutation.isPending,
                         onPress: handleSubmit(OnSubmit)
                     }}
                 />

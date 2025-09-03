@@ -7,6 +7,9 @@ import Splash from "../../components/splash"
 import { Colors } from "../../utils/constant/Constant"
 import RegistrationScreen from "../../screens/auth/registration-screen"
 import DrawerNavigator from "../drawer-navigation/DrawerNavigation"
+import ProfileSetup from "../../screens/auth/profile-setup"
+import { useQuery } from "@tanstack/react-query"
+import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
 
 export const AuthStack = () => {
     return (
@@ -28,7 +31,7 @@ export const MainStack = () => {
             initialRouteName="DrawerNavigator"
             screenOptions={{ headerShown: false }}
         >
-             <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+            <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         </Stack.Navigator>
     )
 }
@@ -38,6 +41,12 @@ export const AppNavigation = () => {
     const { Token } = useAuth()
 
     const [Loading, SetLoading] = useState<Boolean>(true)
+
+    const GetUserProfile = useQuery({
+        queryKey: ['GetProfile'],
+        queryFn: () => GetProfile(Token),
+        enabled: !!Token
+    })
 
     useEffect(() => {
         setTimeout(() => {
@@ -49,18 +58,16 @@ export const AppNavigation = () => {
         return <Splash />
     } else {
         return (
-            <SafeAreaView style={{ flex: 1,backgroundColor:Colors.dt_bg }} edges={['top', 'bottom']} >
-                {Token ?
-                    (
-                        <>
-                            <MainStack />
-                        </>
-                    ) :
-                    (
-                        <>
-                            <AuthStack />
-                        </>
-                    )}
+            <SafeAreaView style={{ flex: 1, backgroundColor: Colors.dt_bg }} edges={['top', 'bottom']} >
+                {Token ? (
+                    GetUserProfile.data?.onboardingCompleted ? (
+                        <MainStack />
+                    ) : (
+                        <ProfileSetup />
+                    )
+                ) : (
+                    <AuthStack />
+                )}
             </SafeAreaView>
         )
     }
