@@ -25,7 +25,7 @@ const toast = (type: string, content: { title: string, }) => {
         text1Style: {
             flexWrap: 'wrap',
         },
-        position: 'bottom',
+        position: 'top',
         visibilityTime: 3000,
     });
 };

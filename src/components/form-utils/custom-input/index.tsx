@@ -98,7 +98,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                                 autoCapitalize="none"
                                 multiline={type == 'textarea' ? true : false}
                                 keyboardType={keyboardType}
-                                secureTextEntry={isPasswordVisible}
+                                secureTextEntry={type === 'password' && !isPasswordVisible}
                             />
                             {type === 'password' && (
                                 <TouchableOpacity style={{ marginRight: ms(10) }} onPress={() => setIsPasswordVisible(!isPasswordVisible)}  >

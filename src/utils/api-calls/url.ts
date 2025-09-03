@@ -1,0 +1,6 @@
+import axios from "axios";
+
+export const API = axios.create({
+    baseURL: "http://174.138.122.168:88/",
+    headers: { "Content-Type": "application/json" },
+});

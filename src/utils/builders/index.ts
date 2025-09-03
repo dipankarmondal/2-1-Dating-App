@@ -45,23 +45,6 @@ export const RegisterBuilder = (control: Control<any>) => {
             placeholder: true,
         },
         {
-            name: 'phone',
-            parent: 'create_account',
-            type: "phone",
-            label: false,
-            control: control,
-            placeholder: true,
-        },
-        {
-            name: 'otp',
-            parent: 'create_account',
-            styles: FormStyle,
-            type: "text",
-            label: false,
-            control: control,
-            placeholder: true,
-        },
-        {
             name: 'password',
             parent: 'create_account',
             styles: FormStyle,
@@ -75,6 +58,27 @@ export const RegisterBuilder = (control: Control<any>) => {
             parent: 'create_account',
             styles: FormStyle,
             type: "password",
+            label: false,
+            control: control,
+            placeholder: true,
+        },
+    ]
+}
+export const RegisterPhoneBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'phone',
+            parent: 'create_account',
+            type: "phone",
+            label: false,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'otp',
+            parent: 'create_account',
+            styles: FormStyle,
+            type: "text",
             label: false,
             control: control,
             placeholder: true,

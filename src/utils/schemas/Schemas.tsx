@@ -22,9 +22,6 @@ export const RegisterSchema = yup.object().shape({
     email: yup
         .string()
         .required(FormFields.create_account.email.errors.required),
-    phone: yup
-        .string()
-        .required(FormFields.create_account.phone.errors.required),
     password: yup
         .string()
         .required(FormFields.create_account.password.errors.required)
@@ -39,9 +36,6 @@ export const RegisterSchema = yup.object().shape({
             [yup.ref('password'), null],
             FormFields.create_account.confirm_password.errors.match
         ),
-    otp: yup
-        .string()
-        .required(FormFields.create_account.otp.errors.required),
     termsAccepted: yup
         .boolean()
         .oneOf([true], 'you must accept the terms and conditions'),

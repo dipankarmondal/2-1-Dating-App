@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 
 /**Local imports*/
 import { RegistrationScreenStyles as styles } from './styles'
-import { RegisterBuilder } from '../../../utils/builders'
-import { ms } from '../../../utils/helpers/responsive'
+import { RegisterBuilder, RegisterPhoneBuilder } from '../../../utils/builders'
+import { ms, toast } from '../../../utils/helpers/responsive'
 import { RegisterSchema } from '../../../utils/schemas/Schemas'
 
 /**Components */
@@ -19,67 +19,176 @@ import CheckBoxs from '../../../components/form-utils/check-box'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
+import { useMutation } from '@tanstack/react-query'
+import { CreateUser, VerifayOtp, VerifayPhone } from '../../../utils/api-calls/auth-calls/AuthCall'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Main export*/
 const RegistrationScreen: React.FC = () => {
-    const [Phone, setPhone] = useState('');
+    const [Phone, setPhone] = useState(null);
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [isAge, setIsAge] = useState<boolean>(false);
+    const [isPhoneVerified, setIsPhoneVerified] = useState<boolean>(false);
+    const [isOtpVerified, setIsOtpVerified] = useState<boolean>(false);
 
-    const { control, handleSubmit, setValue, formState: { errors }, reset } = useForm({
+    const Navigation = useNavigation<any>()
+    const { login } = useAuth();
+
+    // For step 1 (phone)
+    const { control: phoneControl, handleSubmit: handlePhoneSubmit } = useForm();
+
+    // For step 2 (register)
+    const { control: registerControl, handleSubmit: handleRegisterSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(RegisterSchema),
         defaultValues: {
             termsAccepted: false,
-            age_error: false
+            age_error: false,
+        },
+    });
+
+    const PhoneVarifayMutation = useMutation({
+        mutationFn: (data: any) => VerifayPhone(data),
+        onSuccess: (res) => {
+            console.log("object", res);
+            if (res?.success === true) {
+                setIsOtpVerified(true);
+                toast("success", { title: res?.message });
+            }
         },
     })
 
-    const Navigation = useNavigation<any>()
+    const OtpVarifayMutation = useMutation({
+        mutationFn: (data: any) => VerifayOtp(data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                setIsPhoneVerified(true);
+                toast("success", { title: res?.message });
+            }
+        },
+    })
 
-    const OnSubmit = (data: any) => {
-        console.log("✅ Form Data:", data);
+    const CreateUserMutation = useMutation({
+        mutationFn: (data: any) => CreateUser(data),
+        onSuccess: (res) => {
+            console.log("object", res);
+            if (res?.success === true) {
+                login({
+                    Token: res?.data?.token || null,
+                    user: res?.data?.user || null,
+                });
+                toast("success", { title: res?.message });
+            }
+        },
+    })
+
+
+    const HanddlePhoneVarifay = (data: any) => {
+        const cleanedPhone = Phone?.replace(/\s+/g, "");
+        PhoneVarifayMutation.mutate({ phone: cleanedPhone });
+    };
+    const HanddleOtpVarifay = (data: any) => {
+        const cleanedPhone = Phone?.replace(/\s+/g, "");
+        const Payload = {
+            target: cleanedPhone,
+            type: "signup",
+            code: data?.otp
+        }
+
+        OtpVarifayMutation.mutate(Payload);
+    };
+
+    const handleRegister = (data: any) => {
+        const payload = {
+            email: data?.email,
+            password: data?.password,
+            username: data?.username
+        }
+        console.log("✅ Registration Data:", payload);
+        CreateUserMutation.mutate(payload);
     };
 
     return (
         <AuthLayout
             {...{
-                titile: "Create Member Account"
+                titile: isPhoneVerified ? "Create Member Account" : "Verify your phone number"
             }}
         >
-            {RegisterBuilder(control).map((item, index) => {
-                if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
-                    return <CustomInput key={index} {...item} />;
-                } else if (item.type === 'phone') {
-                    return <PhoneInputForm key={index} {...item} setPhone={setPhone} />;
-                }
-            })}
-            <CheckBoxs
-                control={control}
-                setValue={setValue}
-                isChecked={isChecked}
-                setIsChecked={setIsChecked}
-                errorMessage={errors.termsAccepted?.message}
-                name="termsAccepted"
-                text="I agree to the Terms of Service and Privacy Policy."
-            />
-            <CheckBoxs
-                control={control}
-                setValue={setValue}
-                isChecked={isAge}
-                setIsChecked={setIsAge}
-                errorMessage={errors.termsAccepted?.message}
-                name="check_error"
-                text="You must be at least 21 years old to use this service."
-            />
-            <View style={{ marginTop: ms(5) }}>
-                <SubmitButton
-                    {...{
-                        text: "Register",
-                        loading: false,
-                        onPress: handleSubmit(OnSubmit)
-                    }}
-                />
-            </View>
+            {
+                !isPhoneVerified && (
+                    <View>
+                        {RegisterPhoneBuilder(phoneControl).map((item, index) => {
+                            if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
+                                return <CustomInput key={index} {...item} />;
+                            } else if (item.type === 'phone') {
+                                return <PhoneInputForm key={index} {...item} setPhone={setPhone} />;
+                            }
+                        })}
+                        <View style={{ marginTop: ms(5) }}>
+                            {
+                                !isOtpVerified ? (
+                                    <SubmitButton
+                                        {...{
+                                            text: "Send OTP",
+                                            loading: PhoneVarifayMutation.isPending,
+                                            onPress: handlePhoneSubmit(HanddlePhoneVarifay)
+                                        }}
+                                    />
+                                ) : (
+                                    <SubmitButton
+                                        {...{
+                                            text: "Varify OTP",
+                                            loading: OtpVarifayMutation.isPending,
+                                            onPress: handlePhoneSubmit(HanddleOtpVarifay)
+                                        }}
+                                    />
+                                )
+                            }
+                        </View>
+                    </View>
+                )
+            }
+
+            {
+                isPhoneVerified && (
+                    <View>
+                        {RegisterBuilder(registerControl).map((item, index) => {
+                            if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
+                                return <CustomInput key={index} {...item} />;
+                            } else if (item.type === 'phone') {
+                                return <PhoneInputForm key={index} {...item} setPhone={setPhone} />;
+                            }
+                        })}
+                        <CheckBoxs
+                            control={registerControl}
+                            setValue={setValue}
+                            isChecked={isChecked}
+                            setIsChecked={setIsChecked}
+                            errorMessage={errors.termsAccepted?.message}
+                            name="termsAccepted"
+                            text="I agree to the Terms of Service and Privacy Policy."
+                        />
+                        <CheckBoxs
+                            control={registerControl}
+                            setValue={setValue}
+                            isChecked={isAge}
+                            setIsChecked={setIsAge}
+                            errorMessage={errors.age_error?.message}
+                            name="age_error"
+                            text="You must be at least 21 years old to use this service."
+                        />
+                        <View style={{ marginTop: ms(5) }}>
+                            <SubmitButton
+                                {...{
+                                    text: "Register",
+                                    loading: CreateUserMutation.isPending,
+                                    onPress: handleRegisterSubmit(handleRegister)
+                                }}
+                            />
+                        </View>
+                    </View>
+                )
+            }
+
 
             <View style={styles.register_container}>
                 <Text style={styles.register_text}>Already have account?</Text>
@@ -87,6 +196,7 @@ const RegistrationScreen: React.FC = () => {
                     <Text style={styles.register_button_text}>Login here</Text>
                 </TouchableOpacity>
             </View>
+
         </AuthLayout>
     )
 }

@@ -5,13 +5,21 @@ import React from 'react'
 /**Local imports*/
 import { SubmitButtonStyles as styles } from './styles'
 import { SubmitButtonProps } from '../../utils/types/types'
+import LoaderKitView from 'react-native-loader-kit'
+import { Colors } from '../../utils/constant/Constant'
 
 /**Main export*/
 const SubmitButton: React.FC<SubmitButtonProps> = ({ text, loading, onPress }) => {
     return (
         <TouchableOpacity style={styles.dt_button} onPress={onPress} disabled={loading}>
             {
-                loading ? <ActivityIndicator size="small" color="#fff" />
+                loading ?
+                    <LoaderKitView
+                        style={{ width: 35, height: 35 }}
+                        name={'BallScaleMultiple'}
+                        animationSpeedMultiplier={1.0}
+                        color={Colors.dt_bg}
+                    />
                     :
                     <Text style={styles.dt_button_text}>{text}</Text>
             }

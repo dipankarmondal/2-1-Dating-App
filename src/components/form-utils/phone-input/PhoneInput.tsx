@@ -33,7 +33,7 @@ const PhoneInputForm: React.FC<Props> = ({ name, parent, control, setPhone }) =>
             render={({ field: { onChange, onBlur, value, }, fieldState: { error } }) => {
                 useEffect(() => {
                     if (value && selectedCountry?.idd?.root) {
-                        setPhone(`${selectedCountry.idd.root}${value}`);
+                        setPhone(`${selectedCountry?.idd?.root}${value}`);
                     } else {
                         setPhone(value || "");
                     }

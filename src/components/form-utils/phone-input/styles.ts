@@ -12,7 +12,7 @@ export const PhoneInputStyles = StyleSheet.create({
     },
     input: {
         color: Colors.dt_white,
-        fontFamily: Fonts.Font_500,
+        fontFamily: Fonts.Font_500, 
         fontSize: ms(15),
     },
     flagContainer: {

@@ -22,11 +22,12 @@ const CheckBoxs: React.FC<CheckTypes> = ({ control, setValue, isChecked, setIsCh
             <Controller
                 control={control}
                 name={name}
-                render={() => (
+                render={({ field: { value, onChange } }) => (
                     <TouchableOpacity
                         onPress={() => {
-                            setIsChecked(!isChecked);
-                            setValue("termsAccepted", !isChecked);
+                            const newValue = !value;
+                            onChange(newValue);   // ✅ updates RHF state
+                            setIsChecked(newValue); // ✅ updates your local state if you still need it
                         }}
                         style={styles.rn_btn}
                     >
