@@ -2,7 +2,7 @@
     "login": {
         "username": {
             "label": "User name",
-            "placeholder": "Enter your user name",
+            "placeholder": "Enter your username",
             "errors": {
                 "required": "user name is required",
                 "min": "user name must be at least 3 characters"
@@ -23,7 +23,7 @@
     "create_account": {
         "username": {
             "label": "User name",
-            "placeholder": "Enter your user name",
+            "placeholder": "Enter your username",
             "errors": {
                 "required": "user name is required",
                 "min": "user name must be at least 3 characters"

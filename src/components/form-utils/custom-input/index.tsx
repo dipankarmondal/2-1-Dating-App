@@ -27,7 +27,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     keyboardType,
     isCart
 }) => {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
     const Fields: Record<string, any> = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];

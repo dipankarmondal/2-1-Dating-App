@@ -8,7 +8,7 @@ export const PhoneInputStyles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         borderColor: Colors.dt_gray,
-        height: ms(50),
+        height: ms(45),
     },
     input: {
         color: Colors.dt_white,

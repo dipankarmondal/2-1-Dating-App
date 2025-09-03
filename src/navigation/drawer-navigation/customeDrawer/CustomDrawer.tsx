@@ -93,7 +93,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.logout,]}
-                onPress={handleLogoutPress}
+                onPress={logout}
                 activeOpacity={0.7}
             >
                 <LogoutIcon {...IconProps(ms(16))} fill={Colors.dt_white} />

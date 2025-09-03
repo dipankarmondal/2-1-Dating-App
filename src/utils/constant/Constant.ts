@@ -37,7 +37,7 @@ export const FormStyle = StyleSheet.create({
         marginBottom: ms(5),
     },
     wrapper: {
-        height: ms(50),
+        height: ms(45),
         borderRadius: ms(10),
         flexDirection: "row",
         alignItems: "center",
