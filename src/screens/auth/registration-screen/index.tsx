@@ -7,6 +7,8 @@ import { RegistrationScreenStyles as styles } from './styles'
 import { RegisterBuilder, RegisterPhoneBuilder } from '../../../utils/builders'
 import { ms, toast } from '../../../utils/helpers/responsive'
 import { RegisterSchema } from '../../../utils/schemas/Schemas'
+import { CreateUser, VerifayOtp, VerifayPhone } from '../../../utils/api-calls/auth-calls/AuthCall'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Components */
 import AuthLayout from '../common/AuthLayout'
@@ -20,8 +22,6 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
-import { CreateUser, VerifayOtp, VerifayPhone } from '../../../utils/api-calls/auth-calls/AuthCall'
-import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Main export*/
 const RegistrationScreen: React.FC = () => {
@@ -70,7 +70,6 @@ const RegistrationScreen: React.FC = () => {
     const CreateUserMutation = useMutation({
         mutationFn: (data: any) => CreateUser(data),
         onSuccess: (res) => {
-            console.log("object", res);
             if (res?.success === true) {
                 login({
                     Token: res?.data?.token || null,
@@ -103,7 +102,6 @@ const RegistrationScreen: React.FC = () => {
             password: data?.password,
             username: data?.username
         }
-        console.log("✅ Registration Data:", payload);
         CreateUserMutation.mutate(payload);
     };
 
@@ -189,14 +187,12 @@ const RegistrationScreen: React.FC = () => {
                 )
             }
 
-
             <View style={styles.register_container}>
                 <Text style={styles.register_text}>Already have account?</Text>
                 <TouchableOpacity style={styles.register_button} onPress={() => Navigation.navigate("LoginScreen")}>
                     <Text style={styles.register_button_text}>Login here</Text>
                 </TouchableOpacity>
             </View>
-
         </AuthLayout>
     )
 }

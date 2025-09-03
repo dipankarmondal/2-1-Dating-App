@@ -9,19 +9,19 @@ import { LoginForm } from '../../../utils/types/types'
 import { LoginBuilder } from '../../../utils/builders'
 import { ms, toast } from '../../../utils/helpers/responsive'
 import { LoginSchema } from '../../../utils/schemas/Schemas'
+import { LoginUser } from '../../../utils/api-calls/auth-calls/AuthCall'
 
 /** Liabary*/
 import { set, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
+import { useMutation } from '@tanstack/react-query'
 
 /**Components */
 import CustomInput from '../../../components/form-utils/custom-input'
 import SubmitButton from '../../../components/submit-button'
 import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
-import { useMutation } from '@tanstack/react-query'
-import { LoginUser } from '../../../utils/api-calls/auth-calls/AuthCall'
 
 /**Main export*/
 const LoginScreen: React.FC = () => {
@@ -36,7 +36,6 @@ const LoginScreen: React.FC = () => {
     const LoginMutation = useMutation({
         mutationFn: (data: any) => LoginUser(data),
         onSuccess: (res) => {
-            console.log("object", res);
             if (res?.success === true) {
                 login({
                     Token: res?.data?.token || null,
@@ -64,8 +63,8 @@ const LoginScreen: React.FC = () => {
     };
 
     useEffect(() => {
-       setValue("username", "pdas123");
-       setValue("password", "Pdas123@");
+        setValue("username", "pdas123");
+        setValue("password", "Pdas123@");
     }, []);
 
     return (
@@ -85,7 +84,6 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.dt_content_text}>Password is case sensitive.</Text>
                 <Text style={styles.dt_content_subtext}>In case of error, type lowercase only.</Text>
             </View>
-
             <CaptchaBox ref={captchaRef} />
             <TouchableOpacity style={styles.forgot_password_container}>
                 <Text style={styles.forgot_password}>Forgot Password?</Text>

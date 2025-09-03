@@ -1,22 +1,20 @@
+/**React Imports */
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
+
+/**Local imports*/
 import { PhoneInputStyles as PhoneStyles } from './styles'
 import { ModalStyles as ModalStyles } from './styles'
-import PhoneInput, {
-    ICountry,
-    isValidPhoneNumber,
-} from 'react-native-international-phone-number';
 import Formfields from '../../../utils/models/FormFields.json';
-import { Controller } from 'react-hook-form';
 import { ms } from '../../../utils/helpers/responsive';
-type Props = {
-    name: string;
-    parent?: string;
-    control: any,
-    setPhone: any
-}
+import { PhoneInputFormProps } from '../../../utils/types/types';
 
-const PhoneInputForm: React.FC<Props> = ({ name, parent, control, setPhone }) => {
+/** Liabary*/
+import PhoneInput, {ICountry} from 'react-native-international-phone-number';
+import { Controller } from 'react-hook-form';
+
+/**Local imports*/
+const PhoneInputForm: React.FC<PhoneInputFormProps> = ({ name, parent, control, setPhone }) => {
     const [selectedCountry, setSelectedCountry] = useState<null | ICountry>(null);
 
     function handleSelectedCountry(country: ICountry) {

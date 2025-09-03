@@ -33,7 +33,7 @@ export type SubmitButtonProps = {
 export type AuthProps = {
     children: React.ReactNode,
     titile: string,
-    type: string
+    type?: string
 }
 
 export type CheckTypes= {
@@ -73,4 +73,11 @@ export type ModalActionProps = {
 
 export type LogoutContentProps = {
     setShowDropdown: (value: boolean) => void
+}
+
+export type PhoneInputFormProps = {
+    name: string;
+    parent?: string;
+    control: any,
+    setPhone: any
 }

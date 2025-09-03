@@ -6,16 +6,18 @@ import React from 'react'
 import { AuthLayoutStyles as styles } from './styles'
 import { AuthProps } from '../../../utils/types/types'
 import { ms } from '../../../utils/helpers/responsive'
-import LogoutIcon from '@svgs/user-logout.svg'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { Colors } from '../../../utils/constant/Constant'
-import { useAuth } from '../../../utils/context/auth-context/AuthContext'
-import ModalAction from '../../../components/modal/modal-action/ModalAction'
 import LogoutContent from '../../../components/modal/modal-content/logout-content/LogoutContent'
+
+/**Icons*/
+import LogoutIcon from '@svgs/user-logout.svg'
+
+/**Components */
+import ModalAction from '../../../components/modal/modal-action/ModalAction'
 
 /**Main export*/
 const AuthLayout: React.FC<AuthProps> = ({ children, titile, type }) => {
-    const { logout } = useAuth();
     const [showDropdown, setShowDropdown] = React.useState(false)
 
     return (

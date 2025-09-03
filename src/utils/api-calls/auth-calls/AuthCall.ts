@@ -24,13 +24,13 @@ export const VerifayPhone = async (data: any) => {
     }
 };
 export const VerifayOtp = async (data: any) => {
-      console.log("adfasd", data);
     try {
 
         const res = await API.post("otp/verify", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
+        console.log("adsfasd", errorData);
 
         // If it's an array of objects
         let firstMessage = "Something went wrong";
@@ -38,7 +38,6 @@ export const VerifayOtp = async (data: any) => {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
-        console.log("adsfasd", errorData);
         throw error;
     }
 };
