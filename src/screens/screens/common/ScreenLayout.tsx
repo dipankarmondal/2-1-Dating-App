@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 
 /**Icons*/
 import OpenDrawerIcon from '@svgs/open-drawer.svg'
@@ -21,11 +21,15 @@ import { useNavigation } from '@react-navigation/native'
 import RightDrawer from '../../../components/right-drawer/RightDrawer'
 import { useRightDrawer } from '../../../utils/context/right-drawer/RightDrawer'
 
+import AnimatedSearchBar, { SearchBarRef } from '../../../components/animated-search-bar'
+
 /**Main export*/
 const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
 
     const Navigation = useNavigation<any>()
-      const { toggleDrawer } = useRightDrawer();
+    const { toggleDrawer } = useRightDrawer();
+    const searchRef = useRef<SearchBarRef>(null);
+
 
     const HeaderIcon: React.FC<HeaderIconProps> = ({ Icon, onPress }) => (
         <TouchableOpacity style={styles.dt_menu_container} onPress={onPress}>
@@ -35,16 +39,17 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
 
     return (
         <View style={styles.container}>
+            <AnimatedSearchBar ref={searchRef} headerHeight={50} />
             <View style={styles.dt_header}>
                 <HeaderIcon Icon={OpenDrawerIcon} onPress={() => Navigation.openDrawer()} />
                 <View style={styles.dt_right_container}>
-                    <HeaderIcon Icon={SearchIcon} onPress={() => console.log("Search")} />
+                    <HeaderIcon Icon={SearchIcon} onPress={() => searchRef.current?.open()} />
                     <HeaderIcon Icon={MessengerIcon} onPress={() => console.log("Messenger")} />
                     <HeaderIcon Icon={Notification} onPress={() => console.log("Notifications")} />
-                    <HeaderIcon Icon={SettingIcon} onPress={toggleDrawer}   />
+                    <HeaderIcon Icon={SettingIcon} onPress={toggleDrawer} />
                 </View>
             </View>
-
+            {/* SearchBar Component */}
             <View style={styles.dt_content}>
                 {children}
             </View>
