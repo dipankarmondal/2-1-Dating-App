@@ -12,6 +12,8 @@ export type RootStackParamList = {
   RegistrationScreen: undefined;
   DrawerNavigator: undefined;
   ForgetPassword: undefined;
+  ProfileSetup: undefined;
+  BusinessSignupScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

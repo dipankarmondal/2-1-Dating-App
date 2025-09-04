@@ -19,7 +19,7 @@ import ModalAction from '../../../components/modal/modal-action/ModalAction'
 import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
-const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, }) => {
+const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, isSubtext }) => {
     const [showDropdown, setShowDropdown] = React.useState(false)
     const Navigation = useNavigation<any>()
 
@@ -37,6 +37,11 @@ const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, }) =>
                                 </TouchableOpacity>
                             }
                         </View>
+                        {
+                            isSubtext && (
+                                <Text style={styles.dt_subtext}>Please provide details below. All fields are mandatory.</Text>
+                            )
+                        }
                         <View style={{ marginTop: ms(15) }}>
                             {children}
                         </View>

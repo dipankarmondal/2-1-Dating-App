@@ -35,6 +35,7 @@ export type AuthProps = {
     titile: string,
     type?: string,
     isBack?: boolean,
+    isSubtext?: boolean
 }
 
 export type CheckTypes= {

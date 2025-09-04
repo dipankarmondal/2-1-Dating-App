@@ -20,6 +20,13 @@ export const AuthLayoutStyles = StyleSheet.create({
     fontFamily: Fonts.Font_600,
     // marginBottom:ms(20),
   },
+  dt_subtext:{
+    fontSize: ms(13),
+    color: Colors.dt_white,
+    alignSelf:"flex-start",
+    fontFamily: Fonts.Font_600,
+    marginTop:ms(15),
+  },
   dt_content: {
     padding: spacing.md,
     alignItems: "center",

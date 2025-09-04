@@ -200,5 +200,50 @@
                 "match": "Passwords must match"
             }
         }
+    },
+    "business_signup": {
+        "phone": {
+            "label": "Phone",
+            "placeholder": "Enter your phone number",
+            "errors": {
+                "required": "Phone is required",
+                "pattern": "enter a valid phone number"
+            }
+        },
+        "first_name": {
+            "label": "First Name",
+            "placeholder": "Enter your first name",
+            "errors": {
+                "required": " first name is required"
+            }
+        },
+        "last_name": {
+            "label": "Last Name",
+            "placeholder": "Enter your last name",
+            "errors": {
+                "required": " last name is required"
+            }
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "errors": {
+                "required": "email is required"
+            }
+        },
+        "company_name": {
+            "label": "Company Name",
+            "placeholder": "Enter your company name",
+            "errors": {
+                "required": "company name is required"
+            }
+        },
+        "web_url": {
+            "label": "Web URL",
+            "placeholder": "Enter your web url",
+            "errors": {
+                "required": "web url is required"
+            }
+        }
     }
 }

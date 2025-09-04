@@ -11,6 +11,7 @@ import ProfileSetup from "../../screens/auth/profile-setup"
 import { useQuery } from "@tanstack/react-query"
 import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
 import ForgetPassword from "../../screens/auth/forget-password"
+import BusinessSignupScreen from "../../screens/auth/business-signup-screen"
 
 export const AuthStack = () => {
     return (
@@ -34,6 +35,18 @@ export const MainStack = () => {
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+        </Stack.Navigator>
+    )
+}
+export const ProfileSetipStack = () => {
+    return (
+        <Stack.Navigator
+            id={undefined}
+            initialRouteName="ProfileSetup"
+            screenOptions={{ headerShown: false }}
+        >
+            <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
+            <Stack.Screen name="BusinessSignupScreen" component={BusinessSignupScreen} />
         </Stack.Navigator>
     )
 }
@@ -67,7 +80,7 @@ export const AppNavigation = () => {
                     GetUserProfile.data?.data?.onboardingCompleted ? (
                         <MainStack />
                     ) : (
-                        <ProfileSetup />
+                        <ProfileSetipStack />
                     )
                 ) : (
                     <AuthStack />

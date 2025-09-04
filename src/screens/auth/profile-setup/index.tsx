@@ -1,5 +1,5 @@
 /**React Imports */
-import { View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -8,6 +8,7 @@ import { ProfileSetupBuilder } from '../../../utils/builders'
 import { ms, toast } from '../../../utils/helpers/responsive'
 import { UpdateProfileSetup } from '../../../utils/api-calls/auth-calls/AuthCall'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
+import { ProfileSetupStyles as styles } from './styles'
 
 /** Liabary*/
 import { useForm, useWatch } from 'react-hook-form'
@@ -21,12 +22,14 @@ import DatePickerInput from '../../../components/form-utils/datepicker-input'
 import ChooseIntrestInput from '../../../components/form-utils/choose-intrest-input/ChooseIntrestInput'
 import ImagePickerChoose from '../../../components/form-utils/image-picker-choose/ImagePickerChoose'
 import SubmitButton from '../../../components/submit-button'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const ProfileSetup: React.FC = () => {
 
     const { Token } = useAuth()
     const QueryInvalidater = useQueryClient();
+    const Navigation = useNavigation<any>()
 
     const { control, handleSubmit, setValue, formState: { errors }, reset, } = useForm({
         defaultValues: {
@@ -95,29 +98,34 @@ const ProfileSetup: React.FC = () => {
                 type: "profileSetup"
             }}
         >
-            {fields.map((item, index) => {
-                if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
-                    return <CustomInput key={index} {...item} />;
-                } else if (item?.type === "mode") {
-                    return <ModeInput key={index} {...item} />
-                } else if (item?.type === "dropdown") {
-                    return <DropdownInput key={index} {...item} />
-                } else if (item?.type === "dob") {
-                    return <DatePickerInput key={index} {...item} />
-                } else if (item?.type === "choose") {
-                    return <ChooseIntrestInput key={index} {...item} />
-                } else if (item?.type === "file") {
-                    return <ImagePickerChoose key={index} {...item} />
-                }
-            })}
-            <View style={{ marginTop: ms(10) }}>
-                <SubmitButton
-                    {...{
-                        text: "Submit",
-                        loading: ProfileSetUpMutation.isPending,
-                        onPress: handleSubmit(OnSubmit)
-                    }}
-                />
+            <View style={styles.dt_container}>
+                <TouchableOpacity onPress={() => Navigation.navigate("BusinessSignupScreen")}>
+                    <Text style={styles.dt_business_signup}>Business Signup</Text>
+                </TouchableOpacity>
+                {fields.map((item, index) => {
+                    if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
+                        return <CustomInput key={index} {...item} />;
+                    } else if (item?.type === "mode") {
+                        return <ModeInput key={index} {...item} />
+                    } else if (item?.type === "dropdown") {
+                        return <DropdownInput key={index} {...item} />
+                    } else if (item?.type === "dob") {
+                        return <DatePickerInput key={index} {...item} />
+                    } else if (item?.type === "choose") {
+                        return <ChooseIntrestInput key={index} {...item} />
+                    } else if (item?.type === "file") {
+                        return <ImagePickerChoose key={index} {...item} />
+                    }
+                })}
+                <View style={{ marginTop: ms(10) }}>
+                    <SubmitButton
+                        {...{
+                            text: "Submit",
+                            loading: ProfileSetUpMutation.isPending,
+                            onPress: handleSubmit(OnSubmit)
+                        }}
+                    />
+                </View>
             </View>
         </AuthLayout>
     )

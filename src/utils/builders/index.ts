@@ -257,3 +257,62 @@ export const ChangePasswordBuilder = (control: Control<any>) => {
         },
     ]
 }
+export const BusinessSignupBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'first_name',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'last_name',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'email',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'phone',
+            parent: 'business_signup',
+            type: "phone",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'company_name',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'web_url',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+    
+    ]
+}
