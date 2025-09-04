@@ -71,5 +71,134 @@
                 "required": "OTP is required"
             }
         }
+    },
+    "profile_setup": {
+        "mode": {
+            "label": "You are a *",
+            "placeholder": "Select your mode",
+            "errors": {
+                "required": "mode is required"
+            }
+        },
+        "partner_sex": {
+            "label": "Select partner sexuality",
+            "placeholder": "Select partner sexuality",
+            "errors": {
+                "required": "sexuality is required"
+            }
+        },
+        "partner_dob": {
+            "label": "Select partner DOB",
+            "placeholder": "Select partner DOB",
+            "errors": {
+                "required": "DOB is required"
+            }
+        },
+        "your_sex": {
+            "label": "Select your sexuality",
+            "placeholder": "Select your sexuality",
+            "errors": {
+                "required": "sexuality is required"
+            }
+        },
+        "your_dob": {
+            "label": "Select your DOB",
+            "placeholder": "Select your DOB",
+            "errors": {
+                "required": "DOB is required"
+            }
+        },
+        "intrest": {
+            "label": "Looking for (choose 1 or more)",
+            "placeholder": "Select your intrest",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "city": {
+            "label": "Enter your city",
+            "placeholder": "Enter your city",
+            "errors": {
+                "required": "city is required"
+            }
+        },
+        "state": {
+            "label": "Enter your state",
+            "placeholder": "Enter your state",
+            "errors": {
+                "required": "state is required"
+            }
+        },
+        "country": {
+            "label": "Enter your country",
+            "placeholder": "Enter your country",
+            "errors": {
+                "required": "country is required"
+            }
+        },
+        "zipcode": {
+            "label": "Enter your zipcode",
+            "placeholder": "Enter your zipcode",
+            "errors": {
+                "required": "zipcode is required"
+            }
+        },
+        "address": {
+            "label": "Enter your address",
+            "placeholder": "Enter your address",
+            "errors": {
+                "required": "address is required"
+            }
+        },
+        "profile_bio": {
+            "label": "Enter your bio",
+            "placeholder": "Enter your bio",
+            "errors": {
+                "required": "bio is required"
+            }
+        },
+        "file": {
+            "label": "Main Profile Picture",
+            "placeholder": "Upload your profile photo",
+            "errors": {
+                "required": "profile photo is required"
+            }
+        }
+    },
+    "forget_password": {
+        "phone": {
+            "label": "Phone",
+            "placeholder": "Enter your phone number",
+            "errors": {
+                "required": "Phone is required",
+                "pattern": "enter a valid phone number"
+            }
+        },
+        "otp": {
+            "label": "OTP",
+            "placeholder": "Enter your OTP",
+            "errors": {
+                "required": "OTP is required"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter your password",
+            "errors": {
+                "required": "password is required",
+                "pattern": {
+                    "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$",
+                    "message": "Min 8 chars, must mix upper/lower, number & special."
+                }
+            }
+        },
+        "confirm_password": {
+            "label": "Confirm Password",
+            "placeholder": "Re-enter your password",
+            "errors": {
+                "required": "Confirm password is required",
+                "match": "Passwords must match"
+            }
+        }
     }
 }

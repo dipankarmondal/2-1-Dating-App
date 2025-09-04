@@ -129,3 +129,27 @@ export const menuItems = [
         onPress: () => console.log("Notification clicked"),
     },
 ];
+
+export const ModeOptions = [
+  { key: "couple", value: "Couple" },
+  { key: "female", value: "Female" },
+  { key: "male", value: "Male" },
+  { key: "trans", value: "Trans" },
+];
+
+export const SexualityOptions = [
+  { key: "straight", value: "Straight" },
+  { key: "bi_sexual", value: "Bi-sexual" },
+  { key: "bi_curious", value: "Bi-curious" },
+  { key: "gay", value: "Gay" },
+  { key: "pansexual", value: "Pansexual" },
+];
+
+export const ChooseInterst = [
+  { key: "couple", value: "Couple", image:require('@images/couple.png') },
+  { key: "female", value: "Female", image:require('@images/woman.png') },
+  { key: "male", value: "Male", image:require('@images/man.png') },
+  { key: "transgender", value: "Transgender", image:require('@images/transgender.png') },
+];
+
+

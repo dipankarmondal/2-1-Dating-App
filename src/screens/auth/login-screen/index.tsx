@@ -17,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 
-/**Components */
+/**Components */ 
 import CustomInput from '../../../components/form-utils/custom-input'
 import SubmitButton from '../../../components/submit-button'
 import CaptchaBox, { CaptchaBoxRef } from '../../../components/captcha-box/CaptchaBox'
@@ -85,7 +85,7 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.dt_content_subtext}>In case of error, type lowercase only.</Text>
             </View>
             <CaptchaBox ref={captchaRef} />
-            <TouchableOpacity style={styles.forgot_password_container}>
+            <TouchableOpacity style={styles.forgot_password_container} onPress={() => Navigation.navigate("ForgetPassword")}>
                 <Text style={styles.forgot_password}>Forgot Password?</Text>
             </TouchableOpacity>
             <View style={{ marginTop: ms(10) }}>

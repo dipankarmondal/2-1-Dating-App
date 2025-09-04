@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -12,13 +12,16 @@ import LogoutContent from '../../../components/modal/modal-content/logout-conten
 
 /**Icons*/
 import LogoutIcon from '@svgs/user-logout.svg'
+import LeftIcon from '@svgs/arrow-alt-circle-left.svg'
 
 /**Components */
 import ModalAction from '../../../components/modal/modal-action/ModalAction'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
-const AuthLayout: React.FC<AuthProps> = ({ children, titile, type }) => {
+const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, }) => {
     const [showDropdown, setShowDropdown] = React.useState(false)
+    const Navigation = useNavigation<any>()
 
     return (
         <View style={styles.container}>
@@ -37,6 +40,14 @@ const AuthLayout: React.FC<AuthProps> = ({ children, titile, type }) => {
                         <View style={{ marginTop: ms(15) }}>
                             {children}
                         </View>
+                        {
+                            isBack && (
+                                <TouchableOpacity style={styles.dt_back} onPress={() => Navigation.goBack()}>
+                                    <LeftIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                                    <Text style={styles.dt_back_text}>go back</Text>
+                                </TouchableOpacity>
+                            )
+                        }
                     </View>
                 </View>
             </ScrollView>

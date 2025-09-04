@@ -10,6 +10,7 @@ import DrawerNavigator from "../drawer-navigation/DrawerNavigation"
 import ProfileSetup from "../../screens/auth/profile-setup"
 import { useQuery } from "@tanstack/react-query"
 import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
+import ForgetPassword from "../../screens/auth/forget-password"
 
 export const AuthStack = () => {
     return (
@@ -20,6 +21,7 @@ export const AuthStack = () => {
         >
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} />
+            <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         </Stack.Navigator>
     )
 }

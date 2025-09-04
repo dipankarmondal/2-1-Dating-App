@@ -42,7 +42,6 @@ export const VerifayOtp = async (data: any) => {
     }
 };
 export const CreateUser = async (data: any) => {
-    console.log("adfad", data);
     try {
 
         const res = await API.post("auth/signup", data);
@@ -61,7 +60,6 @@ export const CreateUser = async (data: any) => {
     }
 };
 export const LoginUser = async (data: any) => {
-    console.log("adfad", data);
     try {
 
         const res = await API.post("auth/login", data);
@@ -69,13 +67,13 @@ export const LoginUser = async (data: any) => {
     } catch (error) {
         const errorData = error?.response?.data?.error;
 
+        console.log("adsfasd", error?.response);
         // If it's an array of objects
         let firstMessage = "Something went wrong";
         if (Array.isArray(errorData) && errorData.length > 0) {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
-        console.log("adsfasd", errorData);
         throw error;
     }
 };

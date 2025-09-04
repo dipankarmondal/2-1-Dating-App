@@ -108,7 +108,8 @@ const RegistrationScreen: React.FC = () => {
     return (
         <AuthLayout
             {...{
-                titile: isPhoneVerified ? "Create Member Account" : "Verify your phone number"
+                titile: isPhoneVerified ? "Create Member Account" : "Verify your phone number",
+                isBack: true,
             }}
         >
             {

@@ -33,7 +33,8 @@ export type SubmitButtonProps = {
 export type AuthProps = {
     children: React.ReactNode,
     titile: string,
-    type?: string
+    type?: string,
+    isBack?: boolean,
 }
 
 export type CheckTypes= {
@@ -81,3 +82,49 @@ export type PhoneInputFormProps = {
     control: any,
     setPhone: any
 }
+
+export type ModeInputProps = {
+    name: string;
+    parent?: string;
+    control: any;
+    type?: string;
+    label?: boolean;
+    option?: any
+}
+
+export type DropdownInputProps = {
+  name: string;
+  parent?: string;
+  control: any;
+  Data?: any,
+  styles?: any,
+  label?: boolean,
+  selectionData?: any,
+  isEditable?: boolean,
+  isCart?: boolean
+}
+export type SuggestionBoxProps = {
+  showDropdown: boolean,
+  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>,
+  filteredProducts: any[],
+  value: string,
+  onChange: (value: string) => void,
+  searchText: string,
+  setSearchText: React.Dispatch<React.SetStateAction<string>>
+}
+
+export type DatePickerInputProps = {
+  name: string;
+  parent: string;
+  control: any;
+  type: string,
+  label?: boolean,
+}
+
+export type ChooseIntrestInputProps = {
+    name: string;
+    parent?: string;
+    control: any; // You can replace `any` with the correct type from react-hook-form
+    selectionData?: any[];
+    label?: boolean;
+};
