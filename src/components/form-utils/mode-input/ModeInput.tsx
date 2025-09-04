@@ -1,12 +1,19 @@
+/**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import Formfields from '../../../utils/models/FormFields.json';
+
+/** Liabary*/
 import { Controller } from 'react-hook-form';
+
+/**Local imports*/
 import { ms } from '../../../utils/helpers/responsive';
 import { ModeInputStyles as styles } from './styles'
 import { ModeInputProps } from '../../../utils/types/types';
 
-
+/**Main export*/
 const ModeInput: React.FC<ModeInputProps> = ({ name, parent, control, label, type, option }) => {
     const Fields: Record<string, any> = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];

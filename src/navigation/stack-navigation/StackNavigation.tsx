@@ -50,6 +50,8 @@ export const AppNavigation = () => {
         enabled: !!Token
     })
 
+    console.log("asdfasd", GetUserProfile.data?.data?.onboardingCompleted)
+
     useEffect(() => {
         setTimeout(() => {
             SetLoading(false)
@@ -62,7 +64,7 @@ export const AppNavigation = () => {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: Colors.dt_bg }} edges={['top', 'bottom']} >
                 {Token ? (
-                    GetUserProfile.data?.onboardingCompleted ? (
+                    GetUserProfile.data?.data?.onboardingCompleted ? (
                         <MainStack />
                     ) : (
                         <ProfileSetup />

@@ -1,13 +1,16 @@
 // RightDrawer.tsx
 import React from "react";
 import { View, Text, TouchableOpacity, Animated, ScrollView, TouchableWithoutFeedback } from "react-native";
+
+/**Local imports*/
 import { useRightDrawer } from "../../utils/context/right-drawer/RightDrawer";
 import { RightDrawerStyles as styles } from './styles'
-import { IconProps } from "../../utils/helpers/Iconprops";
 import { ms } from "../../utils/helpers/responsive";
 import { Colors } from "../../utils/constant/Constant";
 import { menuItems } from "../common/helper";
+import { IconProps } from "../../utils/helpers/Iconprops";
 
+/**Main export*/
 const RightDrawer: React.FC = () => {
     const { isOpen, closeDrawer } = useRightDrawer();
 

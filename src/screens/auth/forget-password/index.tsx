@@ -1,14 +1,21 @@
+/**React Imports */
 import { View, Text } from 'react-native'
 import React, { useState } from 'react'
-import { ForgetPasswordStyles as styles } from './styles'
-import AuthLayout from '../common/AuthLayout'
-import { useForm } from 'react-hook-form'
+
+/**Local imports*/
 import { ChangePasswordBuilder, FoegetPasswordBuilder } from '../../../utils/builders'
+import { ms } from '../../../utils/helpers/responsive'
+
+/**Components */
+import AuthLayout from '../common/AuthLayout'
 import CustomInput from '../../../components/form-utils/custom-input'
 import PhoneInputForm from '../../../components/form-utils/phone-input/PhoneInput'
-import { ms } from '../../../utils/helpers/responsive'
 import SubmitButton from '../../../components/submit-button'
 
+/** Liabary*/
+import { useForm } from 'react-hook-form'
+
+/**Main export*/
 const ForgetPassword: React.FC = () => {
     const [Phone, setPhone] = useState(null);
     const [isForgetVerified, setIsForgetVerified] = useState<boolean>(false);

@@ -128,3 +128,10 @@ export type ChooseIntrestInputProps = {
     selectionData?: any[];
     label?: boolean;
 };
+
+export type ImagePickerChooseProps = {
+    name: string;
+    parent: string;
+    control: any;
+    label: boolean;
+}

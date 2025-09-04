@@ -1,10 +1,16 @@
+/**React Imports */
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { ChooseIntrestInputStyles as styles } from './styles'
 import Formfields from '../../../utils/models/FormFields.json';
-import { Controller } from 'react-hook-form';
 import { ChooseIntrestInputProps } from '../../../utils/types/types';
 
+/** Liabary*/
+import { Controller } from 'react-hook-form';
+
+/**Main export*/
 const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, control, selectionData, label }) => {
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];

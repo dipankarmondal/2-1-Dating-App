@@ -12,13 +12,13 @@ import AngleUp from '@svgs/angle-up.svg';
 /**Local import */
 import { IconProps } from '../../../utils/helpers/Iconprops';
 import Formfields from '../../../utils/models/FormFields.json';
+import { ms } from '../../../utils/helpers/responsive';
+import { Colors } from '../../../utils/constant/Constant';
+import {DropdownInputStyles as styles} from './styles'
 import { DropdownInputProps } from '../../../utils/types/types';
 
 /**Components */
 import SuggestionBox from '../../suggestion-box';
-import { ms } from '../../../utils/helpers/responsive';
-import { Colors } from '../../../utils/constant/Constant';
-import {DropdownInputStyles as styles} from './styles'
 
 /**Main export*/
 const DropdownInput: React.FC<DropdownInputProps> = ({

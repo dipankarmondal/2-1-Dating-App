@@ -1,23 +1,25 @@
+/**React Imports */
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+
+/** Liabary*/
+import { Controller } from 'react-hook-form';
+import * as ImagePicker from 'react-native-image-picker';
+
+/**Local imports*/
 import { ImagePickerChooseStyles as styles } from './styles'
 import Formfields from '../../../utils/models/FormFields.json';
-import { Controller } from 'react-hook-form';
 import { ms } from '../../../utils/helpers/responsive';
-import * as ImagePicker from 'react-native-image-picker';
-import CameraIcon from '@svgs/camera.svg';
-import CrossIcon from '@svgs/cross.svg';
 import { IconProps } from '../../../utils/helpers/Iconprops';
 import { Colors } from '../../../utils/constant/Constant';
+import { ImagePickerChooseProps } from '../../../utils/types/types';
 
-type Props = {
-    name: string;
-    parent: string;
-    control: any;
-    label: boolean;
-}
+/**Icons*/
+import CameraIcon from '@svgs/camera.svg';
+import CrossIcon from '@svgs/cross.svg';
 
-const ImagePickerChoose: React.FC<Props> = ({ name, parent, control, label, }) => {
+/**Main export*/
+const ImagePickerChoose: React.FC<ImagePickerChooseProps> = ({ name, parent, control, label, }) => {
 
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];

@@ -88,3 +88,23 @@ export const GetProfile = async (token: any) => {
         throw error;
     }
 };
+
+
+// Profile setup
+export const UpdateProfileSetup = async (token: any, data: any, ) => {
+    try {
+        const res = await API.post("onboarding/complete", data, { headers: { Authorization: `Bearer ${token}` } });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", errorData);
+
+        // If it's an array of objects
+        let firstMessage = "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
