@@ -1,8 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { FeedContentStyles as styles } from '../FeedContentStyle'
 import TvIcon from '@svgs/tv.svg'
-import GroupIcon from '@svgs/setting/friends.svg'
 import MessageIcon from '@svgs/messages.svg'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
@@ -11,7 +10,9 @@ import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
 import { profileActions } from '../../common/helper'
-import LikeThumbIcon from '@svgs/like.svg'
+import ModalAction from '../../modal/modal-action/ModalAction'
+import Information from '../../modal/modal-content/information/Information'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     type?: string,
@@ -19,7 +20,9 @@ type Props = {
 }
 
 const UserInfoCard: React.FC<Props> = ({ type, Icon }) => {
+    const [showDropdown, setShowDropdown] = useState(false)
 
+    const Navigation = useNavigation<any>()
 
     return (
         <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
@@ -30,10 +33,10 @@ const UserInfoCard: React.FC<Props> = ({ type, Icon }) => {
                 <View style={styles.dt_name_container}>
                     <Text style={styles.dt_name}>CPLSUEPAUl</Text>
                     <View style={styles.dt_button_container}>
-                        <TouchableOpacity style={styles.dt_button}>
+                        <TouchableOpacity style={styles.dt_button} onPress={() => setShowDropdown(true)}>
                             <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.dt_button}>
+                        <TouchableOpacity style={styles.dt_button} onPress={() => Navigation.navigate("MessengerScreen")}>
                             <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                         </TouchableOpacity>
                     </View>
@@ -86,6 +89,14 @@ const UserInfoCard: React.FC<Props> = ({ type, Icon }) => {
                     <Icon {...IconProps(ms(15))} fill={Colors.dt_white} />
                 </View>
             ) : null}
+            <ModalAction
+                isModalVisible={showDropdown}
+                setModalVisible={setShowDropdown}
+                headerText="Information"
+                type="logout"
+            >
+                <Information />
+            </ModalAction>
         </View>
     )
 }

@@ -49,7 +49,8 @@ export const FeedContentStyles = StyleSheet.create({
         justifyContent: "center",
     },
     dt_bio_container: {
-        marginTop: ms(10)
+        marginTop: ms(10),
+        paddingBottom:ms(5)
     },
     dt_age_container: {
         flexDirection: "row",
@@ -188,7 +189,8 @@ export const FeedContentStyles = StyleSheet.create({
         borderRadius: ms(50),
         backgroundColor: Colors.dt_card_blue,
         alignItems: "center",
-        marginTop: ms(15)
+        marginTop: ms(15),
+        marginBottom:ms(10)
     },
     dt_event_button_text: {
         fontSize: ms(16),

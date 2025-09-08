@@ -57,7 +57,9 @@ export type DrawerScreenType = {
 }
 
 export type ScreenLayoutProps = {
-    children: React.ReactNode
+    children: React.ReactNode,
+    setUpdateKey?: React.Dispatch<React.SetStateAction<string | null>>
+    type?: string
 }
 
 export type HeaderIconProps = {

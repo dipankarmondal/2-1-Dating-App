@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TouchableOpacity } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 /**Icons*/
 import OpenDrawerIcon from '@svgs/open-drawer.svg'
@@ -24,7 +24,7 @@ import { useRightDrawer } from '../../../utils/context/right-drawer/RightDrawer'
 import AnimatedSearchBar, { SearchBarRef } from '../../../components/animated-search-bar'
 
 /**Main export*/
-const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
+const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children,setUpdateKey, type }) => {
 
     const Navigation = useNavigation<any>()
     const { toggleDrawer } = useRightDrawer();
@@ -37,6 +37,14 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
         </TouchableOpacity>
     )
 
+    const handleNavigation = () => {
+       if (type === "feed") {
+            setUpdateKey("notification")
+        } else{
+            Navigation.navigate("FeedScreen", { key: "notification" })
+        }
+    }
+
     return (
         <View style={styles.container}>
             <AnimatedSearchBar ref={searchRef} headerHeight={50} />
@@ -44,8 +52,8 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
                 <HeaderIcon Icon={OpenDrawerIcon} onPress={() => Navigation.openDrawer()} />
                 <View style={styles.dt_right_container}>
                     <HeaderIcon Icon={SearchIcon} onPress={() => searchRef.current?.open()} />
-                    <HeaderIcon Icon={MessengerIcon} onPress={() => console.log("Messenger")} />
-                    <HeaderIcon Icon={Notification} onPress={() => console.log("Notifications")} />
+                    <HeaderIcon Icon={MessengerIcon} onPress={() => Navigation.navigate("MessengerScreen")} />
+                    <HeaderIcon Icon={Notification} onPress={handleNavigation} />
                     <HeaderIcon Icon={SettingIcon} onPress={toggleDrawer} />
                 </View>
             </View>

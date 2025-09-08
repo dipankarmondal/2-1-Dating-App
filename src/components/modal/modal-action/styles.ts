@@ -12,7 +12,8 @@ export const ModalActionStyles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopLeftRadius: ms(20),
         borderTopRightRadius: ms(20),
-        maxHeight: ms(600),
+        maxHeight: '60%',   // instead of fixed ms(600)
+        minHeight: ms(200),
     },
     modalTitle: {
         fontSize: ms(18),

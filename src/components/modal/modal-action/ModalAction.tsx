@@ -21,32 +21,26 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
             transparent={true}
             onRequestClose={() => setModalVisible(false)}
         >
-            <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-                <View style={styles.modalOverlay}>
-                    <TouchableWithoutFeedback>
-                        <View style={styles.modalContainer}>
-                            <View style={styles.ml_modal_header}>
-                                <Text style={styles.modalTitle}>{headerText}</Text>
-                                <TouchableOpacity
-                                    style={styles.ml_close_button}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <CrossIcon
-                                        {...IconProps(ms(20))}
-                                        fill={Colors.dt_bg}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            <ScrollView
-                                style={type !== "location" ? styles.ml_modal_body : undefined}
-                                showsVerticalScrollIndicator={false}
-                            >
-                                {children}
-                            </ScrollView>
-                        </View>
-                    </TouchableWithoutFeedback>
+            <View style={styles.modalOverlay}>
+                <View style={styles.modalContainer}>
+                    <View style={styles.ml_modal_header}>
+                        <Text style={styles.modalTitle}>{headerText}</Text>
+                        <TouchableOpacity
+                            style={styles.ml_close_button}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_bg} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <ScrollView
+                        contentContainerStyle={{ padding: ms(16), flexGrow: 1 }}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {children}
+                    </ScrollView>
                 </View>
-            </TouchableWithoutFeedback>
+            </View>
         </Modal>
     )
 }

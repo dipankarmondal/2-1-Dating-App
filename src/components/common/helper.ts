@@ -212,3 +212,25 @@ export const profileActions = [
     { id: 3, icon: DubbleCheckIcon, size: ms(20), count: 56 },
     { id: 4, icon: LikeThumbIcon, size: ms(18), count: 56 },
 ];
+
+export const benefitsData = [
+    {
+        title: "Benefits of the website:",
+        items: [
+            { id: 1, text: "See all adult content" },
+            {
+                id: 2,
+                text: "Additional features such as Videos, Contest, Groups, Chatrooms, Live and Popularity wall",
+            },
+            { id: 3, text: "Lifetime membership available" },
+        ],
+    },
+    {
+        title: "Benefits of the app:",
+        items: [
+            { id: 1, text: "Push notification when you receive a new message" },
+            { id: 2, text: "Easy way to make Video calls" },
+            { id: 3, text: "Connected 24/7" },
+        ],
+    },
+];
