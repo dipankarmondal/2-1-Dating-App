@@ -131,25 +131,46 @@ export const menuItems = [
 ];
 
 export const ModeOptions = [
-  { key: "couple", value: "Couple" },
-  { key: "female", value: "Female" },
-  { key: "male", value: "Male" },
-  { key: "trans", value: "Trans" },
+    { key: "couple", value: "Couple" },
+    { key: "female", value: "Female" },
+    { key: "male", value: "Male" },
+    { key: "trans", value: "Trans" },
 ];
 
 export const SexualityOptions = [
-  { key: "straight", value: "Straight" },
-  { key: "bi_sexual", value: "Bi-sexual" },
-  { key: "bi_curious", value: "Bi-curious" },
-  { key: "gay", value: "Gay" },
-  { key: "pansexual", value: "Pansexual" },
+    { key: "straight", value: "Straight" },
+    { key: "bi_sexual", value: "Bi-sexual" },
+    { key: "bi_curious", value: "Bi-curious" },
+    { key: "gay", value: "Gay" },
+    { key: "pansexual", value: "Pansexual" },
 ];
 
 export const ChooseInterst = [
-  { key: "couple", value: "Couple", image:require('@images/couple.png') },
-  { key: "female", value: "Female", image:require('@images/woman.png') },
-  { key: "male", value: "Male", image:require('@images/man.png') },
-  { key: "transgender", value: "Transgender", image:require('@images/transgender.png') },
+    { key: "couple", value: "Couple", image: require('@images/couple.png') },
+    { key: "female", value: "Female", image: require('@images/woman.png') },
+    { key: "male", value: "Male", image: require('@images/man.png') },
+    { key: "transgender", value: "Transgender", image: require('@images/transgender.png') },
 ];
 
+export const AlreadyMemberOptions = [
+    { key: true, value: "Yes, I’m already a member" },
+    { key: false, value: "No, I’m not a member yet" },
+];
 
+export const PromotionOptions = [
+  { key: false, value: "Promote events / parties" },
+  { key: false, value: "Build an audience / community" },
+  { key: false, value: "Promote your club" },
+  { key: false, value: "Promote your BNB / Hotel / Resort" },
+  { key: false, value: "Sell a product / service" },
+  { key: false, value: "Interest in paid advertising" },
+];
+
+export const ReferalOptions = [
+  { key: "Friend / Word of Mouth", value: "Friend / Word of Mouth" },
+  { key: "Social Media (Facebook, Instagram, etc.)", value: "Social Media (Facebook, Instagram, etc.)" },
+  { key: "Google Search", value: "Google Search" },
+  { key: "Event / Conference", value: "Event / Conference" },
+  { key: "Advertisement", value: "Advertisement" },
+  { key: "Other", value: "Other" }
+];

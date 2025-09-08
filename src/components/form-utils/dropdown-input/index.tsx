@@ -16,7 +16,7 @@ import { ms } from '../../../utils/helpers/responsive';
 import { Colors } from '../../../utils/constant/Constant';
 import {DropdownInputStyles as styles} from './styles'
 import { DropdownInputProps } from '../../../utils/types/types';
-
+ 
 /**Components */
 import SuggestionBox from '../../suggestion-box';
 

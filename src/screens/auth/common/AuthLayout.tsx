@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Pressable, Image } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -27,6 +27,9 @@ const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, isSub
         <View style={styles.container}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={styles.dt_content}>
+                    <View style={styles.dt_image_container}>
+                        <Image source={require('@images/logo.png')} style={styles.dt_image} />
+                    </View>
                     <View style={styles.dt_content_box}>
                         <View style={[styles.dt_header, { justifyContent: type === "profileSetup" ? "space-between" : "center" }]}>
                             <Text style={styles.dt_title}>{titile}</Text>

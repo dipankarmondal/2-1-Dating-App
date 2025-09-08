@@ -136,3 +136,20 @@ export type ImagePickerChooseProps = {
     control: any;
     label: boolean;
 }
+
+export type MultiselectInputProps = {
+    name: string,
+    parent: string,
+    control: any,
+    label?: boolean,
+    option?: any
+}
+
+export type SearchBoxProps = {
+  setSearchText: (text: string) => void,
+  searchText: string,
+  type?: string,
+  activeKey?: string,
+  levelOptions?: any[],
+  onLevelSelect?: any
+}

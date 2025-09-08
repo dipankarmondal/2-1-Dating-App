@@ -39,7 +39,6 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
                             </View>
                             <ScrollView
                                 style={type !== "location" ? styles.ml_modal_body : undefined}
-                                contentContainerStyle={{ paddingBottom: ms(20) }}
                                 showsVerticalScrollIndicator={false}
                             >
                                 {children}

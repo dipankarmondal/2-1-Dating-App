@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
@@ -53,6 +53,7 @@ const RegistrationScreen: React.FC = () => {
             if (res?.success === true) {
                 setIsOtpVerified(true);
                 toast("success", { title: res?.message });
+                Alert.alert("Success", `OTP: ${res?.data?.code}`);
             }
         },
     })

@@ -48,6 +48,7 @@ export const CreateUser = async (data: any) => {
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
+        console.log("sdfgsdf", errorData);
 
         // If it's an array of objects
         let firstMessage = "Something went wrong";
@@ -105,6 +106,17 @@ export const UpdateProfileSetup = async (token: any, data: any, ) => {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Get all countrys
+export const GetAllCountries = async () => {
+    try {
+        const res = await API.get("https://countriesnow.space/api/v0.1/countries/positions");
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
         throw error;
     }
 };

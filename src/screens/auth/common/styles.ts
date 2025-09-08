@@ -33,6 +33,18 @@ export const AuthLayoutStyles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
   },
+  dt_image_container:{
+    width:ms(100),
+    height:ms(100),
+    // backgroundColor:"red",
+    borderRadius:ms(100),
+    marginBottom:ms(20)
+  },
+  dt_image:{
+    width:"100%",
+    height:"100%",
+    resizeMode:"cover"
+  },
   dt_header: {
     flexDirection: "row",
     alignItems: "center",
@@ -62,7 +74,5 @@ export const AuthLayoutStyles = StyleSheet.create({
     fontSize: ms(14),
     color: Colors.dt_white,
     marginLeft: ms(5),
-    marginTop: ms(-4)
-
   }
 })

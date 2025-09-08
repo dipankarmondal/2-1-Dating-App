@@ -1,7 +1,7 @@
 import { Control } from "react-hook-form"
 import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
-import { ChooseInterst, ModeOptions, SexualityOptions } from "../../components/common/helper"
+import { AlreadyMemberOptions, ChooseInterst, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -308,6 +308,72 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             name: 'web_url',
             parent: 'business_signup',
             type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: "country",
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'state',
+            parent: 'business_signup',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'achieve',
+            parent: 'business_signup',
+            type: "multi",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            option:PromotionOptions
+        },
+        {
+            name: 'isMember',
+            parent: 'business_signup',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData:AlreadyMemberOptions
+        },
+        {
+            name: 'referal',
+            parent: 'business_signup',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData:ReferalOptions
+        },
+        {
+            name: 'about_you',
+            parent: 'business_signup',
+            type: "textarea",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'additionalInfo',
+            parent: 'business_signup',
+            type: "textarea",
             label: false,
             styles: FormStyle,
             control: control,

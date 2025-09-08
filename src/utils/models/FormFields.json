@@ -244,6 +244,55 @@
             "errors": {
                 "required": "web url is required"
             }
+        },
+        "isMember": {
+            "label": "Are you already a member of 2+1?",
+            "placeholder": "Are you already a member of 2+1?",
+            "errors": {
+                "required": "fild is required"
+            }
+        },
+        "achieve": {
+            "label": "What would you like to achieve?",
+            "placeholder": "What would you like to achieve?",
+            "errors": {
+                "required": "fild is required"
+            }
+        },
+        "referal": {
+            "label": "How did you find out about 2+1?",
+            "placeholder": "How did you find out about 2+1?*",
+            "errors": {
+                "required": "fild is required"
+            }
+        },
+        "about_you": {
+            "label": "Tell us more about how you found us!",
+            "placeholder": "Tell us more about how you found us!",
+            "errors": {
+                "required": "fild is required"
+            }
+        },
+        "additionalInfo": {
+            "label": "Is there anything else you would like to add?",
+            "placeholder": "Is there anything else you would like to add?",
+            "errors": {
+                "required": "fild is required"
+            }
+        },
+        "country": {
+            "label": "Select country",
+            "placeholder": "Enter your country",
+            "errors": {
+                "required": "country is required"
+            }
+        },
+        "state": {
+            "label": "Select state",
+            "placeholder": "Enter your state",
+            "errors": {
+                "required": "state is required"
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ export const AppNavigation = () => {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: Colors.dt_bg }} edges={['top', 'bottom']} >
                 {Token ? (
-                    !GetUserProfile.data?.data?.onboardingCompleted ? (
+                    GetUserProfile.data?.data?.onboardingCompleted ? (
                         <MainStack />
                     ) : (
                         <ProfileSetipStack />
