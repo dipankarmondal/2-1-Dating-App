@@ -33,6 +33,8 @@ export type DrawerParamList = {
   FeedScreen: undefined;
   MessengerScreen: undefined;
   SettingsScreen: undefined;
+  ViewMeScreen: undefined;
+  OnlineNowScreen: undefined;
 };
 
 export const Drawer = createDrawerNavigator<DrawerParamList>();

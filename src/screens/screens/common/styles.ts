@@ -19,9 +19,7 @@ export const ScreenLayoutStyles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"space-between"
   },
-  dt_content:{
-    padding:spacing.md,
-  },
+
   dt_menu_container:{
     width:ms(35),
     height:ms(35),

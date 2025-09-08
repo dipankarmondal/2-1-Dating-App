@@ -7,7 +7,8 @@ export const AnimatedSearchBarStyles = StyleSheet.create({
         position: "absolute",
         backgroundColor: Colors.dt_white,
         padding: spacing.md,
-        borderRadius: 15,
+        borderBottomRightRadius:ms(10),
+        borderBottomLeftRadius:ms(10),
         zIndex: 100,
         maxHeight: ms(300),
         width: "100%"

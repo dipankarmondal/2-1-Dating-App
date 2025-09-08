@@ -15,6 +15,12 @@ import HideIcon from '@svgs/setting/eye-crossed.svg'
 import NotificationIcon from '@svgs/notification.svg'
 import CallIcon from '@svgs/setting/call.svg'
 
+import TvIcon from '@svgs/tv.svg'
+import VideoIcon from '@svgs/appicon/live.svg'
+import DubbleCheckIcon from '@svgs/dubble_check.svg'
+import LikeThumbIcon from '@svgs/like.svg'
+import { ms } from '../../utils/helpers/responsive'
+
 export const menuItems = [
     {
         id: "settings",
@@ -158,19 +164,51 @@ export const AlreadyMemberOptions = [
 ];
 
 export const PromotionOptions = [
-  { key: false, value: "Promote events / parties" },
-  { key: false, value: "Build an audience / community" },
-  { key: false, value: "Promote your club" },
-  { key: false, value: "Promote your BNB / Hotel / Resort" },
-  { key: false, value: "Sell a product / service" },
-  { key: false, value: "Interest in paid advertising" },
+    { key: false, value: "Promote events / parties" },
+    { key: false, value: "Build an audience / community" },
+    { key: false, value: "Promote your club" },
+    { key: false, value: "Promote your BNB / Hotel / Resort" },
+    { key: false, value: "Sell a product / service" },
+    { key: false, value: "Interest in paid advertising" },
 ];
 
 export const ReferalOptions = [
-  { key: "Friend / Word of Mouth", value: "Friend / Word of Mouth" },
-  { key: "Social Media (Facebook, Instagram, etc.)", value: "Social Media (Facebook, Instagram, etc.)" },
-  { key: "Google Search", value: "Google Search" },
-  { key: "Event / Conference", value: "Event / Conference" },
-  { key: "Advertisement", value: "Advertisement" },
-  { key: "Other", value: "Other" }
+    { key: "Friend / Word of Mouth", value: "Friend / Word of Mouth" },
+    { key: "Social Media (Facebook, Instagram, etc.)", value: "Social Media (Facebook, Instagram, etc.)" },
+    { key: "Google Search", value: "Google Search" },
+    { key: "Event / Conference", value: "Event / Conference" },
+    { key: "Advertisement", value: "Advertisement" },
+    { key: "Other", value: "Other" }
+];
+
+export const GeneralItems = [
+    { key: "viewed_me", value: "Viewed me" },
+    { key: "groups_blogs", value: "Groups / Blogs" },
+    { key: "speed_date", value: "Speed Date" },
+    { key: "travel_plans", value: "Travel Plans" },
+    { key: "parties_events", value: "Parties & Events" },
+];
+
+export const FrindItems = [
+    { key: "likes_given", value: "Likes given" },
+    { key: "joined_group", value: "Joined group" },
+    { key: "photos_videos", value: "Photos & Videos" },
+    { key: "validations", value: "Validations" },
+    { key: "speed_date", value: "Speed Date" },
+    { key: "travel_plans", value: "Travel Plans" },
+    { key: "parties_events", value: "Parties & Events" },
+    { key: "member_services", value: "Member Services" },
+    { key: "new_friends_followers", value: "New Friends / Followers" }
+];
+
+export const HeaderBtn = [
+    { key: "feed", title: "Feed" },
+    { key: "notification", title: "Notification" },
+]
+
+export const profileActions = [
+    { id: 1, icon: TvIcon, size: ms(17), count: 56 },
+    { id: 2, icon: VideoIcon, size: ms(17), count: 56 },
+    { id: 3, icon: DubbleCheckIcon, size: ms(20), count: 56 },
+    { id: 4, icon: LikeThumbIcon, size: ms(18), count: 56 },
 ];

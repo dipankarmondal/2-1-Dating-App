@@ -20,7 +20,7 @@ export const Colors = {
     dt_coin_yellow: "#FFB800",
     dt_error: "#B8001F",
     dt_bg: "#050A30",
-    dt_card_blue: "#00B8F4",
+    dt_card_blue: "#0b5ed7",
     dt_success_green: "#35C759",
     dt_border: "#0B103D",
     dt_gray: "#808080"

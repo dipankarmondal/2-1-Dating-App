@@ -50,7 +50,7 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children }) => {
                 </View>
             </View>
             {/* SearchBar Component */}
-            <View style={styles.dt_content}>
+            <View>
                 {children}
             </View>
             <RightDrawer />

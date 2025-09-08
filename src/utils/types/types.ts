@@ -153,3 +153,9 @@ export type SearchBoxProps = {
   levelOptions?: any[],
   onLevelSelect?: any
 }
+
+export type ScreenHeaderProps = {
+    activeKey: string,
+    setActiveKey: (key: string) => void,
+    Header: any
+}
