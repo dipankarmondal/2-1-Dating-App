@@ -109,14 +109,3 @@ export const UpdateProfileSetup = async (token: any, data: any, ) => {
         throw error;
     }
 };
-
-//Get all countrys
-export const GetAllCountries = async () => {
-    try {
-        const res = await API.get("https://countriesnow.space/api/v0.1/countries/positions");
-        return res?.data;
-    } catch (error) {
-        toast("error", { title: "Something went wrong" });
-        throw error;
-    }
-};

@@ -1,17 +1,24 @@
+/**React Imports */
 import { useEffect, useState } from "react"
-import LoginScreen from "../../screens/auth/login-screen"
+
+/**Local imports*/
+import { Colors } from "../../utils/constant/Constant"
+import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
 import { useAuth } from "../../utils/context/auth-context/AuthContext"
 import { Stack } from "../navigation-types/NavigationTypes"
-import { SafeAreaView } from "react-native-safe-area-context"
-import Splash from "../../components/splash"
-import { Colors } from "../../utils/constant/Constant"
-import RegistrationScreen from "../../screens/auth/registration-screen"
 import DrawerNavigator from "../drawer-navigation/DrawerNavigation"
+
+/**Screens */
+import LoginScreen from "../../screens/auth/login-screen"
+import Splash from "../../components/splash"
+import RegistrationScreen from "../../screens/auth/registration-screen"
 import ProfileSetup from "../../screens/auth/profile-setup"
-import { useQuery } from "@tanstack/react-query"
-import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
 import ForgetPassword from "../../screens/auth/forget-password"
 import BusinessSignupScreen from "../../screens/auth/business-signup-screen"
+
+/** Liabary*/
+import { SafeAreaView } from "react-native-safe-area-context"
+import { useQuery } from "@tanstack/react-query"
 
 export const AuthStack = () => {
     return (
