@@ -6,11 +6,11 @@ import React, { useState } from 'react'
 import { ScreenHeaderStyles as styles } from './styles'
 import { ms } from '../../utils/helpers/responsive'
 import { Colors } from '../../utils/constant/Constant'
-import { FrindItems, GeneralItems } from '../common/helper'
+import { FrindItems, GeneralItems, ViewMeOptions } from '../common/helper'
 import { ScreenHeaderProps } from '../../utils/types/types'
 
 /**Main export*/
-const ScreenHeader: React.FC<ScreenHeaderProps> = ({ activeKey, setActiveKey, Header }) => {
+const ScreenHeader: React.FC<ScreenHeaderProps> = ({ activeKey, setActiveKey, Header, isHeader, headerText }) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [selected, setSelected] = useState<string>("");
     const [activeFilter, setActiveFilter] = useState<"general" | "friend" | null>(null);
@@ -52,17 +52,31 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ activeKey, setActiveKey, He
     return (
         <>
             <View style={styles.dt_container}>
-                <View style={styles.dt_header}>{Header.map(renderTab)}</View>
+                {
+                    isHeader ? (
+                        <Text style={styles.dt_title_text}>{headerText}</Text>
+                    ) : (
+                        <View style={styles.dt_header}>{Header.map(renderTab)}</View>
+                    )
+                }
                 <View style={styles.dt_filter_container}>
-                    {renderFilterButton("General Filter", "general")}
-                    {renderFilterButton("Friend Filter", "friend", Colors.dt_error)}
+                    {
+                        isHeader ? (
+                            renderFilterButton("Filter", "friend", Colors.dt_error)
+                        ) : (
+                            <>
+                                {renderFilterButton("General Filter", "general")}
+                                {renderFilterButton("Friend Filter", "friend", Colors.dt_error)}
+                            </>
+                        )
+                    }
                 </View>
             </View>
 
             {showSuggestions && (
                 <View style={styles.suggestionBox}>
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }} nestedScrollEnabled>
-                        {menuItems.map((item) => (
+                        {(isHeader ? ViewMeOptions : menuItems).map((item) => (
                             <TouchableOpacity
                                 key={item.key}
                                 onPress={() => handleSelect(item.key)}

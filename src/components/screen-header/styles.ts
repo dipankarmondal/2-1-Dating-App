@@ -72,4 +72,9 @@ export const ScreenHeaderStyles = StyleSheet.create({
         color: Colors.dt_black,
         fontSize: ms(14),
     },
+    dt_title_text:{
+        fontSize:ms(16),
+        fontFamily:Fonts.Font_600,
+        color:Colors.dt_white,
+    }
 })

@@ -158,9 +158,11 @@ export type SearchBoxProps = {
 }
 
 export type ScreenHeaderProps = {
-    activeKey: string,
-    setActiveKey: (key: string) => void,
-    Header: any
+    activeKey?: string,
+    setActiveKey?: (key: string) => void,
+    Header?: any,
+    isHeader?: boolean,
+    headerText?: string
 }
 
 export type NotificationCardProps = {

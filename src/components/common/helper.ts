@@ -201,6 +201,22 @@ export const FrindItems = [
     { key: "new_friends_followers", value: "New Friends / Followers" }
 ];
 
+export const ViewMeOptions = [
+  { key: "viewedMe", value: "Viewed Me" },
+  { key: "viewedEachOther", value: "Viewed Each Other" },
+  { key: "whoIViewed", value: "Who I viewed" },
+  { key: "remembered", value: "Remembered" },
+  { key: "latest", value: "Latest" },
+  { key: "distance", value: "Distance" },
+  { key: "all", value: "All" },
+  { key: "couplesAndFemales", value: "Couples & Females" },
+  { key: "couples", value: "Couples" },
+  { key: "female", value: "Female" },
+  { key: "male", value: "Male" },
+  { key: "transgender", value: "Transgender" },
+  { key: "business", value: "Business" }
+];
+
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
     { key: "notification", title: "Notification" },
