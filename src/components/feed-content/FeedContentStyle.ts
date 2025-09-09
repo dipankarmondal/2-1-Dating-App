@@ -50,7 +50,7 @@ export const FeedContentStyles = StyleSheet.create({
     },
     dt_bio_container: {
         marginTop: ms(10),
-        paddingBottom:ms(5)
+        paddingBottom: ms(5)
     },
     dt_age_container: {
         flexDirection: "row",
@@ -126,6 +126,27 @@ export const FeedContentStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    dt_image_overlay: {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        padding: ms(10),
+    },
+    dt_more_container: {
+        width: ms(25),
+        height: ms(25),
+        backgroundColor: Colors.dt_border + "63",
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
+        
+    },
+    dt_icon_container: {
+        flex: 1,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between"
+    },
 
     // Group info card
     dt_header_container: {
@@ -190,7 +211,7 @@ export const FeedContentStyles = StyleSheet.create({
         backgroundColor: Colors.dt_card_blue,
         alignItems: "center",
         marginTop: ms(15),
-        marginBottom:ms(10)
+        marginBottom: ms(10)
     },
     dt_event_button_text: {
         fontSize: ms(16),
@@ -211,24 +232,24 @@ export const FeedContentStyles = StyleSheet.create({
         width: "48%",
         marginTop: ms(0)
     },
-    dt_birthday_container:{
-        alignItems:"center",
-        justifyContent:"center",
-        marginTop:ms(10)
+    dt_birthday_container: {
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: ms(10)
     },
-    dt_birthday_icon_container:{
-        width:ms(50),
-        height:ms(50),
-        borderRadius:ms(50),
-        backgroundColor:Colors.dt_gray + "33",
-        alignItems:"center",
-        justifyContent:"center"
+    dt_birthday_icon_container: {
+        width: ms(50),
+        height: ms(50),
+        borderRadius: ms(50),
+        backgroundColor: Colors.dt_gray + "33",
+        alignItems: "center",
+        justifyContent: "center"
     },
-    dt_text:{
-        fontSize:ms(18),
-        fontFamily:Fonts.Font_600,
-        color:Colors.dt_white,
-        marginTop:ms(10),
-        textTransform:"capitalize"
+    dt_text: {
+        fontSize: ms(18),
+        fontFamily: Fonts.Font_600,
+        color: Colors.dt_white,
+        marginTop: ms(10),
+        textTransform: "capitalize"
     }
 })

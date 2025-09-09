@@ -1,33 +1,59 @@
+/**React Imports */
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+
+/**Local imports*/
 import { FeedContentStyles as styles } from '../FeedContentStyle'
+import { IconProps } from '../../../utils/helpers/Iconprops'
+import { ms } from '../../../utils/helpers/responsive'
+import { Colors } from '../../../utils/constant/Constant'
+import { profileActions } from '../../common/helper'
+import { UserInfoCardProps } from '../../../utils/types/types'
+
+/**Icons*/
 import TvIcon from '@svgs/tv.svg'
 import MessageIcon from '@svgs/messages.svg'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
-import { IconProps } from '../../../utils/helpers/Iconprops'
-import { ms } from '../../../utils/helpers/responsive'
-import { Colors } from '../../../utils/constant/Constant'
-import { profileActions } from '../../common/helper'
+
+/**Components */
 import ModalAction from '../../modal/modal-action/ModalAction'
 import Information from '../../modal/modal-content/information/Information'
+
+/** Liabary*/
 import { useNavigation } from '@react-navigation/native'
+import MulteImage from '../../multeimage/MulteImage'
 
-type Props = {
-    type?: string,
-    Icon?: React.ComponentType<any>
-}
-
-const UserInfoCard: React.FC<Props> = ({ type, Icon }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore }) => {
     const [showDropdown, setShowDropdown] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const Navigation = useNavigation<any>()
+     const images = [
+        "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
+        "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+        "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
+    ];
+
 
     return (
         <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
             <View style={styles.dt_image_container}>
-                <Image source={require('@images/dummy.png')} style={styles.dt_image} />
+                <Image
+                    source={{ uri: images[currentIndex] }}
+                    style={styles.dt_image}
+                />
+                {
+                    isMore && (
+                        <MulteImage
+                            {...{
+                                currentIndex,
+                                setCurrentIndex
+                            }}
+                        />
+                    )
+                }
             </View>
             <View style={styles.dt_info_container}>
                 <View style={styles.dt_name_container}>

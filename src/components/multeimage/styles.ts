@@ -1,0 +1,48 @@
+import { StyleSheet } from "react-native";
+import { ms } from "../../utils/helpers/responsive";
+import { Colors, Fonts } from "../../utils/constant/Constant";
+
+export const MulteImageStyles = StyleSheet.create({
+    dt_image_overlay: {
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        padding: ms(10),
+    },
+    dt_more_container: {
+        width: ms(25),
+        height: ms(25),
+        backgroundColor: Colors.dt_border + "63",
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
+
+    },
+    dt_icon_container: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    menuContainer: {
+        position: "absolute",
+        top: 40,
+        right: 10,
+        backgroundColor: "#222",
+        padding: 10,
+        borderRadius: 8,
+        elevation: 5,
+        zIndex:1000
+    },
+    menuItem: {
+        paddingVertical: ms(8),
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    menuText: {
+        color:Colors.dt_white,
+        fontSize:ms(12),
+        fontFamily:Fonts.Font_600,
+        marginLeft: ms(5)
+    },
+})

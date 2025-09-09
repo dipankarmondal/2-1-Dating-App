@@ -5,7 +5,8 @@ import { Colors, Fonts } from "../../../utils/constant/Constant";
 export const CommonStyles = StyleSheet.create({
   dt_container: {
     padding: spacing.md,
-    paddingBottom:ms(150)
+    paddingBottom:ms(150),
+    gap:ms(16),
   },
   dt_overlay: {
     position: "absolute",

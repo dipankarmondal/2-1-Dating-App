@@ -179,3 +179,20 @@ export type SearchBarRef = {
     open: () => void;
     close: () => void;
 }
+export type UserInfoCardProps = {
+    type?: string,
+    Icon?: React.ComponentType<any>,
+    isMore?: boolean
+}
+
+export type MulteImageProps = {
+    currentIndex: number;
+    setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export type MenuItems = {
+    Icon: any;
+    label: string;
+    onPress?: () => void;
+    iconStyle?: object;
+}
