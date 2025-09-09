@@ -27,7 +27,7 @@ import ModalAction from '../../../components/modal/modal-action/ModalAction';
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, navigation, descriptors }) => {
     const { logout, Token } = useAuth();
     const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
-    const [showDropdown , setShowDropdown] = useState(false)
+    const [showDropdown, setShowDropdown] = useState(false)
 
     const handleLogoutPress = () => setIsLogoutModalVisible(true);
     const handleLogoutConfirm = () => {

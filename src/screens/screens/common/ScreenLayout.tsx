@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TouchableOpacity } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 
 /**Icons*/
 import OpenDrawerIcon from '@svgs/open-drawer.svg'

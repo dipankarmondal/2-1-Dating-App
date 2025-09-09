@@ -72,7 +72,8 @@ export type ModalActionProps = {
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>
     children: React.ReactNode,
     headerText: string,
-    type?: string
+    type?: string,
+    onShare?: () => void
 }
 
 export type LogoutContentProps = {
@@ -160,4 +161,10 @@ export type ScreenHeaderProps = {
     activeKey: string,
     setActiveKey: (key: string) => void,
     Header: any
+}
+
+export type NotificationCardProps = {
+    item: any,
+    setShowDropdown: any,
+    setSelectedItem?: any
 }

@@ -1,36 +1,33 @@
+/**React Imports */
 import React, { useEffect } from 'react'
+import { ScrollView, View } from 'react-native'
+
+/**Local imports*/
+import { HeaderBtn } from '../../../../components/common/helper'
+import { CommonStyles as commonstyle } from '../../common/CommonStyle'
+import GobalFeedContent from './GobalFeedContent'
+
+/**Components */
 import ScreenLayout from '../../common/ScreenLayout'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
-import { HeaderBtn } from '../../../../components/common/helper'
-import { ScrollView, Text, View } from 'react-native'
-import { CommonStyles as commonstyle } from '../../common/CommonStyle'
-import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
-import GroupInfoCard from '../../../../components/feed-content/group-info-card/GroupInfoCard'
-import GobalFeedContent from './GobalFeedContent'
 import Notification from './Notification'
 
+/**Main export*/
 const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
     const [activeKey, setActiveKey] = React.useState("feed");
-    const [updateKey, setUpdateKey] = React.useState(null);
 
-    console.log("Asdfasd", updateKey)
     const { key } = route.params || {}
+
     useEffect(() => {
         if (key) {
             setActiveKey(key);
         }
     }, [key]);
 
-    useEffect(() => {
-        if (updateKey) {
-            setActiveKey(updateKey);
-        }
-    }, [updateKey]);
-
     return (
         <ScreenLayout
             {...{
-                setUpdateKey,
+                setUpdateKey: setActiveKey,
                 type: "feed"
             }}
         >

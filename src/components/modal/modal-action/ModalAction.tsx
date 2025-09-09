@@ -5,15 +5,16 @@ import React from 'react'
 /**Local imports*/
 import { ModalActionStyles as styles } from './styles'
 import { IconProps } from '../../../utils/helpers/Iconprops'
-
-/**Icons*/
-import CrossIcon from '@svgs/cross.svg'
 import { ModalActionProps } from '../../../utils/types/types'
 import { Colors } from '../../../utils/constant/Constant'
 import { ms } from '../../../utils/helpers/responsive'
 
+/**Icons*/
+import CrossIcon from '@svgs/cross.svg'
+import ShareIcon from '@svgs/share.svg'
+
 /**Main export*/
-const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type }) => {
+const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type,onShare }) => {
     return (
         <Modal
             visible={isModalVisible}
@@ -24,7 +25,16 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContainer}>
                     <View style={styles.ml_modal_header}>
-                        <Text style={styles.modalTitle}>{headerText}</Text>
+                        <View style={styles.ml_title_container}>
+                            <Text style={styles.modalTitle}>{headerText}</Text>
+                            {
+                                type === "notification" && (
+                                    <TouchableOpacity style={styles.dt_icon_box} onPress={onShare}>
+                                        <ShareIcon {...IconProps(ms(15))} fill={Colors.dt_bg} />
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </View>
                         <TouchableOpacity
                             style={styles.ml_close_button}
                             onPress={() => setModalVisible(false)}

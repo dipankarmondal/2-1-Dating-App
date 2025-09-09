@@ -44,5 +44,18 @@ export const ModalActionStyles = StyleSheet.create({
     },
     ml_modal_body: {
         padding: ms(16),
+    },
+    ml_title_container:{
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    dt_icon_box:{
+        marginLeft:ms(15),
+        width: ms(30),
+        height: ms(30),
+        backgroundColor: Colors.dt_gray + "17",
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
     }
 })

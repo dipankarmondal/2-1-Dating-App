@@ -234,3 +234,55 @@ export const benefitsData = [
         ],
     },
 ];
+
+export const NotificationData = [
+    {
+        id: 1,
+        title: "Lifetime Special",
+        text: "Within the next 3 days your account is up for renewal. As a special thank you, we would like to offer you the opportunity to become a lifetime member of 2+1 for only $270. Lifetime memberships can normally only be purchased in the month of December so take this offer by selecting MEMBERSHIP in the menu and upgrade your membership to lifetime now. We hope you enjoy our site and are having fun.",
+        read: false,
+    },
+    {
+        id: 2,
+        title: "Parties & Events",
+        text: "Dear Member, We noticed you were a guest for the Swinging Atlanta New Years Complete Hotel Takeover party and hope you had a great time. Please give us your opinion and post a party review here. Thank you for your time. Your 2+1 Team.",
+        read: true,
+    },
+    {
+        id: 3,
+        title: "Pictures",
+        text: "Your picture(s) have been approved and added to your profile!",
+        read: false,
+    },
+    {
+        id: 4,
+        title: "New Message",
+        text: "You’ve received a new private message from another member. Tap here to open your inbox and reply.",
+        read: true,
+    },
+    {
+        id: 5,
+        title: "Security Alert",
+        text: "We detected a login from a new device. If this was you, no action is needed. Otherwise, please reset your password immediately.",
+        read: false,
+    },
+    {
+        id: 6,
+        title: "Profile Update",
+        text: "Your profile information was successfully updated. Keep it fresh to get noticed more often!",
+        read: true,
+    },
+    {
+        id: 7,
+        title: "Membership Reminder",
+        text: "Your premium membership will expire in 7 days. Renew now to keep enjoying uninterrupted access.",
+        read: false,
+    },
+    {
+        id: 8,
+        title: "System Update",
+        text: "We’ve made some improvements to the app experience. Update to the latest version for the best performance.",
+        read: true,
+    }
+]
+
