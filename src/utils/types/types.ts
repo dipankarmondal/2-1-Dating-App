@@ -1,4 +1,4 @@
-import { StatusBarStyle, StyleProp, TextInputProps } from "react-native";
+import { ScrollViewProps, StatusBarStyle, StyleProp, TextInputProps } from "react-native";
 import { TextStyle, ViewStyle } from "react-native-size-matters";
 import { DrawerParamList } from "../../navigation/navigation-types/NavigationTypes";
 
@@ -182,12 +182,14 @@ export type SearchBarRef = {
 export type UserInfoCardProps = {
     type?: string,
     Icon?: React.ComponentType<any>,
-    isMore?: boolean
+    isMore?: boolean,
+    item?: any
 }
 
 export type MulteImageProps = {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+    image: any[]
 }
 
 export type MenuItems = {
@@ -196,3 +198,8 @@ export type MenuItems = {
     onPress?: () => void;
     iconStyle?: object;
 }
+
+export type ScrollContentProps = {
+    onRefresh: () => void; // async refresh callback
+    children: React.ReactNode;
+} & ScrollViewProps;

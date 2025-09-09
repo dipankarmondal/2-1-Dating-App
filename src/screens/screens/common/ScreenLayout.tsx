@@ -58,7 +58,7 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, typ
                 </View>
             </View>
             {/* SearchBar Component */}
-            <View>
+            <View style={{flex:1}}>
                 {children}
             </View>
             <RightDrawer />

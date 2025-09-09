@@ -42,7 +42,7 @@ const AnimatedSearchBar = forwardRef<SearchBarRef, SearchBarProps>(({ headerHeig
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["searchUser", query],
-        queryFn: () => SearchUser(Token, query, 10),
+        queryFn: () => SearchUser(Token, query, 10, null),
         enabled: query.trim().length >= 3, // only search when query >= 3 chars
         staleTime: 0,
     });

@@ -25,23 +25,30 @@ import Information from '../../modal/modal-content/information/Information'
 import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const Navigation = useNavigation<any>()
-     const images = [
+    const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
         "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
         "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
     ];
 
+    console.log("Adsfasdf", item?.profile?.address?.fullAddress);
 
     return (
         <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
             <View style={styles.dt_image_container}>
                 <Image
-                    source={{ uri: images[currentIndex] }}
+                    source={{
+                        uri:
+                            item?.profile?.photos?.length > 0
+                                ? item.profile.photos[currentIndex]
+                                : images[currentIndex],
+                    }}
+                    // source={{ uri:item?.profile?.photos[currentIndex]}}
                     style={styles.dt_image}
                 />
                 {
@@ -49,7 +56,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore }) => {
                         <MulteImage
                             {...{
                                 currentIndex,
-                                setCurrentIndex
+                                setCurrentIndex,
+                                image: item?.profile?.photos ?? images
                             }}
                         />
                     )
@@ -57,7 +65,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore }) => {
             </View>
             <View style={styles.dt_info_container}>
                 <View style={styles.dt_name_container}>
-                    <Text style={styles.dt_name}>CPLSUEPAUl</Text>
+                    <Text style={styles.dt_name}>{item?.username ?? "--"}</Text>
                     <View style={styles.dt_button_container}>
                         <TouchableOpacity style={styles.dt_button} onPress={() => setShowDropdown(true)}>
                             <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
@@ -69,28 +77,44 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore }) => {
                 </View>
                 <View style={styles.dt_bio_container}>
                     <View style={styles.dt_age_container}>
-                        <View style={styles.dt_age}>
-                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                            <Text style={styles.dt_age_text}>15</Text>
-                        </View>
+                        {
+                            item?.profile?.gender === "couple" && (
+                                <View style={styles.dt_age}>
+                                    <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                    <Text style={styles.dt_age_text}>{item?.profile?.age ?? "--"}</Text>
+                                </View>
+                            )
+                        }
                         <View style={styles.dt_age}>
                             <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                            <Text style={styles.dt_age_text}>15</Text>
+                            <Text style={styles.dt_age_text}>{item?.profile?.age ?? "--"}</Text>
                         </View>
                     </View>
                     <View style={styles.dt_intrest}>
                         <View style={styles.dt_intrest_container}>
                             <Text style={styles.dt_intrest_text}>Interestes</Text>
                             <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                                <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
-                                <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                {item?.profile?.interestedIn && item.profile.interestedIn.length > 0 ? (
+                                    <>
+                                        {item.profile.interestedIn.includes("couple") && (
+                                            <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                                        )}
+                                        {item.profile.interestedIn.includes("male") && (
+                                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                        )}
+                                        {item.profile.interestedIn.includes("female") && (
+                                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                        )}
+                                    </>
+                                ) : (
+                                    <Text style={styles.dt_intrest_text_empty}>Not specified</Text>
+                                )}
                             </View>
                         </View>
                         <View style={styles.dt_intrest_container}>
                             <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
                             <View style={[styles.dt_age_container, styles.dt_location_container]}>
-                                <Text style={styles.dt_location_text}>94555, CA, USA 8424 mi </Text>
+                                <Text style={styles.dt_location_text}>{item?.profile?.address?.fullAddress}</Text>
                             </View>
                         </View>
                     </View>

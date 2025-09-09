@@ -73,18 +73,23 @@ export const FeedContentStyles = StyleSheet.create({
         width: "100%"
     },
     dt_intrest_container: {
-        marginTop: ms(8)
+        marginTop: ms(8),
     },
     dt_intrest_text: {
         fontSize: ms(16),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white
     },
+    dt_intrest_text_empty:{
+        fontSize: ms(12),
+        fontFamily: Fonts.Font_600,
+        color: Colors.dt_gray
+    },
     dt_location_text: {
-        fontSize: ms(13),
+        fontSize: ms(12),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white,
-        textAlign: "right"
+        textAlign: "right",
     },
     dt_location_container: {
         marginTop: ms(5),

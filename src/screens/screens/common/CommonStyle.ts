@@ -7,6 +7,7 @@ export const CommonStyles = StyleSheet.create({
     padding: spacing.md,
     paddingBottom:ms(150),
     gap:ms(16),
+    flex:1,
   },
   dt_overlay: {
     position: "absolute",

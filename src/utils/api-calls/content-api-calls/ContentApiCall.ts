@@ -2,13 +2,14 @@ import { toast } from "../../helpers/responsive";
 import { API } from "../url";
 
 //search user
-export const SearchUser = async (token: any, search: any, limit: any) => {
+export const SearchUser = async (token: any, search: any, limit: any, online: any) => {
 
     try {
         const endpoint = "users";
         const params = {
-            search,
-            limit
+            ...(search ? { search } : {}),
+            ...(limit ? { limit } : {}),
+            ...(online !== undefined ? { online } : {}),
         };
 
         console.log(
@@ -16,7 +17,7 @@ export const SearchUser = async (token: any, search: any, limit: any) => {
             `${API.defaults.baseURL}${endpoint}?${new URLSearchParams(params).toString()}`
         );
 
-         const res = await API.get(endpoint, {
+        const res = await API.get(endpoint, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

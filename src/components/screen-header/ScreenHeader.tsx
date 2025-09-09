@@ -72,7 +72,6 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ activeKey, setActiveKey, He
                     }
                 </View>
             </View>
-
             {showSuggestions && (
                 <View style={styles.suggestionBox}>
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }} nestedScrollEnabled>
