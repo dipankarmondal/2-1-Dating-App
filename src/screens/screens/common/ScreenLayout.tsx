@@ -14,17 +14,17 @@ import { ScreenLayoutStyles as styles } from './styles'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
-import { HeaderIconProps, ScreenLayoutProps } from '../../../utils/types/types'
+import { HeaderIconProps, ScreenLayoutProps, SearchBarRef } from '../../../utils/types/types'
 
 /** Liabary*/
 import { useNavigation } from '@react-navigation/native'
 import RightDrawer from '../../../components/right-drawer/RightDrawer'
 import { useRightDrawer } from '../../../utils/context/right-drawer/RightDrawer'
 
-import AnimatedSearchBar, { SearchBarRef } from '../../../components/animated-search-bar'
+import AnimatedSearchBar from '../../../components/animated-search-bar'
 
 /**Main export*/
-const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children,setUpdateKey, type }) => {
+const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, type }) => {
 
     const Navigation = useNavigation<any>()
     const { toggleDrawer } = useRightDrawer();
@@ -38,9 +38,9 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children,setUpdateKey, type
     )
 
     const handleNavigation = () => {
-       if (type === "feed") {
+        if (type === "feed") {
             setUpdateKey("notification")
-        } else{
+        } else {
             Navigation.navigate("FeedScreen", { key: "notification" })
         }
     }

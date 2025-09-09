@@ -168,3 +168,12 @@ export type NotificationCardProps = {
     setShowDropdown: any,
     setSelectedItem?: any
 }
+
+export type SearchBarProps = {
+    headerHeight?: number;
+}
+
+export type SearchBarRef = {
+    open: () => void;
+    close: () => void;
+}
