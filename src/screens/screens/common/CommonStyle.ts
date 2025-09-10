@@ -5,7 +5,7 @@ import { Colors, Fonts } from "../../../utils/constant/Constant";
 export const CommonStyles = StyleSheet.create({
   dt_container: {
     padding: spacing.md,
-    paddingBottom:ms(150),
+    paddingBottom:ms(70),
     gap:ms(16),
     flex:1,
   },
