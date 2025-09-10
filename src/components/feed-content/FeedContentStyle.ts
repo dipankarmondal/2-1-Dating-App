@@ -102,7 +102,8 @@ export const FeedContentStyles = StyleSheet.create({
         borderRadius: ms(50),
         padding: ms(5),
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent:"space-between",
+        // alignSelf: "flex-start"
     },
     dt_button_two: {
         paddingHorizontal: ms(12),

@@ -15,7 +15,7 @@ import HideIcon from '@svgs/setting/eye-crossed.svg'
 import NotificationIcon from '@svgs/notification.svg'
 import CallIcon from '@svgs/setting/call.svg'
 
-import TvIcon from '@svgs/tv.svg'
+import CameraIcon from '@svgs/camera.svg'
 import VideoIcon from '@svgs/appicon/live.svg'
 import DubbleCheckIcon from '@svgs/dubble_check.svg'
 import LikeThumbIcon from '@svgs/like.svg'
@@ -202,19 +202,19 @@ export const FrindItems = [
 ];
 
 export const ViewMeOptions = [
-  { key: "viewedMe", value: "Viewed Me" },
-  { key: "viewedEachOther", value: "Viewed Each Other" },
-  { key: "whoIViewed", value: "Who I viewed" },
-  { key: "remembered", value: "Remembered" },
-  { key: "latest", value: "Latest" },
-  { key: "distance", value: "Distance" },
-  { key: "all", value: "All" },
-  { key: "couplesAndFemales", value: "Couples & Females" },
-  { key: "couples", value: "Couples" },
-  { key: "female", value: "Female" },
-  { key: "male", value: "Male" },
-  { key: "transgender", value: "Transgender" },
-  { key: "business", value: "Business" }
+    { key: "viewedMe", value: "Viewed Me" },
+    { key: "viewedEachOther", value: "Viewed Each Other" },
+    { key: "whoIViewed", value: "Who I viewed" },
+    { key: "remembered", value: "Remembered" },
+    { key: "latest", value: "Latest" },
+    { key: "distance", value: "Distance" },
+    { key: "all", value: "All" },
+    { key: "couplesAndFemales", value: "Couples & Females" },
+    { key: "couples", value: "Couples" },
+    { key: "female", value: "Female" },
+    { key: "male", value: "Male" },
+    { key: "transgender", value: "Transgender" },
+    { key: "business", value: "Business" }
 ];
 
 export const HeaderBtn = [
@@ -222,11 +222,11 @@ export const HeaderBtn = [
     { key: "notification", title: "Notification" },
 ]
 
-export const profileActions = [
-    { id: 1, icon: TvIcon, size: ms(17), count: 56 },
-    { id: 2, icon: VideoIcon, size: ms(17), count: 56 },
-    { id: 3, icon: DubbleCheckIcon, size: ms(20), count: 56 },
-    { id: 4, icon: LikeThumbIcon, size: ms(18), count: 56 },
+export const getProfileActions = (item: any) => [
+    { id: 1, icon: CameraIcon, size: ms(17), count: item?.profile?.photos?.length || 0 },
+    { id: 2, icon: VideoIcon, size: ms(17), count: item?.profile?.videos?.length || 0},
+    { id: 3, icon: DubbleCheckIcon, size: ms(20), count: item?.profile?.checks || 0},
+    { id: 4, icon: LikeThumbIcon, size: ms(18), count: item?.profile?.likes || 0},
 ];
 
 export const benefitsData = [

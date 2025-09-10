@@ -7,7 +7,7 @@ import { FeedContentStyles as styles } from '../FeedContentStyle'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
-import { profileActions } from '../../common/helper'
+import { getProfileActions } from '../../common/helper'
 import { UserInfoCardProps } from '../../../utils/types/types'
 
 /**Icons*/
@@ -36,7 +36,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item })
         "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
     ];
 
-    console.log("Adsfasdf", item?.profile?.address?.fullAddress);
+    console.log("asdfasdf", item?.profile?.photos?.length)
 
     return (
         <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
@@ -45,7 +45,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item })
                     source={{
                         uri:
                             item?.profile?.photos?.length > 0
-                                ? item.profile.photos[currentIndex]
+                                ? item?.profile?.photos[currentIndex]
                                 : images[currentIndex],
                     }}
                     // source={{ uri:item?.profile?.photos[currentIndex]}}
@@ -121,15 +121,15 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item })
                 </View>
                 <View style={styles.dt_bio_container}>
                     <View style={styles.dt_profile_content}>
-                        {profileActions.map(({ id, icon: Icon, size, count }) => (
-                            <TouchableOpacity
-                                key={id}
-                                style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
-                            >
-                                <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
-                                <Text style={styles.dt_profile_text}>{count}</Text>
-                            </TouchableOpacity>
-                        ))}
+                        {getProfileActions(item).map(({ id, icon: Icon, size, count }) => (
+                                <TouchableOpacity
+                                    key={id}
+                                    style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
+                                >
+                                    <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
+                                    <Text style={styles.dt_profile_text}>{count}</Text>
+                                </TouchableOpacity>
+                            ))}
                     </View>
                 </View>
             </View>

@@ -20,6 +20,8 @@ const OnlineNowScreen: React.FC = () => {
         staleTime: 0,
     });
 
+    console.log("adsfasd", data?.data);
+
     return (
         <ScreenLayout>
             <ScrollContent
