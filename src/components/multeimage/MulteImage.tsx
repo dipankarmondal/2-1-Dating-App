@@ -67,9 +67,13 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
         { key: "not_interested", label: "Not Interested", Icon: LikeIcon, iconStyle: { transform: [{ rotate: "180deg" }] }, onPress: () => { } },
     ];
 
+     const filteredMenuItems = isOption
+        ? mainMenuItems.filter(item => item.key !== "like" && item.key !== "remember")
+        : mainMenuItems;
+
     const renderMenu = () => (
         <View style={styles.menuContainer}>
-            {mainMenuItems.map(({ key, Icon, label, onPress }) => (
+            {filteredMenuItems.map(({ key, Icon, label, onPress }) => (
                 <MenuItem key={key} Icon={Icon} label={label} onPress={onPress} />
             ))}
         </View>

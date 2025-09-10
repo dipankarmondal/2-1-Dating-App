@@ -1,32 +1,28 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
-import { ViewMeScreenStyles as styles } from './styles'
-import { CommonStyles as commonstyle } from '../../common/CommonStyle'
 import ScreenLayout from '../../common/ScreenLayout'
-import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
+import { CommonStyles } from '../../common/CommonStyle'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 
-const ViewMeScreen: React.FC = () => {
+const HotDateScreen: React.FC = () => {
     return (
         <ScreenLayout>
-            <ScreenHeader
-                {...{
-                    isHeader: true,
-                    headerText: "View Me"
-                }}
-            />
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={commonstyle.dt_container}>
-                    <UserInfoCard
+                <View style={CommonStyles.dt_container}>
+                    <UserInfoCard 
                         {...{
+                            type: "hotdate",
                             isMore: true,
-                            isOption: true
+                            isOption: true,
+                            isUserContent: false
                         }}
                     />
-                    <UserInfoCard
+                    <UserInfoCard 
                         {...{
+                            type: "hotdate",
                             isMore: true,
-                            isOption: true
+                            isOption: true,
+                            isUserContent: false
                         }}
                     />
                 </View>
@@ -35,4 +31,4 @@ const ViewMeScreen: React.FC = () => {
     )
 }
 
-export default ViewMeScreen 
+export default HotDateScreen

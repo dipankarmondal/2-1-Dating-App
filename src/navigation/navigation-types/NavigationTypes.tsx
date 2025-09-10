@@ -36,6 +36,9 @@ export type DrawerParamList = {
   SettingsScreen: undefined;
   ViewMeScreen: undefined;
   OnlineNowScreen: undefined;
+  HotDateScreen: undefined;
+  ChatroomScreen: undefined;
+  LivestreamScreen: undefined;
 };
 
 export const Drawer = createDrawerNavigator<DrawerParamList>();

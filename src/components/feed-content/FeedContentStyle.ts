@@ -68,9 +68,9 @@ export const FeedContentStyles = StyleSheet.create({
     },
     dt_intrest: {
         flexDirection: "row",
-        alignItems: "center",
         justifyContent: "space-between",
-        width: "100%"
+        width: "100%",
+        flexWrap: "wrap"
     },
     dt_intrest_container: {
         marginTop: ms(8),

@@ -1,13 +1,19 @@
+/**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import {ProfileContentStyles as styles} from '../styles'
-import UserInfoCard from '../../../feed-content/userinfo-card/UserInfoCard'
 import { ms } from '../../../../utils/helpers/responsive'
 import { ProfileExtraMenuItems } from '../../../common/helper'
+
+/**Components */
+import UserInfoCard from '../../../feed-content/userinfo-card/UserInfoCard'
 
 type Props = {
     activeKey: string
 }
+/**Main export*/
 const Certifications: React.FC<Props> = ({activeKey}) => {
 
     const activeItem = ProfileExtraMenuItems.find(item => item.key === activeKey);

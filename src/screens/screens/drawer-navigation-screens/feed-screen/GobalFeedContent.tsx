@@ -16,7 +16,7 @@ const GobalFeedContent: React.FC = () => {
         {
             title: "CPLSUEPAUL has joined Georgia For Chocolate ??",
             subtext: "Dec 12, 2024 | 24 Members",
-            components: [<UserInfoCard Icon={FriendIcon} />, <GroupInfoCard />],
+            components: [<UserInfoCard Icon={FriendIcon} isUserContent={true}/>, <GroupInfoCard />],
         },
         {
             title: "CLUBELATION would like you to join their event.",
@@ -31,25 +31,25 @@ const GobalFeedContent: React.FC = () => {
         {
             title: "ANASDF2020 in your area has a birthday",
             subtext: "08 hours, 22 min",
-            components: [<UserInfoCard />, <CommonBox type="birthday" />],
+            components: [<UserInfoCard isUserContent={true} />, <CommonBox type="birthday" />],
         },
         {
             title: "ANASDF2020 in your area has a birthday",
             subtext: "08 hours, 22 min",
             components: [
-                <UserInfoCard Icon={LikeIcon} />,
-                <UserInfoCard type="friend_request" />,
+                <UserInfoCard Icon={LikeIcon} isUserContent={true} />,
+                <UserInfoCard type="friend_request" isUserContent={true} />,
             ],
         },
         {
             title: "ANASDF2020 is posted a Hotdate",
             subtext: "08 hours, 22 min",
-            components: [<UserInfoCard />, <CommonBox type="hotdate" />],
+            components: [<UserInfoCard isUserContent={true} />, <CommonBox type="hotdate" />],
         },
         {
             title: "ANASDF2020 started livestream",
             subtext: "08 hours, 22 min",
-            components: [<UserInfoCard />, <CommonBox type="livestream" />],
+            components: [<UserInfoCard isUserContent={true} />, <CommonBox type="livestream" />],
         },
     ];
 

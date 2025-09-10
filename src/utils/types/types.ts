@@ -184,7 +184,9 @@ export type UserInfoCardProps = {
     type?: string,
     Icon?: React.ComponentType<any>,
     isMore?: boolean,
-    item?: any
+    item?: any,
+    isOption?: boolean,
+    isUserContent?: boolean
 }
 
 export type MulteImageProps = {

@@ -1,23 +1,31 @@
+/**React Imports */
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+
+/**Local imports*/
 import { ProfileContentStyles as styles } from './styles'
-import MaleIcon from '@svgs/male.svg'
-import FemaleIcon from '@svgs/female.svg'
-import LocationIcon from '@svgs/location.svg'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors, getAge } from '../../../utils/constant/Constant'
-import MulteImage from '../../multeimage/MulteImage'
 import { profileButtons } from './helper'
+import { ProfileExtraMenuItems } from '../../common/helper'
+
+/**Icons*/
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
+import LocationIcon from '@svgs/location.svg'
+
+/**Components */
+import MulteImage from '../../multeimage/MulteImage'
 import ComparisonTable from './ProfileDatiles'
 import TopMenu from '../../top-menu'
-import { ProfileExtraMenuItems, ProfileMenuItems } from '../../common/helper'
 import Certifications from './profile-extra-menu/Certifications'
 
 type Props = {
     data: any
 }
 
+/**Main export*/
 const ProfileContent: React.FC<Props> = ({ data }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
