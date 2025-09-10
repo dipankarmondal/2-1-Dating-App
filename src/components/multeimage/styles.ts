@@ -45,4 +45,19 @@ export const MulteImageStyles = StyleSheet.create({
         fontFamily:Fonts.Font_600,
         marginLeft: ms(5)
     },
+    dt_livestream_play:{
+        width:"100%",
+        height:"100%",
+        alignContent:"center",
+        justifyContent:"center",
+    },
+    dt_livestream_play_icon:{
+        backgroundColor:Colors.dt_border + "87", 
+        alignSelf:"center",
+        width:ms(50),
+        height:ms(50),
+        borderRadius:ms(50),
+        alignItems:"center",
+        justifyContent:"center"
+    }
 })

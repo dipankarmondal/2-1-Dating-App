@@ -11,6 +11,7 @@ import MessengerIcon from '@svgs/messenger.svg'
 import LikeIcon from '@svgs/like.svg'
 import InviteFrindIcon from '@svgs/setting/invite.svg'
 import BellIcon from '@svgs/bell.svg'
+import PlayIcon from '@svgs/play.svg'
 import { useIsFocused } from '@react-navigation/native'
 import { MenuItems, MulteImageProps } from '../../utils/types/types'
 
@@ -25,7 +26,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     </TouchableOpacity>
 );
 
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption }) => {
+const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -67,7 +68,7 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
         { key: "not_interested", label: "Not Interested", Icon: LikeIcon, iconStyle: { transform: [{ rotate: "180deg" }] }, onPress: () => { } },
     ];
 
-     const filteredMenuItems = isOption
+    const filteredMenuItems = isOption
         ? mainMenuItems.filter(item => item.key !== "like" && item.key !== "remember")
         : mainMenuItems;
 
@@ -104,29 +105,40 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
             {menuVisible && (subMenuVisible ? renderSubMenu() : renderMenu())}
 
             {/* Navigation Arrows */}
-            <View style={styles.dt_icon_container}>
-                <TouchableOpacity
-                    style={[
-                        styles.dt_more_container,
-                        { marginTop: ms(-5), opacity: currentIndex === 0 ? 0.4 : 1 },
-                    ]}
-                    disabled={currentIndex === 0}
-                    onPress={handlePrev}
-                >
-                    <LeftIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[
-                        styles.dt_more_container,
-                        { marginTop: ms(-5), opacity: currentIndex === image.length - 1 ? 0.4 : 1 },
-                    ]}
-                    disabled={currentIndex === image.length - 1}
-                    onPress={handleNext}
-                >
-                    <RightIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
-                </TouchableOpacity>
-            </View>
+            {
+                type === "livestream" ? (
+                    <View style={styles.dt_livestream_play}>
+                        <TouchableOpacity style={styles.dt_livestream_play_icon} activeOpacity={0.7}>
+                            <PlayIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <>
+                        <View style={styles.dt_icon_container}>
+                            <TouchableOpacity
+                                style={[
+                                    styles.dt_more_container,
+                                    { marginTop: ms(-5), opacity: currentIndex === 0 ? 0.4 : 1 },
+                                ]}
+                                disabled={currentIndex === 0}
+                                onPress={handlePrev}
+                            >
+                                <LeftIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[
+                                    styles.dt_more_container,
+                                    { marginTop: ms(-5), opacity: currentIndex === image.length - 1 ? 0.4 : 1 },
+                                ]}
+                                disabled={currentIndex === image.length - 1}
+                                onPress={handleNext}
+                            >
+                                <RightIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
+                            </TouchableOpacity>
+                        </View>
+                    </>
+                )
+            }
         </View>
     );
 };

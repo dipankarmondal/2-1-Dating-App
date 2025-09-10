@@ -17,6 +17,8 @@ import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
 import ClockIcon from '@svgs/appicon/clock.svg'
+import ViewIcon from '@svgs/setting/views.svg'
+import TimeIcon from '@svgs/setting/time.svg'
 import CalendarIcon from '@svgs/drawericon/calendar.svg'
 
 /**Components */
@@ -61,7 +63,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 currentIndex,
                                 setCurrentIndex,
                                 image: item?.profile?.photos ?? images,
-                                isOption
+                                isOption,
+                                type
                             }}
                         />
                     )
@@ -107,26 +110,41 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                         </View>
                     </View>
                     <View style={styles.dt_intrest}>
-                        <View style={styles.dt_intrest_container}>
-                            <Text style={styles.dt_intrest_text}>Interestes</Text>
-                            <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                                {item?.profile?.interestedIn && item.profile.interestedIn.length > 0 ? (
-                                    <>
-                                        {item.profile.interestedIn.includes("couple") && (
-                                            <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                        {
+                            type === "livestream" ? (
+                                <View style={[styles.dt_age_container, { marginTop: ms(5), gap: ms(8) }]}>
+                                    <View style={styles.dt_live_info_container}>
+                                        <ViewIcon {...IconProps(ms(20))} fill={Colors.dt_gray} />
+                                        <Text style={styles.dt_location_text}>56</Text>
+                                    </View>
+                                    <View style={styles.dt_live_info_container}>
+                                        <TimeIcon {...IconProps(ms(16))} fill={Colors.dt_gray} />
+                                        <Text style={styles.dt_location_text}>55 min</Text>
+                                    </View>
+                                </View>
+                            ) : (
+                                <View style={styles.dt_intrest_container}>
+                                    <Text style={styles.dt_intrest_text}>Interestes</Text>
+                                    <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                                        {item?.profile?.interestedIn && item.profile.interestedIn.length > 0 ? (
+                                            <>
+                                                {item.profile.interestedIn.includes("couple") && (
+                                                    <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                                                )}
+                                                {item.profile.interestedIn.includes("male") && (
+                                                    <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                                )}
+                                                {item.profile.interestedIn.includes("female") && (
+                                                    <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                                )}
+                                            </>
+                                        ) : (
+                                            <Text style={styles.dt_intrest_text_empty}>Not specified</Text>
                                         )}
-                                        {item.profile.interestedIn.includes("male") && (
-                                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                        )}
-                                        {item.profile.interestedIn.includes("female") && (
-                                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                        )}
-                                    </>
-                                ) : (
-                                    <Text style={styles.dt_intrest_text_empty}>Not specified</Text>
-                                )}
-                            </View>
-                        </View>
+                                    </View>
+                                </View>
+                            )
+                        }
                         <View style={styles.dt_intrest_container}>
                             <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
                             <View style={[styles.dt_age_container, styles.dt_location_container]}>
@@ -155,9 +173,9 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                         )
                     }
                 </View>
-                <View style={styles.dt_bio_container}>
-                    {
-                        isUserContent && (
+                {
+                    isUserContent && (
+                        <View style={styles.dt_bio_container}>
                             <View style={styles.dt_profile_content}>
                                 {getProfileActions(item).map(({ id, icon: Icon, size, count }) => (
                                     <TouchableOpacity
@@ -169,9 +187,9 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                     </TouchableOpacity>
                                 ))}
                             </View>
-                        )
-                    }
-                </View>
+                        </View>
+                    )
+                }
             </View>
 
             {Icon ? (

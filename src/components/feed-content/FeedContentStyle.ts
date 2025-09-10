@@ -257,5 +257,10 @@ export const FeedContentStyles = StyleSheet.create({
         color: Colors.dt_white,
         marginTop: ms(10),
         textTransform: "capitalize"
+    },
+    dt_live_info_container:{
+        flexDirection:"row",
+        alignItems:"center",
+        gap:ms(5)
     }
 })

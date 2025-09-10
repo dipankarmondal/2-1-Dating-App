@@ -193,7 +193,8 @@ export type MulteImageProps = {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
     image: any[],
-    isOption?: boolean
+    isOption?: boolean,
+    type?: string
 }
 
 export type MenuItems = {
