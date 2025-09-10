@@ -38,3 +38,18 @@ export const SearchUser = async (token: any, search: any, limit: any, online: an
         throw error;
     }
 };
+
+// get user
+export const GetUser = async (token: any) => {
+    try {
+        const res = await API.get(`auth/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

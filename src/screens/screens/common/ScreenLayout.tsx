@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import React, { useRef } from 'react'
 
 /**Icons*/
@@ -8,6 +8,7 @@ import SearchIcon from '@svgs/search.svg'
 import Notification from '@svgs/notification.svg'
 import SettingIcon from '@svgs/setting.svg'
 import MessengerIcon from '@svgs/messenger.svg'
+import LeftIcon from '@svgs/angle-small-left.svg'
 
 /**Local imports*/
 import { ScreenLayoutStyles as styles } from './styles'
@@ -24,46 +25,58 @@ import { useRightDrawer } from '../../../utils/context/right-drawer/RightDrawer'
 import AnimatedSearchBar from '../../../components/animated-search-bar'
 
 /**Main export*/
-const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, type }) => {
-
-    const Navigation = useNavigation<any>()
+const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, type,title }) => {
+    const Navigation = useNavigation<any>();
     const { toggleDrawer } = useRightDrawer();
     const searchRef = useRef<SearchBarRef>(null);
 
-
     const HeaderIcon: React.FC<HeaderIconProps> = ({ Icon, onPress }) => (
         <TouchableOpacity style={styles.dt_menu_container} onPress={onPress}>
-            <Icon {...IconProps(ms(18))} fill={Colors.dt_white} />
+            <Icon {...IconProps(type === "stack" ? ms(24) : ms(18))} fill={Colors.dt_white} />
         </TouchableOpacity>
-    )
+    );
 
-    const handleNavigation = () => {
+    const handleNotification = () => {
         if (type === "feed") {
-            setUpdateKey("notification")
+            setUpdateKey?.("notification");
         } else {
-            Navigation.navigate("FeedScreen", { key: "notification" })
+            Navigation.navigate("FeedScreen", { key: "notification" });
         }
-    }
+    };
+
+    const leftIcon = type === "stack" ? LeftIcon : OpenDrawerIcon;
+    const leftAction = type === "stack" ? () => Navigation.goBack() : () => Navigation.openDrawer();
+
+    const rightActions = [
+        { Icon: SearchIcon, onPress: () => searchRef.current?.open() },
+        { Icon: MessengerIcon, onPress: () => Navigation.navigate("MessengerScreen") },
+        { Icon: Notification, onPress: handleNotification },
+        { Icon: SettingIcon, onPress: toggleDrawer },
+    ];
 
     return (
         <View style={styles.container}>
             <AnimatedSearchBar ref={searchRef} headerHeight={50} />
+
             <View style={styles.dt_header}>
-                <HeaderIcon Icon={OpenDrawerIcon} onPress={() => Navigation.openDrawer()} />
-                <View style={styles.dt_right_container}>
-                    <HeaderIcon Icon={SearchIcon} onPress={() => searchRef.current?.open()} />
-                    <HeaderIcon Icon={MessengerIcon} onPress={() => Navigation.navigate("MessengerScreen")} />
-                    <HeaderIcon Icon={Notification} onPress={handleNavigation} />
-                    <HeaderIcon Icon={SettingIcon} onPress={toggleDrawer} />
+                <View style={styles.dt_left_container}>
+                    <HeaderIcon Icon={leftIcon} onPress={leftAction} />
+                    <Text style={styles.dt_header_title}>{title}</Text>
                 </View>
+
+                {type !== "stack" && (
+                    <View style={styles.dt_right_container}>
+                        {rightActions.map(({ Icon, onPress }, index) => (
+                            <HeaderIcon key={index} Icon={Icon} onPress={onPress} />
+                        ))}
+                    </View>
+                )}
             </View>
-            {/* SearchBar Component */}
-            <View style={{flex:1}}>
-                {children}
-            </View>
+
+            <View style={{ flex: 1 }}>{children}</View>
             <RightDrawer />
         </View>
-    )
-}
+    );
+};
 
-export default ScreenLayout 
+export default ScreenLayout;

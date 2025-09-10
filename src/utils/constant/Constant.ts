@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 import { ms } from "../helpers/responsive"
+import moment from "moment"
 
 export const Fonts = {
     Font_100: 'DMSans-Thin',
@@ -63,3 +64,8 @@ export const FormStyle = StyleSheet.create({
 
     
 })
+
+export const getAge = (dob: any) => {
+  if (!dob) return null;
+  return moment().diff(moment(dob), "years");
+};

@@ -59,7 +59,8 @@ export type DrawerScreenType = {
 export type ScreenLayoutProps = {
     children: React.ReactNode,
     setUpdateKey?: React.Dispatch<React.SetStateAction<string | null>>
-    type?: string
+    type?: string,
+    title?: string
 }
 
 export type HeaderIconProps = {
@@ -189,7 +190,8 @@ export type UserInfoCardProps = {
 export type MulteImageProps = {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    image: any[]
+    image: any[],
+    isOption?: boolean
 }
 
 export type MenuItems = {
@@ -203,3 +205,10 @@ export type ScrollContentProps = {
     onRefresh: () => void; // async refresh callback
     children: React.ReactNode;
 } & ScrollViewProps;
+
+export type TopMenuProps = {
+    MenuData: { key: string; label: string }[],
+    activeKey: string,
+    setActiveKey: React.Dispatch<React.SetStateAction<string>>
+    isTwoItem?: boolean
+}

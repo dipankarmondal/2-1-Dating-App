@@ -25,7 +25,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     </TouchableOpacity>
 );
 
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image }) => {
+const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -86,12 +86,15 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
     return (
         <View style={styles.dt_image_overlay}>
             {/* Dot menu button */}
-            <TouchableOpacity
-                style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
-                onPress={toggleMenu}
-            >
-                <DotIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
-            </TouchableOpacity>
+            {
+                isOption &&
+                <TouchableOpacity
+                    style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
+                    onPress={toggleMenu}
+                >
+                    <DotIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
+                </TouchableOpacity>
+            }
 
             {/* Menus */}
             {menuVisible && (subMenuVisible ? renderSubMenu() : renderMenu())}

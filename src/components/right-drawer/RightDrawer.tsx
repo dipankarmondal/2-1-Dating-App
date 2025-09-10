@@ -9,10 +9,12 @@ import { ms } from "../../utils/helpers/responsive";
 import { Colors } from "../../utils/constant/Constant";
 import { menuItems } from "../common/helper";
 import { IconProps } from "../../utils/helpers/Iconprops";
+import { useNavigation } from "@react-navigation/native";
 
 /**Main export*/
 const RightDrawer: React.FC = () => {
     const { isOpen, closeDrawer } = useRightDrawer();
+    const Navigation = useNavigation()
 
     if (!isOpen) return null;
 
@@ -29,7 +31,7 @@ const RightDrawer: React.FC = () => {
             <Animated.View style={styles.drawer}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
                     <View style={styles.dt_settings_content}>
-                        {menuItems.map(({ id, label, Icon, size, onPress }) => (
+                        {menuItems(Navigation).map(({ id, label, Icon, size, onPress }) => (
                             <TouchableOpacity
                                 key={id}
                                 style={styles.dt_settings_item}

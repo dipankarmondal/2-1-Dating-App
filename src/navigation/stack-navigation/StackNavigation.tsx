@@ -19,6 +19,7 @@ import BusinessSignupScreen from "../../screens/auth/business-signup-screen"
 /** Liabary*/
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useQuery } from "@tanstack/react-query"
+import ProfileScreen from "../../screens/screens/stack-navigation-screens/profile-screen"
 
 export const AuthStack = () => {
     return (
@@ -42,6 +43,7 @@ export const MainStack = () => {
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         </Stack.Navigator>
     )
 }

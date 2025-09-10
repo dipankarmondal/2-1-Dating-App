@@ -21,13 +21,13 @@ import DubbleCheckIcon from '@svgs/dubble_check.svg'
 import LikeThumbIcon from '@svgs/like.svg'
 import { ms } from '../../utils/helpers/responsive'
 
-export const menuItems = [
+export const menuItems = (Navigation) => [
     {
         id: "settings",
         label: "Profile",
         Icon: UserIcon,
         size: 16,
-        onPress: () => console.log("⚙️ Settings clicked"),
+        onPress: () => Navigation.navigate("ProfileScreen"),
     },
     {
         id: "account",
@@ -224,9 +224,9 @@ export const HeaderBtn = [
 
 export const getProfileActions = (item: any) => [
     { id: 1, icon: CameraIcon, size: ms(17), count: item?.profile?.photos?.length || 0 },
-    { id: 2, icon: VideoIcon, size: ms(17), count: item?.profile?.videos?.length || 0},
-    { id: 3, icon: DubbleCheckIcon, size: ms(20), count: item?.profile?.checks || 0},
-    { id: 4, icon: LikeThumbIcon, size: ms(18), count: item?.profile?.likes || 0},
+    { id: 2, icon: VideoIcon, size: ms(17), count: item?.profile?.videos?.length || 0 },
+    { id: 3, icon: DubbleCheckIcon, size: ms(20), count: item?.profile?.checks || 0 },
+    { id: 4, icon: LikeThumbIcon, size: ms(18), count: item?.profile?.likes || 0 },
 ];
 
 export const benefitsData = [
@@ -302,3 +302,17 @@ export const NotificationData = [
     }
 ]
 
+export const ProfileMenuItems = [
+    { key: 'profile', label: 'Profile' },
+    { key: 'edit', label: 'Edit' },
+    { key: 'pictures', label: 'Pictures' },
+    { key: 'videos', label: 'Videos' },
+    { key: 'album', label: 'Album' },
+];
+export const ProfileExtraMenuItems = [
+    { key: 'certifications', label: 'Certifications' },
+    { key: 'groups', label: 'Groups' },
+    { key: 'parties_events', label: 'Parties & Events' },
+    { key: 'following', label: 'Following' },
+    { key: 'friends', label: 'Friends' },
+];
