@@ -1,15 +1,23 @@
+/**React Imports */
 import { View, Text } from 'react-native'
 import React from 'react'
+
+/**Components */
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import GroupInfoCard from '../../../../components/feed-content/group-info-card/GroupInfoCard'
 import FeedCardInfoHeader from '../../../../components/feed-card-info-header/FeedCardInfoHeader'
-import { ms } from '../../../../utils/helpers/responsive'
 import EventCard from '../../../../components/feed-content/event-card/EventCard'
 import CommonBox from '../../../../components/feed-content/common-box/CommonBox'
+
+/**Local imports*/
+import { ms } from '../../../../utils/helpers/responsive'
+
+/**Icons*/
 import GroupIcon from '@svgs/group.svg'
 import LikeIcon from '@svgs/like.svg'
 import FriendIcon from '@svgs/setting/friends.svg'
 
+/**Main export*/
 const GobalFeedContent: React.FC = () => {
 
     const feedData = [

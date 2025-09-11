@@ -159,11 +159,10 @@ export type SearchBoxProps = {
 }
 
 export type ScreenHeaderProps = {
-    activeKey?: string,
-    setActiveKey?: (key: string) => void,
-    Header?: any,
-    isHeader?: boolean,
-    headerText?: string
+    children: React.ReactNode,
+    filterData?: any[],
+    showSuggestions?: boolean,
+    setShowSuggestions?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type NotificationCardProps = {
