@@ -20,6 +20,7 @@ import BusinessSignupScreen from "../../screens/auth/business-signup-screen"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useQuery } from "@tanstack/react-query"
 import ProfileScreen from "../../screens/screens/stack-navigation-screens/profile-screen"
+import { GetUser } from "../../utils/api-calls/content-api-calls/ContentApiCall"
 
 export const AuthStack = () => {
     return (
@@ -61,15 +62,13 @@ export const ProfileSetipStack = () => {
 }
 
 export const AppNavigation = () => {
-
     const { Token } = useAuth()
+    const [Loading, SetLoading] = useState(true)
 
-    const [Loading, SetLoading] = useState<Boolean>(true)
-
-    const GetUserProfile = useQuery({
-        queryKey: ['GetProfile'],
-        queryFn: () => GetProfile(Token),
-        enabled: !!Token
+    const { data, isLoading } = useQuery({
+        queryKey: ['GetUser'],
+        queryFn: () => GetUser(Token),
+        enabled: !!Token,
     })
 
     useEffect(() => {
@@ -78,21 +77,21 @@ export const AppNavigation = () => {
         }, 1500)
     }, [])
 
-    if (Loading) {
+    if (Loading || (Token && isLoading)) {
         return <Splash />
-    } else {
-        return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: Colors.dt_bg }} edges={['top', 'bottom']} >
-                {Token ? (
-                    GetUserProfile.data?.data?.onboardingCompleted ? (
-                        <MainStack />
-                    ) : (
-                        <ProfileSetipStack />
-                    )
-                ) : (
-                    <AuthStack />
-                )}
-            </SafeAreaView>
-        )
     }
+
+    return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.dt_bg }} edges={['top', 'bottom']} >
+            {Token ? (
+                data?.data?.profile?.onboardingCompleted ? (
+                    <MainStack />
+                ) : (
+                    <ProfileSetipStack />
+                )
+            ) : (
+                <AuthStack />
+            )}
+        </SafeAreaView>
+    )
 }

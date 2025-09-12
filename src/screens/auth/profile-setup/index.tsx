@@ -13,6 +13,7 @@ import { ProfileSetupStyles as styles } from './styles'
 /** Liabary*/
 import { useForm, useWatch } from 'react-hook-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigation } from '@react-navigation/native'
 
 /**Components */
 import CustomInput from '../../../components/form-utils/custom-input'
@@ -22,7 +23,6 @@ import DatePickerInput from '../../../components/form-utils/datepicker-input'
 import ChooseIntrestInput from '../../../components/form-utils/choose-intrest-input/ChooseIntrestInput'
 import ImagePickerChoose from '../../../components/form-utils/image-picker-choose/ImagePickerChoose'
 import SubmitButton from '../../../components/submit-button'
-import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const ProfileSetup: React.FC = () => {
@@ -45,6 +45,7 @@ const ProfileSetup: React.FC = () => {
     const ProfileSetUpMutation = useMutation({
         mutationFn: (data: any) => UpdateProfileSetup(Token, data),
         onSuccess: (res) => {
+            console.log("object", res);
             if (res?.success === true) {
                 QueryInvalidater.invalidateQueries({ queryKey: ['GetProfile'] });
                 toast("success", { title: res?.message });
@@ -66,10 +67,7 @@ const ProfileSetup: React.FC = () => {
                 zipcode: data?.zipcode
             },
             bio: data?.profile_bio,
-            photos: [
-                "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
-                "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg"
-            ]
+            photos: data?.file
         }
 
         if (data?.mode === "couple") {
@@ -79,7 +77,6 @@ const ProfileSetup: React.FC = () => {
             }
         }
 
-        console.log("object", Payload)
         ProfileSetUpMutation.mutate(Payload);
     };
 

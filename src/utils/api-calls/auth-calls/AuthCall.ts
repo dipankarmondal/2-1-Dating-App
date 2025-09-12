@@ -98,7 +98,7 @@ export const UpdateProfileSetup = async (token: any, data: any, ) => {
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
-        console.log("adsfasd", errorData);
+        console.log("adsfasd", error?.response);
 
         // If it's an array of objects
         let firstMessage = "Something went wrong";

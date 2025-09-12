@@ -47,7 +47,7 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
 
     const renderFilterButton = (label: string, type: "general" | "friend", color?: string) => (
         <TouchableOpacity
-            style={[commonstyle.dt_filter, color && { borderColor: color }]}
+            style={[commonstyle.dt_filter, color && { borderColor: color, marginLeft:ms(-15) }]}
             onPress={() => {
                 setActiveFilter(type);
                 setShowSuggestions((prev) => !prev);

@@ -52,10 +52,10 @@ export const CustomDrawerStyles = StyleSheet.create({
         textTransform: "capitalize"
     },
     dt_number: {
-        fontFamily: Fonts.Font_700,
-        fontSize: ms(15),
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(12),
         color: Colors.dt_white,
-        marginTop: ms(2)
+        marginTop: ms(8)
     },
     scrollContainer: {
         paddingVertical: 10,

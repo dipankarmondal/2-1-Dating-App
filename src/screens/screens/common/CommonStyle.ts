@@ -41,7 +41,7 @@ export const CommonStyles = StyleSheet.create({
     },
     dt_tab_title: {
         fontFamily: Fonts.Font_600,
-        fontSize: ms(14),
+        fontSize: ms(14.5),
         color: Colors.dt_white
     },
     dt_header: {
@@ -55,7 +55,8 @@ export const CommonStyles = StyleSheet.create({
         borderColor: Colors.dt_card_blue,
         alignItems: "center",
         paddingHorizontal: ms(8),
-        paddingVertical: ms(5),
+        paddingVertical: ms(7),
+        marginTop:ms(2)
     },
     dt_filter_text: {
         fontFamily: Fonts.Font_600,

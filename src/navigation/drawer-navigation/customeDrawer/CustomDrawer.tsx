@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 
 /** Liabary*/
 import { DrawerContentComponentProps, } from '@react-navigation/drawer';
-import * as ImagePicker from 'react-native-image-picker';
 
 /**Local imports*/
 import { IconProps } from '../../../utils/helpers/Iconprops';
@@ -17,24 +16,28 @@ import { Colors } from '../../../utils/constant/Constant';
 import RightIcon from '@svgs/angle-small-right.svg'
 import ReportIcon from '@svgs/report.svg'
 import LogoutIcon from '@svgs/user-logout.svg'
-import LogoutContent from '../../../components/modal/modal-content/logout-content/LogoutContent';
-import ModalAction from '../../../components/modal/modal-action/ModalAction';
 
 /**Components */
-// import ModalAction from '../../../components/modal/modal-action/ModalAction';
+import ModalAction from '../../../components/modal/modal-action/ModalAction';
+import ModalContent from '../../../components/modal/modal-content/logout-content/ModalContent';
+import { useQuery } from '@tanstack/react-query';
+import { GetUser } from '../../../utils/api-calls/content-api-calls/ContentApiCall';
 
 /**Main export*/
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, navigation, descriptors }) => {
     const { logout, Token } = useAuth();
-    const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
 
-    const handleLogoutPress = () => setIsLogoutModalVisible(true);
     const handleLogoutConfirm = () => {
-        setIsLogoutModalVisible(false);
+        setShowDropdown(false);
         logout();
     };
-    const handleCancel = () => setIsLogoutModalVisible(false);
+
+    const {data} = useQuery({
+        queryKey: ['GetUser'],
+        queryFn: () => GetUser(Token),
+        enabled: !!Token,
+    })
 
     return (
         <View style={{ flex: 1 }}>
@@ -48,8 +51,8 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
                 </View>
                 <View style={styles.dt_right_container}>
                     <View>
-                        <Text style={styles.title}>Pratik das</Text>
-                        <Text style={styles.dt_number}>+91 123456789</Text>
+                        <Text style={styles.title}>{data?.data?.username ?? "--"}</Text>
+                        <Text style={styles.dt_number}>{data?.data?.email ?? "--"}</Text>
                     </View>
                 </View>
                 <View style={styles.dt_edit}>
@@ -108,9 +111,13 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
                 headerText="Are you sure you want to logout?"
                 type="logout"
             >
-                <LogoutContent
+                <ModalContent
                     {...{
-                        setShowDropdown,
+                        setModal: setShowDropdown,
+                        title: "Do you want to log out from your account?",
+                        successText: "Yes, Log Me Out",
+                        cancelText: "No, Stay Logged In",
+                        onSuccess: () => handleLogoutConfirm()
                     }}
                 />
             </ModalAction>

@@ -29,7 +29,7 @@ import Information from '../../modal/modal-content/information/Information'
 import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent,isFilterOption }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [DropdownType, setDropdownType] = useState('');
@@ -64,7 +64,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 setCurrentIndex,
                                 image: item?.profile?.photos ?? images,
                                 isOption,
-                                type
+                                type,
+                                isFilterOption
                             }}
                         />
                     )

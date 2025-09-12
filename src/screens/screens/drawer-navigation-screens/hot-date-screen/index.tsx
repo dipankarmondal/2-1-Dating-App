@@ -14,7 +14,8 @@ const HotDateScreen: React.FC = () => {
                             type: "hotdate",
                             isMore: true,
                             isOption: true,
-                            isUserContent: false
+                            isUserContent: false,
+                            isFilterOption: true
                         }}
                     />
                     <UserInfoCard 
@@ -22,7 +23,8 @@ const HotDateScreen: React.FC = () => {
                             type: "hotdate",
                             isMore: true,
                             isOption: true,
-                            isUserContent: false
+                            isUserContent: false,
+                            isFilterOption: true
                         }}
                     />
                 </View>

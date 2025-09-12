@@ -77,8 +77,12 @@ export type ModalActionProps = {
     onShare?: () => void
 }
 
-export type LogoutContentProps = {
-    setShowDropdown: (value: boolean) => void
+export type ModalContentProps = {
+    setModal: (value: boolean) => void,
+    title: string,
+    successText:string,
+    cancelText:string,
+    onSuccess?: () => void
 }
 
 export type PhoneInputFormProps = {
@@ -185,7 +189,8 @@ export type UserInfoCardProps = {
     isMore?: boolean,
     item?: any,
     isOption?: boolean,
-    isUserContent?: boolean
+    isUserContent?: boolean,
+    isFilterOption?: boolean
 }
 
 export type MulteImageProps = {
@@ -193,7 +198,8 @@ export type MulteImageProps = {
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
     image: any[],
     isOption?: boolean,
-    type?: string
+    type?: string,
+    isFilterOption?: boolean
 }
 
 export type MenuItems = {

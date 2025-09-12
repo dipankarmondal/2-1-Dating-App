@@ -1,24 +1,9 @@
 import { StyleSheet } from "react-native";
-import { Colors, Fonts } from "../../../../utils/constant/Constant";
-import { ms } from "../../../../utils/helpers/responsive";
+import { ms } from "../../utils/helpers/responsive";
+import { Colors, Fonts } from "../../utils/constant/Constant";
 
-export const HomeScreenStyles = StyleSheet.create({
-    dt_search_wrapper: {
-        width: "100%",
-        height: ms(45),
-        backgroundColor: Colors.dt_gray + "33",
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: ms(8),
-        marginTop: ms(2),
-        borderRadius: ms(8)
-    },
-    dt_search_input: {
-        paddingHorizontal: ms(8),
-        fontFamily: Fonts.Font_600,
-        fontSize: ms(14),
-    },
-    dt_messenger_wrapper:{
+export const MessageListStyles = StyleSheet.create({
+  dt_messenger_wrapper:{
         backgroundColor:Colors.dt_gray + "33",
         borderRadius:ms(8),
         width:"100%",
@@ -67,19 +52,5 @@ export const HomeScreenStyles = StyleSheet.create({
         borderRadius:ms(50),
         alignItems:"center",
         justifyContent:"center"
-    },
-    dt_buttons_wrapper:{
-        // gap:ms(10)
-    },
-    dt_buttons:{
-        flexDirection:"row",
-        alignItems:"center",
-        gap:ms(10),
-        paddingVertical:ms(10),
-    },
-    dt_btn_text:{
-        fontFamily:Fonts.Font_600,
-        fontSize:ms(16),
-        color:Colors.dt_border
     }
 })

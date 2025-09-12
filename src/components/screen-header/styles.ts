@@ -4,7 +4,7 @@ import { Colors, Fonts } from "../../utils/constant/Constant";
 
 export const ScreenHeaderStyles = StyleSheet.create({
     dt_container: {
-        height: ms(45),
+        height: ms(50),
         width: "100%",
         flexDirection: "row",
         alignItems: "center",

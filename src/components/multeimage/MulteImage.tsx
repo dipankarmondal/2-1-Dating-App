@@ -15,7 +15,6 @@ import PlayIcon from '@svgs/play.svg'
 import { useIsFocused } from '@react-navigation/native'
 import { MenuItems, MulteImageProps } from '../../utils/types/types'
 
-
 // ✅ Reusable MenuItem component
 const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
@@ -26,7 +25,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     </TouchableOpacity>
 );
 
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type }) => {
+const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type,isFilterOption }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -68,7 +67,7 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
         { key: "not_interested", label: "Not Interested", Icon: LikeIcon, iconStyle: { transform: [{ rotate: "180deg" }] }, onPress: () => { } },
     ];
 
-    const filteredMenuItems = isOption
+    const filteredMenuItems = isFilterOption
         ? mainMenuItems.filter(item => item.key !== "like" && item.key !== "remember")
         : mainMenuItems;
 

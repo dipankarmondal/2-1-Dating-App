@@ -42,7 +42,6 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
                             <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_bg} />
                         </TouchableOpacity>
                     </View>
-
                     <ScrollView
                         contentContainerStyle={{ padding: ms(16), flexGrow: 1 }}
                         showsVerticalScrollIndicator={false}

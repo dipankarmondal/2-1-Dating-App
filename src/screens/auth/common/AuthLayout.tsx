@@ -8,7 +8,7 @@ import { AuthProps } from '../../../utils/types/types'
 import { ms } from '../../../utils/helpers/responsive'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { Colors } from '../../../utils/constant/Constant'
-import LogoutContent from '../../../components/modal/modal-content/logout-content/LogoutContent'
+import LogoutContent from '../../../components/modal/modal-content/logout-content/ModalContent'
 
 /**Icons*/
 import LogoutIcon from '@svgs/user-logout.svg'
@@ -17,11 +17,19 @@ import LeftIcon from '@svgs/arrow-alt-circle-left.svg'
 /**Components */
 import ModalAction from '../../../components/modal/modal-action/ModalAction'
 import { useNavigation } from '@react-navigation/native'
+import ModalContent from '../../../components/modal/modal-content/logout-content/ModalContent'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Main export*/
 const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, isSubtext }) => {
     const [showDropdown, setShowDropdown] = React.useState(false)
     const Navigation = useNavigation<any>()
+    const { logout } = useAuth();
+
+    const SuccessLogout = () => {
+        setShowDropdown(false)
+        logout()
+    }
 
     return (
         <View style={styles.container}>
@@ -65,9 +73,13 @@ const AuthLayout: React.FC<AuthProps> = ({ children, titile, type, isBack, isSub
                 headerText="Are you sure you want to logout?"
                 type="logout"
             >
-                <LogoutContent
+                <ModalContent
                     {...{
-                        setShowDropdown,
+                        setModal:setShowDropdown,
+                        title:"Do you want to log out from your account?",
+                        successText:"Yes, Log Me Out",
+                        cancelText:"No, Stay Logged In",
+                        onSuccess:()=> SuccessLogout()
                     }}
                 />
             </ModalAction>

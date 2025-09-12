@@ -1,15 +1,23 @@
+/**React Imports */
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { ProfileScreenStyles as styles } from './styles'
-import ScreenLayout from '../../common/ScreenLayout'
-import TopMenu from '../../../../components/top-menu'
 import { ProfileMenuItems } from '../../../../components/common/helper'
-import ProfileContent from '../../../../components/profile-screen-content/profile-content/ProfileContent'
-import EditContent from '../../../../components/profile-screen-content/edit-content/EditContent'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { useQuery } from '@tanstack/react-query'
 import { GetUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
+/**Components */
+import ScreenLayout from '../../common/ScreenLayout'
+import TopMenu from '../../../../components/top-menu'
+import ProfileContent from '../../../../components/profile-screen-content/profile-content/ProfileContent'
+import EditContent from '../../../../components/profile-screen-content/edit-content/EditContent'
+
+/** Liabary*/
+import { useQuery } from '@tanstack/react-query'
+
+/**Main export*/
 const ProfileScreen: React.FC = () => {
     const [activeKey, setActiveKey] = React.useState("profile");
     const { Token } = useAuth()
