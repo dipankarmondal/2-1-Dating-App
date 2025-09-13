@@ -21,6 +21,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useQuery } from "@tanstack/react-query"
 import ProfileScreen from "../../screens/screens/stack-navigation-screens/profile-screen"
 import { GetUser } from "../../utils/api-calls/content-api-calls/ContentApiCall"
+import ChatScreen from "../../screens/screens/stack-navigation-screens/chat-screen"
 
 export const AuthStack = () => {
     return (
@@ -45,6 +46,7 @@ export const MainStack = () => {
         >
             <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
         </Stack.Navigator>
     )
 }

@@ -16,12 +16,12 @@ export const MessageListStyles = StyleSheet.create({
         width:ms(45),
         height:ms(45),
         borderRadius:ms(50),
-        overflow:"hidden",
     },
     dt_image:{
         width:"100%",
         height:"100%",
-        resizeMode:"cover"
+        resizeMode:"cover",
+        borderRadius:ms(50),
     },
     dt_text_container:{
         flex:1
@@ -52,5 +52,17 @@ export const MessageListStyles = StyleSheet.create({
         borderRadius:ms(50),
         alignItems:"center",
         justifyContent:"center"
+    },
+    dt_status_overlay:{
+        position:"absolute",
+        width:ms(10),
+        height:ms(10),
+        bottom:ms(5),
+        right:0,
+        borderRadius:ms(50),
+        backgroundColor:Colors.dt_primary_green,
+        alignItems:"center",
+        justifyContent:"center",
+        zIndex:100
     }
 })

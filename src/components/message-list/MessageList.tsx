@@ -1,26 +1,31 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { MessageListStyles as styles } from './styles'
 import MenuDotsIcon from '@svgs/menu-dots.svg'
 import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms } from '../../utils/helpers/responsive'
 import { Colors } from '../../utils/constant/Constant'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     chat: any,
     onMorePress?: any
 }
 
-const MessageList: React.FC<Props> = ({ chat,onMorePress  }) => {
-  
+const MessageList: React.FC<Props> = ({ chat, onMorePress }) => {
+
+    const Navigation = useNavigation<any>()
+
     return (
         <>
             <TouchableOpacity
                 style={styles.dt_messenger_wrapper}
                 activeOpacity={0.7}
+                onPress={() => Navigation.navigate("ChatScreen", { chat: chat })}
             >
                 <View style={styles.dt_image_container}>
                     <Image source={chat.image} style={styles.dt_image} />
+                    <View style={styles.dt_status_overlay}/>
                 </View>
 
                 <View style={styles.dt_text_container}>
@@ -40,7 +45,7 @@ const MessageList: React.FC<Props> = ({ chat,onMorePress  }) => {
                         </Text>
                     </View>
                 </View>
-               
+
             </TouchableOpacity>
         </>
     )
