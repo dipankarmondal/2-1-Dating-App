@@ -72,7 +72,7 @@ export type ModalActionProps = {
     isModalVisible: boolean,
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>
     children: React.ReactNode,
-    headerText: string,
+    headerText?: string,
     type?: string,
     onShare?: () => void
 }

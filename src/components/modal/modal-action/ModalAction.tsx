@@ -14,7 +14,7 @@ import CrossIcon from '@svgs/cross.svg'
 import ShareIcon from '@svgs/share.svg'
 
 /**Main export*/
-const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type,onShare }) => {
+const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type, onShare }) => {
     return (
         <Modal
             visible={isModalVisible}
@@ -23,25 +23,36 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
             onRequestClose={() => setModalVisible(false)}
         >
             <View style={styles.modalOverlay}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.ml_modal_header}>
-                        <View style={styles.ml_title_container}>
-                            <Text style={styles.modalTitle}>{headerText}</Text>
-                            {
-                                type === "notification" && (
-                                    <TouchableOpacity style={styles.dt_icon_box} onPress={onShare}>
-                                        <ShareIcon {...IconProps(ms(15))} fill={Colors.dt_bg} />
-                                    </TouchableOpacity>
-                                )
-                            }
-                        </View>
-                        <TouchableOpacity
-                            style={styles.ml_close_button}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_bg} />
+                {
+                    type === "message" && (
+                        <TouchableOpacity style={styles.ml_messahe_close_button} onPress={() => setModalVisible(false)}>
+                            <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                         </TouchableOpacity>
-                    </View>
+                    )
+                }
+                <View style={styles.modalContainer}>
+                    {
+                        type !== "message" && (
+                            <View style={styles.ml_modal_header}>
+                                <View style={styles.ml_title_container}>
+                                    <Text style={styles.modalTitle}>{headerText}</Text>
+                                    {
+                                        type === "notification" && (
+                                            <TouchableOpacity style={styles.dt_icon_box} onPress={onShare}>
+                                                <ShareIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                </View>
+                                <TouchableOpacity
+                                    style={styles.ml_close_button}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    }
                     <ScrollView
                         contentContainerStyle={{ padding: ms(16), flexGrow: 1 }}
                         showsVerticalScrollIndicator={false}

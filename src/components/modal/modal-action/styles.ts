@@ -9,22 +9,18 @@ export const ModalActionStyles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContainer: {
-        backgroundColor: 'white',
+        backgroundColor: Colors.dt_border,
         borderTopLeftRadius: ms(20),
         borderTopRightRadius: ms(20),
         maxHeight: '60%',   // instead of fixed ms(600)
-        minHeight: ms(200),
+        minHeight: ms(150),
     },
     modalTitle: {
         fontSize: ms(18),
         fontFamily: Fonts.Font_700,
-        color: Colors.dt_black,
+        color: Colors.dt_white,
     },
-    closeButton: {
-        alignSelf: 'flex-end',
-        paddingVertical: ms(8),
-        paddingHorizontal: ms(12),
-    },
+ 
     ml_modal_header: {
         borderBottomWidth: ms(.8),
         borderColor: Colors.dt_gray + "17",
@@ -41,6 +37,16 @@ export const ModalActionStyles = StyleSheet.create({
         borderRadius: ms(50),
         alignItems: "center",
         justifyContent: "center",
+    },
+    ml_messahe_close_button: {
+        width: ms(35),
+        height: ms(35),
+        backgroundColor: Colors.dt_card_blue,
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
+        alignSelf:"center",
+        marginBottom:ms(10)
     },
     ml_modal_body: {
         padding: ms(16),

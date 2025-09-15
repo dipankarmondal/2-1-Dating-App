@@ -74,8 +74,8 @@ const MessengerScreen: React.FC = () => {
             >
                 <View style={styles.dt_buttons_wrapper}>
                     <TouchableOpacity style={styles.dt_buttons}>
-                        <ViewIcon {...IconProps(ms(18))} fill={Colors.dt_border} />
-                        <Text style={styles.dt_btn_text}>View Profile</Text>
+                        <ViewIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
+                        <Text style={[styles.dt_btn_text, { color: Colors.dt_white }]}>View Profile</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.dt_buttons} onPress={DeleteBtnClick}>
                         <DeleteIcon {...IconProps(ms(17))} fill={Colors.dt_error} />

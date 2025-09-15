@@ -7,7 +7,7 @@ export const LogoutContentStyles = StyleSheet.create({
         fontSize: ms(18),
         marginBottom: ms(20),
         textAlign:"center",
-        color: Colors.dt_black,
+        color: Colors.dt_white,
         fontFamily: Fonts.Font_700,
         maxWidth: ms(300),
         alignSelf: 'center'
@@ -35,5 +35,6 @@ export const LogoutContentStyles = StyleSheet.create({
     dt_btn_text:{
         fontFamily:Fonts.Font_700,
         fontSize:ms(16),
+        color:Colors.dt_white
     },
 })
