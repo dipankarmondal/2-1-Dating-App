@@ -25,7 +25,7 @@ import { useRightDrawer } from '../../../utils/context/right-drawer/RightDrawer'
 import AnimatedSearchBar from '../../../components/animated-search-bar'
 
 /**Main export*/
-const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, type,title }) => {
+const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, type, title, headerChildren }) => {
     const Navigation = useNavigation<any>();
     const { toggleDrawer } = useRightDrawer();
     const searchRef = useRef<SearchBarRef>(null);
@@ -71,6 +71,8 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, typ
                         ))}
                     </View>
                 )}
+
+                {headerChildren && headerChildren}
             </View>
 
             <View style={{ flex: 1 }}>{children}</View>

@@ -17,6 +17,7 @@ export const HomeScreenStyles = StyleSheet.create({
         paddingHorizontal: ms(8),
         fontFamily: Fonts.Font_600,
         fontSize: ms(14),
+        flex:1
     },
     dt_messenger_wrapper:{
         backgroundColor:Colors.dt_gray + "33",
@@ -81,5 +82,13 @@ export const HomeScreenStyles = StyleSheet.create({
         fontFamily:Fonts.Font_600,
         fontSize:ms(16),
         color:Colors.dt_border
+    },
+    dt_filter_wrapper:{
+        width:ms(25),
+        height:ms(25),
+        borderRadius:ms(50),
+        alignItems:"center",
+        justifyContent:"center",
+        // backgroundColor:"red"
     }
 })

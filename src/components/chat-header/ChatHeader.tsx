@@ -17,21 +17,24 @@ import VideoIcon from '@svgs/appicon/live.svg'
 import { useNavigation } from '@react-navigation/native'
 
 type Props = {
-    chat: any
+    chat: any,
+    type: any
 }
-const ChatHeader: React.FC<Props> = ({chat}) => {
+const ChatHeader: React.FC<Props> = ({ chat,type  }) => {
     const Navigation = useNavigation<any>();
-
+    console.log("helo", type);
     return (
         <View style={styles.dt_container}>
             <View style={styles.dt_left_header}>
                 <TouchableOpacity style={styles.dt_icon_box} onPress={() => Navigation.goBack()}>
                     <LeftIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                 </TouchableOpacity>
-                <View style={styles.dt_profile_image}>
-                    <Image source={{uri: chat?.image?.uri}} style={styles.dt_image} />
-                </View>
-                <Text style={styles.dt_name}>{chat?.name}</Text>
+                <TouchableOpacity style={styles.dt_profile_box} onPress={() => Navigation.navigate("ChatInfoScreen", { chat: chat, type: type })} >
+                    <View style={styles.dt_profile_image}>
+                        <Image source={{ uri: chat?.image }} style={styles.dt_image} />
+                    </View>
+                    <Text style={styles.dt_name}>{chat?.name}</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.dt_right_header}>
                 <TouchableOpacity style={styles.dt_btn_box}>

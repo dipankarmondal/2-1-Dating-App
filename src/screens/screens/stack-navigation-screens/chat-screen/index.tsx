@@ -25,10 +25,10 @@ import EditIcon from '@svgs/edit.svg'
 import { launchImageLibrary } from 'react-native-image-picker';
 
 type Props = {
-    route: any
+    route: any,
 }
 const ChatScreen: React.FC<Props> = ({ route }) => {
-    const { chat } = route.params;
+    const { chat, type } = route.params;
 
     const [messages, setMessages] = useState<any>([]);
     const [inputText, setInputText] = useState('');
@@ -121,7 +121,12 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
 
     return (
         <View style={styles.dt_container}>
-            <ChatHeader chat={chat} />
+            <ChatHeader
+                {...{
+                    chat: chat,
+                    type,
+                }}
+            />
             <KeyboardAvoidingView
                 style={styles.dt_message_container}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -144,7 +149,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     >
                         <PlusIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>
-
                     <TextInput
                         style={styles.dt_input}
                         placeholder="Type a message..."
@@ -157,7 +161,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     <TouchableOpacity style={styles.dt_sendButton} onPress={sendMessage}>
                         <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>
-
                     <TouchableOpacity style={styles.dt_sendButton}>
                         <MicIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>

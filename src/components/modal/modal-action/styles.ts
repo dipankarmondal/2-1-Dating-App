@@ -16,7 +16,7 @@ export const ModalActionStyles = StyleSheet.create({
         minHeight: ms(150),
     },
     modalTitle: {
-        fontSize: ms(18),
+        fontSize: ms(17),
         fontFamily: Fonts.Font_700,
         color: Colors.dt_white,
     },

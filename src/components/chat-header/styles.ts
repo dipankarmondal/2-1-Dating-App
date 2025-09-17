@@ -56,5 +56,10 @@ export const ChatHeaderStyles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         backgroundColor:Colors.dt_gray + "33"
+    },
+    dt_profile_box:{
+        flexDirection:"row",
+        alignItems:"center",
+        gap:ms(10)
     }
 })

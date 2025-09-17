@@ -16,6 +16,7 @@ export type RootStackParamList = {
   BusinessSignupScreen: undefined;
   ProfileScreen: undefined;
   ChatScreen: undefined;
+  ChatInfoScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

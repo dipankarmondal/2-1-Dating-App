@@ -12,7 +12,7 @@ import { ProfileSetupStyles as styles } from './styles'
 
 /** Liabary*/
 import { useForm, useWatch } from 'react-hook-form'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 
 /**Components */
@@ -23,6 +23,7 @@ import DatePickerInput from '../../../components/form-utils/datepicker-input'
 import ChooseIntrestInput from '../../../components/form-utils/choose-intrest-input/ChooseIntrestInput'
 import ImagePickerChoose from '../../../components/form-utils/image-picker-choose/ImagePickerChoose'
 import SubmitButton from '../../../components/submit-button'
+import { GetUser } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Main export*/
 const ProfileSetup: React.FC = () => {
@@ -42,10 +43,16 @@ const ProfileSetup: React.FC = () => {
         name: "mode",
     });
 
+    const { data } = useQuery({
+        queryKey: ['GetUser'],
+        queryFn: () => GetUser(Token),
+        enabled: !!Token,
+    })
+
     const ProfileSetUpMutation = useMutation({
         mutationFn: (data: any) => UpdateProfileSetup(Token, data),
         onSuccess: (res) => {
-            console.log("object", res);
+            console.log("ProfileSetUpMutation", res);
             if (res?.success === true) {
                 QueryInvalidater.invalidateQueries({ queryKey: ['GetProfile'] });
                 toast("success", { title: res?.message });
@@ -59,6 +66,7 @@ const ProfileSetup: React.FC = () => {
             sexuality: data?.your_sex,
             dateOfBirth: data?.your_dob,
             interestedIn: data?.intrest,
+            // phone:"9988776655",
             address: {
                 city: data?.city,
                 state: data?.state,

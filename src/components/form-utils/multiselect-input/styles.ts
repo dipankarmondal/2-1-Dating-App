@@ -34,7 +34,7 @@ export const MultiSelectInputStyles = StyleSheet.create({
     },
     optionText: {
         fontSize: ms(16),
-        color: Colors.dt_border,
+        color: Colors.dt_white,
         fontFamily: Fonts.Font_600
     },
     iconWrapper: {

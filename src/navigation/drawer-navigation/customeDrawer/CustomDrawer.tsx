@@ -38,6 +38,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
         queryFn: () => GetUser(Token),
         enabled: !!Token,
     })
+    
 
     return (
         <View style={{ flex: 1 }}>

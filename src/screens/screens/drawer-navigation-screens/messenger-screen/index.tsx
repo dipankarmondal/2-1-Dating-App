@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, TextInput, ScrollView, TouchableOpacity, } from 'react-native'
+import { View, TextInput, ScrollView, TouchableOpacity, } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
@@ -8,25 +8,28 @@ import { CommonStyles } from '../../common/CommonStyle'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
 import { Colors } from '../../../../utils/constant/Constant'
-import { chats, MessengerItems } from '../../../../components/common/helper'
+import { MessengerItems } from '../../../../components/common/helper'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
 import TopMenu from '../../../../components/top-menu'
 import MessageList from '../../../../components/message-list/MessageList'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
+import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
 
 /**Icons*/
 import SearchIcon from '@svgs/search.svg'
-import DeleteIcon from '@svgs/delete.svg'
-import ViewIcon from '@svgs/setting/views.svg'
-import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
+import FilterIcon from '@svgs/filter.svg'
+import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
+import { chats, createModalBtn, groupMessages, optionsData } from './helper'
+import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
 
 /**Local Import*/
 const MessengerScreen: React.FC = () => {
     const [activeKey, setActiveKey] = useState("messenger");
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showFilterModal, setShowFilterModal] = useState(false);
     const [selectedChat, setSelectedChat] = useState<{ id: string; name: string } | null>(null);
 
     const handleMorePress = (id: string, name: string) => {
@@ -38,6 +41,18 @@ const MessengerScreen: React.FC = () => {
         setShowDropdown(false);
         setTimeout(() => setShowDeleteModal(true), 300);
     }
+
+    const handlers: Record<string, () => void> = {
+        "Pin": () => console.log("Pin Clicked"),
+        "Unread": () => console.log("Unread Clicked"),
+        "Mute": () => console.log("Mute Clicked"),
+        "Archive": () => console.log("Archive Clicked"),
+        "Move to Folder": () => console.log("Move to Folder Clicked"),
+        "View Profile": () => console.log("View Profile Clicked"),
+        "Delete Chat": () => DeleteBtnClick(),
+        "Block": () => console.log("Block Clicked"),
+        "Report": () => console.log("Report Clicked"),
+    };
     return (
         <ScreenLayout>
             <TopMenu {...{
@@ -55,16 +70,36 @@ const MessengerScreen: React.FC = () => {
                             style={styles.dt_search_input}
                             selectionColor={Colors.dt_white}
                         />
+                        <TouchableOpacity style={styles.dt_filter_wrapper} onPress={() => setShowFilterModal(true)}>
+                            <FilterIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                        </TouchableOpacity>
                     </View>
-                    {chats.map((chat) => (
-                        <MessageList
-                            key={chat.id}
-                            {...{
-                                chat,
-                                onMorePress: handleMorePress
-                            }}
-                        />
-                    ))}
+                    {
+                        activeKey === "messenger" ? (
+                            chats.map((chat) => (
+                                <MessageList
+                                    key={chat.id}
+                                    {...{
+                                        chat,
+                                        onMorePress: handleMorePress,
+                                        type:"single"
+                                    }}
+                                />
+                            ))
+                        ) : (
+                            groupMessages?.map((chat) => (
+                                <MessageList
+                                    key={chat.id}
+                                    {...{
+                                        chat,
+                                        onMorePress: handleMorePress,
+                                        type:"group"
+                                    }}
+                                />
+                            ))
+                        )
+
+                    }
                 </View>
             </ScrollView>
             <ModalAction
@@ -73,14 +108,16 @@ const MessengerScreen: React.FC = () => {
                 headerText={`${selectedChat?.name}` || "--"}
             >
                 <View style={styles.dt_buttons_wrapper}>
-                    <TouchableOpacity style={styles.dt_buttons}>
-                        <ViewIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
-                        <Text style={[styles.dt_btn_text, { color: Colors.dt_white }]}>View Profile</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.dt_buttons} onPress={DeleteBtnClick}>
-                        <DeleteIcon {...IconProps(ms(17))} fill={Colors.dt_error} />
-                        <Text style={[styles.dt_btn_text, { color: Colors.dt_error }]}>Delete Chat</Text>
-                    </TouchableOpacity>
+                    {createModalBtn(handlers)?.map((item, index) => {
+                        return (
+                            <ModalButtons
+                                key={index}
+                                {...{
+                                    item
+                                }}
+                            />
+                        )
+                    })}
                 </View>
             </ModalAction>
             <ModalAction
@@ -100,6 +137,26 @@ const MessengerScreen: React.FC = () => {
                         }
                     }}
                 />
+            </ModalAction>
+            <ModalAction
+                isModalVisible={showFilterModal}
+                setModalVisible={setShowFilterModal}
+                type="message"
+            >
+                <View style={styles.dt_buttons_wrapper}>
+                    {
+                        optionsData?.map((item, index) => {
+                            return (
+                                <ModalMultiSelecter
+                                    key={index}
+                                    {...{
+                                        item
+                                    }}
+                                />
+                            )
+                        })
+                    }
+                </View>
             </ModalAction>
         </ScreenLayout>
     )

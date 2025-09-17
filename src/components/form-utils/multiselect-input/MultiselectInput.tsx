@@ -70,8 +70,8 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({ name, parent, contr
                                         <View style={styles.iconWrapper}>
                                             {
                                                 checked ?
-                                                    <CheckIcon {...IconProps(ms(18))} fill={Colors.dt_border} /> :
-                                                    <UnCheckIcon {...IconProps(ms(18))} fill={Colors.dt_gray + "33"} />
+                                                    <CheckIcon {...IconProps(ms(18))} fill={Colors.dt_white} /> :
+                                                    <UnCheckIcon {...IconProps(ms(18))} fill={Colors.dt_gray + "80"} />
                                             }
                                         </View>
                                     </TouchableOpacity>

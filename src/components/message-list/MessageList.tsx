@@ -9,10 +9,11 @@ import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     chat: any,
-    onMorePress?: any
+    onMorePress?: any,
+    type: any
 }
 
-const MessageList: React.FC<Props> = ({ chat, onMorePress }) => {
+const MessageList: React.FC<Props> = ({ chat, onMorePress,type }) => {
 
     const Navigation = useNavigation<any>()
 
@@ -21,13 +22,12 @@ const MessageList: React.FC<Props> = ({ chat, onMorePress }) => {
             <TouchableOpacity
                 style={styles.dt_messenger_wrapper}
                 activeOpacity={0.7}
-                onPress={() => Navigation.navigate("ChatScreen", { chat: chat })}
+                onPress={() => Navigation.navigate("ChatScreen", { chat: chat, type: type })}
             >
                 <View style={styles.dt_image_container}>
-                    <Image source={chat.image} style={styles.dt_image} />
+                    <Image source={{ uri: chat.image }} style={styles.dt_image} />
                     <View style={styles.dt_status_overlay}/>
                 </View>
-
                 <View style={styles.dt_text_container}>
                     <View style={styles.dt_text_wrapper}>
                         <View style={styles.dt_name_wrapper}>

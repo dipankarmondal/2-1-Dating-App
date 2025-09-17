@@ -4,7 +4,7 @@ import { ms } from "react-native-size-matters";
 
 export const LogoutContentStyles = StyleSheet.create({
     dt_logout_text: {
-        fontSize: ms(18),
+        fontSize: ms(17),
         marginBottom: ms(20),
         textAlign:"center",
         color: Colors.dt_white,
@@ -18,7 +18,8 @@ export const LogoutContentStyles = StyleSheet.create({
         paddingHorizontal: 25,
         borderRadius: 8,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width:"48%"
     },
     dt_cancel_button: {
         backgroundColor: Colors.dt_gray + "33",
@@ -26,7 +27,8 @@ export const LogoutContentStyles = StyleSheet.create({
         paddingHorizontal: 25,
         borderRadius: 8,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width:"48%"
     },
     dt_button_container: {
         flexDirection: 'row',
@@ -34,7 +36,7 @@ export const LogoutContentStyles = StyleSheet.create({
     },
     dt_btn_text:{
         fontFamily:Fonts.Font_700,
-        fontSize:ms(16),
+        fontSize:ms(15),
         color:Colors.dt_white
     },
 })

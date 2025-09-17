@@ -362,15 +362,6 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             selectionData:ReferalOptions
         },
         {
-            name: 'about_you',
-            parent: 'business_signup',
-            type: "textarea",
-            label: false,
-            styles: FormStyle,
-            control: control,
-            placeholder: true,
-        },
-        {
             name: 'additionalInfo',
             parent: 'business_signup',
             type: "textarea",

@@ -60,7 +60,8 @@ export type ScreenLayoutProps = {
     children: React.ReactNode,
     setUpdateKey?: React.Dispatch<React.SetStateAction<string | null>>
     type?: string,
-    title?: string
+    title?: string,
+    headerChildren?: React.ReactNode; 
 }
 
 export type HeaderIconProps = {
