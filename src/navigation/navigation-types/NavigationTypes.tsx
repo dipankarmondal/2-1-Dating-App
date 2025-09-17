@@ -34,7 +34,7 @@ export type LoginScreenNavigationProp = StackNavigation<"LoginScreen">;
 
 export type DrawerParamList = {
   FeedScreen: undefined;
-  MessengerScreen: undefined;
+  MessengerScreen: undefined; 
   SettingsScreen: undefined;
   ViewMeScreen: undefined;
   OnlineNowScreen: undefined;
@@ -42,6 +42,16 @@ export type DrawerParamList = {
   ChatroomScreen: undefined;
   LivestreamScreen: undefined;
   NewMemberScreen: undefined;
+  PartiesEventsScreen: undefined;
+  VideoScreen: undefined;
+  TravelDateScreen: undefined;
+  CertificationsScreen: undefined;
+  WallOfFameScreen: undefined;
+  GroupsScreen: undefined;
+  FeaturedMembersScreen: undefined;
+  ContestsScreen: undefined;
+  AddVacationsRentalScreen: undefined;
+  TwoPlusOneScreen: undefined;
 };
 
 export const Drawer = createDrawerNavigator<DrawerParamList>();
