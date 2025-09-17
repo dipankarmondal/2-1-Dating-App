@@ -9,6 +9,7 @@ import OnlineIcon from '@svgs/appicon/user_online.svg';
 import LiveIcon from '@svgs/appicon/live.svg';
 import FireIcon from '@svgs/drawericon/fire.svg';
 import ChatroomIcon from '@svgs/drawericon/chatroom.svg';
+import InviteIcon from '@svgs/setting/invite.svg';
 
 /**Local imports*/
 import { DrawerScreenType } from "../../utils/types/types";
@@ -21,6 +22,7 @@ import OnlineNowScreen from "../../screens/screens/drawer-navigation-screens/onl
 import HotDateScreen from "../../screens/screens/drawer-navigation-screens/hot-date-screen";
 import ChatroomScreen from "../../screens/screens/drawer-navigation-screens/chatroom-screen";
 import LivestreamScreen from "../../screens/screens/drawer-navigation-screens/livestream-screen";
+import NewMemberScreen from "../../screens/screens/drawer-navigation-screens/new-member-screen";
 
 export const DrawerScreens: DrawerScreenType[] = [
     {
@@ -70,6 +72,13 @@ export const DrawerScreens: DrawerScreenType[] = [
         component: LivestreamScreen,
         label: 'Live Stream',
         Icon:LiveIcon,
+        size: ms(16),
+    },
+    {
+        name: 'NewMemberScreen',
+        component: NewMemberScreen,
+        label: 'New Member',
+        Icon:InviteIcon,
         size: ms(16),
     },
 ]

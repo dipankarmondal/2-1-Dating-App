@@ -62,7 +62,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             </TouchableOpacity>
             {/* Drawer Items */}
             <ScrollView style={{ flex: 1, paddingTop: ms(5) }}>
-                <View style={{ gap: ms(5), paddingHorizontal: ms(10) }}>
+                <View style={{ gap: ms(5), padding: ms(10) }}>
                     {state.routes.map((route, index) => {
                         const isFocused = state.index === index;
                         const { drawerLabel, drawerIcon } = descriptors[route.key].options;

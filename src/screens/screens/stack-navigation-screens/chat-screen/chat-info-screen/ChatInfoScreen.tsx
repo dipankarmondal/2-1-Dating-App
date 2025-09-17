@@ -23,9 +23,36 @@ type Props = {
     route: any
 }
 
+type MemberItemProps = {
+  name: string;
+  location: string;
+  index?: number;
+};
+
 const ChatInfoScreen: React.FC<Props> = ({ route }) => {
     const { chat, type } = route.params || {}
     const [showLeaveModal, setShowLeaveModal] = useState(false);
+
+    const MemberItem: React.FC<MemberItemProps> = ({ name, location, index, }) => (
+        <TouchableOpacity
+            key={index}
+            style={styles.dt_messenger_wrapper}
+            activeOpacity={0.7}
+        >
+            <View style={styles.dt_image_container}>
+                <Image source={require('@images/dummy.png')} style={styles.dt_image} />
+            </View>
+            <View style={styles.dt_text_container}>
+                <View style={styles.dt_name_wrapper}>
+                    <Text style={styles.dt_name}>{name}</Text>
+                </View>
+                <View style={styles.dt_location_wrapper}>
+                    <LocationIcon {...IconProps(ms(11))} fill={Colors.dt_gray} />
+                    <Text style={styles.dt_text}>{location}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
 
     return (
         <ScreenLayout
@@ -46,48 +73,22 @@ const ChatInfoScreen: React.FC<Props> = ({ route }) => {
                 })
             }}
         >
-            <ScrollView contentContainerStyle={{flexGrow:1}}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={CommonStyles.dt_container}>
                     <Text style={styles.dt_admin_text}>Admin</Text>
-                    <TouchableOpacity
-                        style={styles.dt_messenger_wrapper}
-                        activeOpacity={0.7}
-                    >
-                        <View style={styles.dt_image_container}>
-                            <Image source={require('@images/dummy.png')} style={styles.dt_image} />
-                        </View>
-                        <View style={styles.dt_text_container}>
-                            <View style={styles.dt_name_wrapper}>
-                                <Text style={styles.dt_name}>ONENOGHTLOVE</Text>
-                            </View>
-                            <View style={styles.dt_location_wrapper}>
-                                <LocationIcon {...IconProps(ms(11))} fill={Colors.dt_gray} />
-                                <Text style={styles.dt_text}>Hyderabad, IND</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                    <MemberItem name="ONENOGHTLOVE" location="Hyderabad, IND" />
+
                     <View style={styles.dt_line} />
-                    <Text style={styles.dt_admin_text}>Members(20)</Text>
+                    <Text style={styles.dt_admin_text}>Members (20)</Text>
+
                     <View style={{ gap: ms(16) }}>
                         {Array.from({ length: 10 }).map((_, index) => (
-                            <TouchableOpacity
+                            <MemberItem
                                 key={index}
-                                style={styles.dt_messenger_wrapper}
-                                activeOpacity={0.7}
-                            >
-                                <View style={styles.dt_image_container}>
-                                    <Image source={require('@images/dummy.png')} style={styles.dt_image} />
-                                </View>
-                                <View style={styles.dt_text_container}>
-                                    <View style={styles.dt_name_wrapper}>
-                                        <Text style={styles.dt_name}>ONENOGHTLOVE {index + 1}</Text>
-                                    </View>
-                                    <View style={styles.dt_location_wrapper}>
-                                        <LocationIcon {...IconProps(ms(11))} fill={Colors.dt_gray} />
-                                        <Text style={styles.dt_text}>Hyderabad, IND</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
+                                name={`ONENOGHTLOVE ${index + 1}`}
+                                location="Hyderabad, IND"
+                                index={index}
+                            />
                         ))}
                     </View>
                 </View>
