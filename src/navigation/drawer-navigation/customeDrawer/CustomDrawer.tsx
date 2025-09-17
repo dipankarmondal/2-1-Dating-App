@@ -38,7 +38,6 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
         queryFn: () => GetUser(Token),
         enabled: !!Token,
     })
-    
 
     return (
         <View style={{ flex: 1 }}>
@@ -46,7 +45,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
             <TouchableOpacity style={styles.header} activeOpacity={0.7}>
                 <View style={styles.sa_avatar}>
                     <Image
-                        source={require('@images/user.png')}
+                        source={data?.data?.profile?.photos ? { uri: data?.data?.profile?.photos[0] } : require('@images/user.png')}
                         style={styles.sa_img}
                     />
                 </View>

@@ -34,7 +34,6 @@ const NewMemberScreen: React.FC = () => {
                     <Text style={[CommonStyles.dt_filter_text, { color: Colors.dt_error }]}>Filter</Text>
                 </TouchableOpacity>
             </ScreenHeader>
-
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View style={CommonStyles.dt_container}>
                     

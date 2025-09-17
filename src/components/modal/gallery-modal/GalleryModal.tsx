@@ -1,15 +1,16 @@
+/**React Imports */
 import { View, Text, Modal } from 'react-native'
 import React, { useState } from 'react'
+
+/**Local imports*/
 import { GalleryModalStyles as styles } from './styles'
+import { GalleryModalProps } from '../../../utils/types/types';
+
+/** Liabary*/
 import Gallery from 'react-native-awesome-gallery';
 
-type Props = {
-    visible: boolean,
-    setVisible: any,
-    photos: any
-}
-
-const GalleryModal: React.FC<Props> = ({ visible, setVisible, photos }) => {
+/**Main export*/
+const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos }) => {
     const [index, setIndex] = useState(0);
 
     const images = [
@@ -27,13 +28,13 @@ const GalleryModal: React.FC<Props> = ({ visible, setVisible, photos }) => {
                         Swipe down to close
                     </Text>
                     <Text style={styles.dt_banner_text}>
-                        {index + 1} / {images.length}
+                        {index + 1} / {photos?.length}
                     </Text>
                 </View>
 
                 {/* Gallery */}
                 <Gallery
-                    data={images}
+                    data={photos ?? images}
                     initialIndex={index}
                     onIndexChange={(i) => setIndex(i)}
                     onSwipeToClose={() => setVisible(false)}

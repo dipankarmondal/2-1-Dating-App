@@ -25,9 +25,9 @@ export type LoginForm = {
 }
 
 export type SubmitButtonProps = {
-  text: string,
-  loading?: boolean,
-  onPress: () => void,
+    text: string,
+    loading?: boolean,
+    onPress: () => void,
 }
 
 export type AuthProps = {
@@ -38,22 +38,22 @@ export type AuthProps = {
     isSubtext?: boolean
 }
 
-export type CheckTypes= {
-  control: any;
-  setValue?: (name: string, value: boolean) => void;
-  isChecked: boolean;
-  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-  errorMessage?: string;
-  name: string,
-  text: string
+export type CheckTypes = {
+    control: any;
+    setValue?: (name: string, value: boolean) => void;
+    isChecked: boolean;
+    setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+    errorMessage?: string;
+    name: string,
+    text: string
 }
 
 export type DrawerScreenType = {
-  name: keyof DrawerParamList;
-  component: React.ComponentType<any>;
-  label: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  size: number;
+    name: keyof DrawerParamList;
+    component: React.ComponentType<any>;
+    label: string;
+    Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    size: number;
 }
 
 export type ScreenLayoutProps = {
@@ -61,7 +61,7 @@ export type ScreenLayoutProps = {
     setUpdateKey?: React.Dispatch<React.SetStateAction<string | null>>
     type?: string,
     title?: string,
-    headerChildren?: React.ReactNode; 
+    headerChildren?: React.ReactNode;
 }
 
 export type HeaderIconProps = {
@@ -81,8 +81,8 @@ export type ModalActionProps = {
 export type ModalContentProps = {
     setModal: (value: boolean) => void,
     title: string,
-    successText:string,
-    cancelText:string,
+    successText: string,
+    cancelText: string,
     onSuccess?: () => void
 }
 
@@ -103,32 +103,32 @@ export type ModeInputProps = {
 }
 
 export type DropdownInputProps = {
-  name: string;
-  parent?: string;
-  control: any;
-  Data?: any,
-  styles?: any,
-  label?: boolean,
-  selectionData?: any,
-  isEditable?: boolean,
-  isCart?: boolean
+    name: string;
+    parent?: string;
+    control: any;
+    Data?: any,
+    styles?: any,
+    label?: boolean,
+    selectionData?: any,
+    isEditable?: boolean,
+    isCart?: boolean
 }
 export type SuggestionBoxProps = {
-  showDropdown: boolean,
-  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>,
-  filteredProducts: any[],
-  value: string,
-  onChange: (value: string) => void,
-  searchText: string,
-  setSearchText: React.Dispatch<React.SetStateAction<string>>
+    showDropdown: boolean,
+    setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>,
+    filteredProducts: any[],
+    value: string,
+    onChange: (value: string) => void,
+    searchText: string,
+    setSearchText: React.Dispatch<React.SetStateAction<string>>
 }
 
 export type DatePickerInputProps = {
-  name: string;
-  parent: string;
-  control: any;
-  type: string,
-  label?: boolean,
+    name: string;
+    parent: string;
+    control: any;
+    type: string,
+    label?: boolean,
 }
 
 export type ChooseIntrestInputProps = {
@@ -155,12 +155,12 @@ export type MultiselectInputProps = {
 }
 
 export type SearchBoxProps = {
-  setSearchText: (text: string) => void,
-  searchText: string,
-  type?: string,
-  activeKey?: string,
-  levelOptions?: any[],
-  onLevelSelect?: any
+    setSearchText: (text: string) => void,
+    searchText: string,
+    type?: string,
+    activeKey?: string,
+    levelOptions?: any[],
+    onLevelSelect?: any
 }
 
 export type ScreenHeaderProps = {
@@ -191,7 +191,8 @@ export type UserInfoCardProps = {
     item?: any,
     isOption?: boolean,
     isUserContent?: boolean,
-    isFilterOption?: boolean
+    isFilterOption?: boolean,
+    isGallery?: boolean
 }
 
 export type MulteImageProps = {
@@ -200,7 +201,9 @@ export type MulteImageProps = {
     image: any[],
     isOption?: boolean,
     type?: string,
-    isFilterOption?: boolean
+    isFilterOption?: boolean,
+    isGallery?: boolean,
+    setVisible?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type MenuItems = {
@@ -220,4 +223,10 @@ export type TopMenuProps = {
     activeKey: string,
     setActiveKey: React.Dispatch<React.SetStateAction<string>>
     isTwoItem?: boolean
+}
+
+export type GalleryModalProps = {
+    visible: boolean,
+    setVisible: any,
+    photos: any
 }

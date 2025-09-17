@@ -28,13 +28,13 @@ import Information from '../../modal/modal-content/information/Information'
 /** Liabary*/
 import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
+import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent,isFilterOption }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent,isFilterOption,isGallery }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [DropdownType, setDropdownType] = useState('');
-    console.log("fasdfasd", DropdownType)
-
+    const [visible, setVisible] = useState(false);
 
     const Navigation = useNavigation<any>()
     const images = [
@@ -65,7 +65,9 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 image: item?.profile?.photos ?? images,
                                 isOption,
                                 type,
-                                isFilterOption
+                                isFilterOption,
+                                isGallery,
+                                setVisible,
                             }}
                         />
                     )
@@ -210,6 +212,13 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                     }}
                 />
             </ModalAction>
+            <GalleryModal
+                {...{
+                    visible: visible,
+                    setVisible: setVisible,
+                    photos: item?.profile?.photos ?? images
+                }}
+            />
         </View>
     )
 }

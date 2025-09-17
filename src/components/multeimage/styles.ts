@@ -59,5 +59,10 @@ export const MulteImageStyles = StyleSheet.create({
         borderRadius:ms(50),
         alignItems:"center",
         justifyContent:"center"
+    },
+    dt_btn_container:{
+        flexDirection:"row",
+        justifyContent:"flex-end",
+        gap:ms(10)
     }
 })

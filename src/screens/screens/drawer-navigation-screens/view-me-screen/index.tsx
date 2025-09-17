@@ -42,14 +42,16 @@ const ViewMeScreen: React.FC = () => {
                         {...{
                             isMore: true,
                             isOption: true,
-                            isFilterOption:false
+                            isFilterOption:false,
+                            isGallery: true
                         }}
                     />
                     <UserInfoCard
                         {...{
                             isMore: true,
                             isOption: true,
-                            isFilterOption:false
+                            isFilterOption:false,
+                            isGallery: true
                         }}
                     />
                 </View>

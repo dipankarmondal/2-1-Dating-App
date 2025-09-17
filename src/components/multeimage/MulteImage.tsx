@@ -5,6 +5,7 @@ import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms } from '../../utils/helpers/responsive'
 import { Colors } from '../../utils/constant/Constant'
 import DotIcon from '@svgs/dots-vertical.svg'
+import GalleryIcon from '@svgs/gallery.svg'
 import LeftIcon from '@svgs/angle-small-left.svg'
 import RightIcon from '@svgs/angle-small-right.svg'
 import MessengerIcon from '@svgs/messenger.svg'
@@ -25,7 +26,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     </TouchableOpacity>
 );
 
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type,isFilterOption }) => {
+const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -90,15 +91,26 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
     return (
         <View style={styles.dt_image_overlay}>
             {/* Dot menu button */}
-            {
-                isOption &&
-                <TouchableOpacity
-                    style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
-                    onPress={toggleMenu}
-                >
-                    <DotIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
-                </TouchableOpacity>
-            }
+            <View style={styles.dt_btn_container}>
+                {
+                    isGallery &&
+                    <TouchableOpacity
+                        style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
+                        onPress={() => setVisible(true)}
+                    >
+                        <GalleryIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
+                    </TouchableOpacity>
+                }
+                {
+                    isOption &&
+                    <TouchableOpacity
+                        style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
+                        onPress={toggleMenu}
+                    >
+                        <DotIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
+                    </TouchableOpacity>
+                }
+            </View>
 
             {/* Menus */}
             {menuVisible && (subMenuVisible ? renderSubMenu() : renderMenu())}
