@@ -9,10 +9,10 @@ export const LoginSchema = yup.object().shape({
     password: yup
         .string()
         .required(FormFields.login.password.errors.required)
-        .matches(
-            new RegExp(FormFields.login.password.errors.pattern.value),
-            FormFields.login.password.errors.pattern.message
-        ),
+        // .matches(
+        //     new RegExp(FormFields.login.password.errors.pattern.value),
+        //     FormFields.login.password.errors.pattern.message
+        // ),
 });
 export const RegisterSchema = yup.object().shape({
     username: yup

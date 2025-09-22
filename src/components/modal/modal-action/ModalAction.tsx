@@ -12,6 +12,7 @@ import { ms } from '../../../utils/helpers/responsive'
 /**Icons*/
 import CrossIcon from '@svgs/cross.svg'
 import ShareIcon from '@svgs/share.svg'
+import SubmitButton from '../../submit-button'
 
 /**Main export*/
 const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type, onShare }) => {
@@ -54,11 +55,20 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
                         )
                     }
                     <ScrollView
-                        contentContainerStyle={{ padding: ms(16), flexGrow: 1 }}
+                        contentContainerStyle={{ padding: ms(16, ),paddingBottom: ms(70), flexGrow: 1 }}
                         showsVerticalScrollIndicator={false}
                     >
                         {children}
                     </ScrollView>
+                    <View style={styles.submitButton}>
+                        <SubmitButton
+                            {...{
+                                text: "Submit",
+                                loading: false,
+                                onPress: () => { setModalVisible(false) }
+                            }}
+                        />
+                    </View>
                 </View>
             </View>
         </Modal>

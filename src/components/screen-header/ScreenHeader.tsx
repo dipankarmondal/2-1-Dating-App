@@ -21,7 +21,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ children, filterData, showS
             <View style={styles.dt_container}>
                 {children}
             </View>
-            {showSuggestions && (
+            {/* {showSuggestions && (
                 <View style={styles.suggestionBox}>
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }} nestedScrollEnabled>
                         {filterData?.map((item) => (
@@ -42,7 +42,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ children, filterData, showS
                         ))}
                     </ScrollView>
                 </View>
-            )}
+            )} */}
         </>
     );
 };

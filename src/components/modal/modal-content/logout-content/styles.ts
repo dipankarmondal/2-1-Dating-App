@@ -36,7 +36,7 @@ export const LogoutContentStyles = StyleSheet.create({
     },
     dt_btn_text:{
         fontFamily:Fonts.Font_700,
-        fontSize:ms(15),
+        fontSize:ms(14),
         color:Colors.dt_white
     },
 })

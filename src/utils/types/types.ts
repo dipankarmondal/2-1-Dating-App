@@ -230,3 +230,10 @@ export type GalleryModalProps = {
     setVisible: any,
     photos: any
 }
+
+export type ModalSelectContentProps = {
+    filterData: any,
+    setModalVisible: any,
+    selected: any,
+    setSelected: any
+}

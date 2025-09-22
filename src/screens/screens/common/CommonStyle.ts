@@ -56,7 +56,7 @@ export const CommonStyles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: ms(8),
         paddingVertical: ms(7),
-        marginTop:ms(2)
+        marginTop: ms(2)
     },
     dt_filter_text: {
         fontFamily: Fonts.Font_600,
@@ -67,6 +67,15 @@ export const CommonStyles = StyleSheet.create({
         fontFamily: Fonts.Font_700,
         fontSize: ms(17),
         color: Colors.dt_white,
-        textTransform:"capitalize"
+        textTransform: "capitalize"
     },
+    submitButton: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        padding: 16,
+        backgroundColor: "white", // or your modal background
+        borderTopWidth: 1,
+        borderTopColor: "#ccc",
+    }
 })

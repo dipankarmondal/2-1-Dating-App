@@ -13,14 +13,17 @@ import { ms } from '../../../../utils/helpers/responsive'
 import ScreenLayout from '../../common/ScreenLayout'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import Notification from './Notification'
+import ModalAction from '../../../../components/modal/modal-action/ModalAction'
+import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 
 /**Main export*/
 const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
     const [activeKey, setActiveKey] = React.useState("feed");
-    const [activeFilter, setActiveFilter] = useState<"general" | "friend" | null>(null);
-    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [filterType, setFilterType] = useState<"general" | "friend" | null>(null);
+    const [selected, setSelected] = useState<string>("");
 
-    const menuItems = activeFilter === "general" ? GeneralItems : activeFilter === "friend" ? FrindItems : [];
+    // const menuItems = activeFilter === "general" ? GeneralItems : activeFilter === "friend" ? FrindItems : [];
 
     const { key } = route.params || {}
 
@@ -45,17 +48,10 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
         );
     };
 
-    const renderFilterButton = (label: string, type: "general" | "friend", color?: string) => (
-        <TouchableOpacity
-            style={[commonstyle.dt_filter, color && { borderColor: color, marginLeft:ms(-15) }]}
-            onPress={() => {
-                setActiveFilter(type);
-                setShowSuggestions((prev) => !prev);
-            }}
-        >
-            <Text style={[commonstyle.dt_filter_text, color && { color }]}>{label}</Text>
-        </TouchableOpacity>
-    );
+    const handleFilterPress = (type: "general" | "friend") => {
+        setShowDropdown(true);
+        setFilterType(type);
+    }
 
     return (
         <ScreenLayout
@@ -64,16 +60,16 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                 type: "feed"
             }}
         >
-            <ScreenHeader
-                {...{
-                    filterData: menuItems,
-                    showSuggestions,
-                    setShowSuggestions
-                }}
-            >
+            <ScreenHeader>
                 <View style={commonstyle.dt_header}>{HeaderBtn.map(renderTab)}</View>
-                {renderFilterButton("General Filter", "general")}
-                {renderFilterButton("Friend Filter", "friend", Colors.dt_error)}
+                <TouchableOpacity style={commonstyle.dt_filter} onPress={() => handleFilterPress("general")}>
+                    <Text style={commonstyle.dt_filter_text}>General Filter</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[commonstyle.dt_filter, { borderColor: Colors.dt_error, marginLeft: ms(-15) }]}
+                    onPress={() => handleFilterPress("friend")}
+                >
+                    <Text style={[commonstyle.dt_filter_text, { color: Colors.dt_error }]}>Friend Filter</Text>
+                </TouchableOpacity>
             </ScreenHeader>
 
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -85,7 +81,22 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                     }
                 </View>
             </ScrollView>
-        </ScreenLayout>
+            <ModalAction
+                isModalVisible={showDropdown}
+                setModalVisible={setShowDropdown}
+                headerText="Filters"
+                type="filters"
+            >
+                <ModalSelectContent
+                    {...{
+                        filterData: filterType === "general" ? GeneralItems : FrindItems,
+                        setModalVisible:setShowDropdown,
+                        selected: selected,
+                        setSelected: setSelected
+                    }}
+                />
+            </ModalAction>
+        </ScreenLayout> 
     )
 }
 
