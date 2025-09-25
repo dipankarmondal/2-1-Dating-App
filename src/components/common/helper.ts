@@ -216,6 +216,14 @@ export const ViewMeOptions = [
     { key: "transgender", value: "Transgender" },
     { key: "business", value: "Business" }
 ];
+export const OnlineOptions = [
+    { key: "couples", value: "Couples" },
+    { key: "female", value: "Female" },
+    { key: "male", value: "Male" },
+    { key: "business", value: "Business" },
+    { key: "transgender", value: "Transgender" },
+    { key: "looking", value: "Looking for me / us" },
+];
 
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },

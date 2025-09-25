@@ -1,9 +1,8 @@
 /**React Imports */
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
-import { ViewMeScreenStyles as styles } from './styles'
 import { CommonStyles as commonstyle } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
 import { ViewMeOptions } from '../../../../components/common/helper'
@@ -14,12 +13,22 @@ import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
-import SubmitButton from '../../../../components/submit-button'
+
+/** Liabary*/
+import { useIsFocused } from '@react-navigation/native'
 
 /**Main export*/
 const ViewMeScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
+ 
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            setSelected("");
+        }
+    }, [isFocused]);
 
     return (
         <ScreenLayout>

@@ -22,10 +22,12 @@ import ModalAction from '../../../components/modal/modal-action/ModalAction';
 import ModalContent from '../../../components/modal/modal-content/logout-content/ModalContent';
 import { useQuery } from '@tanstack/react-query';
 import { GetUser } from '../../../utils/api-calls/content-api-calls/ContentApiCall';
+import { useNavigation } from '@react-navigation/native';
 
 /**Main export*/
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, navigation, descriptors }) => {
     const { logout, Token } = useAuth();
+
     const [showDropdown, setShowDropdown] = useState(false)
 
     const handleLogoutConfirm = () => {
@@ -42,7 +44,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
     return (
         <View style={{ flex: 1 }}>
             {/* Header */}
-            <TouchableOpacity style={styles.header} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.header} activeOpacity={0.7} onPress={() => navigation.navigate('ProfileScreen')}>
                 <View style={styles.sa_avatar}>
                     <Image
                         source={data?.data?.profile?.photos ? { uri: data?.data?.profile?.photos[0] } : require('@images/user.png')}
