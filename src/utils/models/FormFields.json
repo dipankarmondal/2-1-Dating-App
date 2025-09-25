@@ -294,5 +294,72 @@
                 "required": "state is required"
             }
         }
+    },
+    "speed_date": {
+        "date": {
+            "label": "Select date",
+            "placeholder": "Select date",
+            "errors": {
+                "required": "date is required"
+            }
+        },
+        "date_type": {
+            "label": "Select type",
+            "placeholder": "Select type",
+            "errors": {
+                "required": "type is required"
+            }
+        },
+        "intrest": {
+            "label": "With",
+            "placeholder": "Select your intrest",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "country": {
+            "label": "Enter your country",
+            "placeholder": "Enter your country",
+            "errors": {
+                "required": "country is required"
+            }
+        },
+        "details": {
+            "label": "Enter your details",
+            "placeholder": "Enter your details",
+            "errors": {
+                "required": "details is required"
+            }
+        }
+    },
+    "chatroom": {
+        "date_type": {
+            "label": "Select type",
+            "placeholder": "Select type",
+            "errors": {
+                "required": "type is required"
+            }
+        },
+        "title": {
+            "label": "Enter your details",
+            "placeholder": "Chatroom title",
+            "errors": {
+                "required": "details is required"
+            }
+        },
+        "block_user": {
+            "label": "Select type",
+            "placeholder": "Block Single Males from entering the chatroom",
+            "errors": {
+                "required": "block user is required"
+            }
+        },
+        "go_live": {
+            "label": "Select type",
+            "placeholder": "Going live ",
+            "errors": {
+                "required": "live user is required"
+            }
+        }
     }
 }

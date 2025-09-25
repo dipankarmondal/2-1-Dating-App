@@ -5,17 +5,30 @@ import { CommonStyles } from '../../common/CommonStyle'
 import { ms } from '../../../../utils/helpers/responsive'
 import { Colors, Fonts } from '../../../../utils/constant/Constant'
 import ChatroomCard from '../../../../components/chatroom-card/ChatroomCard'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
+import { useNavigation } from '@react-navigation/native'
 
 const ChatroomScreen: React.FC = () => {
+    const Navigation = useNavigation<any>()
     return (
         <ScreenLayout>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScreenHeader>
+                <Text style={CommonStyles.dt_header_title}>Chatrooms</Text>
+                <TouchableOpacity style={CommonStyles.dt_speed_date} onPress={() => { Navigation.navigate("AddChatroomScreen") }}>
+                    <Text style={CommonStyles.dt_speed_date_text}>Add Chatroom</Text>
+                </TouchableOpacity>
+            </ScreenHeader>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={() => { }} // just pass refetch here
+            >
                 <View style={CommonStyles.dt_container}>
-                    <ChatroomCard/>
-                    <ChatroomCard/>
-                    <ChatroomCard/>
+                    <ChatroomCard />
+                    <ChatroomCard />
+                    <ChatroomCard />
                 </View>
-            </ScrollView>
+            </ScrollContent>
         </ScreenLayout>
     )
 }

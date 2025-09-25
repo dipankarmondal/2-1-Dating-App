@@ -23,6 +23,8 @@ import ProfileScreen from "../../screens/screens/stack-navigation-screens/profil
 import { GetUser } from "../../utils/api-calls/content-api-calls/ContentApiCall"
 import ChatScreen from "../../screens/screens/stack-navigation-screens/chat-screen"
 import ChatInfoScreen from "../../screens/screens/stack-navigation-screens/chat-screen/chat-info-screen/ChatInfoScreen"
+import SpeedDateScreen from "../../screens/screens/stack-navigation-screens/speed-date-screen"
+import AddChatroomScreen from "../../screens/screens/stack-navigation-screens/add-chatroom-screen"
 
 export const AuthStack = () => {
     return (
@@ -49,6 +51,8 @@ export const MainStack = () => {
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
             <Stack.Screen name="ChatInfoScreen" component={ChatInfoScreen} />
+            <Stack.Screen name="SpeedDateScreen" component={SpeedDateScreen} />
+            <Stack.Screen name="AddChatroomScreen" component={AddChatroomScreen} />
         </Stack.Navigator>
     )
 }

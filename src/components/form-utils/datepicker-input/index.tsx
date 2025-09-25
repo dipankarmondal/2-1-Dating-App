@@ -70,6 +70,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control
                     </View>
                 );
             }}
+            
         />
     );
 };

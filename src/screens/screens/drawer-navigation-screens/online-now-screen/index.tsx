@@ -1,22 +1,30 @@
-import { View, Text, ScrollView, ActivityIndicator, RefreshControl, TouchableOpacity, TextInput } from 'react-native'
-import React, { use, useState } from 'react'
+/**React Imports */
+import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import React, { useEffect, useState } from 'react'
+
+/**Local imports*/
 import { OnlineNowScreenStyles as styles } from './styles'
-import ScreenLayout from '../../common/ScreenLayout'
 import { CommonStyles } from '../../common/CommonStyle'
-import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
-import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { SearchUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { Colors } from '../../../../utils/constant/Constant'
+import { OnlineOptions } from '../../../../components/common/helper'
+
+/**Components */
+import ScreenLayout from '../../common/ScreenLayout'
+import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import NotFound from '../../../../components/notfound/NotFound'
 import Loader from '../../../../components/loader/Loader'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
-import { Colors } from '../../../../utils/constant/Constant'
-import { useIsFocused } from '@react-navigation/native'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
-import { OnlineOptions } from '../../../../components/common/helper'
 
+/** Liabary*/
+import { useQuery } from '@tanstack/react-query'
+import { useIsFocused } from '@react-navigation/native'
+
+/**Main export*/
 const OnlineNowScreen: React.FC = () => {
     const { Token } = useAuth()
     const isFocused = useIsFocused();
@@ -29,6 +37,18 @@ const OnlineNowScreen: React.FC = () => {
         queryFn: () => SearchUser(Token, null, null, true),
         enabled: isFocused && !!Token
     });
+
+    useEffect(() => {
+        if (isFocused) {
+            setSelected("")
+        }
+    }, [isFocused]);
+
+    const OnModalFormClick = () => {
+        setShowDropdown(false);
+        setSelected("");
+        console.log("clicked")
+    };
 
     return (
         <ScreenLayout>
@@ -65,6 +85,9 @@ const OnlineNowScreen: React.FC = () => {
                 setModalVisible={setShowDropdown}
                 headerText="Filters"
                 type="filters"
+                onModalClick={OnModalFormClick}
+                selected={selected}
+                setSelected={setSelected}
             >
                 <ModalSelectContent
                     {...{

@@ -15,7 +15,12 @@ import ShareIcon from '@svgs/share.svg'
 import SubmitButton from '../../submit-button'
 
 /**Main export*/
-const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type, onShare }) => {
+const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisible, children, headerText, type, onShare, onModalClick, selected, setSelected }) => {
+
+    const OnClose = () => {
+        setModalVisible(false);
+        setSelected(null);
+    }
     return (
         <Modal
             visible={isModalVisible}
@@ -23,58 +28,54 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
             transparent={true}
             onRequestClose={() => setModalVisible(false)}
         >
-            <View style={styles.modalOverlay}>
-                {
-                    type === "message" && (
-                        <TouchableOpacity style={styles.ml_messahe_close_button} onPress={() => setModalVisible(false)}>
-                            <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
-                        </TouchableOpacity>
-                    )
-                }
-                <View style={styles.modalContainer}>
-                    {
-                        type !== "message" && (
-                            <View style={styles.ml_modal_header}>
-                                <View style={styles.ml_title_container}>
-                                    <Text style={styles.modalTitle}>{headerText}</Text>
-                                    {
-                                        type === "notification" && (
+            <TouchableWithoutFeedback onPress={OnClose}>
+                <View style={styles.modalOverlay}>
+                    {/* Prevent clicks inside modalContainer from closing */}
+                    <TouchableWithoutFeedback>
+                        <View style={styles.modalContainer}>
+                            {type !== "message" && (
+                                <View style={styles.ml_modal_header}>
+                                    <View style={styles.ml_title_container}>
+                                        <Text style={styles.modalTitle}>{headerText}</Text>
+                                        {type === "notification" && (
                                             <TouchableOpacity style={styles.dt_icon_box} onPress={onShare}>
                                                 <ShareIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
                                             </TouchableOpacity>
-                                        )
-                                    }
+                                        )}
+                                    </View>
+                                    <TouchableOpacity
+                                        style={styles.ml_close_button}
+                                        onPress={OnClose}
+                                    >
+                                        <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                                    </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity
-                                    style={styles.ml_close_button}
-                                    onPress={() => setModalVisible(false)}
-                                >
-                                    <CrossIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }
-                    <ScrollView
-                        contentContainerStyle={{ padding: ms(16,), paddingBottom: type === "filters" && ms(70), flexGrow: 1 }}
-                        showsVerticalScrollIndicator={false}
-                    >
-                        {children}
-                    </ScrollView>
-                    {
-                        type === "filters" && (
-                            <View style={styles.submitButton}>
-                                <SubmitButton
-                                    {...{
-                                        text: "Submit",
-                                        loading: false,
-                                        onPress: () => { setModalVisible(false) }
-                                    }}
-                                />
-                            </View>
-                        )
-                    }
+                            )}
+                            <ScrollView
+                                contentContainerStyle={{
+                                    padding: ms(16),
+                                    paddingBottom: type === "filters" && selected ? ms(70) : 0,
+                                    flexGrow: 1,
+                                }}
+                                showsVerticalScrollIndicator={false}
+                            >
+                                {children}
+                            </ScrollView>
+                            {type === "filters" && selected && (
+                                <View style={styles.submitButton}>
+                                    <SubmitButton
+                                        {...{
+                                            text: "Submit",
+                                            loading: false,
+                                            onPress: onModalClick,
+                                        }}
+                                    />
+                                </View>
+                            )}
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </Modal>
     )
 }

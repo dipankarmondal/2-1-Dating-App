@@ -1,7 +1,7 @@
 import { Control } from "react-hook-form"
 import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
-import { AlreadyMemberOptions, ChooseInterst, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
+import { AlreadyMemberOptions, BlockUserOptions, ChooseInterst, DateTypeOptions, GoliveOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -339,7 +339,7 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             styles: FormStyle,
             control: control,
             placeholder: true,
-            option:PromotionOptions
+            option: PromotionOptions
         },
         {
             name: 'isMember',
@@ -349,7 +349,7 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             styles: FormStyle,
             control: control,
             placeholder: true,
-            selectionData:AlreadyMemberOptions
+            selectionData: AlreadyMemberOptions
         },
         {
             name: 'referal',
@@ -359,7 +359,7 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             styles: FormStyle,
             control: control,
             placeholder: true,
-            selectionData:ReferalOptions
+            selectionData: ReferalOptions
         },
         {
             name: 'additionalInfo',
@@ -370,6 +370,100 @@ export const BusinessSignupBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
         },
-    
+
+    ]
+}
+export const SpeedDateBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'date_type',
+            parent: 'speed_date',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: DateTypeOptions
+        },
+        {
+            name: 'date',
+            parent: 'speed_date',
+            type: "dob",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'intrest',
+            parent: 'speed_date',
+            type: "choose",
+            label: true,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: ChooseInterst
+        },
+        {
+            name: 'country',
+            parent: 'speed_date',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'details',
+            parent: 'speed_date',
+            type: "textarea",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+    ]
+}
+export const ChatroomBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'date_type',
+            parent: 'chatroom',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: DateTypeOptions
+        },
+        {
+            name: 'title',
+            parent: 'chatroom',
+            type: "text",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'block_user',
+            parent: 'chatroom',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: BlockUserOptions
+        },
+        {
+            name: 'go_live',
+            parent: 'chatroom',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: GoliveOptions
+        },
     ]
 }

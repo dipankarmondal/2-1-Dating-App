@@ -65,7 +65,7 @@ export const CommonStyles = StyleSheet.create({
     },
     dt_header_title: {
         fontFamily: Fonts.Font_700,
-        fontSize: ms(17),
+        fontSize: ms(17), 
         color: Colors.dt_white,
         textTransform: "capitalize"
     },
@@ -77,5 +77,23 @@ export const CommonStyles = StyleSheet.create({
         backgroundColor: "white", // or your modal background
         borderTopWidth: 1,
         borderTopColor: "#ccc",
+    },
+    dt_filter_container_btn:{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent:"space-between"
+    },
+    dt_speed_date:{
+        backgroundColor:Colors.dt_card_blue,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:ms(50),
+        padding:ms(8),
+        marginLeft:ms(10)
+    },
+    dt_speed_date_text:{
+        fontFamily:Fonts.Font_600,
+        fontSize:ms(14),
+        color:Colors.dt_white
     }
 })

@@ -75,7 +75,10 @@ export type ModalActionProps = {
     children: React.ReactNode,
     headerText?: string,
     type?: string,
-    onShare?: () => void
+    onShare?: () => void,
+    onModalClick?: () => void,
+    selected?: any,
+    setSelected?: React.Dispatch<React.SetStateAction<any>>
 }
 
 export type ModalContentProps = {
@@ -137,6 +140,7 @@ export type ChooseIntrestInputProps = {
     control: any; // You can replace `any` with the correct type from react-hook-form
     selectionData?: any[];
     label?: boolean;
+    flag?: string
 };
 
 export type ImagePickerChooseProps = {

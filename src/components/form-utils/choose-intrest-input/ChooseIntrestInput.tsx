@@ -11,7 +11,7 @@ import { ChooseIntrestInputProps } from '../../../utils/types/types';
 import { Controller } from 'react-hook-form';
 
 /**Main export*/
-const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, control, selectionData, label }) => {
+const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, control, selectionData, label,flag }) => {
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 
@@ -19,7 +19,7 @@ const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, c
         <Controller
             name={name}
             control={control}
-            defaultValue={["couple"]}    // always array
+            defaultValue={flag === "speed_date" ? [] : ["couple"]}    // always array
             render={({ field: { onChange, value = [] } }) => {
                 const handleSelect = (key: string) => {
                     let newValue = [...value];

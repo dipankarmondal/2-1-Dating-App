@@ -150,6 +150,19 @@ export const SexualityOptions = [
     { key: "gay", value: "Gay" },
     { key: "pansexual", value: "Pansexual" },
 ];
+export const DateTypeOptions = [
+    { key: "private_place", value: "Private Place" },
+    { key: "public_place", value: "Public Place" },
+    { key: "virtual_date", value: "Virtual Date" },
+];
+export const BlockUserOptions = [
+    { key: "yes", value: "Yes" },
+    { key: "no", value: "No" },
+];
+export const GoliveOptions = [
+    { key: "chat_now", value: "ChatNow" },
+    { key: "chat_later", value: "Chat later" },
+];
 
 export const ChooseInterst = [
     { key: "couple", value: "Couple", image: require('@images/couple.png') },
@@ -217,6 +230,7 @@ export const ViewMeOptions = [
     { key: "business", value: "Business" }
 ];
 export const OnlineOptions = [
+    { key: "latest", value: "Latest" },
     { key: "couples", value: "Couples" },
     { key: "female", value: "Female" },
     { key: "male", value: "Male" },

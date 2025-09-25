@@ -21,7 +21,7 @@ import { useIsFocused } from '@react-navigation/native'
 const ViewMeScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
- 
+
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -29,6 +29,12 @@ const ViewMeScreen: React.FC = () => {
             setSelected("");
         }
     }, [isFocused]);
+
+    const OnModalFormClick = () => {
+        setShowDropdown(false);
+        console.log("clicked")
+    };
+
 
     return (
         <ScreenLayout>
@@ -67,6 +73,9 @@ const ViewMeScreen: React.FC = () => {
                 setModalVisible={setShowDropdown}
                 headerText="Filters"
                 type="filters"
+                onModalClick={OnModalFormClick}
+                selected={selected}
+                setSelected={setSelected}
             >
                 <ModalSelectContent
                     {...{

@@ -53,6 +53,12 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
         setFilterType(type);
     }
 
+    const OnModalFormClick = () => {
+        setShowDropdown(false);
+        console.log("clicked")
+        setSelected("");
+    };
+
     return (
         <ScreenLayout
             {...{
@@ -86,17 +92,20 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                 setModalVisible={setShowDropdown}
                 headerText="Filters"
                 type="filters"
+                onModalClick={OnModalFormClick}
+                selected={selected}
+                setSelected={setSelected}
             >
                 <ModalSelectContent
                     {...{
                         filterData: filterType === "general" ? GeneralItems : FrindItems,
-                        setModalVisible:setShowDropdown,
+                        setModalVisible: setShowDropdown,
                         selected: selected,
                         setSelected: setSelected
                     }}
                 />
             </ModalAction>
-        </ScreenLayout> 
+        </ScreenLayout>
     )
 }
 
