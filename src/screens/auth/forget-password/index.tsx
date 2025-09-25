@@ -1,10 +1,11 @@
 /**React Imports */
-import { View, Text } from 'react-native'
+import { View,Alert } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
 import { ChangePasswordBuilder, FoegetPasswordBuilder } from '../../../utils/builders'
-import { ms } from '../../../utils/helpers/responsive'
+import { ms, toast } from '../../../utils/helpers/responsive'
+import { ForgotPasswordRequest, ResetPassword, VerifyResetOtp } from '../../../utils/api-calls/auth-calls/AuthCall'
 
 /**Components */
 import AuthLayout from '../common/AuthLayout'
@@ -14,12 +15,17 @@ import SubmitButton from '../../../components/submit-button'
 
 /** Liabary*/
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const ForgetPassword: React.FC = () => {
     const [Phone, setPhone] = useState(null);
     const [isForgetVerified, setIsForgetVerified] = useState<boolean>(false);
     const [isOtpVerified, setIsOtpVerified] = useState<boolean>(false);
+    const [ResetToken, SetResetToken] = useState(null);
+
+    const Navigation = useNavigation<any>()
 
     // For step 1 (phone)
     const { control: ChangePasswordControl, handleSubmit: handleChangePasswordSubmit, setValue, formState: { errors }, reset } = useForm()
@@ -27,8 +33,63 @@ const ForgetPassword: React.FC = () => {
     // For step 1 (phone)
     const { control: ForgetControl, handleSubmit: handleForgetSubmit } = useForm();
 
-    const OnSubmit = (data: any) => {
-        console.log("object", data);
+    const UserForgetRequest = useMutation({
+        mutationFn: (data: any) => ForgotPasswordRequest(data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                setIsOtpVerified(true)
+                Alert.alert("Success", `OTP: ${res?.data?.otpCode}`);
+            }
+        }
+    })
+
+    const UserVerifayOtp = useMutation({
+        mutationFn: (data: any) => VerifyResetOtp(data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                SetResetToken(res?.data?.resetToken);
+                setIsForgetVerified(true);
+                toast("success", { title: res?.message });
+            }
+        }
+    })
+
+    const OnForgetPassword = useMutation({
+        mutationFn: (data: any) => ResetPassword(data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                Navigation.navigate("LoginScreen");
+                toast("success", { title: res?.message });
+            }
+        }
+    })
+
+    const OnForgetRequestSend = (data: any) => {
+        const cleanedPhone = Phone?.replace(/\s+/g, "");
+        const payload = {
+            identifier: cleanedPhone,
+            type: "phone"
+        }
+        UserForgetRequest.mutate(payload);
+    };
+
+    const OnPasswordVarifay = (data: any) => {
+        const cleanedPhone = Phone?.replace(/\s+/g, "");
+        const payload = {
+            identifier: cleanedPhone,
+            type: "phone",
+            otp: data?.otp
+        }
+        UserVerifayOtp.mutate(payload);
+    };
+
+    const OnChangePassword = (data: any) => {
+        const payload = {
+            resetToken: ResetToken,
+            newPassword: data?.password,
+            confirmPassword: data?.confirm_password
+        }
+        OnForgetPassword.mutate(payload);
     };
 
     return (
@@ -55,7 +116,7 @@ const ForgetPassword: React.FC = () => {
                                     {...{
                                         text: "Send OTP",
                                         loading: false,
-                                        onPress: () => setIsOtpVerified(true) // 👈 switch state
+                                        onPress: handleChangePasswordSubmit(OnForgetRequestSend)// 👈 switch state
                                     }}
                                 />
                             </View>
@@ -65,7 +126,7 @@ const ForgetPassword: React.FC = () => {
                                     {...{
                                         text: "Verify OTP",
                                         loading: false,
-                                        onPress: () => setIsForgetVerified(true) // 👈 handle verify
+                                        onPress: handleChangePasswordSubmit(OnPasswordVarifay) // 👈 handle verify
                                     }}
                                 />
                             </View>
@@ -86,9 +147,9 @@ const ForgetPassword: React.FC = () => {
                         <View style={{ marginTop: ms(5) }}>
                             <SubmitButton
                                 {...{
-                                    text: "Verify OTP",
+                                    text: "Reset Password",
                                     loading: false,
-                                    onPress: () => console.log("Verifying OTP...") // 👈 handle verify
+                                    onPress: handleForgetSubmit(OnChangePassword)
                                 }}
                             />
                         </View>
@@ -101,3 +162,5 @@ const ForgetPassword: React.FC = () => {
 }
 
 export default ForgetPassword;
+
+//7439423955

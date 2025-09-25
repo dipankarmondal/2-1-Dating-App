@@ -49,7 +49,6 @@ const RegistrationScreen: React.FC = () => {
     const PhoneVarifayMutation = useMutation({
         mutationFn: (data: any) => VerifayPhone(data),
         onSuccess: (res) => {
-            console.log("object", res);
             if (res?.success === true) {
                 setIsOtpVerified(true);
                 toast("success", { title: res?.message });

@@ -31,7 +31,6 @@ const BusinessSignupScreen: React.FC = () => {
     const BusinessRequestMutation = useMutation({
         mutationFn: (data: any) => BusinessRequest(Token, data),
         onSuccess: (res) => {
-            console.log("object", res);
             if (res?.success === true) {
                 toast("success", { title: res?.message });
             }

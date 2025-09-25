@@ -33,7 +33,7 @@ export const VerifayOtp = async (data: any) => {
         console.log("adsfasd", errorData);
 
         // If it's an array of objects
-        let firstMessage =error?.response?.data?.message ??"Something went wrong";
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
         if (Array.isArray(errorData) && errorData.length > 0) {
             firstMessage = errorData[0]?.message || firstMessage;
         }
@@ -56,7 +56,6 @@ export const CreateUser = async (data: any) => {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
-        console.log("adsfasd", errorData);
         throw error;
     }
 };
@@ -124,6 +123,64 @@ export const BusinessRequest = async (token: any, data: any,) => {
     } catch (error) {
         const errorData = error?.response?.data?.error;
         console.log("adsfasd", error?.response?.data?.message);
+
+        // If it's an array of objects
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//forgot-password 
+export const ForgotPasswordRequest = async (data: any) => {
+    try {
+        const res = await API.post("auth/forgot-password", data);
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data?.message);
+
+        // If it's an array of objects
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//verify-reset-otp
+
+export const VerifyResetOtp = async (data: any) => {
+    try {
+        const res = await API.post("auth/verify-reset-otp", data);
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data?.message);
+
+        // If it's an array of objects
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//reset-password
+export const ResetPassword = async (data: any) => {
+    try {
+        const res = await API.post("auth/reset-password-with-token", data);
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
 
         // If it's an array of objects
         let firstMessage = error?.response?.data?.message ?? "Something went wrong";

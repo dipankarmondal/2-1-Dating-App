@@ -74,7 +74,7 @@ export const AppNavigation = () => {
         queryFn: () => GetUser(Token),
         enabled: !!Token,
     })
-
+    
     useEffect(() => {
         setTimeout(() => {
             SetLoading(false)

@@ -54,7 +54,7 @@ const ProfileSetup: React.FC = () => {
         onSuccess: (res) => {
             console.log("ProfileSetUpMutation", res);
             if (res?.success === true) {
-                QueryInvalidater.invalidateQueries({ queryKey: ['GetProfile'] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['GetUser'] });
                 toast("success", { title: res?.message });
             }
         },

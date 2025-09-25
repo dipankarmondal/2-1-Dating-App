@@ -20,7 +20,6 @@ import SubmitButton from '../../../../components/submit-button'
 const ViewMeScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
-    console.log("object", selected)
 
     return (
         <ScreenLayout>

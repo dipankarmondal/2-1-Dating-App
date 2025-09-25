@@ -22,7 +22,7 @@ type Props = {
 }
 const ChatHeader: React.FC<Props> = ({ chat,type  }) => {
     const Navigation = useNavigation<any>();
-    console.log("helo", type);
+
     return (
         <View style={styles.dt_container}>
             <View style={styles.dt_left_header}>

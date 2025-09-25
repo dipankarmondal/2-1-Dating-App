@@ -55,20 +55,24 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
                         )
                     }
                     <ScrollView
-                        contentContainerStyle={{ padding: ms(16, ),paddingBottom: ms(70), flexGrow: 1 }}
+                        contentContainerStyle={{ padding: ms(16,), paddingBottom: type === "filters" && ms(70), flexGrow: 1 }}
                         showsVerticalScrollIndicator={false}
                     >
                         {children}
                     </ScrollView>
-                    <View style={styles.submitButton}>
-                        <SubmitButton
-                            {...{
-                                text: "Submit",
-                                loading: false,
-                                onPress: () => { setModalVisible(false) }
-                            }}
-                        />
-                    </View>
+                    {
+                        type === "filters" && (
+                            <View style={styles.submitButton}>
+                                <SubmitButton
+                                    {...{
+                                        text: "Submit",
+                                        loading: false,
+                                        onPress: () => { setModalVisible(false) }
+                                    }}
+                                />
+                            </View>
+                        )
+                    }
                 </View>
             </View>
         </Modal>
