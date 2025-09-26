@@ -39,7 +39,7 @@ const ViewMeScreen: React.FC = () => {
     return (
         <ScreenLayout>
             <ScreenHeader>
-                <Text style={commonstyle.dt_header_title}>View Me</Text>
+                <Text style={commonstyle.dt_header_title}>Viewed Me</Text>
                 <TouchableOpacity
                     style={[commonstyle.dt_filter, { borderColor: Colors.dt_error }]}
                     onPress={() => { setShowDropdown((prev) => !prev); }}

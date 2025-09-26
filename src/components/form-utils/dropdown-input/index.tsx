@@ -14,19 +14,20 @@ import { IconProps } from '../../../utils/helpers/Iconprops';
 import Formfields from '../../../utils/models/FormFields.json';
 import { ms } from '../../../utils/helpers/responsive';
 import { Colors } from '../../../utils/constant/Constant';
-import {DropdownInputStyles as styles} from './styles'
+import { DropdownInputStyles as styles } from './styles'
 import { DropdownInputProps } from '../../../utils/types/types';
- 
+
 /**Components */
 import SuggestionBox from '../../suggestion-box';
 
 /**Main export*/
 const DropdownInput: React.FC<DropdownInputProps> = ({
     name,
-    parent, 
+    parent,
     control,
     selectionData,
     label,
+    isDubble
 }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [searchText, setSearchText] = useState('')
@@ -34,7 +35,7 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 
-    const filteredProducts = selectionData.filter((option: any) => { 
+    const filteredProducts = selectionData.filter((option: any) => {
         const search = searchText.toLowerCase();
         return (
             option.value.toLowerCase().includes(search)
@@ -50,7 +51,7 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
 
                 const selectedType = typeof value === "object" ? value?.type : value;
                 const status = typeof value === "object" ? Number(value?.status) : null;
-                
+
                 const selected =
                     selectionData?.find(opt => opt.key === selectedType)?.value ||
                     FieldName.placeholder;
@@ -65,7 +66,7 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
                                 styles.dt_select_input_wrapper,
                             ]}
                             onPress={() =>
-                               setShowDropdown(prev => !prev)
+                                setShowDropdown(prev => !prev)
                             }
                         >
                             <View style={styles.dt_select_input_text}>
@@ -75,8 +76,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
                             </View>
                             {
                                 showDropdown ?
-                                    <AngleUp {...IconProps(ms(22))} fill={ Colors.dt_white } /> :
-                                    <AngleDown {...IconProps(ms(22))} fill={ Colors.dt_white} />
+                                    <AngleUp {...IconProps(ms(22))} fill={Colors.dt_white} /> :
+                                    <AngleDown {...IconProps(ms(22))} fill={Colors.dt_white} />
                             }
                         </Pressable>
                         <SuggestionBox
@@ -87,7 +88,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
                                 value,
                                 onChange,
                                 searchText,
-                                setSearchText
+                                setSearchText,
+                                isDubble
                             }}
                         />
                         {

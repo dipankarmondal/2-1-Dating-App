@@ -8,6 +8,9 @@ export const MulteImageStyles = StyleSheet.create({
         width: "100%",
         height: "100%",
         padding: ms(10),
+        // backgroundColor:"green",
+        // alignItems:"center",
+        // justifyContent:"center"
     },
     dt_more_container: {
         width: ms(25),
@@ -58,7 +61,8 @@ export const MulteImageStyles = StyleSheet.create({
         height:ms(50),
         borderRadius:ms(50),
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        top:ms(-20)
     },
     dt_btn_container:{
         flexDirection:"row",

@@ -44,6 +44,7 @@ export const FormStyle = StyleSheet.create({
         alignItems: "center",
         borderWidth: ms(2),
         borderColor: Colors.dt_gray,
+        backgroundColor:Colors.dt_border
     },
     input_field: {
         paddingHorizontal: ms(15),

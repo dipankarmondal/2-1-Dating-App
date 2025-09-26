@@ -95,5 +95,16 @@ export const CommonStyles = StyleSheet.create({
         fontFamily:Fonts.Font_600,
         fontSize:ms(14),
         color:Colors.dt_white
+    },
+    dt_searchInput: {
+        height: ms(45),
+        borderRadius: ms(10),
+        borderWidth: ms(1),
+        borderColor: Colors.dt_gray,
+        paddingHorizontal: ms(10),
+        color: Colors.dt_white,
+        fontSize: ms(15),
+        fontFamily: Fonts.Font_500,
+        marginVertical: ms(10)
     }
 })

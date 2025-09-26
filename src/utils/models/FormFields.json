@@ -361,5 +361,140 @@
                 "required": "live user is required"
             }
         }
+    },
+    "private_party": {
+        "date": {
+            "label": "When*",
+            "placeholder": "Select date",
+            "errors": {
+                "required": "date is required"
+            }
+        },
+        "start_time_hours": {
+            "label": "Start Time*",
+            "placeholder": "Hours",
+            "errors": {
+                "required": "hours is required"
+            }
+        },
+        "start_time_minutes": {
+            "label": "",
+            "placeholder": "Minutes",
+            "errors": {
+                "required": "minutes is required"
+            }
+        },
+        "end_time_hours": {
+            "label": "End Time*",
+            "placeholder": "Hours",
+            "errors": {
+                "required": "hours is required"
+            }
+        },
+        "end_time_minutes": {
+            "label": "",
+            "placeholder": "Minutes",
+            "errors": {
+                "required": "minutes is required"
+            }
+        },
+        "intrest": {
+            "label": "Open to*",
+            "placeholder": "Select your intrest",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "female_age_from": {
+            "label": "Female Age*",
+            "placeholder": "From",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "female_age_until": {
+            "label": "",
+            "placeholder": "Until",
+            "errors": {
+                "required": "Until is required"
+            }
+        },
+        "male_age_from": {
+            "label": "Male Age*",
+            "placeholder": "From",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "male_age_until": {
+            "label": "",
+            "placeholder": "Until",
+            "errors": {
+                "required": "Until is required"
+            }
+        },
+        "transgender_age_from": {
+            "label": "Transgender Age*",
+            "placeholder": "From",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "transgender_age_until": {
+            "label": "",
+            "placeholder": "Until",
+            "errors": {
+                "required": "Until is required"
+            }
+        },
+        "country": {
+            "label": "Open to*",
+            "placeholder": "Enter your country",
+            "errors": {
+                "required": "country is required"
+            }
+        },
+        "event_name": {
+            "label": "Open to*",
+            "placeholder": "Enter event name",
+            "errors": {
+                "required": "event name is required"
+            }
+        },
+        "details": {
+            "label": "Open to*",
+            "placeholder": "Description",
+            "errors": {
+                "required": "description is required"
+            }
+        },
+        "incognito_party": {
+            "label": "Open to*",
+            "placeholder": "Incognito Party*",
+            "errors": {
+                "required": "incognito is required"
+            }
+        },
+        "promote_party": {
+            "label": "Open to*",
+            "placeholder": "Promote my private party to members in the area*",
+            "errors": {
+                "required": "promote is required"
+            }
+        },
+        "invite": {
+            "label": "Open to*",
+            "placeholder": "Invite my friends to this party*",
+            "errors": {
+                "required": "invite is required"
+            }
+        },
+        "guestlist": {
+            "label": "Open to*",
+            "placeholder": "Show Guestlist to ALL 2+1 members*",
+            "errors": {
+                "required": "guestlist is required"
+            }
+        }
     }
 }

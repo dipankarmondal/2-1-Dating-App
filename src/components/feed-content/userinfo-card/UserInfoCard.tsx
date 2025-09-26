@@ -36,6 +36,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
     const [DropdownType, setDropdownType] = useState('');
     const [visible, setVisible] = useState(false);
 
+    console.log("object", isMore)
+
     const Navigation = useNavigation<any>()
     const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",

@@ -29,7 +29,7 @@ export const ChooseIntrestInputStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 10,
-    backgroundColor: "transparent",
+    backgroundColor: Colors.dt_border,
   },
   optionSelected: {
     borderColor: "green",

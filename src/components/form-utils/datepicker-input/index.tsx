@@ -21,7 +21,7 @@ import { IconProps } from '../../../utils/helpers/Iconprops';
 /**Main export*/
 const DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control, type, label }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
+    
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 

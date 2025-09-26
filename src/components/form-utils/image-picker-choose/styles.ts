@@ -49,7 +49,7 @@ export const ImagePickerChooseStyles = StyleSheet.create({
         borderRadius: ms(10),
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:Colors.dt_bg,
+        backgroundColor:Colors.dt_border,
         borderWidth: 1,
         borderColor: Colors.dt_white
     },

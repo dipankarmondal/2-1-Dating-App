@@ -114,7 +114,8 @@ export type DropdownInputProps = {
     label?: boolean,
     selectionData?: any,
     isEditable?: boolean,
-    isCart?: boolean
+    isCart?: boolean,
+    isDubble?: boolean
 }
 export type SuggestionBoxProps = {
     showDropdown: boolean,
@@ -123,7 +124,8 @@ export type SuggestionBoxProps = {
     value: string,
     onChange: (value: string) => void,
     searchText: string,
-    setSearchText: React.Dispatch<React.SetStateAction<string>>
+    setSearchText: React.Dispatch<React.SetStateAction<string>>,
+    isDubble?: boolean
 }
 
 export type DatePickerInputProps = {

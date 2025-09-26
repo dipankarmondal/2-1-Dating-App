@@ -117,7 +117,7 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
 
             {/* Navigation Arrows */}
             {
-                type === "livestream" ? (
+                type == "livestream" ? (
                     <View style={styles.dt_livestream_play}>
                         <TouchableOpacity style={styles.dt_livestream_play_icon} activeOpacity={0.7}>
                             <PlayIcon {...IconProps(ms(20))} fill={Colors.dt_white} />

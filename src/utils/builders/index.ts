@@ -2,6 +2,7 @@ import { Control } from "react-hook-form"
 import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
 import { AlreadyMemberOptions, BlockUserOptions, ChooseInterst, DateTypeOptions, GoliveOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
+import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -211,7 +212,6 @@ export const ProfileSetupBuilder = (control: Control<any>) => {
 
     ]
 }
-
 export const FoegetPasswordBuilder = (control: Control<any>) => {
     return [
         {
@@ -464,6 +464,216 @@ export const ChatroomBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
             selectionData: GoliveOptions
+        },
+    ]
+}
+export const PrivatePartyBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'date',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dob",
+            label: true,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'start_time_hours',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: Hours,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'start_time_minutes',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: Minutes,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'end_time_hours',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: Hours,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'end_time_minutes',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: Minutes,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'intrest',
+            parent: 'private_party',
+            type: "choose",
+            label: true,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: ChooseInterst
+        },
+        {
+            name: 'female_age_from',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'female_age_until',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'male_age_from',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'male_age_until',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'transgender_age_from',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'transgender_age_until',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "dropdown",
+            label: true,
+            placeholder: true,
+            control: control,
+            selectionData: From,
+            isDubble: true,
+            _skip: null
+        },
+        {
+            name: 'country',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'event_name',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'details',
+            parent: 'private_party',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'incognito_party',
+            parent: 'private_party',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: PrivatePartyOptions,
+        },
+        {
+            name: 'promote_party',
+            parent: 'private_party',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: PrivatePartyOptions,
+        },
+        {
+            name: 'invite',
+            parent: 'private_party',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: PrivatePartyOptions,
+        },
+        {
+            name: 'guestlist',
+            parent: 'private_party',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: PrivatePartyOptions,
         },
     ]
 }
