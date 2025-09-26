@@ -26,6 +26,7 @@ import ChatInfoScreen from "../../screens/screens/stack-navigation-screens/chat-
 import SpeedDateScreen from "../../screens/screens/stack-navigation-screens/speed-date-screen"
 import AddChatroomScreen from "../../screens/screens/stack-navigation-screens/add-chatroom-screen"
 import PrivatePartyScreen from "../../screens/screens/stack-navigation-screens/private-party-screen"
+import PartyEventDetailsScreen from "../../screens/screens/stack-navigation-screens/party-event-details-screen"
 
 export const AuthStack = () => {
     return (
@@ -55,6 +56,7 @@ export const MainStack = () => {
             <Stack.Screen name="SpeedDateScreen" component={SpeedDateScreen} />
             <Stack.Screen name="AddChatroomScreen" component={AddChatroomScreen} />
             <Stack.Screen name="PrivatePartyScreen" component={PrivatePartyScreen} />
+            <Stack.Screen name="PartyEventDetailsScreen" component={PartyEventDetailsScreen} />
         </Stack.Navigator>
     )
 }

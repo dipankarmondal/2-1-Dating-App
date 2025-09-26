@@ -20,6 +20,7 @@ export type RootStackParamList = {
   SpeedDateScreen: undefined;
   AddChatroomScreen: undefined;
   PrivatePartyScreen: undefined;
+  PartyEventDetailsScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

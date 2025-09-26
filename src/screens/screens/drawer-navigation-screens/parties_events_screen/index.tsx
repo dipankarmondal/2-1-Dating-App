@@ -17,6 +17,8 @@ import HotdateContent from '../../../../components/modal/modal-content/hotdate-c
 /** Liabary*/
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import PartyEventCard from '../../../../components/party-event-card/PartyEventCard'
 
 /**Main export*/
 const PartiesEventsScreen: React.FC = () => {
@@ -60,6 +62,15 @@ const PartiesEventsScreen: React.FC = () => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={() => { }} // just pass refetch here
+            >
+                <View style={CommonStyles.dt_container}>
+                    <PartyEventCard />
+                    <PartyEventCard />
+                </View>
+            </ScrollContent>
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
