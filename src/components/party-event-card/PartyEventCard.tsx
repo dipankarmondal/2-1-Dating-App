@@ -8,13 +8,13 @@ import { Colors } from '../../utils/constant/Constant'
 import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms } from '../../utils/helpers/responsive'
 
+import { useNavigation } from '@react-navigation/native'
 /**Icons*/
 import LocationIcon from '@svgs/location.svg'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
 import GroupIcon from '@svgs/group.svg'
-import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const PartyEventCard: React.FC = () => {
@@ -36,7 +36,7 @@ const PartyEventCard: React.FC = () => {
                         <Text style={styles.dt_name_text}>Mar 14,2025</Text>
                     </View>
                     <Text style={styles.dt_group_creater}>by
-                        <Text style={{ color: Colors.dt_success_green }}>SPLENDIDPARTYS</Text>
+                        <Text style={{ color: Colors.dt_success_green }}> SPLENDIDPARTYS</Text>
                     </Text>
                     <View style={styles.dt_name_container}>
                         <View style={styles.dt_location_container}>

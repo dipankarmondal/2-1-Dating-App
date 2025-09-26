@@ -19,7 +19,9 @@ const ModalAction: React.FC<ModalActionProps> = ({ isModalVisible, setModalVisib
 
     const OnClose = () => {
         setModalVisible(false);
-        setSelected(null);
+        if (selected) {
+            setSelected(null);
+        }
     }
     return (
         <Modal
