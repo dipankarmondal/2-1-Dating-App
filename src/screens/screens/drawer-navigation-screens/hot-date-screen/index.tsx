@@ -48,7 +48,7 @@ const HotDateScreen: React.FC = () => {
         <ScreenLayout>
 
             <ScreenHeader>
-                <Text style={CommonStyles.dt_header_title}>Online Now</Text>
+                <Text style={CommonStyles.dt_header_title}>Hot Date</Text>
                 <View style={CommonStyles.dt_filter_container_btn}>
                     <TouchableOpacity style={[CommonStyles.dt_filter, { borderColor: Colors.dt_error }]} onPress={() => { setShowDropdown((prev) => !prev); }}>
                         <Text style={[CommonStyles.dt_filter_text, { color: Colors.dt_error }]}>Filter</Text>

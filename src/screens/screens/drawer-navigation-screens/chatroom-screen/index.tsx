@@ -1,14 +1,20 @@
-import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native'
+/**React Imports */
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import ScreenLayout from '../../common/ScreenLayout'
+
+/**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
-import { ms } from '../../../../utils/helpers/responsive'
-import { Colors, Fonts } from '../../../../utils/constant/Constant'
+
+/**Components */
+import ScreenLayout from '../../common/ScreenLayout'
 import ChatroomCard from '../../../../components/chatroom-card/ChatroomCard'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
+
+/** Liabary*/
 import { useNavigation } from '@react-navigation/native'
 
+/**Main export*/
 const ChatroomScreen: React.FC = () => {
     const Navigation = useNavigation<any>()
     return (

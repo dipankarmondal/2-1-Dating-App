@@ -27,7 +27,7 @@ export const InformationStyles = StyleSheet.create({
     userTypeText: {
         fontSize: 18,
         fontWeight: '500',
-        color: Colors.dt_black,
+        color: Colors.dt_white,
     },
     descriptionSection: {
         marginBottom: 32,
@@ -36,7 +36,7 @@ export const InformationStyles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 28,
         fontFamily:Fonts.Font_500,
-        color: Colors.dt_black,
+        color: Colors.dt_white,
     },
     benefitsSection: {
         marginBottom: 20,
@@ -44,7 +44,7 @@ export const InformationStyles = StyleSheet.create({
     sectionTitle: {
         fontSize: 20,
         fontFamily:Fonts.Font_600,
-        color: Colors.dt_black,
+        color: Colors.dt_white,
         marginBottom: 16,
     },
     bulletPoint: {
@@ -55,7 +55,7 @@ export const InformationStyles = StyleSheet.create({
     bullet: {
         width: 8,
         height: 8,
-        backgroundColor: Colors.dt_black,
+        backgroundColor: Colors.dt_white,
         borderRadius: 5,
         marginTop: 8,
         marginRight: 12,
@@ -65,7 +65,7 @@ export const InformationStyles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 28,
         fontFamily:Fonts.Font_500,
-        color: Colors.dt_black,
+        color: Colors.dt_white,
         flex: 1,
     },
 })

@@ -231,12 +231,20 @@ export const ViewMeOptions = [
 ];
 export const OnlineOptions = [
     { key: "latest", value: "Latest" },
-    { key: "couples", value: "Couples" },
-    { key: "female", value: "Female" },
-    { key: "male", value: "Male" },
+    
     { key: "business", value: "Business" },
     { key: "transgender", value: "Transgender" },
     { key: "looking", value: "Looking for me / us" },
+];
+export const VideoOptions = [
+    { key: "latest", value: "Latest" },
+    { key: "distance", value: "Distance" },
+    { key: "most_viewed", value: "Most Viewed" },
+    { key: "male", value: "Male" },
+    { key: "business", value: "Business" },
+    { key: "transgender", value: "Transgender" },
+    { key: "friends", value: "Friends" },
+    { key: "past_live_streams", value: "Past Live Streams" },
 ];
 
 export const HeaderBtn = [

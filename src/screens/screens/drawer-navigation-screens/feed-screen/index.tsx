@@ -23,8 +23,6 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
     const [filterType, setFilterType] = useState<"general" | "friend" | null>(null);
     const [selected, setSelected] = useState<string>("");
 
-    // const menuItems = activeFilter === "general" ? GeneralItems : activeFilter === "friend" ? FrindItems : [];
-
     const { key } = route.params || {}
 
     useEffect(() => {
@@ -41,7 +39,7 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                 style={[commonstyle.dt_title_container, isActive && { borderBottomWidth: ms(1), borderBottomColor: "white" }]}
                 onPress={() => setActiveKey(item.key)}
             >
-                <Text style={[commonstyle.dt_tab_title, { color: isActive ? Colors.dt_white : Colors.dt_gray + "89", fontSize:ms(12) }]}>
+                <Text style={[commonstyle.dt_tab_title, { color: isActive ? Colors.dt_white : Colors.dt_gray + "89", fontSize: ms(12) }]}>
                     {item.title}
                 </Text>
             </TouchableOpacity>

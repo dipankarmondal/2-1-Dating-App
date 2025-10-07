@@ -65,7 +65,7 @@ export const CommonStyles = StyleSheet.create({
     },
     dt_header_title: {
         fontFamily: Fonts.Font_700,
-        fontSize: ms(17), 
+        fontSize: ms(16), 
         color: Colors.dt_white,
         textTransform: "capitalize"
     },
@@ -93,7 +93,7 @@ export const CommonStyles = StyleSheet.create({
     },
     dt_speed_date_text:{
         fontFamily:Fonts.Font_600,
-        fontSize:ms(14),
+        fontSize:ms(13),
         color:Colors.dt_white
     },
     dt_searchInput: {
@@ -106,5 +106,11 @@ export const CommonStyles = StyleSheet.create({
         fontSize: ms(15),
         fontFamily: Fonts.Font_500,
         marginVertical: ms(10)
+    },
+    dt_bottom_space:{
+        position:"absolute",
+        width:"100%",
+        height:"100%",
+        backgroundColor:"red"
     }
 })

@@ -26,7 +26,7 @@ const Information: React.FC<Props> = ({ type }) => {
         </View>
     );
     return (
-        <View>
+        <>
             {
                 type === "info" && (
                     <>
@@ -63,7 +63,7 @@ const Information: React.FC<Props> = ({ type }) => {
                     </View>
                 )
             }
-        </View>
+        </>
     )
 }
 
