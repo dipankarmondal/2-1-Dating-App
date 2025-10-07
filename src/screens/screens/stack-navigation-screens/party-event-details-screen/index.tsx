@@ -1,14 +1,21 @@
+/**React Imports */
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { PartyEventDetailsScreenStyles as styles } from './styles'
-import ScreenLayout from '../../common/ScreenLayout'
-import { ms } from '../../../../utils/helpers/responsive'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { Colors } from '../../../../utils/constant/Constant'
+import { Buttons } from './helper'
+
+/**Components */
+import ScreenLayout from '../../common/ScreenLayout'
+import ModalAction from '../../../../components/modal/modal-action/ModalAction'
+import { ms } from '../../../../utils/helpers/responsive'
+
+/**Icons*/
 import LocationIcon from '@svgs/location.svg'
 import ActionIcon from '@svgs/dots-vertical.svg'
-import ModalAction from '../../../../components/modal/modal-action/ModalAction'
-import { Buttons } from './helper'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
@@ -93,14 +100,14 @@ const PartyEventDetailsScreen: React.FC<Props> = ({ route }) => {
                         <View style={styles.dt_organize_buttons}>
                             <TouchableOpacity style={[styles.dt_button, { borderColor: Colors.dt_error }]}>
                                 <DateIcon {...IconProps(ms(15))} fill={Colors.dt_error} />
-                                <Text style={[styles.dt_button_text,{ color: Colors.dt_error}]}>Add to calendar</Text>
+                                <Text style={[styles.dt_button_text, { color: Colors.dt_error }]}>Add to calendar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.dt_button}>
                                 <MessagesIcon {...IconProps(ms(15))} fill={Colors.dt_card_blue} />
                                 <Text style={styles.dt_button_text}>Decline</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.dt_line}/>
+                        <View style={styles.dt_line} />
                     </View>
                 </View>
             </ScrollView>

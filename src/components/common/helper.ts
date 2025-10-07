@@ -241,7 +241,7 @@ export const OnlineOptions = [
 
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
-    { key: "notification", title: "Notification" },
+    { key: "notification", title: "2+1 Notification" },
 ]
 
 export const getProfileActions = (item: any) => [

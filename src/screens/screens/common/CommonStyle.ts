@@ -54,13 +54,13 @@ export const CommonStyles = StyleSheet.create({
         borderWidth: ms(1.2),
         borderColor: Colors.dt_card_blue,
         alignItems: "center",
-        paddingHorizontal: ms(8),
+        paddingHorizontal: ms(5),
         paddingVertical: ms(7),
         marginTop: ms(2)
     },
     dt_filter_text: {
         fontFamily: Fonts.Font_600,
-        fontSize: ms(12),
+        fontSize: ms(10),
         color: Colors.dt_card_blue
     },
     dt_header_title: {

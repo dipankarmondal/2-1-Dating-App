@@ -41,7 +41,7 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                 style={[commonstyle.dt_title_container, isActive && { borderBottomWidth: ms(1), borderBottomColor: "white" }]}
                 onPress={() => setActiveKey(item.key)}
             >
-                <Text style={[commonstyle.dt_tab_title, { color: isActive ? Colors.dt_white : Colors.dt_gray + "89" }]}>
+                <Text style={[commonstyle.dt_tab_title, { color: isActive ? Colors.dt_white : Colors.dt_gray + "89", fontSize:ms(12) }]}>
                     {item.title}
                 </Text>
             </TouchableOpacity>
@@ -71,7 +71,7 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                 <TouchableOpacity style={commonstyle.dt_filter} onPress={() => handleFilterPress("general")}>
                     <Text style={commonstyle.dt_filter_text}>General Filter</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[commonstyle.dt_filter, { borderColor: Colors.dt_error, marginLeft: ms(-15) }]}
+                <TouchableOpacity style={[commonstyle.dt_filter, { borderColor: Colors.dt_error, marginLeft: ms(-10) }]}
                     onPress={() => handleFilterPress("friend")}
                 >
                     <Text style={[commonstyle.dt_filter_text, { color: Colors.dt_error }]}>Friend Filter</Text>
