@@ -1,5 +1,6 @@
 import UserIcon from '@svgs/setting/user.svg'
 import LocationIcon from '@svgs/setting/location.svg'
+import StarIcon from '@svgs/drawericon/star.svg'
 import AccountIcon from '@svgs/setting/account.svg'
 import BlockIcon from '@svgs/setting/block.svg'
 import BugIcon from '@svgs/setting/bug.svg'
@@ -14,11 +15,12 @@ import ViewsIcon from '@svgs/setting/views.svg'
 import HideIcon from '@svgs/setting/eye-crossed.svg'
 import NotificationIcon from '@svgs/notification.svg'
 import CallIcon from '@svgs/setting/call.svg'
-
 import CameraIcon from '@svgs/camera.svg'
 import VideoIcon from '@svgs/appicon/live.svg'
 import DubbleCheckIcon from '@svgs/dubble_check.svg'
 import LikeThumbIcon from '@svgs/like.svg'
+import GroupIcon from '@svgs/group.svg'
+
 import { ms } from '../../utils/helpers/responsive'
 
 export const menuItems = (Navigation) => [
@@ -258,7 +260,6 @@ export const TravelOptions = [
     { key: 'new_friends_followers', value: 'New Friends / Followers' },
 ];
 
-
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
     { key: "notification", title: "2+1 Notification" },
@@ -269,6 +270,13 @@ export const getProfileActions = (item: any) => [
     { id: 2, icon: VideoIcon, size: ms(17), count: item?.profile?.videos?.length || 0 },
     { id: 3, icon: DubbleCheckIcon, size: ms(20), count: item?.profile?.checks || 0 },
     { id: 4, icon: LikeThumbIcon, size: ms(18), count: item?.profile?.likes || 0 },
+];
+export const WellfameActions = [
+    { id: 1, icon: CameraIcon, size: ms(13), count: 0 },
+    { id: 2, icon: GroupIcon, size: ms(12), count: 0 },
+    { id: 4, icon: StarIcon, size: ms(14), count: 0 },
+    { id: 3, icon: LikeIcon, size: ms(13), count: 0 },
+    { id: 5, icon: ViewsIcon, size: ms(17), count: 0 },
 ];
 
 export const benefitsData = [
@@ -361,5 +369,15 @@ export const ProfileExtraMenuItems = [
 export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },
     { key: 'group_messenger', label: 'Group Messenger' },
+];
+
+export const WallofFameItems = [
+    { key: 'most_photos', label: 'Most Photos' },
+    { key: 'most_videos', label: 'Most Videos' },
+    { key: 'most_friends', label: 'Most Friends' },
+    { key: 'most_liked', label: 'Most Liked' },
+    { key: 'most_validations', label: 'Most Validations' },
+    { key: 'most_viewed', label: 'Most Viewed' },
+    { key: 'most_contest_articipation', label: 'Most Pontest Participation' },
 ];
 

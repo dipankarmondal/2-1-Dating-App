@@ -32,8 +32,8 @@ import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
 const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery }) => {
     const [showDropdown, setShowDropdown] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [DropdownType, setDropdownType] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [visible, setVisible] = useState(false);
 
     const Navigation = useNavigation<any>()
@@ -84,7 +84,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                         </TouchableOpacity>
                         {
-                            type === "hotdate" || type === "travel" && (
+                            (type === "hotdate" || type === "travel") && (
                                 <>
                                     <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("speed_date") }}>
                                         <ClockIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
@@ -100,10 +100,6 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                 <View style={styles.dt_bio_container}>
                     <View style={[styles.dt_age_container, { justifyContent: "space-between" }]}>
                         <View style={styles.dt_age_container}>
-                            {/* {
-                                item?.profile?.gender === "couple" && (
-                                )
-                            } */}
                             <View style={styles.dt_age}>
                                 <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
                                 <Text style={styles.dt_age_text}>{item?.profile?.age ?? "0"}</Text>

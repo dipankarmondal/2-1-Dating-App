@@ -133,7 +133,7 @@ export const VideoCardsStyles = StyleSheet.create({
         right: 10,
         backgroundColor: "#222",
         padding: 10,
-        borderRadius: 8,
+        borderRadius: 8, 
         elevation: 5,
         zIndex:1000
     },

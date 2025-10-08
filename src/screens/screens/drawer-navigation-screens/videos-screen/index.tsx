@@ -52,24 +52,22 @@ const VideoScreen: React.FC = () => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
-
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
                 onRefresh={() => { }} // just pass refetch here
             >
                 <View style={CommonStyles.dt_container}>
-                    <VideoCard 
-                    {...{
-                        setVisible: setVisible
-                    }}
+                    <VideoCard
+                        {...{
+                            setVisible: setVisible
+                        }}
                     />
                 </View>
             </ScrollContent>
-
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
-                headerText="Filters" 
+                headerText="Filters"
                 type="filters"
                 onModalClick={OnModalFormClick}
                 selected={selected}
@@ -88,10 +86,10 @@ const VideoScreen: React.FC = () => {
                 {...{
                     setVisible: setVisible,
                     visible: visible,
-                    source : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                    source: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
                 }}
             />
-        </ScreenLayout> 
+        </ScreenLayout>
     )
 }
 

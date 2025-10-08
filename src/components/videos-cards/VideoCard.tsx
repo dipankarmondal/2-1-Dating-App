@@ -146,7 +146,7 @@ const VideoCard: React.FC<Props> = ({setVisible}) => {
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
                 headerText="Information"
-                type="logout"
+                type="logout" 
             >
                 <Information
                     {...{
