@@ -79,7 +79,7 @@ const WallOfFameScreen: React.FC = () => {
             </ScrollContent>
             <ModalAction
                 isModalVisible={showDropdown}
-                setModalVisible={setShowDropdown}
+                setModalVisible={setShowDropdown} 
                 headerText="Filters"
                 type="filters"
                 onModalClick={OnModalFormClick}

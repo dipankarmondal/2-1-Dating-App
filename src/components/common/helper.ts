@@ -381,3 +381,24 @@ export const WallofFameItems = [
     { key: 'most_contest_articipation', label: 'Most Pontest Participation' },
 ];
 
+export const CategoryOptions = [
+    { key: 'social', value: 'Social' },
+    { key: 'dating', value: 'Dating' },
+    { key: 'events', value: 'Events' },
+    { key: 'business', value: 'Business' },
+    { key: 'lifestyle', value: 'Lifestyle' },
+    { key: 'hobbies', value: 'Hobbies' },
+    { key: 'other', value: 'Other' },
+];
+export const GroupTypeOptions = [
+    { key: 'open_group', value: 'Open Group' },
+    { key: 'closed_group', value: 'Closed Group' },
+    { key: 'private_group', value: 'Private Group' },
+];
+export const GroupForOptions = [
+  { key: 'couples', value: 'Couples' },
+  { key: 'females', value: 'Females' },
+  { key: 'males', value: 'Males' },
+  { key: 'transgender', value: 'Transgender' },
+  { key: 'business', value: 'Business' }
+]

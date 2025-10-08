@@ -11,7 +11,7 @@ export const WallOfFameCardstyles = StyleSheet.create({
     },
     dt_image_container: {
         width: "100%",
-        height: ms(220),
+        height: ms(220), 
         borderRadius: ms(5),
         overflow: "hidden"
     },

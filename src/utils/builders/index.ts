@@ -1,7 +1,7 @@
 import { Control } from "react-hook-form"
 import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
-import { AlreadyMemberOptions, BlockUserOptions, ChooseInterst, DateTypeOptions, GoliveOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
+import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
@@ -675,5 +675,66 @@ export const PrivatePartyBuilder = (control: Control<any>) => {
             placeholder: true,
             selectionData: PrivatePartyOptions,
         },
+    ]
+}
+export const CreateGroupBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'group_name',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'location',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'group_desc',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'category',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: CategoryOptions
+        },
+        {
+            name: 'group_type',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: GroupTypeOptions
+        },
+        {
+            name: 'group_for',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: GroupForOptions
+        }
     ]
 }

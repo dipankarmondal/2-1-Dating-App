@@ -37,7 +37,7 @@ const WallOfFameCard: React.FC = () => {
 
             <View style={styles.dt_bio_container}>
                 <View style={styles.dt_profile_content}>
-                    {WellfameActions.map(({ id, icon: Icon, size, count }) => (
+                    {WellfameActions.map(({ id, icon: Icon, size, count }) => ( 
                         <TouchableOpacity
                             key={id}
                             style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}

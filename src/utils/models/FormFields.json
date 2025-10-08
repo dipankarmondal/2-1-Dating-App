@@ -496,5 +496,49 @@
                 "required": "guestlist is required"
             }
         }
+    },
+    "create_group": {
+        "group_name": {
+            "label": "Group Name",
+            "placeholder": "Enter your group name",
+            "errors": {
+                "required": "group name is required"
+            }
+        },
+        "group_desc": { 
+            "label": "Group Description",
+            "placeholder": "Enter your group description",
+            "errors": {
+                "required": "group description is required"
+            }
+        },
+        "location": {
+            "label": "Location",
+            "placeholder": "Enter your location",
+            "errors": {
+                "required": "location is required"
+            }
+        },
+        "category": {
+            "label": "Category",
+            "placeholder": "Select Category",
+            "errors": {
+                "required": "Category is required"
+            }
+        },
+        "group_type": {
+            "label": "Group type",
+            "placeholder": "Select Group type",
+            "errors": {
+                "required": "group type is required"
+            }
+        },
+        "group_for": {
+            "label": "Group for",
+            "placeholder": "Select Group For",
+            "errors": {
+                "required": "Group for is required"
+            }
+        }
     }
 }

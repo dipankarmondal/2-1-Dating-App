@@ -22,6 +22,8 @@ export type RootStackParamList = {
   PrivatePartyScreen: undefined;
   PartyEventDetailsScreen: undefined;
   AddVideoScreen: undefined;
+  CreateGroup: undefined;
+  MyGroupScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

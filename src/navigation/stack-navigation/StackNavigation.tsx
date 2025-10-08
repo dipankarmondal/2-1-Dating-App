@@ -28,6 +28,8 @@ import AddChatroomScreen from "../../screens/screens/stack-navigation-screens/ad
 import PrivatePartyScreen from "../../screens/screens/stack-navigation-screens/private-party-screen"
 import PartyEventDetailsScreen from "../../screens/screens/stack-navigation-screens/party-event-details-screen"
 import AddVideoScreen from "../../screens/screens/stack-navigation-screens/add-video-screen"
+import CreateGroup from "../../screens/screens/stack-navigation-screens/create-group"
+import MyGroupScreen from "../../screens/screens/stack-navigation-screens/my-group-screen"
 
 export const AuthStack = () => {
     return (
@@ -59,6 +61,8 @@ export const MainStack = () => {
             <Stack.Screen name="PrivatePartyScreen" component={PrivatePartyScreen} />
             <Stack.Screen name="PartyEventDetailsScreen" component={PartyEventDetailsScreen} />
             <Stack.Screen name="AddVideoScreen" component={AddVideoScreen} />
+            <Stack.Screen name="CreateGroup" component={CreateGroup} />
+            <Stack.Screen name="MyGroupScreen" component={MyGroupScreen} />
         </Stack.Navigator>
     )
 }

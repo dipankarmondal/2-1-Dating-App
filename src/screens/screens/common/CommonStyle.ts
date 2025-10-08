@@ -56,7 +56,8 @@ export const CommonStyles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: ms(5),
         paddingVertical: ms(7),
-        marginTop: ms(2)
+        marginTop: ms(2),
+        marginLeft: ms(8)
     },
     dt_filter_text: {
         fontFamily: Fonts.Font_600,
@@ -89,11 +90,11 @@ export const CommonStyles = StyleSheet.create({
         justifyContent:"center",
         borderRadius:ms(50),
         padding:ms(8),
-        marginLeft:ms(10)
+        marginLeft:ms(5)
     },
     dt_speed_date_text:{
-        fontFamily:Fonts.Font_600,
-        fontSize:ms(13),
+        fontFamily:Fonts.Font_500,
+        fontSize:ms(12),
         color:Colors.dt_white
     },
     dt_searchInput: {

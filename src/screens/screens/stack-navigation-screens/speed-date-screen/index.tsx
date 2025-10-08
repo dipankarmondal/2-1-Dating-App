@@ -27,7 +27,7 @@ const SpeedDateScreen: React.FC = () => {
     }
 
     return (
-        <ScreenLayout
+        <ScreenLayout 
             {...{ 
                 type: "stack",
                 title: "Speed Date"
