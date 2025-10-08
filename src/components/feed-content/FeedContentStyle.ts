@@ -55,7 +55,7 @@ export const FeedContentStyles = StyleSheet.create({
     dt_age_container: {
         flexDirection: "row",
         alignItems: "center",
-        gap: ms(5)
+        gap: ms(5),
     },
     dt_age: {
         flexDirection: "row",
@@ -74,9 +74,10 @@ export const FeedContentStyles = StyleSheet.create({
     },
     dt_intrest_container: {
         marginTop: ms(8),
+        
     },
     dt_intrest_text: {
-        fontSize: ms(16),
+        fontSize: ms(15),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white
     },
@@ -262,5 +263,16 @@ export const FeedContentStyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         gap:ms(5)
+    },
+    dt_travel_text:{
+        fontSize:ms(12),
+        fontFamily:Fonts.Font_500,
+        color:Colors.dt_white,
+        marginVertical:ms(5)
+    },
+    dt_travel_time_text:{
+        fontSize:ms(12),
+        fontFamily:Fonts.Font_600,
+        color:Colors.dt_error
     }
 })

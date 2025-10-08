@@ -69,7 +69,7 @@ const VideoScreen: React.FC = () => {
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
-                headerText="Filters"
+                headerText="Filters" 
                 type="filters"
                 onModalClick={OnModalFormClick}
                 selected={selected}

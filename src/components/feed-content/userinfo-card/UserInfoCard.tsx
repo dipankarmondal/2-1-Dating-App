@@ -30,13 +30,11 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent,isFilterOption,isGallery }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [DropdownType, setDropdownType] = useState('');
     const [visible, setVisible] = useState(false);
-
-    console.log("object", isMore)
 
     const Navigation = useNavigation<any>()
     const images = [
@@ -86,7 +84,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                         </TouchableOpacity>
                         {
-                            type === "hotdate" && (
+                            type === "hotdate" || type === "travel" && (
                                 <>
                                     <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("speed_date") }}>
                                         <ClockIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
@@ -100,23 +98,31 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                     </View>
                 </View>
                 <View style={styles.dt_bio_container}>
-                    <View style={styles.dt_age_container}>
-                        {
-                            item?.profile?.gender === "couple" && (
-                                <View style={styles.dt_age}>
-                                    <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                    <Text style={styles.dt_age_text}>{item?.profile?.age ?? "0"}</Text>
-                                </View>
-                            )
-                        }
-                        <View style={styles.dt_age}>
-                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                            <Text style={styles.dt_age_text}>{item?.profile?.age ?? "0"}</Text>
+                    <View style={[styles.dt_age_container, { justifyContent: "space-between" }]}>
+                        <View style={styles.dt_age_container}>
+                            {/* {
+                                item?.profile?.gender === "couple" && (
+                                )
+                            } */}
+                            <View style={styles.dt_age}>
+                                <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                <Text style={styles.dt_age_text}>{item?.profile?.age ?? "0"}</Text>
+                            </View>
+                            <View style={styles.dt_age}>
+                                <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                <Text style={styles.dt_age_text}>{item?.profile?.age ?? "0"}</Text>
+                            </View>
+                        </View>
+                        <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
+                            <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
+                            <View style={[styles.dt_location_container]}>
+                                <Text style={styles.dt_location_text}>{item?.profile?.address?.fullAddress ?? "Not specified"}</Text>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.dt_intrest}>
                         {
-                            type === "livestream" ? (
+                            type === "livestream" && (
                                 <View style={[styles.dt_age_container, { marginTop: ms(5), gap: ms(8) }]}>
                                     <View style={styles.dt_live_info_container}>
                                         <ViewIcon {...IconProps(ms(20))} fill={Colors.dt_gray} />
@@ -127,38 +133,12 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                         <Text style={styles.dt_location_text}>55 min</Text>
                                     </View>
                                 </View>
-                            ) : (
-                                <View style={styles.dt_intrest_container}>
-                                    <Text style={styles.dt_intrest_text}>Interestes</Text>
-                                    <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                                        {item?.profile?.interestedIn && item.profile.interestedIn.length > 0 ? (
-                                            <>
-                                                {item.profile.interestedIn.includes("couple") && (
-                                                    <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
-                                                )}
-                                                {item.profile.interestedIn.includes("male") && (
-                                                    <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                                )}
-                                                {item.profile.interestedIn.includes("female") && (
-                                                    <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                                )}
-                                            </>
-                                        ) : (
-                                            <Text style={styles.dt_intrest_text_empty}>Not specified</Text>
-                                        )}
-                                    </View>
-                                </View>
                             )
                         }
-                        <View style={styles.dt_intrest_container}>
-                            <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
-                            <View style={[styles.dt_age_container, styles.dt_location_container]}>
-                                <Text style={styles.dt_location_text}>{item?.profile?.address?.fullAddress ?? "Not specified"}</Text>
-                            </View>
-                        </View>
+
                     </View>
                     {
-                        type === "hotdate" && (
+                        type === "hotdate" || type === "travel" && (
                             <View style={styles.dt_intrest}>
                                 <View style={styles.dt_intrest_container}>
                                     <Text style={styles.dt_intrest_text}>Interestes</Text>
@@ -169,12 +149,32 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                     </View>
                                 </View>
                                 <View style={styles.dt_intrest_container}>
-                                    <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Private Place</Text>
+                                    {
+                                        type === "travel" ?
+                                            <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Travel date</Text> :
+                                            <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Private Place</Text>
+                                    }
                                     <View style={[styles.dt_age_container, styles.dt_location_container]}>
                                         <Text style={styles.dt_location_text}>Mar 08, 2025 - Mar 09, 2025 - Mar 15, 2025 - Mar 16, 2025</Text>
                                     </View>
                                 </View>
                             </View>
+                        )
+                    }
+                    {
+                        type === "travel" && (
+                            <>
+                                <Text style={styles.dt_travel_text}>Travelling to Hyderabad for one day , genuine singles can, more </Text>
+                                <Text style={styles.dt_travel_time_text}>8h 4m</Text>
+                            </>
+                        )
+                    }
+                    {
+                        type === "certifications" && (
+                            <>
+                                <Text style={styles.dt_travel_text}>male half visiting Hyderabad from US and has a Sexy and ...</Text>
+                                <Text style={styles.dt_travel_time_text}>by FOR2MORE Feb 08, 2025</Text>
+                            </>
                         )
                     }
                 </View>

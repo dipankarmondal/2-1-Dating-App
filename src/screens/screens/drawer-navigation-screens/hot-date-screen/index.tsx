@@ -19,7 +19,7 @@ import { OnlineOptions } from '../../../../components/common/helper'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-/**Main export*/
+/**Main export*/ 
 const HotDateScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");

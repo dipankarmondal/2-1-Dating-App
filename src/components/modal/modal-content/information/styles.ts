@@ -30,19 +30,19 @@ export const InformationStyles = StyleSheet.create({
         color: Colors.dt_white,
     },
     descriptionSection: {
-        marginBottom: 32,
+        marginBottom: ms(10),
     },
     descriptionText: {
-        fontSize: 18,
+        fontSize: ms(13),
         lineHeight: 28,
         fontFamily:Fonts.Font_500,
         color: Colors.dt_white,
     },
     benefitsSection: {
-        marginBottom: 20,
+        marginBottom: ms(10),
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: ms(17),
         fontFamily:Fonts.Font_600,
         color: Colors.dt_white,
         marginBottom: 16,
@@ -62,7 +62,7 @@ export const InformationStyles = StyleSheet.create({
         flexShrink: 0,
     },
     bulletText: {
-        fontSize: 18,
+        fontSize: ms(13),
         lineHeight: 28,
         fontFamily:Fonts.Font_500,
         color: Colors.dt_white,

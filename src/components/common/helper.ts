@@ -231,7 +231,7 @@ export const ViewMeOptions = [
 ];
 export const OnlineOptions = [
     { key: "latest", value: "Latest" },
-    
+
     { key: "business", value: "Business" },
     { key: "transgender", value: "Transgender" },
     { key: "looking", value: "Looking for me / us" },
@@ -246,6 +246,18 @@ export const VideoOptions = [
     { key: "friends", value: "Friends" },
     { key: "past_live_streams", value: "Past Live Streams" },
 ];
+export const TravelOptions = [
+    { key: 'likes_given', value: 'Likes given' },
+    { key: 'joined_group', value: 'Joined group' },
+    { key: 'photos_videos', value: 'Photos & Videos' },
+    { key: 'validations', value: 'Validations' },
+    { key: 'speed_date', value: 'Speed Date' },
+    { key: 'travel_plans', value: 'Travel Plans' },
+    { key: 'parties_events', value: 'Parties & Events' },
+    { key: 'member_services', value: 'Member Services' },
+    { key: 'new_friends_followers', value: 'New Friends / Followers' },
+];
+
 
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
