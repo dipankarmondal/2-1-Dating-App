@@ -37,7 +37,7 @@ const MyGroupScreen: React.FC = () => {
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={() => { }} // just pass refetch here
+                onRefresh={() => { }}
             >
                 <View style={CommonStyles.dt_container}>
                     <GroupCard />

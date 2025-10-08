@@ -7,7 +7,7 @@ import { FeedContentStyles as styles } from '../FeedContentStyle'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
-import { getProfileActions } from '../../common/helper'
+import { getProfileActions, WellfameActions } from '../../common/helper'
 import { UserInfoCardProps } from '../../../utils/types/types'
 
 /**Icons*/
@@ -171,6 +171,21 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 <Text style={styles.dt_travel_text}>male half visiting Hyderabad from US and has a Sexy and ...</Text>
                                 <Text style={styles.dt_travel_time_text}>by FOR2MORE Feb 08, 2025</Text>
                             </>
+                        )
+                    }
+                    {
+                        type === "member" && (
+                            <View style={[styles.dt_profile_content, {marginTop:ms(10)}]}>
+                                {WellfameActions.map(({ id, icon: Icon, size, count }) => (
+                                    <TouchableOpacity
+                                        key={id}
+                                        style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
+                                    >
+                                        <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
+                                        <Text style={styles.dt_profile_text}>{count}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
                         )
                     }
                 </View>

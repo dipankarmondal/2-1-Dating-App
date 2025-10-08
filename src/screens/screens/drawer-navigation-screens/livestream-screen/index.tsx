@@ -35,6 +35,7 @@ const LivestreamScreen: React.FC = () => {
                             isMore: true, 
                             isOption: true,
                             isFilterOption: true,
+                            isGallery: true
                         }}
                     />
                 </View>

@@ -45,7 +45,7 @@ const WallOfFameCard: React.FC = () => {
                             <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
                             <Text style={styles.dt_profile_text}>{count}</Text>
                         </TouchableOpacity>
-                    ))}
+                    ))} 
                 </View>
             </View>
             <View style={styles.dt_name_container}>

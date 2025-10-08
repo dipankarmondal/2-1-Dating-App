@@ -30,6 +30,7 @@ import PartyEventDetailsScreen from "../../screens/screens/stack-navigation-scre
 import AddVideoScreen from "../../screens/screens/stack-navigation-screens/add-video-screen"
 import CreateGroup from "../../screens/screens/stack-navigation-screens/create-group"
 import MyGroupScreen from "../../screens/screens/stack-navigation-screens/my-group-screen"
+import FeaturedMembersAddScreen from "../../screens/screens/stack-navigation-screens/featured-members-add-screen"
 
 export const AuthStack = () => {
     return (
@@ -63,6 +64,7 @@ export const MainStack = () => {
             <Stack.Screen name="AddVideoScreen" component={AddVideoScreen} />
             <Stack.Screen name="CreateGroup" component={CreateGroup} />
             <Stack.Screen name="MyGroupScreen" component={MyGroupScreen} />
+            <Stack.Screen name="FeaturedMembersAddScreen" component={FeaturedMembersAddScreen} />
         </Stack.Navigator>
     )
 }

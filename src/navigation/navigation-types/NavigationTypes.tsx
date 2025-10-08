@@ -24,6 +24,7 @@ export type RootStackParamList = {
   AddVideoScreen: undefined;
   CreateGroup: undefined;
   MyGroupScreen: undefined;
+  FeaturedMembersAddScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();
