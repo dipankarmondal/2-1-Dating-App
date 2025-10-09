@@ -360,10 +360,7 @@ export const ProfileMenuItems = [
     { key: 'album', label: 'Album' },
 ];
 export const ProfileExtraMenuItems = [
-    { key: 'certifications', label: 'Certifications' },
     { key: 'groups', label: 'Groups' },
-    { key: 'parties_events', label: 'Parties & Events' },
-    { key: 'following', label: 'Following' },
     { key: 'friends', label: 'Friends' },
 ];
 export const MessengerItems = [
@@ -396,11 +393,30 @@ export const GroupTypeOptions = [
     { key: 'private_group', value: 'Private Group' },
 ];
 export const GroupForOptions = [
-  { key: 'couples', value: 'Couples' },
-  { key: 'females', value: 'Females' },
-  { key: 'males', value: 'Males' },
-  { key: 'transgender', value: 'Transgender' },
-  { key: 'business', value: 'Business' }
+    { key: 'couples', value: 'Couples' },
+    { key: 'females', value: 'Females' },
+    { key: 'males', value: 'Males' },
+    { key: 'transgender', value: 'Transgender' },
+    { key: 'business', value: 'Business' }
 ]
 
-
+export const Categories = [
+    {
+        id: 1,
+        btnsData: [
+            "Couples Only", "Threesome", "Full Swap", "Gays", "Lesbian", "Exhibitionist", "Nudism", "Public Sex", "Group Sex", "Masturbation", "Dildo & Toys",
+        ],
+    },
+    {
+        id: 2,
+        btnsData: [
+            "Transgender", "BDSM", "Voyeur", "Gang bang", "Wife swap", "Hot wifing", "Interracial", "Beach Sex", "Anal Sex", "Girl on Girl"
+        ],
+    },
+    {
+        id: 3,
+        btnsData: [
+            "Bi Couple", "BBC", "Bare fun", "Body Tattoo", "BBW Hot Wives", "Flashing", "cougars and vixens", "Erotic Massage", "Tantra",
+        ],
+    }
+]

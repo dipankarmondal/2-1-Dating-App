@@ -10,11 +10,12 @@ import { Colors } from '../../utils/constant/Constant'
 /**Components */
 
 /**Main export*/
-const SuggestionBox: React.FC<SuggestionBoxProps> = ({ showDropdown, setShowDropdown, filteredProducts, value, onChange,isDubble }) => {
+const SuggestionBox: React.FC<SuggestionBoxProps> = ({ showDropdown, setShowDropdown, filteredProducts, value, onChange,isDubble,isEdit }) => {
+    console.log("isEdit", isEdit)
     return (
         <>
             {showDropdown && (
-                <View style={[styles.dropdownList,{top:isDubble?82:60}]}>
+                <View style={[styles.dropdownList,{top:isEdit? 60 : isDubble? 82 : 60}]}>
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }} nestedScrollEnabled={true}>
                         {
                             filteredProducts.map(option => (

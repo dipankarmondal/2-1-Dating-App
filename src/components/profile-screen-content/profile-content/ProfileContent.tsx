@@ -29,9 +29,7 @@ type Props = {
 const ProfileContent: React.FC<Props> = ({ data }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [activeKey, setActiveKey] = useState("certifications");
-
-    console.log("adfasdf", data?.profile?.gender);
+    const [activeKey, setActiveKey] = useState("groups");
 
     const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
@@ -100,7 +98,8 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
             <TopMenu {...{
                 MenuData: ProfileExtraMenuItems,
                 activeKey,
-                setActiveKey
+                setActiveKey,
+                isTwoItem: true
             }} />
 
             <Certifications activeKey = {activeKey}/>

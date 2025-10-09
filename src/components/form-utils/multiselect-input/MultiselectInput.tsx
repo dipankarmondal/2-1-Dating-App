@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { MultiSelectInputStyles as styles } from './styles'
 import Formfields from '../../../utils/models/FormFields.json';
@@ -17,7 +17,7 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({ name, parent, contr
 
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
-
+    
     return (
         <Controller
             name={name}
@@ -36,7 +36,7 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({ name, parent, contr
                     Array.isArray(value) && value.length > 0
                         ? value.map((v: string, i: number) => `${i + 1}. ${v}`).join("\n")
                         : FieldName?.label || label || "Select";
-                        const isDefaultLabel = !Array.isArray(value) || value.length === 0;
+                const isDefaultLabel = !Array.isArray(value) || value.length === 0;
                 return (
                     <View style={{ marginBottom: ms(15) }}>
                         <TouchableOpacity
@@ -44,9 +44,11 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({ name, parent, contr
                             onPress={() => setShowDropdown(true)}
                             activeOpacity={0.8}
                         >
-                            <Text style={[styles.selectedText, { color: isDefaultLabel ? Colors.dt_gray + "BD": Colors.dt_white }]} >
-                                {selectedText}
-                            </Text>
+                            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                                <Text style={[styles.selectedText, { color: isDefaultLabel ? Colors.dt_gray + "BD" : Colors.dt_white }]} >
+                                    {selectedText}
+                                </Text>
+                            </ScrollView>
                         </TouchableOpacity>
                         <ModalAction
                             isModalVisible={showDropdown}
@@ -75,7 +77,7 @@ const MultiselectInput: React.FC<MultiselectInputProps> = ({ name, parent, contr
                                             }
                                         </View>
                                     </TouchableOpacity>
-                                );  
+                                );
                             })}
                         </ModalAction>
                     </View>

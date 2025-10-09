@@ -27,7 +27,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
     control,
     selectionData,
     label,
-    isDubble
+    isDubble,
+    isEdit
 }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [searchText, setSearchText] = useState('')
@@ -89,7 +90,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
                                 onChange,
                                 searchText,
                                 setSearchText,
-                                isDubble
+                                isDubble,
+                                isEdit
                             }}
                         />
                         {

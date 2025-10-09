@@ -12,14 +12,13 @@ export const ScreenLayoutStyles = StyleSheet.create({
         height: ms(55),
         backgroundColor: Colors.dt_border,
         paddingHorizontal: ms(16),
-        elevation: 5,
+        elevation: 3,
         shadowColor: Colors.dt_white,
         zIndex: 1000,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
     },
-
     dt_menu_container: {
         width: ms(35),
         height: ms(35),

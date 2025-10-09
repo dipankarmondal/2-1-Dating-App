@@ -505,7 +505,7 @@
                 "required": "group name is required"
             }
         },
-        "group_desc": { 
+        "group_desc": {
             "label": "Group Description",
             "placeholder": "Enter your group description",
             "errors": {
@@ -538,6 +538,213 @@
             "placeholder": "Select Group For",
             "errors": {
                 "required": "Group for is required"
+            }
+        }
+    },
+    "edit_profile": {
+        "mode": {
+            "label": "What are you looking for on 2+1?",
+            "placeholder": "Select your intrest",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "looking_for": {
+            "label": "What are you looking for on 2+1?",
+            "placeholder": "Select your intrest",
+            "errors": {
+                "required": "intrest is required"
+            }
+        },
+        "description": {
+            "label": "Profile Description",
+            "placeholder": "Enter your profile description",
+            "errors": {
+                "required": "profile description is required"
+            }
+        },
+        "full_name": {
+            "label": "Full name",
+            "placeholder": "Enter your fullname",
+            "errors": {
+                "required": "fullname is required"
+            }
+        },
+        "your_dob": {
+            "label": "Select your DOB",
+            "placeholder": "Select your DOB",
+            "errors": {
+                "required": "DOB is required"
+            }
+        },
+        "body_hair": {
+            "label": "Select your body hair",
+            "placeholder": "Select your body hair",
+            "errors": {
+                "required": "body hair is required"
+            }
+        },
+        "height": {
+            "label": "Select height",
+            "placeholder": "Height",
+            "errors": {
+                "required": "height is required"
+            }
+        },
+        "weight": {
+            "label": "Select weight",
+            "placeholder": "Weight",
+            "errors": {
+                "required": "weight is required"
+            }
+        },
+        "body_type": {
+            "label": "Select your body type",
+            "placeholder": "Body type",
+            "errors": {
+                "required": "body type is required"
+            }
+        },
+        "ethnic_background": {
+            "label": "Select your ethnic background",
+            "placeholder": "Ethnic background",
+            "errors": {
+                "required": "ethnic background is required"
+            }
+        },
+        "smoking": {
+            "label": "Select your smoking",
+            "placeholder": "Smoking",
+            "errors": {
+                "required": "smoking is required"
+            }
+        },
+        "piercings": {
+            "label": "Select your piercings",
+            "placeholder": "piercings",
+            "errors": {
+                "required": "piercings is required"
+            }
+        },
+        "tattoos": {
+            "label": "Select your tattoos",
+            "placeholder": "tattoos",
+            "errors": {
+                "required": "tattoos is required"
+            }
+        },
+        "languages_spoken": {
+            "label": "Select your languages spoken",
+            "placeholder": "languages spoken",
+            "errors": {
+                "required": "languages is required"
+            }
+        },
+        "important": {
+            "label": "Select your important",
+            "placeholder": "Looks are important?",
+            "errors": {
+                "required": "looks is required"
+            }
+        },
+        "intelligence": {
+            "label": "Select your intelligence ",
+            "placeholder": "Intelligence  are important?",
+            "errors": {
+                "required": "intelligence  is required"
+            }
+        },
+
+
+        "partner_full_name": {
+            "label": " Partner Fullname",
+            "placeholder": "Enter your partner fullname",
+            "errors": {
+                "required": " partner fullname is required"
+            }
+        },
+        "partner_dob": {
+            "label": "Select partner DOB",
+            "placeholder": "Select partner DOB",
+            "errors": {
+                "required": "DOB is required"
+            }
+        },
+        "partner_body_hair": {
+            "label": "Select your partner body hair",
+            "placeholder": "Select your partner body hair",
+            "errors": {
+                "required": " partner body hair is required"
+            }
+        },
+        "partner_height": {
+            "label": "Select height",
+            "placeholder": "Partner height",
+            "errors": {
+                "required": " partner height is required"
+            }
+        },
+        "partner_weight": {
+            "label": "Select your partner weight",
+            "placeholder": "Partner weight",
+            "errors": {
+                "required": " partner weight is required"
+            }
+        },
+        "partner_body_type": {
+            "label": "Select your partner body type",
+            "placeholder": "Partner body type",
+            "errors": {
+                "required": "body type is required"
+            }
+        },
+        "partner_ethnic_background": {
+            "label": "Select your partner ethnic background",
+            "placeholder": "Partner ethnic background",
+            "errors": {
+                "required": "ethnic background is required"
+            }
+        },
+        "partner_smoking": {
+            "label": "Select your smoking",
+            "placeholder": "Partner smoking",
+            "errors": {
+                "required": "partner smoking is required"
+            }
+        },
+        "partner_piercings": {
+            "label": "Select your piercings",
+            "placeholder": "Partner piercings",
+            "errors": {
+                "required": "partner piercings is required"
+            }
+        },
+        "partner_tattoos": {
+            "label": "Select your tattoos",
+            "placeholder": "Partner tattoos",
+            "errors": {
+                "required": "partner tattoos is required"
+            }
+        },
+        "partner_languages_spoken": {
+            "label": "Select your partner languages spoken",
+            "placeholder": "partner languages spoken",
+            "errors": {
+                "required": "languages is required"
+            }
+        },
+        "partner_important": {
+            "label": "Select your important",
+            "placeholder": "Partner looks are important?",
+            "errors": {
+                "required": "looks is required"
+            }
+        },
+        "partner_intelligence": {
+            "label": "Select your intelligence ",
+            "placeholder": "Partner intelligence  are important?",
+            "errors": {
+                "required": "intelligence  is required"
             }
         }
     }

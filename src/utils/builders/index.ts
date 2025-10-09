@@ -3,6 +3,7 @@ import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
 import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
+import { bodyHairOptions, bodyTypeOptions, ethnicOptions, heightOptions, languagesOptions, looksOptions, piercingsOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -736,5 +737,339 @@ export const CreateGroupBuilder = (control: Control<any>) => {
             control: control,
             selectionData: GroupForOptions
         }
+    ]
+}
+export const EditProfileBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'mode',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "mode",
+            label: true,
+            placeholder: true,
+            control: control,
+            option: ModeOptions
+        },
+        {
+            name: 'looking_for',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "multichoose",
+            label: true,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'description',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'full_name',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'your_dob',
+            parent: 'profile_setup',
+            type: "dob",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'body_hair',
+            parent: 'edit_profile',
+            type: "multi",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            option: bodyHairOptions
+        },
+        {
+            name: 'height',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: heightOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'weight',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: WeightOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'body_type',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: bodyTypeOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'ethnic_background',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: ethnicOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'smoking',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: smokingOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'piercings',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: piercingsOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'tattoos',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: tattoosOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'languages_spoken',
+            parent: 'edit_profile',
+            type: "multi",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            option: languagesOptions
+        },
+        {
+            name: 'important',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: looksOptions,
+        },
+        {
+            name: 'intelligence',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: looksOptions,
+        },
+
+
+
+
+
+        {
+            name: 'partner_full_name',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'partner_dob',
+            parent: 'edit_profile',
+            type: "dob",
+            label: false,
+            control: control,
+            placeholder: true,
+        },
+        {
+            name: 'partner_body_hair',
+            parent: 'edit_profile',
+            type: "multi",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            option: bodyHairOptions
+        },
+        {
+            name: 'partner_height',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: heightOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_weight',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: WeightOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_body_type',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: bodyTypeOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true,
+        },
+        {
+            name: 'partner_ethnic_background',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: ethnicOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_smoking',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: smokingOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_piercings',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: piercingsOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_tattoos',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: tattoosOptions,
+            isDubble: true,
+            _skip: null,
+            isEdit: true
+        },
+        {
+            name: 'partner_languages_spoken',
+            parent: 'edit_profile',
+            type: "multi",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            option: languagesOptions
+        },
+        {
+            name: 'partner_important',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: looksOptions,
+        },
+        {
+            name: 'partner_intelligence',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: looksOptions,
+        },
     ]
 }
