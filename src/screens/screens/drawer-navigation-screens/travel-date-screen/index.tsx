@@ -51,7 +51,7 @@ const TravelDateScreen: React.FC = () => {
                             isMore: true,
                             isOption: true,
                             isUserContent: false,
-                            isFilterOption: true,
+                            isFilterOption: true, 
                             isGallery: true
                         }}
                     />

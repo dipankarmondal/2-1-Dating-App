@@ -31,6 +31,7 @@ import AddVideoScreen from "../../screens/screens/stack-navigation-screens/add-v
 import CreateGroup from "../../screens/screens/stack-navigation-screens/create-group"
 import MyGroupScreen from "../../screens/screens/stack-navigation-screens/my-group-screen"
 import FeaturedMembersAddScreen from "../../screens/screens/stack-navigation-screens/featured-members-add-screen"
+import InviteFriendsScreen from "../../screens/screens/stack-navigation-screens/invite-friends-screen"
 
 export const AuthStack = () => {
     return (
@@ -65,6 +66,7 @@ export const MainStack = () => {
             <Stack.Screen name="CreateGroup" component={CreateGroup} />
             <Stack.Screen name="MyGroupScreen" component={MyGroupScreen} />
             <Stack.Screen name="FeaturedMembersAddScreen" component={FeaturedMembersAddScreen} />
+            <Stack.Screen name="InviteFriendsScreen" component={InviteFriendsScreen} />
         </Stack.Navigator>
     )
 }
