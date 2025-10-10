@@ -34,7 +34,7 @@ const LoginScreen: React.FC = () => {
 
     const Navigation = useNavigation<any>()
 
-    const LoginMutation = useMutation({
+    const LoginMutation = useMutation({ 
         mutationFn: (data: any) => LoginUser(data),
         onSuccess: (res) => {
             if (res?.success === true) {

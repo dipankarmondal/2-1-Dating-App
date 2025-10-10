@@ -682,8 +682,6 @@
                 "required": "Circumcised level  is required"
             }
         },
-
-
         "partner_full_name": {
             "label": " Partner Fullname",
             "placeholder": "Enter your partner fullname",
@@ -769,14 +767,14 @@
             }
         },
         "partner_intelligence": {
-            "label": "Select your intelligence ", 
+            "label": "Select your intelligence ",
             "placeholder": "Partner intelligence  are important?",
             "errors": {
                 "required": "intelligence  is required"
             }
         },
         "partner_sexuality": {
-            "label": "Partner sexuality", 
+            "label": "Partner sexuality",
             "placeholder": "Partner sexuality",
             "errors": {
                 "required": "sexuality is required"
@@ -794,6 +792,68 @@
             "placeholder": "Partner experience level",
             "errors": {
                 "required": "partner experience level  is required"
+            }
+        }
+    },
+    "upload_photo": {
+        "profile_photo": {
+            "label": "Profil photo",
+            "placeholder": "Upload profile photo",
+            "errors": {
+                "required": "photo is required"
+            }
+        },
+        "adult_photo": {
+            "label": "Profil photo",
+            "placeholder": "Upload adult photo",
+            "errors": {
+                "required": "photo is required"
+            }
+        },
+        "non_adult_photo": {
+            "label": "Profil photo",
+            "placeholder": "Upload non-adult photo",
+            "errors": {
+                "required": "photo is required"
+            }
+        }
+    },
+    "create_album": {
+        "title": {
+            "label": "Album title",
+            "placeholder": "Album title",
+            "errors": {
+                "required": "title is required"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Password(optional)",
+            "errors": {
+                "required": "photo is required"
+            }
+        }
+    },
+    "open_album": {
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter password",
+            "errors": {
+                "required": "password is required"
+            }
+        },
+        "add_image": {
+            "label": "add image",
+            "placeholder": "Add photo here ",
+            "errors": {
+                "required": "photo is required"
+            }
+        },
+        "add_video": {
+            "label": "add video",
+            "placeholder": "Add video here ",
+            "errors": {
+                "required": "video is required"
             }
         }
     }

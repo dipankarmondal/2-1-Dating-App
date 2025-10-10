@@ -756,7 +756,7 @@ export const EditProfileBuilder = (control: Control<any>) => {
             parent: 'edit_profile',
             styles: FormStyle,
             type: "multichoose",
-            label: true, 
+            label: true,
             placeholder: true,
             control: control,
         },
@@ -958,7 +958,7 @@ export const EditProfileBuilder = (control: Control<any>) => {
             placeholder: true,
             selectionData: piercingsOptions,
         },
-        
+
         {
             name: 'partner_full_name',
             parent: 'edit_profile',
@@ -1127,7 +1127,7 @@ export const EditProfileBuilder = (control: Control<any>) => {
             placeholder: true,
             selectionData: relationshipOptions,
         },
-         {
+        {
             name: 'partner_experience_level',
             parent: 'edit_profile',
             type: "dropdown",
@@ -1136,6 +1136,110 @@ export const EditProfileBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
             selectionData: experienceLevel,
+        },
+    ]
+}
+
+export const UploadPhotoBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'profile_photo',
+            parent: 'upload_photo',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'adult_photo',
+            parent: 'upload_photo',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'non_adult_photo',
+            parent: 'upload_photo',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}
+
+export const CreateAlbumBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'title',
+            parent: 'create_album',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'password',
+            parent: 'create_album',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}
+export const OpenAlbumBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'password',
+            parent: 'open_album',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}
+export const AddAlbumBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'add_image',
+            parent: 'open_album',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'add_video',
+            parent: 'open_album',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+            isVideo: true
+        },
+    ]
+}
+export const EditAlbumTitleBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'title',
+            parent: 'create_album',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
         },
     ]
 }

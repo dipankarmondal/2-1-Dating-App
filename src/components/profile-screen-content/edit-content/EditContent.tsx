@@ -1,23 +1,29 @@
+/**React Imports */
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
+
+/** Liabary*/
+import { useQuery } from '@tanstack/react-query'
+import { useForm, useWatch } from 'react-hook-form'
+
+/**Local imports*/
 import { EditContentStyles as styles } from './styles'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
-import { useQuery } from '@tanstack/react-query'
 import { GetUser } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useForm, useWatch } from 'react-hook-form'
 import { EditProfileBuilder } from '../../../utils/builders'
+import { Colors } from '../../../utils/constant/Constant'
+import { Categories } from '../../common/helper'
+import { ms } from '../../../utils/helpers/responsive'
+
+/**Components */
 import CustomInput from '../../form-utils/custom-input'
 import DropdownInput from '../../form-utils/dropdown-input'
 import MultiselectInput from '../../form-utils/multiselect-input/MultiselectInput'
-import ChooseIntrestInput from '../../form-utils/choose-intrest-input/ChooseIntrestInput'
-import { Colors } from '../../../utils/constant/Constant'
-import { Categories } from '../../common/helper'
 import ModeInput from '../../form-utils/mode-input/ModeInput'
 import DatePickerInput from '../../form-utils/datepicker-input'
-import { WeightOptions } from './helper'
 import SubmitButton from '../../submit-button'
-import { ms } from '../../../utils/helpers/responsive'
 
+/**Main export*/
 const EditContent: React.FC = () => {
     const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
 

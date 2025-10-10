@@ -10,7 +10,7 @@ import { GalleryModalProps } from '../../../utils/types/types';
 import Gallery from 'react-native-awesome-gallery';
 
 /**Main export*/
-const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos }) => {
+const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos, isSingle }) => {
     const [index, setIndex] = useState(0);
 
     const images = [
@@ -27,9 +27,13 @@ const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos
                     <Text style={styles.dt_banner_text}>
                         Swipe down to close
                     </Text>
-                    <Text style={styles.dt_banner_text}>
-                        {index + 1} / {photos?.length}
-                    </Text>
+                    {
+                        !isSingle && (
+                            <Text style={styles.dt_banner_text}>
+                                {index + 1} / {photos?.length}
+                            </Text>
+                        )
+                    }
                 </View>
 
                 {/* Gallery */}

@@ -1,20 +1,24 @@
-import { View, Text, Modal, TouchableOpacity } from 'react-native'
-import React, { useRef, useState } from 'react'
-import { VideoModalStyles as styles } from './styles'
-import Video from 'react-native-video';
-import MoreIcon from '@svgs/layers.svg'
+/**React Imports */
+import { View, Modal, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+
+/**Local imports*/
 import { IconProps } from '../../../utils/helpers/Iconprops';
 import { ms } from '../../../utils/helpers/responsive';
 import { Colors } from '../../../utils/constant/Constant';
+import { VideoModalStyles as styles } from './styles'
+
+/** Liabary*/
+import Video from 'react-native-video';
+import MoreIcon from '@svgs/layers.svg'
+
+/**Components */
 import ModalAction from '../modal-action/ModalAction';
 import MoreVideoContent from '../modal-content/more-video-content/MoreVideoContent';
+import { VideoModalProps } from '../../../utils/types/types';
 
-type Props = {
-    visible: boolean,
-    setVisible: (visible: boolean) => void,
-    source: string
-}
-const VideoModal: React.FC<Props> = ({ visible, setVisible, source }) => {
+/**Main export*/
+const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
 

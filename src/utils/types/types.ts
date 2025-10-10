@@ -152,6 +152,7 @@ export type ImagePickerChooseProps = {
     parent: string;
     control: any;
     label: boolean;
+    isVideo?: boolean
 }
 
 export type MultiselectInputProps = {
@@ -236,7 +237,8 @@ export type TopMenuProps = {
 export type GalleryModalProps = {
     visible: boolean,
     setVisible: any,
-    photos: any
+    photos: any,
+    isSingle?: boolean
 }
 
 export type ModalSelectContentProps = {
@@ -244,4 +246,10 @@ export type ModalSelectContentProps = {
     setModalVisible: any,
     selected: any,
     setSelected: any
+}
+
+export type VideoModalProps = {
+    visible: boolean,
+    setVisible: (visible: boolean) => void,
+    source: string
 }

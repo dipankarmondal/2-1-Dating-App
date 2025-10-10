@@ -3,7 +3,6 @@ import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
-import { ProfileScreenStyles as styles } from './styles'
 import { ProfileMenuItems } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { GetUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
@@ -16,6 +15,9 @@ import EditContent from '../../../../components/profile-screen-content/edit-cont
 
 /** Liabary*/
 import { useQuery } from '@tanstack/react-query'
+import PicturesContent from '../../../../components/profile-screen-content/pictures-content/PicturesContent'
+import VideoContent from '../../../../components/profile-screen-content/video-content/VideoContent'
+import AlbumContent from '../../../../components/profile-screen-content/album-content/AlbumContent'
 
 /**Main export*/
 const ProfileScreen: React.FC = () => {
@@ -44,6 +46,13 @@ const ProfileScreen: React.FC = () => {
 
                 {activeKey === "profile" && <ProfileContent data={data?.data} />}
                 {activeKey === "edit" && <EditContent />}
+                {activeKey === "pictures" && <PicturesContent />}
+                {activeKey === "videos" && <VideoContent />}
+                {activeKey === "album" && <AlbumContent 
+                    {...{
+                        userId: data?.data?.id
+                    }}
+                />}
             </ScrollView>
         </ScreenLayout>
     )
