@@ -3,7 +3,7 @@ import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
 import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
-import { bodyHairOptions, bodyTypeOptions, ethnicOptions, heightOptions, languagesOptions, looksOptions, piercingsOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
+import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -756,7 +756,7 @@ export const EditProfileBuilder = (control: Control<any>) => {
             parent: 'edit_profile',
             styles: FormStyle,
             type: "multichoose",
-            label: true,
+            label: true, 
             placeholder: true,
             control: control,
         },
@@ -918,11 +918,47 @@ export const EditProfileBuilder = (control: Control<any>) => {
             placeholder: true,
             selectionData: looksOptions,
         },
-
-
-
-
-
+        {
+            name: 'sexuality',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: sexualityOptions,
+        },
+        {
+            name: 'relationship_orientation',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: relationshipOptions,
+        },
+        {
+            name: 'experience_level',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: experienceLevel,
+        },
+        {
+            name: 'circumcised',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: piercingsOptions,
+        },
+        
         {
             name: 'partner_full_name',
             parent: 'edit_profile',
@@ -1070,6 +1106,36 @@ export const EditProfileBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
             selectionData: looksOptions,
+        },
+        {
+            name: 'partner_sexuality',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: sexualityOptions,
+        },
+        {
+            name: 'partner_relationship_orientation',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: relationshipOptions,
+        },
+         {
+            name: 'partner_experience_level',
+            parent: 'edit_profile',
+            type: "dropdown",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+            selectionData: experienceLevel,
         },
     ]
 }

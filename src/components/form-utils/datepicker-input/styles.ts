@@ -30,7 +30,7 @@ export const DtaePickerStyles = StyleSheet.create({
     dt_select_input: {
         paddingHorizontal: ms(15),
         color: Colors.dt_black,
-        fontSize: ms(17),
+        fontSize: ms(14),
         fontFamily: Fonts.Font_600,
     },
      dt_select_input_text: {

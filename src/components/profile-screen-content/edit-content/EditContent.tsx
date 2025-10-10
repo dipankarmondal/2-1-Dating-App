@@ -15,6 +15,8 @@ import { Categories } from '../../common/helper'
 import ModeInput from '../../form-utils/mode-input/ModeInput'
 import DatePickerInput from '../../form-utils/datepicker-input'
 import { WeightOptions } from './helper'
+import SubmitButton from '../../submit-button'
+import { ms } from '../../../utils/helpers/responsive'
 
 const EditContent: React.FC = () => {
     const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
@@ -52,22 +54,30 @@ const EditContent: React.FC = () => {
             item.name === "partner_weight" ||
             item.name === "partner_body_type" ||
             item.name === "partner_ethnic_background" ||
-            item.name === "partner_smoking" || 
+            item.name === "partner_smoking" ||
             item.name === "partner_piercings" ||
             item.name === "partner_tattoos" ||
             item.name === "partner_languages_spoken" ||
-            item.name === "partner_important"
+            item.name === "partner_important" ||
+            item.name === "partner_intelligence" ||
+            item.name === "partner_sexuality" ||
+            item.name === "partner_relationship_orientation" ||
+            item.name === "partner_experience_level"
         ) && mode !== "couple") {
             return false;
         }
         return true;
     });
 
+    const OnSubmit = (data: any) => {
+        console.log(data);
+    }
+
     return (
         <View style={styles.dt_container}>
             <Text style={styles.dt_profile_header_text}>{data?.data?.username}</Text>
             <View style={styles.dt_form_container}>
-                {fields?.map((item, index,arr) => {
+                {fields?.map((item, index, arr) => {
                     if (item._skip) return null;
                     if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
                         return <CustomInput key={index} {...item} />;
@@ -143,6 +153,15 @@ const EditContent: React.FC = () => {
                         )
                     }
                 })}
+                <View style={{ marginTop: ms(5) }}>
+                    <SubmitButton
+                        {...{
+                            text: "Save",
+                            loading: false,
+                            onPress: handleSubmit(OnSubmit),
+                        }}
+                    />
+                </View>
             </View>
         </View>
     )

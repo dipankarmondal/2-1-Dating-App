@@ -19,7 +19,7 @@ import { Colors } from '../../../utils/constant/Constant';
 import { IconProps } from '../../../utils/helpers/Iconprops';
 
 /**Main export*/
-const DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control, type, label }) => {
+const  DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control, type, label }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     
     const Fields = Formfields;

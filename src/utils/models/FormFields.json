@@ -654,6 +654,34 @@
                 "required": "intelligence  is required"
             }
         },
+        "sexuality": {
+            "label": "Select your sexuality ",
+            "placeholder": "Sexuality",
+            "errors": {
+                "required": "sexuality  is required"
+            }
+        },
+        "relationship_orientation": {
+            "label": "Select your relationship orientation ",
+            "placeholder": "Relationship orientation",
+            "errors": {
+                "required": "relationship orientation  is required"
+            }
+        },
+        "experience_level": {
+            "label": "Select your relationship orientation ",
+            "placeholder": "Experience level",
+            "errors": {
+                "required": "experience level  is required"
+            }
+        },
+        "circumcised": {
+            "label": "Select your circumcised ",
+            "placeholder": "Circumcised",
+            "errors": {
+                "required": "Circumcised level  is required"
+            }
+        },
 
 
         "partner_full_name": {
@@ -741,10 +769,31 @@
             }
         },
         "partner_intelligence": {
-            "label": "Select your intelligence ",
+            "label": "Select your intelligence ", 
             "placeholder": "Partner intelligence  are important?",
             "errors": {
                 "required": "intelligence  is required"
+            }
+        },
+        "partner_sexuality": {
+            "label": "Partner sexuality", 
+            "placeholder": "Partner sexuality",
+            "errors": {
+                "required": "sexuality is required"
+            }
+        },
+        "partner_relationship_orientation": {
+            "label": "Select your relationship orientation ",
+            "placeholder": "Partner relationship orientation",
+            "errors": {
+                "required": "partner relationship orientation  is required"
+            }
+        },
+        "partner_experience_level": {
+            "label": "Select your relationship orientation ",
+            "placeholder": "Partner experience level",
+            "errors": {
+                "required": "partner experience level  is required"
             }
         }
     }

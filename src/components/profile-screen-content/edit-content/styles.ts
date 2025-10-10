@@ -14,7 +14,8 @@ export const EditContentStyles = StyleSheet.create({
         textTransform: "uppercase"
     },
     dt_form_container: {
-        marginVertical: ms(10)
+        marginVertical: ms(10),
+        paddingBottom:ms(50)
     },
     dt_multibuttons_container: {
         borderRadius: ms(8),
@@ -42,7 +43,7 @@ export const EditContentStyles = StyleSheet.create({
     },
     dt_multibuttons_text:{
         color: Colors.dt_white,
-        fontSize: ms(16),
+        fontSize: ms(14),
         fontFamily: Fonts.Font_500
     },
     dt_dropdown_container: {

@@ -35,7 +35,7 @@ export const DropdownInputStyles = StyleSheet.create({
     dt_select_input: {
         paddingHorizontal: ms(15),
         color: Colors.dt_white,
-        fontSize: ms(17),
+        fontSize: ms(14),
         fontFamily: Fonts.Font_600,
     },
     dropdownList: {

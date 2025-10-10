@@ -34,7 +34,7 @@ export const FormStyle = StyleSheet.create({
     FormLabel: {
         color: Colors.dt_black,
         fontFamily: Fonts.Font_600,
-        fontSize: ms(17),
+        fontSize: ms(14),
         marginBottom: ms(5),
     },
     wrapper: {
@@ -49,7 +49,7 @@ export const FormStyle = StyleSheet.create({
     input_field: {
         paddingHorizontal: ms(15),
         color: Colors.dt_white,
-        fontSize: ms(17),
+        fontSize: ms(14),
         fontFamily: Fonts.Font_600,
     },
     error: {

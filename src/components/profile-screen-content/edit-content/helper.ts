@@ -170,3 +170,27 @@ export const looksOptions = [
   { key: "medium_importance", value: "Medium Importance" },
   { key: "very_important", value: "Very Important" }
 ];
+
+export const sexualityOptions = [
+  { key: 'prefer_not_to_say', value: 'Prefer not to say' },
+  { key: 'straight', value: 'Straight' },
+  { key: 'bi_sexual', value: 'Bi-sexual' },
+  { key: 'bi_curious', value: 'Bi-curious' },
+  { key: 'gay', value: 'Gay' },
+  { key: 'pansexual', value: 'Pansexual' },
+];
+
+export const relationshipOptions = [
+  { key: 'swinger', value: 'Swinger' },
+  { key: 'prefer_not_to_say', value: 'Prefer not to say' },
+  { key: 'monogamous', value: 'Monogamous' },
+  { key: 'open_minded', value: 'Open-Minded' },
+  { key: 'polyamorous', value: 'Polyamorous' },
+];
+export const experienceLevel = [
+  { key: "curious", value: "Curious" },
+  { key: "intermediate", value: "Intermediate" },
+  { key: "newbie", value: "Newbie" },
+  { key: "advanced", value: "Advanced" }
+]
+

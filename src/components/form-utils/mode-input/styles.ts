@@ -6,7 +6,7 @@ export const ModeInputStyles = StyleSheet.create({
     FormLabel: {
         color: Colors.dt_white,
         fontFamily: Fonts.Font_600,
-        fontSize: ms(17),
+        fontSize: ms(14),
         marginBottom: ms(5),
     },
     container: {

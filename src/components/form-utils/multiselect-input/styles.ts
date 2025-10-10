@@ -15,7 +15,7 @@ export const MultiSelectInputStyles = StyleSheet.create({
     },
     selectedText: {
         color: Colors.dt_white,
-        fontSize: ms(16),
+        fontSize: ms(14),
         fontFamily: Fonts.Font_600,
     },
     optionsContainer: {
