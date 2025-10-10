@@ -33,6 +33,7 @@ import MyGroupScreen from "../../screens/screens/stack-navigation-screens/my-gro
 import FeaturedMembersAddScreen from "../../screens/screens/stack-navigation-screens/featured-members-add-screen"
 import InviteFriendsScreen from "../../screens/screens/stack-navigation-screens/invite-friends-screen"
 import AlbumShowScreen from "../../screens/screens/stack-navigation-screens/album-show-screen"
+import AccountScreen from "../../screens/screens/stack-navigation-screens/account-screen"
 
 export const AuthStack = () => {
     return (
@@ -69,6 +70,7 @@ export const MainStack = () => {
             <Stack.Screen name="FeaturedMembersAddScreen" component={FeaturedMembersAddScreen} />
             <Stack.Screen name="InviteFriendsScreen" component={InviteFriendsScreen} />
             <Stack.Screen name="AlbumShowScreen" component={AlbumShowScreen} />
+            <Stack.Screen name="AccountScreen" component={AccountScreen} />
         </Stack.Navigator>
     )
 }

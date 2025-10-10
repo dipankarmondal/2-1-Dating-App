@@ -20,10 +20,11 @@ import VideoIcon from '@svgs/appicon/live.svg'
 import DubbleCheckIcon from '@svgs/dubble_check.svg'
 import LikeThumbIcon from '@svgs/like.svg'
 import GroupIcon from '@svgs/group.svg'
+import SubscriptionIcon from '@svgs/subscription.svg'
 
 import { ms } from '../../utils/helpers/responsive'
 
-export const menuItems = (Navigation) => [
+export const menuItems = (Navigation:any) => [
     {
         id: "settings",
         label: "Profile",
@@ -36,7 +37,14 @@ export const menuItems = (Navigation) => [
         label: "Account",
         Icon: AccountIcon,
         size: 16,
-        onPress: () => console.log("👤 Account clicked"),
+        onPress: () => Navigation.navigate("AccountScreen"),
+    },
+    {
+        id: "subscription",
+        label: "Subscription",
+        Icon: SubscriptionIcon,
+        size: 20,
+        onPress: () => console.log("👤 SubscriptionIcon clicked"),
     },
     {
         id: "location",

@@ -9,9 +9,12 @@ import LoaderKitView from 'react-native-loader-kit'
 import { Colors } from '../../utils/constant/Constant'
 
 /**Main export*/
-const SubmitButton: React.FC<SubmitButtonProps> = ({ text, loading, onPress }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({ text, loading, onPress, type }) => {
     return (
-        <TouchableOpacity style={styles.dt_button} onPress={onPress} disabled={loading}>
+        <TouchableOpacity
+            style={[styles.dt_button, { backgroundColor: type === "delete" ? Colors.dt_error : Colors.dt_primary_green }]}
+            onPress={onPress} disabled={loading}
+        >
             {
                 loading ?
                     <LoaderKitView

@@ -28,6 +28,7 @@ export type SubmitButtonProps = {
     text: string,
     loading?: boolean,
     onPress: () => void,
+    type?: string
 }
 
 export type AuthProps = {

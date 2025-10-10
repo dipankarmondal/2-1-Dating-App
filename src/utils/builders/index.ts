@@ -1243,3 +1243,43 @@ export const EditAlbumTitleBuilder = (control: Control<any>) => {
         },
     ]
 }
+export const EditAccountBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'username',
+            parent: 'edit_account',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'email',
+            parent: 'edit_account',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'password',
+            parent: 'edit_account',
+            styles: FormStyle,
+            type: "password",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'confirm_password',
+            parent: 'edit_account',
+            styles: FormStyle,
+            type: "password",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}

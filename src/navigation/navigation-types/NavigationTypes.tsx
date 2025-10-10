@@ -12,7 +12,7 @@ export type RootStackParamList = {
   RegistrationScreen: undefined;
   DrawerNavigator: undefined;
   ForgetPassword: undefined;
-  ProfileSetup: undefined;
+  ProfileSetup: undefined; 
   BusinessSignupScreen: undefined;
   ProfileScreen: undefined;
   ChatScreen: undefined;
@@ -27,6 +27,7 @@ export type RootStackParamList = {
   FeaturedMembersAddScreen: undefined;
   InviteFriendsScreen: undefined;
   AlbumShowScreen: undefined;
+  AccountScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

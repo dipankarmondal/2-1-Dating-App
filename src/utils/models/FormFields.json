@@ -856,5 +856,42 @@
                 "required": "video is required"
             }
         }
+    },
+    "edit_account": {
+        "username": {
+            "label": "User name",
+            "placeholder": "Enter your username",
+            "errors": {
+                "required": "user name is required",
+                "min": "user name must be at least 3 characters"
+            }
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "errors": {
+                "required": "email is required",
+                "pattern": "enter a valid email address"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Enter your password",
+            "errors": {
+                "required": "password is required",
+                "pattern": {
+                    "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$",
+                    "message": "Min 8 chars, must mix upper/lower, number & special."
+                }
+            }
+        },
+        "confirm_password": {
+            "label": "Confirm Password",
+            "placeholder": "Re-enter your password",
+            "errors": {
+                "required": "Confirm password is required",
+                "match": "Passwords must match"
+            }
+        }
     }
 }
