@@ -1,15 +1,23 @@
-import { View, Text, ScrollView } from 'react-native'
+/**React Imports */
+import { View, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+
+/**Local imports*/
 import { AccountScreenStyles as styles } from './styles'
+import { EditAccountBuilder } from '../../../../utils/builders'
+import { ms } from '../../../../utils/helpers/responsive'
+
+/**Components */
 import ScreenLayout from '../../common/ScreenLayout'
 import CustomInput from '../../../../components/form-utils/custom-input'
-import { EditAccountBuilder } from '../../../../utils/builders'
-import { useForm } from 'react-hook-form'
-import { ms } from '../../../../utils/helpers/responsive'
 import SubmitButton from '../../../../components/submit-button'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
 
+/** Liabary*/
+import { useForm } from 'react-hook-form'
+
+/**Main export*/
 const AccountScreen: React.FC = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 

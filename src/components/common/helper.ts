@@ -24,7 +24,7 @@ import SubscriptionIcon from '@svgs/subscription.svg'
 
 import { ms } from '../../utils/helpers/responsive'
 
-export const menuItems = (Navigation:any) => [
+export const menuItems = (Navigation: any) => [
     {
         id: "settings",
         label: "Profile",
@@ -44,7 +44,7 @@ export const menuItems = (Navigation:any) => [
         label: "Subscription",
         Icon: SubscriptionIcon,
         size: 20,
-        onPress: () => console.log("👤 SubscriptionIcon clicked"),
+        onPress: () => Navigation.navigate("SubscriptionScreen"),
     },
     {
         id: "location",
@@ -428,3 +428,52 @@ export const Categories = [
         ],
     }
 ]
+
+export const features = [
+    {
+        category: "Connections",
+        items: [
+            "Unlimited messaging",
+            "Member verification",
+            "Send friend requests",
+            "Broadcast to connections"
+        ]
+    },
+    {
+        category: "Media",
+        items: [
+            "View full profiles",
+            "Live video streaming",
+            "Unlimited media uploads",
+            "Private media sharing"
+        ]
+    },
+    {
+        category: "Events",
+        items: [
+            "Create private events",
+            "Manage guest lists",
+            "Partner venue discounts",
+            "VIP event access"
+        ]
+    },
+    {
+        category: "Community",
+        items: [
+            "Group creation",
+            "Forum participation",
+            "Member services",
+            "Featured profile placement"
+        ]
+    }
+];
+
+export const restrictions = [
+  { id: 1, text: "Limited to 10 messages per day" },
+  { id: 2, text: "Can only receive friend requests" },
+  { id: 3, text: "View limited profile information" },
+  { id: 4, text: "No access to private media" },
+  { id: 5, text: "Cannot create events or groups" },
+  { id: 6, text: "Read-only forum access" },
+  { id: 7, text: "No VIP event access" },
+];

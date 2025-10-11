@@ -6201,6 +6201,11 @@ react-native-otp-entry@^1.8.5:
   resolved "https://registry.yarnpkg.com/react-native-otp-entry/-/react-native-otp-entry-1.8.5.tgz#e5893040e1b0540c6febb89b1b29a1729277c1df"
   integrity sha512-TZNkIuUzZKAAWrC8X/A22ZHJdycLysxUNysrGf0yTmDLRUyf4zLXwVFcDYUcRNe763Hjaf5qvtKGILb6lDGzoA==
 
+react-native-razorpay@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-razorpay/-/react-native-razorpay-2.3.0.tgz#e89f3c635e439bc85e4c7972eb2d67e2c0e0abc3"
+  integrity sha512-xxiZCPuZmiRq5UHDr+D4OoyxEjMu0ujC+RaE+rYo938EK0Vc21dZRUVxMVP1L2WgzA8PYwmD5FWvdHNtWLQC4Q==
+
 react-native-reanimated@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-4.0.2.tgz#c986bff36ce90cd1df83506d6fb5d62db6f2d3b7"

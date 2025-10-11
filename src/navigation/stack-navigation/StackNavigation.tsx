@@ -34,6 +34,8 @@ import FeaturedMembersAddScreen from "../../screens/screens/stack-navigation-scr
 import InviteFriendsScreen from "../../screens/screens/stack-navigation-screens/invite-friends-screen"
 import AlbumShowScreen from "../../screens/screens/stack-navigation-screens/album-show-screen"
 import AccountScreen from "../../screens/screens/stack-navigation-screens/account-screen"
+import SubscriptionScreen from "../../screens/screens/stack-navigation-screens/subscription-screen"
+import SeePlans from "../../screens/screens/stack-navigation-screens/subscription-screen/See-plans"
 
 export const AuthStack = () => {
     return (
@@ -71,6 +73,8 @@ export const MainStack = () => {
             <Stack.Screen name="InviteFriendsScreen" component={InviteFriendsScreen} />
             <Stack.Screen name="AlbumShowScreen" component={AlbumShowScreen} />
             <Stack.Screen name="AccountScreen" component={AccountScreen} />
+            <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />
+            <Stack.Screen name="SeePlans" component={SeePlans} />
         </Stack.Navigator>
     )
 }
