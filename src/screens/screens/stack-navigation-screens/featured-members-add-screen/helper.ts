@@ -55,3 +55,18 @@ export const FeaturedMemberAddData = [
         des: "Become a featured member on twoplusonedating.com to receive more exposure and traffic to your profile (This special feature is for paid members only)."
     },
 ]
+
+export const PrivacyData = [
+    { id: 1, text: "Block the 'your friends added themselves to a guestlist' notification" },
+    { id: 2, text: "Block friends from receiving a notification when YOU add yourself to a guest list" },
+    { id: 3, text: "Block trial members from contacting you" },
+    { id: 4, text: "Block single males from contacting you" },
+    { id: 5, text: "Block Group invitations" },
+    { id: 6, text: "Block Like notifications" },
+    { id: 7, text: "Show your activity on your friends' TwoPlusOneDating Feed" },
+    { id: 8, text: "Show others you looked at their profile" },
+    { id: 9, text: "Allow the TwoPlusOneDating watermark on your profile photos for protection" },
+    { id: 10, text: "Allow other members to invite you to their parties" },
+    { id: 11, text: "Allow other members to video call you on messenger" },
+    { id: 12, text: "Become a featured member on TwoPlusOneDating.com to receive more exposure and traffic (available for paid members only)" }
+];

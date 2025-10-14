@@ -1313,3 +1313,25 @@ export const LocationContainer = (control: Control<any>) => {
         },
     ]
 }
+export const BugReport = (control: Control<any>) => {
+    return [
+        {
+            name: 'comment',
+            parent: 'bug_report',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'system_info',
+            parent: 'bug_report',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}

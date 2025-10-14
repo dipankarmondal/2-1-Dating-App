@@ -256,3 +256,10 @@ export type VideoModalProps = {
     setVisible: (visible: boolean) => void,
     source: string
 }
+
+export type AccordionProps = {
+    title: string;
+    children: React.ReactNode;
+    isExpanded: boolean;
+    onToggle: () => void;
+}

@@ -211,6 +211,11 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             </View>
                         )
                     }
+                    {
+                        type === "view" && (
+                            <Text style={styles.dt_travel_time_text}>9 Sept 2025, 11:27 pm</Text>
+                        )
+                    }
                 </View>
                 {
                     isUserContent && (

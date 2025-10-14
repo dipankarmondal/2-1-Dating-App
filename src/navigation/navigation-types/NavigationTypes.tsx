@@ -32,6 +32,15 @@ export type RootStackParamList = {
   SeePlans: undefined;
   LocationScreen: undefined;
   FriendsScreen: undefined;
+  ViewScreen: undefined;
+  LikeAndDislikeScreen: undefined;
+  BlockListScreen: undefined;
+  NoteScreen: undefined;
+  RememberedScreen: undefined;
+  PrivacyScreen: undefined;
+  BugReportScreen: undefined;
+  HideProfileScreen: undefined;
+  ContactAndHelpScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

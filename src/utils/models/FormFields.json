@@ -916,5 +916,21 @@
                 "required": "distance is required"
             }
         }
+    },
+    "bug_report": {
+        "comment": {
+            "label": "comment",
+            "placeholder": "Describe the issue in details...",
+            "errors": {
+                "required": "comment is required"
+            }
+        },
+        "system_info": {
+            "label": "system info",
+            "placeholder": "Enter your system info",
+            "errors": {
+                "required": "second location is required"
+            }
+        }
     }
 }

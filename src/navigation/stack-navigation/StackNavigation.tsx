@@ -38,6 +38,15 @@ import SubscriptionScreen from "../../screens/screens/stack-navigation-screens/s
 import SeePlans from "../../screens/screens/stack-navigation-screens/subscription-screen/See-plans"
 import LocationScreen from "../../screens/screens/stack-navigation-screens/location-screen"
 import FriendsScreen from "../../screens/screens/stack-navigation-screens/friends-screen"
+import ViewScreen from "../../screens/screens/stack-navigation-screens/view-screen"
+import LikeAndDislikeScreen from "../../screens/screens/stack-navigation-screens/like-and-dislike-screen"
+import BlockListScreen from "../../screens/screens/stack-navigation-screens/block-list-screen"
+import NoteScreen from "../../screens/screens/stack-navigation-screens/notes-screen"
+import RememberedScreen from "../../screens/screens/stack-navigation-screens/remembered-screen"
+import PrivacyScreen from "../../screens/screens/stack-navigation-screens/privacy-screen"
+import BugReportScreen from "../../screens/screens/stack-navigation-screens/bug-report-screen"
+import HideProfileScreen from "../../screens/screens/stack-navigation-screens/hide-profile-screen"
+import ContactAndHelpScreen from "../../screens/screens/stack-navigation-screens/contact-help-screen"
 
 export const AuthStack = () => {
     return (
@@ -79,6 +88,15 @@ export const MainStack = () => {
             <Stack.Screen name="SeePlans" component={SeePlans} />
             <Stack.Screen name="LocationScreen" component={LocationScreen} />
             <Stack.Screen name="FriendsScreen" component={FriendsScreen} />
+            <Stack.Screen name="ViewScreen" component={ViewScreen} />
+            <Stack.Screen name="LikeAndDislikeScreen" component={LikeAndDislikeScreen} />
+            <Stack.Screen name="BlockListScreen" component={BlockListScreen} />
+            <Stack.Screen name="NoteScreen" component={NoteScreen} />
+            <Stack.Screen name="RememberedScreen" component={RememberedScreen} />
+            <Stack.Screen name="PrivacyScreen" component={PrivacyScreen} />
+            <Stack.Screen name="BugReportScreen" component={BugReportScreen} />
+            <Stack.Screen name="HideProfileScreen" component={HideProfileScreen} />
+            <Stack.Screen name="ContactAndHelpScreen" component={ContactAndHelpScreen} />
         </Stack.Navigator>
     )
 }
