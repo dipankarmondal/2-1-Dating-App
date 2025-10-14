@@ -86,15 +86,48 @@ export const SubscriptionScreenStyles = StyleSheet.create({
         color: Colors.dt_white,
         marginBottom: ms(3),
         textTransform: "uppercase"
-    },                                                                                          
-    dt_plan_header_text:{
+    },
+    dt_plan_header_text: {
         fontFamily: Fonts.Font_600,
         fontSize: ms(17),
         color: Colors.dt_white
     },
-    dt_price_text:{
+    dt_price_text: {
         fontFamily: Fonts.Font_700,
-        fontSize: ms(21),
+        fontSize: ms(25),
         color: Colors.dt_success_green
+    },
+    dt_price_container: {
+        marginVertical: ms(15),
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    dt_content_info: {
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(17),
+        color: Colors.dt_white
+    },
+    dt_content_info_box: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    dt_features_container:{
+        gap:ms(8),
+        marginTop:ms(8)
+    },
+    dt_price_button:{
+        width:ms(50),
+        height:ms(30),
+        justifyContent:"center",
+        alignItems:"center",
+        borderRadius:ms(50),
+        backgroundColor:Colors.dt_success_green
+    },
+    dt_price_button_text:{
+        fontFamily:Fonts.Font_600,
+        fontSize:ms(14),
+        color:Colors.dt_white
     }
 })

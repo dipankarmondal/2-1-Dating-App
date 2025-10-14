@@ -1,7 +1,7 @@
 import { Control } from "react-hook-form"
 import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
-import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
+import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, Distance, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 
@@ -1139,7 +1139,6 @@ export const EditProfileBuilder = (control: Control<any>) => {
         },
     ]
 }
-
 export const UploadPhotoBuilder = (control: Control<any>) => {
     return [
         {
@@ -1171,7 +1170,6 @@ export const UploadPhotoBuilder = (control: Control<any>) => {
         },
     ]
 }
-
 export const CreateAlbumBuilder = (control: Control<any>) => {
     return [
         {
@@ -1280,6 +1278,38 @@ export const EditAccountBuilder = (control: Control<any>) => {
             label: false,
             placeholder: true,
             control: control,
+        },
+    ]
+}
+export const LocationContainer = (control: Control<any>) => {
+    return [
+        {
+            name: 'current_location',
+            parent: 'location',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'second_location',
+            parent: 'location',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'distance',
+            parent: 'location',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: Distance
         },
     ]
 }

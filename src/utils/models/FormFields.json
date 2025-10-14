@@ -893,5 +893,28 @@
                 "match": "Passwords must match"
             }
         }
+    },
+    "location": {
+        "current_location": {
+            "label": "current location",
+            "placeholder": "Your current location is",
+            "errors": {
+                "required": "current location is required"
+            }
+        },
+        "second_location": {
+            "label": "second location",
+            "placeholder": "Your second location is",
+            "errors": {
+                "required": "second location is required"
+            }
+        },
+        "distance": {
+            "label": "distance",
+            "placeholder": "Show distance in",
+            "errors": {
+                "required": "distance is required"
+            }
+        }
     }
 }

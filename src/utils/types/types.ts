@@ -202,7 +202,9 @@ export type UserInfoCardProps = {
     isOption?: boolean,
     isUserContent?: boolean,
     isFilterOption?: boolean,
-    isGallery?: boolean
+    isGallery?: boolean,
+    isChecked?: boolean,
+    setIsChecked?: any
 }
 
 export type MulteImageProps = {

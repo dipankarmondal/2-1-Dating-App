@@ -23,7 +23,7 @@ import GroupIcon from '@svgs/group.svg'
 import SubscriptionIcon from '@svgs/subscription.svg'
 
 import { ms } from '../../utils/helpers/responsive'
-
+ 
 export const menuItems = (Navigation: any) => [
     {
         id: "settings",
@@ -51,14 +51,14 @@ export const menuItems = (Navigation: any) => [
         label: "Location",
         Icon: LocationIcon,
         size: 18,
-        onPress: () => console.log("📍 Location clicked"),
+        onPress: () => Navigation.navigate("LocationScreen"),
     },
     {
         id: "Frineds",
         label: "Frineds",
         Icon: FrinedsIcon,
         size: 17,
-        onPress: () => console.log("Frineds clicked"),
+        onPress: () => Navigation.navigate("FriendsScreen"),
     },
     {
         id: "InviteFrineds",
@@ -173,19 +173,16 @@ export const GoliveOptions = [
     { key: "chat_now", value: "ChatNow" },
     { key: "chat_later", value: "Chat later" },
 ];
-
 export const ChooseInterst = [
     { key: "couple", value: "Couple", image: require('@images/couple.png') },
     { key: "female", value: "Female", image: require('@images/woman.png') },
     { key: "male", value: "Male", image: require('@images/man.png') },
     { key: "transgender", value: "Transgender", image: require('@images/transgender.png') },
 ];
-
 export const AlreadyMemberOptions = [
     { key: true, value: "Yes, I’m already a member" },
     { key: false, value: "No, I’m not a member yet" },
 ];
-
 export const PromotionOptions = [
     { key: false, value: "Promote events / parties" },
     { key: false, value: "Build an audience / community" },
@@ -194,7 +191,6 @@ export const PromotionOptions = [
     { key: false, value: "Sell a product / service" },
     { key: false, value: "Interest in paid advertising" },
 ];
-
 export const ReferalOptions = [
     { key: "Friend / Word of Mouth", value: "Friend / Word of Mouth" },
     { key: "Social Media (Facebook, Instagram, etc.)", value: "Social Media (Facebook, Instagram, etc.)" },
@@ -203,7 +199,6 @@ export const ReferalOptions = [
     { key: "Advertisement", value: "Advertisement" },
     { key: "Other", value: "Other" }
 ];
-
 export const GeneralItems = [
     { key: "viewed_me", value: "Viewed me" },
     { key: "groups_blogs", value: "Groups / Blogs" },
@@ -211,7 +206,6 @@ export const GeneralItems = [
     { key: "travel_plans", value: "Travel Plans" },
     { key: "parties_events", value: "Parties & Events" },
 ];
-
 export const FrindItems = [
     { key: "likes_given", value: "Likes given" },
     { key: "joined_group", value: "Joined group" },
@@ -223,7 +217,6 @@ export const FrindItems = [
     { key: "member_services", value: "Member Services" },
     { key: "new_friends_followers", value: "New Friends / Followers" }
 ];
-
 export const ViewMeOptions = [
     { key: "viewedMe", value: "Viewed Me" },
     { key: "viewedEachOther", value: "Viewed Each Other" },
@@ -241,7 +234,6 @@ export const ViewMeOptions = [
 ];
 export const OnlineOptions = [
     { key: "latest", value: "Latest" },
-
     { key: "business", value: "Business" },
     { key: "transgender", value: "Transgender" },
     { key: "looking", value: "Looking for me / us" },
@@ -267,12 +259,10 @@ export const TravelOptions = [
     { key: 'member_services', value: 'Member Services' },
     { key: 'new_friends_followers', value: 'New Friends / Followers' },
 ];
-
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
     { key: "notification", title: "2+1 Notification" },
 ]
-
 export const getProfileActions = (item: any) => [
     { id: 1, icon: CameraIcon, size: ms(17), count: item?.profile?.photos?.length || 0 },
     { id: 2, icon: VideoIcon, size: ms(17), count: item?.profile?.videos?.length || 0 },
@@ -286,7 +276,6 @@ export const WellfameActions = [
     { id: 3, icon: LikeIcon, size: ms(13), count: 0 },
     { id: 5, icon: ViewsIcon, size: ms(17), count: 0 },
 ];
-
 export const benefitsData = [
     {
         title: "Benefits of the website:",
@@ -308,7 +297,6 @@ export const benefitsData = [
         ],
     },
 ];
-
 export const NotificationData = [
     {
         id: 1,
@@ -359,7 +347,6 @@ export const NotificationData = [
         read: true,
     }
 ]
-
 export const ProfileMenuItems = [
     { key: 'profile', label: 'Profile' },
     { key: 'edit', label: 'Edit' },
@@ -375,7 +362,6 @@ export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },
     { key: 'group_messenger', label: 'Group Messenger' },
 ];
-
 export const WallofFameItems = [
     { key: 'most_photos', label: 'Most Photos' },
     { key: 'most_videos', label: 'Most Videos' },
@@ -385,7 +371,6 @@ export const WallofFameItems = [
     { key: 'most_viewed', label: 'Most Viewed' },
     { key: 'most_contest_articipation', label: 'Most Pontest Participation' },
 ];
-
 export const CategoryOptions = [
     { key: 'social', value: 'Social' },
     { key: 'dating', value: 'Dating' },
@@ -407,7 +392,6 @@ export const GroupForOptions = [
     { key: 'transgender', value: 'Transgender' },
     { key: 'business', value: 'Business' }
 ]
-
 export const Categories = [
     {
         id: 1,
@@ -428,7 +412,6 @@ export const Categories = [
         ],
     }
 ]
-
 export const features = [
     {
         category: "Connections",
@@ -467,7 +450,6 @@ export const features = [
         ]
     }
 ];
-
 export const restrictions = [
   { id: 1, text: "Limited to 10 messages per day" },
   { id: 2, text: "Can only receive friend requests" },
@@ -476,4 +458,21 @@ export const restrictions = [
   { id: 5, text: "Cannot create events or groups" },
   { id: 6, text: "Read-only forum access" },
   { id: 7, text: "No VIP event access" },
+];
+export const Distance =[
+    { key: 'mi', value: 'MI' },
+    { key: 'kms', value: 'KMS' },
+]
+export const friendsfilterOptions = [
+  { key: "accepted", value: "Accepted" },
+  { key: "pending", value: "Pending" },
+  { key: "declined", value: "Declined" },
+  { key: "latest", value: "Latest" },
+  { key: "distance", value: "Distance" },
+  { key: "all", value: "All" },
+  { key: "couples_females", value: "Couples & Females" },
+  { key: "couples", value: "Couples" },
+  { key: "females", value: "Females" },
+  { key: "males", value: "Males" },
+  { key: "transgender", value: "Transgender" },
 ];

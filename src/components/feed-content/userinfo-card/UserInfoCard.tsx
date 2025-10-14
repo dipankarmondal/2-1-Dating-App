@@ -20,6 +20,7 @@ import ClockIcon from '@svgs/appicon/clock.svg'
 import ViewIcon from '@svgs/setting/views.svg'
 import TimeIcon from '@svgs/setting/time.svg'
 import CalendarIcon from '@svgs/drawericon/calendar.svg'
+import CheckIcon from '@svgs/check.svg'
 
 /**Components */
 import ModalAction from '../../modal/modal-action/ModalAction'
@@ -30,7 +31,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,6 +94,16 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                         <CalendarIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                                     </TouchableOpacity>
                                 </>
+                            )
+                        }
+                        {
+                            type === "friends" && (
+                                <TouchableOpacity
+                                    style={[styles.dt_check_button, isChecked && { backgroundColor: Colors.dt_primary_green }]}
+                                    onPress={() => setIsChecked(!isChecked)}
+                                >
+                                    {isChecked && <CheckIcon {...IconProps(ms(18))} fill={"#fff"} />}
+                                </TouchableOpacity>
                             )
                         }
                     </View>
@@ -175,7 +186,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                     }
                     {
                         type === "member" && (
-                            <View style={[styles.dt_profile_content, {marginTop:ms(10)}]}>
+                            <View style={[styles.dt_profile_content, { marginTop: ms(10) }]}>
                                 {WellfameActions.map(({ id, icon: Icon, size, count }) => (
                                     <TouchableOpacity
                                         key={id}
@@ -185,6 +196,18 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                         <Text style={styles.dt_profile_text}>{count}</Text>
                                     </TouchableOpacity>
                                 ))}
+                            </View>
+                        )
+                    }
+                    {
+                        type === "friends_request" && (
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity style={styles.rejectButton} >
+                                    <Text style={styles.buttonText}>Reject</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.acceptButton} >
+                                    <Text style={styles.buttonText}>Accept</Text>
+                                </TouchableOpacity>
                             </View>
                         )
                     }

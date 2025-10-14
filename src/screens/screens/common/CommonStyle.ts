@@ -97,6 +97,21 @@ export const CommonStyles = StyleSheet.create({
         fontSize:ms(12),
         color:Colors.dt_white
     },
+    dt_tab_btn:{
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:ms(50),
+        paddingHorizontal:ms(8),
+        paddingVertical:ms(7),
+        marginLeft:ms(5),
+        borderWidth:ms(1),
+        borderColor:Colors.dt_white
+    },
+    dt_tab_btn_text:{
+        fontFamily:Fonts.Font_500,
+        fontSize:ms(12),
+        color:Colors.dt_white
+    },
     dt_searchInput: {
         height: ms(45),
         borderRadius: ms(10),

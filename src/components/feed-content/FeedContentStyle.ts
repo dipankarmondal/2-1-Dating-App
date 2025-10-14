@@ -74,14 +74,14 @@ export const FeedContentStyles = StyleSheet.create({
     },
     dt_intrest_container: {
         marginTop: ms(8),
-        
+
     },
     dt_intrest_text: {
         fontSize: ms(15),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white
     },
-    dt_intrest_text_empty:{
+    dt_intrest_text_empty: {
         fontSize: ms(12),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_gray
@@ -103,7 +103,7 @@ export const FeedContentStyles = StyleSheet.create({
         borderRadius: ms(50),
         padding: ms(5),
         flexDirection: "row",
-        justifyContent:"space-between",
+        justifyContent: "space-between",
         // alignSelf: "flex-start"
     },
     dt_button_two: {
@@ -146,13 +146,13 @@ export const FeedContentStyles = StyleSheet.create({
         borderRadius: ms(50),
         alignItems: "center",
         justifyContent: "center",
-        
+
     },
     dt_icon_container: {
         flex: 1,
-        flexDirection:"row",
-        alignItems:"center",
-        justifyContent:"space-between"
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
 
     // Group info card
@@ -259,20 +259,52 @@ export const FeedContentStyles = StyleSheet.create({
         marginTop: ms(10),
         textTransform: "capitalize"
     },
-    dt_live_info_container:{
-        flexDirection:"row",
-        alignItems:"center",
-        gap:ms(5)
+    dt_live_info_container: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(5)
     },
-    dt_travel_text:{
-        fontSize:ms(12),
-        fontFamily:Fonts.Font_500,
-        color:Colors.dt_white,
-        marginVertical:ms(5)
+    dt_travel_text: {
+        fontSize: ms(12),
+        fontFamily: Fonts.Font_500,
+        color: Colors.dt_white,
+        marginVertical: ms(5)
     },
-    dt_travel_time_text:{
-        fontSize:ms(12),
-        fontFamily:Fonts.Font_600,
-        color:Colors.dt_error
-    }
+    dt_travel_time_text: {
+        fontSize: ms(12),
+        fontFamily: Fonts.Font_600,
+        color: Colors.dt_error
+    },
+    dt_check_button: {
+        width: ms(30),
+        height: ms(30),
+        borderRadius: ms(10),
+        borderWidth: 1,
+        borderColor: Colors.dt_white,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 10,
+    },
+    acceptButton: {
+        backgroundColor: Colors.dt_success_green,
+        width:"48%",
+        borderRadius: 5,
+        paddingVertical: ms(7)
+    },
+    rejectButton: {
+        backgroundColor: Colors.dt_error,
+        width:"48%",
+        borderRadius: 5,
+        paddingVertical: ms(7)
+    },
+    buttonText: {
+        color: Colors.dt_white,
+        fontSize: ms(16),
+        textAlign: "center",
+        fontFamily: Fonts.Font_600
+    },
 })

@@ -36,6 +36,8 @@ import AlbumShowScreen from "../../screens/screens/stack-navigation-screens/albu
 import AccountScreen from "../../screens/screens/stack-navigation-screens/account-screen"
 import SubscriptionScreen from "../../screens/screens/stack-navigation-screens/subscription-screen"
 import SeePlans from "../../screens/screens/stack-navigation-screens/subscription-screen/See-plans"
+import LocationScreen from "../../screens/screens/stack-navigation-screens/location-screen"
+import FriendsScreen from "../../screens/screens/stack-navigation-screens/friends-screen"
 
 export const AuthStack = () => {
     return (
@@ -75,6 +77,8 @@ export const MainStack = () => {
             <Stack.Screen name="AccountScreen" component={AccountScreen} />
             <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />
             <Stack.Screen name="SeePlans" component={SeePlans} />
+            <Stack.Screen name="LocationScreen" component={LocationScreen} />
+            <Stack.Screen name="FriendsScreen" component={FriendsScreen} />
         </Stack.Navigator>
     )
 }
