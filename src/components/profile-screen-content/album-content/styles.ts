@@ -22,7 +22,8 @@ export const AlbumContentStyles = StyleSheet.create({
     },
     dt_album_wrapper: {
         flex: 1,
-        marginTop: ms(16)
+        marginTop: ms(16),
+        gap:ms(10)
     },
     dt_album_container: {
         width: "100%",

@@ -4,9 +4,10 @@ import ShareIcon from '@svgs/share.svg'
 import InviteIcon from '@svgs/setting/invite.svg'
 import VideoIcon from '@svgs/appicon/live.svg'
 import FriendsIcon from '@svgs/setting/friends.svg'
+import { getAge } from '../../../utils/constant/Constant'
 
 export const profileButtons = [
-  {
+  {    
     id: 1,
     label: "Adult",
     icon: CameraIcon,
@@ -57,20 +58,27 @@ export const profileButtons = [
   },
 ];
 
-export const ProfileContentData = [
-    { label: "Age", char: "57", parm: "57" },
-    { label: "Body Hair", char: "Shave, Smooth", parm: "Shave, Smooth" },
-    { label: "Height", char: "5'4 - (163cm)", parm: "5'4 - (163cm)" },
-    { label: "Weight", char: "148 lb (67 kg)", parm: "148 lb (67 kg)" },
-    { label: "Body type", char: "Average", parm: "Average" },
-    { label: "Ethnic background", char: "Indian", parm: "Indian" },
-    { label: "Smoking", char: "No", parm: "No" },
-    { label: "Piercings", char: "No", parm: "No" },
-    { label: "Tattoos", char: "None", parm: "None" },
-    { label: "Languages Spoken", char: "English", parm: "English" },
-    { label: "Looks are important?", char: "Low Importance", parm: "Low Importance" },
-    { label: "Intelligence is important?", char: "Very Important", parm: "Very Important" },
-    { label: "Sexuality", char: "Bi-sexual", parm: "Bi-sexual" },
-    { label: "Relationship status", char: "Swinger", parm: "Swinger" },
-    { label: "Experience level", char: "Advanced", parm: "Advanced" },
+const getExperienceLevel = (levelObj: any) => {
+    if (!levelObj) return "--";
+    const activeKey = Object.keys(levelObj).find(key => levelObj[key] === true);
+    // Capitalize the first letter
+    return activeKey ? activeKey.charAt(0).toUpperCase() + activeKey.slice(1) : "--";
+};
+
+export const ProfileContentData=(data: any) => [
+    { label: "Age", char: getAge(data?.partner?.dateOfBirth), parm: getAge(data?.dateOfBirth) },
+    { label: "Body Hair", char: data?.partner?.bodyHair.join(", ") ?? "--", parm: data.bodyHair.join(", ") ?? "--" },
+    { label: "Height", char: data?.partner?.height??"--", parm: data?.height??"--" },
+    { label: "Weight", char:data?.partner?.weight??"--", parm: data?.weight??"--" },
+    { label: "Body type", char: data?.partner?.bodyType??"--", parm: data?.bodyType??"--" }, 
+    { label: "Ethnic background", char: data?.partner?.ethnicBackground??"--", parm: data?.ethnicBackground??"--" },
+    { label: "Smoking", char: data?.partner?.smoking ?? "--", parm: data?.smoking ?? "--" },
+    { label: "Piercings", char: data?.partner?.piercings ?? "--", parm: data?.piercings ?? "--" },
+    { label: "Tattoos", char: data?.partner?.tattoos ?? "--", parm: data?.tattoos ?? "--" },
+    { label: "Languages Spoken", char: data?.partner?.languagesSpoken.join(", ") ?? "--", parm: data?.languagesSpoken.join(", ") ?? "--" },
+    { label: "Looks are important?", char: data?.partner?.looksAreImportant.replaceAll("_", " ") ?? "--", parm: data?.looksAreImportant.replaceAll("_", " ") ?? "--" },
+    { label: "Intelligence is important?", char: data?.partner?.intelligenceIsImportant.replaceAll("_", " ") ?? "--", parm: data?.intelligenceIsImportant.replaceAll("_", " ") ?? "--" },
+    { label: "Sexuality", char: data?.partner?.sexuality.replaceAll("_", " ") ?? "--", parm: data?.sexuality.replaceAll("_", " ") ?? "--" },
+    { label: "Relationship status", char: data?.partner?.relationshipOrientation.replaceAll("_", " ") ?? "--", parm: data?.relationshipOrientation.replaceAll("_", " ") ?? "--" },
+    { label: "Experience level", char: getExperienceLevel(data?.partner?.experienceLevel), parm:getExperienceLevel(data?.experienceLevel) },
 ];

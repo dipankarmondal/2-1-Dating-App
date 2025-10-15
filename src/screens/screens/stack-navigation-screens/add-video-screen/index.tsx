@@ -7,15 +7,23 @@ import ScreenLayout from '../../common/ScreenLayout'
 import SubmitButton from '../../../../components/submit-button'
 
 /**Local imports*/
-import { ms } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
 import { AddVideoScreenStyles as styles } from './styles'
 
 /** Liabary*/
 import { pick, types } from '@react-native-documents/picker'
+import { UploadSingleContent } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const AddVideoScreen: React.FC = () => {
-    const [videoInfo, setVideoInfo] = useState({ uri: "", name: "" });
+    const [videoInfo, setVideoInfo] = useState({ uri: "", name: "", type: "" });
+
+    const { Token,user } = useAuth()
+    const QueryInvalidater = useQueryClient();
+    const Navigation = useNavigation();
 
     const handlePickVideo = async () => {
         try {
@@ -23,8 +31,10 @@ const AddVideoScreen: React.FC = () => {
                 type: [types.video],
             });
 
+            console.log("object", res)
+
             if (res && res.length > 0) {
-                setVideoInfo({ uri: res[0]?.uri, name: res[0]?.name });
+                setVideoInfo({ uri: res[0]?.uri, name: res[0]?.name, type: res[0]?.type });
 
             }
         } catch (err: any) {
@@ -36,6 +46,34 @@ const AddVideoScreen: React.FC = () => {
             }
         }
     };
+
+    const AudltPhotoMutation = useMutation({
+        mutationFn: (data: any) => UploadSingleContent(Token, data),
+        onSuccess: (res) => {
+            console.log("object", res)
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary', user?.id] });
+                setVideoInfo({ uri: "", name: "", type: "" });
+                Navigation.goBack();
+            }
+        }
+    })
+
+    const handleSend = () => {
+        const formData = new FormData();
+        formData.append("file", {
+            uri: videoInfo.uri,
+            type: videoInfo.type,
+            name: videoInfo.name
+        })
+        formData.append("folder", "posts");
+        formData.append("optimize", true);
+        formData.append("createThumbnail", true)
+
+        AudltPhotoMutation.mutate(formData)
+    }
+
 
     return (
         <ScreenLayout
@@ -62,8 +100,8 @@ const AddVideoScreen: React.FC = () => {
                         <SubmitButton
                             {...{
                                 text: "Send",
-                                loading: false,
-                                onPress: () => { }
+                                loading: AudltPhotoMutation.isPending,
+                                onPress: handleSend
                             }}
                         />
                     </View>

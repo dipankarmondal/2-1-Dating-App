@@ -543,7 +543,7 @@
     },
     "edit_profile": {
         "mode": {
-            "label": "What are you looking for on 2+1?",
+            "label": "You are a... ",
             "placeholder": "Select your intrest",
             "errors": {
                 "required": "intrest is required"
@@ -563,11 +563,18 @@
                 "required": "profile description is required"
             }
         },
-        "full_name": {
-            "label": "Full name",
-            "placeholder": "Enter your fullname",
+        "frist_name": {
+            "label": "Frist name",
+            "placeholder": "Enter your frist name",
             "errors": {
-                "required": "fullname is required"
+                "required": "frist name is required"
+            }
+        },
+        "last_name": {
+            "label": "Last name",
+            "placeholder": "Enter your last name",
+            "errors": {
+                "required": "last name is required"
             }
         },
         "your_dob": {
@@ -682,11 +689,18 @@
                 "required": "Circumcised level  is required"
             }
         },
-        "partner_full_name": {
-            "label": " Partner Fullname",
-            "placeholder": "Enter your partner fullname",
+        "partner_frist_name": {
+            "label": " Partner fristname",
+            "placeholder": "Enter your partner frist name",
             "errors": {
-                "required": " partner fullname is required"
+                "required": " partner fristname is required"
+            }
+        },
+        "partner_last_name": {
+            "label": " Partner lastname",
+            "placeholder": "Enter your partner last name",
+            "errors": {
+                "required": " partner lastname is required"
             }
         },
         "partner_dob": {

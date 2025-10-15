@@ -770,7 +770,16 @@ export const EditProfileBuilder = (control: Control<any>) => {
             control: control,
         },
         {
-            name: 'full_name',
+            name: 'frist_name',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'last_name',
             parent: 'edit_profile',
             styles: FormStyle,
             type: "text",
@@ -884,9 +893,6 @@ export const EditProfileBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
             selectionData: tattoosOptions,
-            isDubble: true,
-            _skip: null,
-            isEdit: true
         },
         {
             name: 'languages_spoken',
@@ -960,7 +966,16 @@ export const EditProfileBuilder = (control: Control<any>) => {
         },
 
         {
-            name: 'partner_full_name',
+            name: 'partner_frist_name',
+            parent: 'edit_profile',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'partner_last_name',
             parent: 'edit_profile',
             styles: FormStyle,
             type: "text",
@@ -1073,9 +1088,6 @@ export const EditProfileBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
             selectionData: tattoosOptions,
-            isDubble: true,
-            _skip: null,
-            isEdit: true
         },
         {
             name: 'partner_languages_spoken',
@@ -1150,6 +1162,10 @@ export const UploadPhotoBuilder = (control: Control<any>) => {
             placeholder: true,
             control: control,
         },
+    ]
+}
+export const AudltPhotoBuilder = (control: Control<any>) => {
+    return [
         {
             name: 'adult_photo',
             parent: 'upload_photo',
@@ -1170,6 +1186,7 @@ export const UploadPhotoBuilder = (control: Control<any>) => {
         },
     ]
 }
+
 export const CreateAlbumBuilder = (control: Control<any>) => {
     return [
         {

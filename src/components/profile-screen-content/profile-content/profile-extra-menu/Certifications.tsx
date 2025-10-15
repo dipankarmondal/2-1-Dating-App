@@ -18,7 +18,6 @@ type Props = {
 const Certifications: React.FC<Props> = ({ activeKey }) => {
 
     const activeItem = ProfileExtraMenuItems.find(item => item.key === activeKey);
-    console.log("object", activeItem?.key);
 
     return (
         <View style={styles.dt_container}>

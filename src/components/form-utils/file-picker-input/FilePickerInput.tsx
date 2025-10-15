@@ -18,8 +18,7 @@ import { Controller } from 'react-hook-form';
 import UploadIcon from '@svgs/upload.svg';
 
 /**Main export*/
-const FilePickerInput: React.FC<ImagePickerChooseProps> = ({ name, parent, control, label,isVideo }) => {
-
+const FilePickerInput: React.FC<ImagePickerChooseProps> = ({ name, parent, control, label, isVideo }) => {
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 
@@ -27,12 +26,13 @@ const FilePickerInput: React.FC<ImagePickerChooseProps> = ({ name, parent, contr
         try {
             const result = await ImagePicker.launchImageLibrary({
                 mediaType: isVideo ? "video" : "photo",
-                selectionLimit: 0,
+                selectionLimit: 1,
             });
 
             if (!result.didCancel && result.assets?.length > 0) {
-                const newImages = result.assets.map(asset => asset.uri);
-                onChange([...(value || []), ...newImages]);
+                // ✅ Keep the entire asset object
+                const newFiles = result.assets;
+                onChange([...(value || []), ...newFiles]);
             }
         } catch (error) {
             console.error("Error picking image:", error);
@@ -43,42 +43,57 @@ const FilePickerInput: React.FC<ImagePickerChooseProps> = ({ name, parent, contr
         <Controller
             name={name}
             control={control}
-            render={({ field: { onChange, onBlur, value, }, fieldState: { error } }) => {
-         
-                return (
-                    <View style={{ marginBottom: ms(15) }}>
-                        <TouchableOpacity style={styles.dt_container} activeOpacity={0.8} onPress={() => launchGallery(onChange, value)}>
-                            <UploadIcon {...IconProps(ms(24))} fill={Colors.dt_white} />
-                            <Text style={styles.dt_text}>{FieldName?.placeholder}</Text>
-                        </TouchableOpacity>
+            render={({ field: { onChange, value } }) => (
 
-                        <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            contentContainerStyle={[[styles.dt_images_wrapper, { marginTop: value?.length > 0 ? ms(16) : 0 }]]}
-                        >
-                            {Array.isArray(value) && value.map((imgPath, index) => (
-                                <View key={index} style={styles.dt_image_container}>
-                                    <Image
-                                        source={isVideo ? require("@images/play.png") : { uri: imgPath }}
-                                        style={[styles.dt_image,{resizeMode: isVideo ? "contain" : "cover"}]}
-                                    />
-                                    <View style={styles.dt_image_overlay}>
-                                        <TouchableOpacity
-                                            style={styles.dt_remove_btn}
-                                            onPress={() => onChange(value.filter((_, i) => i !== index))}
-                                        >
-                                            <Text style={styles.dt_remove_text}>Remove</Text>
-                                        </TouchableOpacity>
+                <View style={{ marginBottom: ms(15) }}>
+                    <TouchableOpacity
+                        style={styles.dt_container}
+                        activeOpacity={0.8}
+                        onPress={() => launchGallery(onChange, value)}
+                    >
+                        <UploadIcon {...IconProps(ms(24))} fill={Colors.dt_white} />
+                        <Text style={styles.dt_text}>{FieldName?.placeholder}</Text>
+                    </TouchableOpacity>
+
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={[
+                            styles.dt_images_wrapper,
+                            { marginTop: value?.length > 0 ? ms(16) : 0 },
+                        ]}
+                    >
+                        {Array.isArray(value) &&
+                            value.map((file, index) => {
+                                return (
+                                    <View key={index} style={styles.dt_image_container}>
+                                        <Image
+                                            source={
+                                                isVideo
+                                                    ? require("@images/play.png")
+                                                    : { uri: file?.uri }
+                                            }
+                                            style={[
+                                                styles.dt_image,
+                                                { resizeMode: isVideo ? "contain" : "cover" },
+                                            ]}
+                                        />
+                                        <View style={styles.dt_image_overlay}>
+                                            <TouchableOpacity
+                                                style={styles.dt_remove_btn}
+                                                onPress={() => onChange(value.filter((_, i) => i !== index))}
+                                            >
+                                                <Text style={styles.dt_remove_text}>Remove</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </View>
-                            ))}
-                        </ScrollView>
-                    </View>
-                )
-            }}
+                                )
+                            })}
+                    </ScrollView>
+                </View>
+            )}
         />
-    )
-}
+    );
+};
 
-export default FilePickerInput
+export default FilePickerInput;

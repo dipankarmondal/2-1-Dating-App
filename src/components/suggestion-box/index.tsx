@@ -11,7 +11,7 @@ import { Colors } from '../../utils/constant/Constant'
 
 /**Main export*/
 const SuggestionBox: React.FC<SuggestionBoxProps> = ({ showDropdown, setShowDropdown, filteredProducts, value, onChange,isDubble,isEdit }) => {
-    console.log("isEdit", isEdit)
+
     return (
         <>
             {showDropdown && (

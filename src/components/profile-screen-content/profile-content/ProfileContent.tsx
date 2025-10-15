@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 
 /**Local imports*/
 import { ProfileContentStyles as styles } from './styles'
@@ -20,6 +20,10 @@ import MulteImage from '../../multeimage/MulteImage'
 import ComparisonTable from './ProfileDatiles'
 import TopMenu from '../../top-menu'
 import Certifications from './profile-extra-menu/Certifications'
+import GalleryModal from '../../modal/gallery-modal/GalleryModal'
+import { useQuery } from '@tanstack/react-query'
+import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 type Props = {
     data: any
@@ -30,6 +34,17 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeKey, setActiveKey] = useState("groups");
+    const [visible, setVisible] = useState(false);
+
+    const {Token,user} = useAuth()
+
+    const { data: userPhotoLiabary } = useQuery({
+        queryKey: ["userPhotoLiabary", user?.id],
+        queryFn: () => GetMediaLibrary(Token, user?.id, "image", "profile",null),
+        enabled: !!Token
+    })
+
+    const ProfilePhotos = userPhotoLiabary?.data?.media?.map((item) => item.url) || [];
 
     const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
@@ -42,7 +57,7 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
             <Icon {...IconProps(ms(17))} fill={color} />
             <Text style={styles.dt_edit_text}>{getAge(age)}</Text>
         </View>
-    );
+    ); 
 
     return (
         <>
@@ -70,15 +85,17 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                         <Text style={styles.dt_location_text}>{data?.profile?.address?.fullAddress}</Text>
                     </View>
                     <View style={styles.dt_image_container}>
-                        <Image source={{ uri: data?.profile?.photos[currentIndex] ?? images[currentIndex] }} style={styles.dt_image} />
+                        <Image source={{ uri: ProfilePhotos[currentIndex] ?? images[currentIndex] }} style={styles.dt_image} />
                         <MulteImage
                             {...{
                                 currentIndex,
                                 setCurrentIndex,
-                                image: data?.profile?.photos ?? images,
-                                isOption: false
+                                image: ProfilePhotos ?? images,
+                                isOption: false,
+                                isGallery: true,
+                                setVisible
                             }}
-                        />
+                        /> 
                     </View>
                     <View style={styles.dt_profile_content}>
                         {profileButtons.map(({ id, label, icon: Icon, onPress, size }) => (
@@ -91,7 +108,12 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                 </View>
 
                 {["male", "female", "couple"].includes(data?.profile?.gender) && (
-                    <ComparisonTable type={data?.profile?.gender} />
+                    <ComparisonTable
+                        {...{
+                            type: data?.profile?.gender,
+                            profile: data?.profile
+                        }}
+                    />
                 )}
 
             </View>
@@ -103,6 +125,13 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
             }} />
 
             <Certifications activeKey = {activeKey}/>
+            <GalleryModal
+                {...{
+                    visible: visible,
+                    setVisible: setVisible,
+                    photos: ProfilePhotos ?? images
+                }}
+            />
         </>
     )
 }

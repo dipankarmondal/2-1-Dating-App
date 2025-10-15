@@ -5,7 +5,7 @@ import React from 'react'
 /**Local imports*/
 import { ProfileMenuItems } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { GetUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { GetMediaLibrary, GetUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -45,8 +45,8 @@ const ProfileScreen: React.FC = () => {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
                 {activeKey === "profile" && <ProfileContent data={data?.data} />}
-                {activeKey === "edit" && <EditContent />}
-                {activeKey === "pictures" && <PicturesContent />}
+                {activeKey === "edit" && <EditContent data={data?.data}/>}
+                {activeKey === "pictures" && <PicturesContent data={data?.data} />}
                 {activeKey === "videos" && <VideoContent />}
                 {activeKey === "album" && <AlbumContent 
                     {...{

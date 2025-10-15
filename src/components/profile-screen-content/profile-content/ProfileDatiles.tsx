@@ -6,9 +6,10 @@ import { ProfileContentData } from "./helper";
 
 type Props = {
     type: "couple" | "male" | "female";
+    profile: any
 };
 
-const ComparisonTable = ({ type }: Props) => {
+const ComparisonTable: React.FC<Props> = ({ type, profile }) => {
     return (
         <View style={styles.container}>
             {/* Header Row */}
@@ -28,7 +29,7 @@ const ComparisonTable = ({ type }: Props) => {
                 )}
             </View>
             {/* Data Rows */}
-            {ProfileContentData.map((item, index) => (
+            {ProfileContentData(profile).map((item, index) => (
                 <View key={index} style={styles.row}>
                     <Text style={[styles.cell, styles.label, ]}>{item.label}</Text>
                     {type === "couple" && (
