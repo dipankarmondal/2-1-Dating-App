@@ -1,16 +1,19 @@
 /**React Imports */
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
 import { AlbumContentStyles as styles } from './styles'
 import { IconProps } from '../../../utils/helpers/Iconprops'
-import { ms } from '../../../utils/helpers/responsive'
+import { ms, toast } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
+import { DeleteAlbum, GetAllAlbums } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Components */
 import ModalAction from '../../modal/modal-action/ModalAction'
 import ModalContent from '../../modal/modal-content/logout-content/ModalContent'
+import Loader from '../../loader/Loader'
 import CreateAlbumContent from '../../modal/modal-content/create-album-content/CreateAlbumContent'
 
 /** Icon*/
@@ -26,9 +29,8 @@ import { OpenAlbumBuilder } from '../../../utils/builders'
 
 /** Liabary*/
 import { useNavigation } from '@react-navigation/native'
-import { useQuery } from '@tanstack/react-query'
-import { GetAllAlbums } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useAuth } from '../../../utils/context/auth-context/AuthContext'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import NotFound from '../../notfound/NotFound'
 
 type Props = {
     userId: string
@@ -39,8 +41,10 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [deteleId, setDeleteId] = useState(null);
 
     const { Token } = useAuth()
+    const QueryInvalidater = useQueryClient();
 
     const { control, handleSubmit, setValue } = useForm()
     const Id = userId === "68b986f2def0361d51fc6ea8"
@@ -54,111 +58,187 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
         }
     }
 
-    const { data } = useQuery({
-        queryKey: ["albums"],
-        queryFn: () => GetAllAlbums(Token),
-        enabled: !!userId
+    const {
+        data,
+        isLoading,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        refetch,
+    } = useInfiniteQuery({
+        queryKey: ['albums'],
+        queryFn: ({ pageParam = 1 }) => GetAllAlbums(Token, 3, pageParam),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            const current = lastPage?.data?.pagination?.page ?? 1;
+            const total = lastPage?.data?.pagination?.pages ?? 1;
+            return current < total ? current + 1 : undefined;
+        },
+        enabled: !!userId,
     });
 
-    console.log("object", data?.data?.albums)
 
     const HandlePasswordSubmit = (data: any) => {
         console.log(data)
     }
 
+    const HandleDeleteModal = (id: any) => {
+        setDeleteId(id)
+        setShowDeleteModal(true)
+    }
+
+    const AlbumDeteteMutation = useMutation({
+        mutationFn: (id: any) => DeleteAlbum(Token, deteleId),
+        onSuccess: (res) => {
+            console.log("object", res)
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                QueryInvalidater.invalidateQueries({ queryKey: ['albums'] });
+            }
+        }
+    })
+
+    const HandleDelete = () => {
+        AlbumDeteteMutation.mutate(deteleId)
+        setShowDeleteModal(false)
+    }
+
     return (
-        <View style={styles.dt_container}>
-            <TouchableOpacity style={styles.dt_btn_container} onPress={() => setShowCreateModal(true)}>
-                <Text style={styles.dt_text}>Create album</Text>
-            </TouchableOpacity>
-            <View style={styles.dt_album_wrapper}>
-                {
-                    data?.data?.albums?.map((item: any, index: number) => {
-                        return (
-                            <View key={index}>
-                                <Text style={styles.dt_album_name}>{item?.name}</Text>
-                                <TouchableOpacity style={styles.dt_album_container} activeOpacity={0.8} onPress={() => HandlePassword("Album 1")}>
-                                    <Image source={require('@images/dummy.png')} style={styles.dt_image} />
-                                    <View style={styles.dt_overlay}>
-                                        <View style={styles.dt_icon_container} >
-                                            {
-                                                item?.isPrivate ?
-                                                    <LockIcon {...IconProps(ms(16))} fill={Colors.dt_error} />
-                                                    :
-                                                    <LockOpenIcon {...IconProps(ms(16))} fill={Colors.dt_success_green} />
-                                            }
-                                        </View>
-                                        <View style={styles.dt_count_container}>
-                                            <View style={styles.dt_info_container}>
-                                                <CameraIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
-                                                <Text style={styles.dt_count_text}>{item?.mediaStats?.totalPhotos ?? 0}</Text>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}
+            onScroll={({ nativeEvent }) => {
+                const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+                const isCloseToBottom =
+                    layoutMeasurement.height + contentOffset.y >= contentSize.height - 50;
+                if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
+                    fetchNextPage();
+                }
+            }}
+            scrollEventThrottle={400}
+        >
+            <View style={styles.dt_container}>
+                <TouchableOpacity style={styles.dt_btn_container} onPress={() => setShowCreateModal(true)}>
+                    <Text style={styles.dt_text}>Create album</Text>
+                </TouchableOpacity>
+                <View style={styles.dt_album_wrapper}>
+                    {
+                        isLoading ? (
+                            <Loader />
+                        ) : (
+                            (() => {
+                                const albums = data?.pages?.flatMap((page) => page?.data?.albums || []);
+                                if (!albums || albums.length === 0) {
+                                    return (
+                                        <NotFound 
+                                            {...{
+                                                title: "No albums available. It looks like your library has no media. Please create or upload albums.",
+                                                photo: require('@images/notFound/album_not.png')
+                                            }}
+                                        />
+                                    );
+                                }
+                                return albums.map((item: any, index: number) => (
+                                    <View key={index}>
+                                        <Text style={styles.dt_album_name}>{item?.name}</Text>
+                                        <TouchableOpacity
+                                            style={styles.dt_album_container}
+                                            activeOpacity={0.8}
+                                            onPress={() => HandlePassword("Album 1")}
+                                        >
+                                            <Image
+                                                source={require('@images/dummy.png')}
+                                                style={styles.dt_image}
+                                            />
+                                            <View style={styles.dt_overlay}>
+                                                <View style={styles.dt_icon_container}>
+                                                    {item?.isPrivate ? (
+                                                        <LockIcon {...IconProps(ms(16))} fill={Colors.dt_error} />
+                                                    ) : (
+                                                        <LockOpenIcon {...IconProps(ms(16))} fill={Colors.dt_success_green} />
+                                                    )}
+                                                </View>
+                                                <View style={styles.dt_count_container}>
+                                                    <View style={styles.dt_info_container}>
+                                                        <CameraIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
+                                                        <Text style={styles.dt_count_text}>
+                                                            {item?.mediaStats?.totalPhotos ?? 0}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={styles.dt_info_container}>
+                                                        <PlayIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
+                                                        <Text style={styles.dt_count_text}>
+                                                            {item?.mediaStats?.totalVideos ?? 0}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                                <TouchableOpacity
+                                                    style={styles.dt_delete_container}
+                                                    onPress={() => HandleDeleteModal(item?._id)}
+                                                >
+                                                    <DeleteIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
+                                                </TouchableOpacity>
                                             </View>
-                                            <View style={styles.dt_info_container}>
-                                                <PlayIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
-                                                <Text style={styles.dt_count_text}>{item?.mediaStats?.totalVideos ?? 0}</Text>
-                                            </View>
-                                        </View>
-                                        <TouchableOpacity style={styles.dt_delete_container} onPress={() => setShowDeleteModal(true)}>
-                                            <DeleteIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
                                         </TouchableOpacity>
                                     </View>
-                                </TouchableOpacity>
-                            </View>
+                                ));
+                            })()
                         )
-                    })
-                }
-            </View>
-            <ModalAction
-                isModalVisible={showCreateModal}
-                setModalVisible={setShowCreateModal}
-                headerText="Create album"
-            >
-                <CreateAlbumContent
-                    {...{
-                        setShowCreateModal
-                    }}
-                />
-            </ModalAction>
-            <ModalAction
-                isModalVisible={showPasswordModal}
-                setModalVisible={setShowPasswordModal}
-                headerText="Enter password"
-            >
-                <View style={{ marginBottom: ms(20) }}>
-                    {OpenAlbumBuilder(control).map((item, index) => {
-                        if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
-                            return <CustomInput key={index} {...item} />;
-                        } else {
-                            return null;
-                        }
-                    })}
-                    <SubmitButton
+                    }
+                    {isFetchingNextPage && (
+                        <View style={{ marginVertical: 16 }}>
+                            <Loader />
+                        </View>
+                    )}
+                </View>
+                <ModalAction
+                    isModalVisible={showCreateModal}
+                    setModalVisible={setShowCreateModal}
+                    headerText="Create album"
+                >
+                    <CreateAlbumContent
                         {...{
-                            text: "Submit",
-                            loading: false,
-                            onPress: handleSubmit(HandlePasswordSubmit)
+                            setShowCreateModal
                         }}
                     />
-                </View>
-            </ModalAction>
-            <ModalAction
-                isModalVisible={showDeleteModal}
-                setModalVisible={setShowDeleteModal}
-                headerText="Delete album"
-            >
-                <ModalContent
-                    {...{
-                        setModal: setShowDeleteModal,
-                        title: `Do you want to delete this album?`,
-                        successText: "Yes, Delete",
-                        cancelText: "No, Keep it",
-                        onSuccess: () => {
-                            setShowDeleteModal(false);
-                        }
-                    }}
-                />
-            </ModalAction>
-        </View>
+                </ModalAction>
+                <ModalAction
+                    isModalVisible={showPasswordModal}
+                    setModalVisible={setShowPasswordModal}
+                    headerText="Enter password"
+                >
+                    <View style={{ marginBottom: ms(20) }}>
+                        {OpenAlbumBuilder(control).map((item, index) => {
+                            if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
+                                return <CustomInput key={index} {...item} />;
+                            } else {
+                                return null;
+                            }
+                        })}
+                        <SubmitButton
+                            {...{
+                                text: "Submit",
+                                loading: false,
+                                onPress: handleSubmit(HandlePasswordSubmit)
+                            }}
+                        />
+                    </View>
+                </ModalAction>
+                <ModalAction
+                    isModalVisible={showDeleteModal}
+                    setModalVisible={setShowDeleteModal}
+                    headerText="Delete album"
+                >
+                    <ModalContent
+                        {...{
+                            setModal: setShowDeleteModal,
+                            title: `Do you want to delete this album?`,
+                            successText: "Yes, Delete",
+                            cancelText: "No, Keep it",
+                            onSuccess: HandleDelete
+                        }}
+                    />
+                </ModalAction>
+            </View>
+        </ScrollView>
     )
 }
 

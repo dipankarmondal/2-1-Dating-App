@@ -4,7 +4,7 @@ import React from 'react'
 
 /**Local imports*/
 import { ms, spacing, toast } from '../../../utils/helpers/responsive'
-import { AudltPhotoBuilder, UploadPhotoBuilder } from '../../../utils/builders'
+import { AudltPhotoBuilder, NonAudltPhotoBuilder, UploadPhotoBuilder } from '../../../utils/builders'
 import { Colors, Fonts } from '../../../utils/constant/Constant'
 
 /** Liabary*/
@@ -23,125 +23,121 @@ type Props = {
 }
 
 /**Main export*/
+const photoConfigs = [
+    {
+        key: "profile",
+        builder: UploadPhotoBuilder,
+        mutationFn: UploadProfilePhotos,
+        formField: "profile_photo",
+        folder: "profile",
+        extraFields: { optimize: true },
+        buttonText: "Submit Profile",
+        invalidate: true,
+    },
+    {
+        key: "adult",
+        builder: AudltPhotoBuilder,
+        mutationFn: UploadSingleContent,
+        formField: "adult_photo",
+        folder: "posts",
+        extraFields: { isAdultContent: true, optimize: true },
+        buttonText: "Submit Adult",
+    },
+    {
+        key: "nonAdult",
+        builder: NonAudltPhotoBuilder,
+        mutationFn: UploadSingleContent,
+        formField: "non_adult_photo",
+        folder: "posts",
+        extraFields: { isAdultContent: false, optimize: true },
+        buttonText: "Submit NonAdult",
+    },
+];
+
 const PicturesContent: React.FC<Props> = ({ data }) => {
+    const { Token, user } = useAuth();
+    const queryClient = useQueryClient();
 
-    const { control: ProfileControl, handleSubmit: ProfileHandleSubmit, reset } = useForm()
-    const { control: AudltControl, handleSubmit: AudltHandleSubmit } = useForm()
-    const [isActiveAudlt, setIsActiveAudlt] = React.useState(false)
-    const QueryInvalidater = useQueryClient();
+    // reusable function to generate each section
+    const renderPhotoSection = ({
+        key,
+        builder,
+        mutationFn,
+        formField,
+        folder,
+        extraFields,
+        buttonText,
+        invalidate,
+    }: any) => {
+        const { control, handleSubmit, reset } = useForm();
 
-    const { Token, user } = useAuth()
-
-    const ProfilePhotoMutation = useMutation({
-        mutationFn: (data: any) => UploadProfilePhotos(Token, data),
-        onSuccess: (res) => {
-            if (res?.success === true) {
-                toast("success", { title: res?.message });
-                reset();
-                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary', user?.id] });
-            }
-        }
-    })
-    const AudltPhotoMutation = useMutation({
-        mutationFn: (data: any) => UploadSingleContent(Token, data),
-        onSuccess: (res) => {
-            console.log("object",res)
-            if (res?.success === true) {
-                toast("success", { title: res?.message });
-                reset();
-                // QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary', user?.id] });
-            }
-        }
-    })
-
-    const onProfileSubmit = (data: any) => {
-        const file = data?.profile_photo[0];
-        const formData = new FormData();
-        formData.append("profilePhoto", {
-            uri: file.uri,
-            type: file.type,
-            name: file.fileName || "photo.jpg"
+        const mutation = useMutation({
+            mutationFn: (formData: any) => mutationFn(Token, formData),
+            onSuccess: (res: any) => {
+                if (res?.success) {
+                    toast("success", { title: res?.message });
+                    reset();
+                    if (invalidate)
+                        queryClient.invalidateQueries({
+                            queryKey: ["userPhotoLiabary", user?.id],
+                        });
+                }
+            },
         });
-        formData.append("folder", "profile");
-        formData.append("optimize", true);
 
-        ProfilePhotoMutation.mutate(formData);
-    }
+        const onSubmit = (formData: any) => {
+            const file = formData?.[formField]?.[0];
+            if (!file) return;
 
-    const onAudltSubmit = (data: any) => {
-        const file = data?.adult_photo[0];
-        const formData = new FormData();
-        formData.append("file", {
-            uri: file.uri,
-            type: file.type,
-            name: file.fileName || "photo.jpg"
-        });
-        formData.append("folder", "posts");
-        formData.append("isAdultContent", data?.adult_photo?.length > 0);
-        formData.append("optimize", true);
+            const data = new FormData();
+            data.append(
+                folder === "profile" ? "profilePhoto" : "file",
+                {
+                    uri: file.uri,
+                    type: file.type,
+                    name: file.fileName || "photo.jpg",
+                }
+            );
 
-        AudltPhotoMutation.mutate(formData);
-    }
+            data.append("folder", folder);
+            Object.entries(extraFields).forEach(([k, v]) => data.append(k, v));
+
+            mutation.mutate(data);
+        };
+
+        return (
+            <View key={key} style={{ marginBottom: ms(20) }}>
+                {builder(control)
+                    .filter((item: any) => item.type === "photo")
+                    .map((item: any, i: number) => (
+                        <FilePickerInput key={i} {...item} />
+                    ))}
+
+                <View style={{ marginTop: ms(5) }}>
+                    <SubmitButton
+                        text={buttonText}
+                        loading={mutation.isPending}
+                        onPress={handleSubmit(onSubmit)}
+                    />
+                </View>
+            </View>
+        );
+    };
 
     return (
         <View style={styles.dt_container}>
-            <Text style={styles.dt_header_text}>Your primary picture has to be a vanilla (non-adult) picture. Due to Google & Apple policy we do not allow adult pictures as primary profile pictures.</Text>
-            <View style={styles.dt_audlt_container}>
-                <Text style={styles.dt_audlt_text}>Want to upload an adult picture?</Text>
-                <ToggleSwitch
-                    {...{
-                        isActive: isActiveAudlt,
-                        onToggle: () => {
-                            setIsActiveAudlt(!isActiveAudlt)
-                        },
-                    }
-                    }
-                />
-            </View>
-            {UploadPhotoBuilder(ProfileControl).map((item, index) => {
-                if (item.type === 'photo') {
-                    return <FilePickerInput key={index} {...item} />;
-                } else {
-                    return null;
-                }
-            })}
-            <View style={{ marginTop: ms(5), marginBottom: ms(20) }}>
-                <SubmitButton
-                    {...{
-                        text: "Submit Profile",
-                        loading: ProfilePhotoMutation.isPending,
-                        onPress: ProfileHandleSubmit(onProfileSubmit),
-                    }}
-                />
-            </View>
+            <Text style={styles.dt_header_text}>
+                Your primary picture has to be a vanilla (non-adult) picture. Due to
+                Google & Apple policy we do not allow adult pictures as primary profile
+                pictures.
+            </Text>
 
-            {
-                isActiveAudlt && (
-                    <>
-                        {AudltPhotoBuilder(AudltControl).map((item, index) => {
-                            if (item.type === 'photo') {
-                                return <FilePickerInput key={index} {...item} />;
-                            } else {
-                                return null;
-                            }
-                        })}
-                        <View style={{ marginTop: ms(5) }}>
-                            <SubmitButton
-                                {...{
-                                    text: "Submit Adult",
-                                    loading: AudltPhotoMutation.isPending,
-                                    onPress: AudltHandleSubmit(onAudltSubmit),
-                                }}
-                            />
-                        </View>
-                    </>
-                )
-            }
+            {photoConfigs.map((config) => renderPhotoSection(config))}
         </View>
-    )
-}
+    );
+};
 
-export default PicturesContent
+export default PicturesContent;
 
 const styles = StyleSheet.create({
     dt_container: {

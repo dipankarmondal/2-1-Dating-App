@@ -11,6 +11,17 @@ export const NotFoundStyles = StyleSheet.create({
     dt_text:{
         fontSize:ms(12),
         fontFamily:Fonts.Font_700,
-        color:Colors.dt_white
+        color:Colors.dt_gray ,
+        textAlign:"center"
+    },
+    dt_image_container:{
+        width:ms(200),
+        height:ms(150),
+        overflow:"hidden",
+    },
+    dt_image:{
+        width:"100%",
+        height:"100%",
+        resizeMode:"cover"
     }
 })

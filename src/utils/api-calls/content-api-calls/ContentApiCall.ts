@@ -123,7 +123,7 @@ export const UploadSingleContent = async (token: any, data: any,) => {
 };
 
 //get media-library
-export const GetMediaLibrary = async (token: any, id: any, type: any, source: any, limit: any) => {
+export const GetMediaLibrary = async (token: any, id: any, type: any, source: any, limit: any,page: any) => {
     try {
         const res = await API.get(`/media-library/${id}`, {
             headers: {
@@ -132,7 +132,8 @@ export const GetMediaLibrary = async (token: any, id: any, type: any, source: an
             params: {
                 ...(type ? { type } : {}),
                 ...(source ? { source } : {}),
-                limit: limit
+                limit: limit,
+                page
             }
         });
         return res?.data;
@@ -189,9 +190,28 @@ export const CreateAlbum = async (token: any, data: any,) => {
 };
 
 // get all albums
-export const GetAllAlbums = async (token: any,) => {
+export const GetAllAlbums = async (token: any,limit: any, page: any) => {
     try {
         const res = await API.get("/albums", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                limit: limit,
+                page: page
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// delete albums
+export const DeleteAlbum = async (token: any, album_id: any,) => {
+    try {
+        const res = await API.delete(`/albums/${album_id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

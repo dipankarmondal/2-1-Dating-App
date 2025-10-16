@@ -42,8 +42,6 @@ const ProfileScreen: React.FC = () => {
                 activeKey,
                 setActiveKey
             }} />
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-
                 {activeKey === "profile" && <ProfileContent data={data?.data} />}
                 {activeKey === "edit" && <EditContent data={data?.data}/>}
                 {activeKey === "pictures" && <PicturesContent data={data?.data} />}
@@ -53,7 +51,6 @@ const ProfileScreen: React.FC = () => {
                         userId: data?.data?.id
                     }}
                 />}
-            </ScrollView>
         </ScreenLayout>
     )
 }

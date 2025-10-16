@@ -1175,6 +1175,10 @@ export const AudltPhotoBuilder = (control: Control<any>) => {
             placeholder: true,
             control: control,
         },
+    ]
+}
+export const NonAudltPhotoBuilder = (control: Control<any>) => {
+    return [
         {
             name: 'non_adult_photo',
             parent: 'upload_photo',

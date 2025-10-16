@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { use, useState } from 'react'
 
 /**Local imports*/
@@ -36,11 +36,11 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
     const [activeKey, setActiveKey] = useState("groups");
     const [visible, setVisible] = useState(false);
 
-    const {Token,user} = useAuth()
+    const { Token, user } = useAuth()
 
     const { data: userPhotoLiabary } = useQuery({
         queryKey: ["userPhotoLiabary", user?.id],
-        queryFn: () => GetMediaLibrary(Token, user?.id, "image", "profile",null),
+        queryFn: () => GetMediaLibrary(Token, user?.id, "image", "profile", null, null),
         enabled: !!Token
     })
 
@@ -57,10 +57,11 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
             <Icon {...IconProps(ms(17))} fill={color} />
             <Text style={styles.dt_edit_text}>{getAge(age)}</Text>
         </View>
-    ); 
+    );
 
     return (
-        <>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
             <View style={styles.dt_container}>
                 <View style={styles.dt_profile_card_container}>
                     <View style={styles.dt_profile_header}>
@@ -95,7 +96,7 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                                 isGallery: true,
                                 setVisible
                             }}
-                        /> 
+                        />
                     </View>
                     <View style={styles.dt_profile_content}>
                         {profileButtons.map(({ id, label, icon: Icon, onPress, size }) => (
@@ -124,7 +125,7 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                 isTwoItem: true
             }} />
 
-            <Certifications activeKey = {activeKey}/>
+            <Certifications activeKey={activeKey} />
             <GalleryModal
                 {...{
                     visible: visible,
@@ -132,7 +133,8 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                     photos: ProfilePhotos ?? images
                 }}
             />
-        </>
+        </ScrollView>
+
     )
 }
 

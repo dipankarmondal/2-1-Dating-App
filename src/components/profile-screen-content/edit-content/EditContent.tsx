@@ -204,96 +204,99 @@ const EditContent: React.FC<Props> = ({ data }) => {
     }, [data?.profile?.experienceLevel, data?.profile?.partner?.experienceLevel]);
 
     return (
-        <View style={styles.dt_container}>
-            <Text style={styles.dt_profile_header_text}>{data?.username}</Text>
-            <View style={styles.dt_form_container}>
-                {fields?.map((item, index, arr) => {
-                    if (item._skip) return null;
-                    if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
-                        return <CustomInput key={index} {...item} />;
-                    } else if (item?.type === "dropdown") {
-                        if (item.isDubble) {
-                            const nextItem = arr[index + 1];
-                            if (nextItem?.isDubble) {
-                                nextItem._skip = true;
-                                return (
-                                    <View key={index} style={styles.dt_dropdown_container}>
-                                        <View style={{ flex: 1, marginRight: 8 }}>
-                                            <DropdownInput {...item} />
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={styles.dt_container}>
+                <Text style={styles.dt_profile_header_text}>{data?.username}</Text>
+                <View style={styles.dt_form_container}>
+                    {fields?.map((item, index, arr) => {
+                        if (item._skip) return null;
+                        if (item.type === 'text' || item.type === 'textarea' || item.type === 'password') {
+                            return <CustomInput key={index} {...item} />;
+                        } else if (item?.type === "dropdown") {
+                            if (item.isDubble) {
+                                const nextItem = arr[index + 1];
+                                if (nextItem?.isDubble) {
+                                    nextItem._skip = true;
+                                    return (
+                                        <View key={index} style={styles.dt_dropdown_container}>
+                                            <View style={{ flex: 1, marginRight: 8 }}>
+                                                <DropdownInput {...item} />
+                                            </View>
+                                            <View style={{ flex: 1, marginLeft: 8 }}>
+                                                <DropdownInput {...nextItem} />
+                                            </View>
                                         </View>
-                                        <View style={{ flex: 1, marginLeft: 8 }}>
-                                            <DropdownInput {...nextItem} />
-                                        </View>
-                                    </View>
-                                );
+                                    );
+                                }
+                            } else {
+                                // Render single dropdown
+                                return <DropdownInput key={index} {...item} />;
                             }
-                        } else {
-                            // Render single dropdown
-                            return <DropdownInput key={index} {...item} />;
-                        }
-                    } else if (item?.type === "dob") {
-                        return <DatePickerInput key={index} {...item} />
-                    } else if (item.type === 'multi') {
-                        return <MultiselectInput key={index} {...item} />
-                    } else if (item.type === 'mode') {
-                        return <ModeInput key={index} {...item} />
-                    } else if (item.type === 'multichoose') {
-                        return (
-                            <View key={index}>
-                                <Text style={styles.dt_multibuttons_text}>What are you looking for on SDC?</Text>
-                                <View style={styles.dt_multibuttons_container}>
-                                    <View style={styles.dt_multibuttons}>
-                                        {Categories.map((category) => (
-                                            <ScrollView
-                                                key={category.id}
-                                                horizontal
-                                                showsHorizontalScrollIndicator={false}
-                                                style={{ marginBottom: 10, paddingLeft: 10 }}
-                                            >
-                                                {category.btnsData.map((label, index) => {
-                                                    const isActive = selectedButtons.includes(label);
-                                                    return (
-                                                        <TouchableOpacity
-                                                            key={index}
-                                                            onPress={() => handlePress(label)}
-                                                            style={[
-                                                                styles.button,
-                                                                {
-                                                                    backgroundColor: isActive ? Colors.dt_card_blue : "transparent",
-                                                                    borderColor: isActive ? Colors.dt_black : Colors.dt_gray,
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Text
+                        } else if (item?.type === "dob") {
+                            return <DatePickerInput key={index} {...item} />
+                        } else if (item.type === 'multi') {
+                            return <MultiselectInput key={index} {...item} />
+                        } else if (item.type === 'mode') {
+                            return <ModeInput key={index} {...item} />
+                        } else if (item.type === 'multichoose') {
+                            return (
+                                <View key={index}>
+                                    <Text style={styles.dt_multibuttons_text}>What are you looking for on SDC?</Text>
+                                    <View style={styles.dt_multibuttons_container}>
+                                        <View style={styles.dt_multibuttons}>
+                                            {Categories.map((category) => (
+                                                <ScrollView
+                                                    key={category.id}
+                                                    horizontal
+                                                    showsHorizontalScrollIndicator={false}
+                                                    style={{ marginBottom: 10, paddingLeft: 10 }}
+                                                >
+                                                    {category.btnsData.map((label, index) => {
+                                                        const isActive = selectedButtons.includes(label);
+                                                        return (
+                                                            <TouchableOpacity
+                                                                key={index}
+                                                                onPress={() => handlePress(label)}
                                                                 style={[
-                                                                    styles.buttonText,
-                                                                    { color: isActive ? Colors.dt_white : Colors.dt_gray },
+                                                                    styles.button,
+                                                                    {
+                                                                        backgroundColor: isActive ? Colors.dt_card_blue : "transparent",
+                                                                        borderColor: isActive ? Colors.dt_black : Colors.dt_gray,
+                                                                    },
                                                                 ]}
                                                             >
-                                                                {label}
-                                                            </Text>
-                                                        </TouchableOpacity>
-                                                    );
-                                                })}
-                                            </ScrollView>
-                                        ))}
+                                                                <Text
+                                                                    style={[
+                                                                        styles.buttonText,
+                                                                        { color: isActive ? Colors.dt_white : Colors.dt_gray },
+                                                                    ]}
+                                                                >
+                                                                    {label}
+                                                                </Text>
+                                                            </TouchableOpacity>
+                                                        );
+                                                    })}
+                                                </ScrollView>
+                                            ))}
+                                        </View>
                                     </View>
                                 </View>
-                            </View>
-                        )
-                    }
-                })}
-                <View style={{ marginTop: ms(5) }}>
-                    <SubmitButton
-                        {...{
-                            text: "Save",
-                            loading: ProfileUpdate.isPending,
-                            onPress: handleSubmit(OnSubmit),
-                        }}
-                    />
+                            )
+                        }
+                    })}
+                    <View style={{ marginTop: ms(5) }}>
+                        <SubmitButton
+                            {...{
+                                text: "Save",
+                                loading: ProfileUpdate.isPending,
+                                onPress: handleSubmit(OnSubmit),
+                            }}
+                        />
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
+
     )
 }
 

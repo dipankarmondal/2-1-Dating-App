@@ -21,7 +21,6 @@ import { VideoModalProps } from '../../../utils/types/types';
 const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
-
     return (
         <Modal
             transparent
@@ -52,10 +51,10 @@ const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) 
                 headerText="More videos"
                 type="logout"
             >
-                <MoreVideoContent 
-                {...{
-                    setShowDropdown: setShowDropdown
-                }}
+                <MoreVideoContent
+                    {...{
+                        setShowDropdown: setShowDropdown
+                    }}
                 />
             </ModalAction>
         </Modal>

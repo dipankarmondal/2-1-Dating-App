@@ -1,11 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { NotFoundStyles as styles } from './styles'
 
-const NotFound: React.FC = () => {
+type Props = {
+    title: string,
+    photo: any
+}
+const NotFound: React.FC<Props> = ({title, photo}) => {
     return (
         <View style={styles.dt_container}>
-            <Text style={styles.dt_text}>No result found</Text>
+            <View style={styles.dt_image_container}>
+                <Image source={photo} style={styles.dt_image} />
+            </View>
+            <Text style={styles.dt_text}>
+                {title}
+            </Text>
         </View>
     )
 }
