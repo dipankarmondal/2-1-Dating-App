@@ -50,9 +50,9 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
     const Id = userId === "68b986f2def0361d51fc6ea8"
     const Navigation = useNavigation<any>()
 
-    const HandlePassword = (title: string) => {
+    const HandlePassword = (albumId: string) => {
         if (Id) {
-            Navigation.navigate("AlbumShowScreen", { title })
+            Navigation.navigate("AlbumShowScreen", {albumId })
         } else {
             setShowPasswordModal(true)
         }
@@ -90,7 +90,6 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
     const AlbumDeteteMutation = useMutation({
         mutationFn: (id: any) => DeleteAlbum(Token, deteleId),
         onSuccess: (res) => {
-            console.log("object", res)
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['albums'] });
@@ -128,7 +127,7 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
                                 const albums = data?.pages?.flatMap((page) => page?.data?.albums || []);
                                 if (!albums || albums.length === 0) {
                                     return (
-                                        <NotFound 
+                                        <NotFound
                                             {...{
                                                 title: "No albums available. It looks like your library has no media. Please create or upload albums.",
                                                 photo: require('@images/notFound/album_not.png')
@@ -136,50 +135,52 @@ const AlbumContent: React.FC<Props> = ({ userId }) => {
                                         />
                                     );
                                 }
-                                return albums.map((item: any, index: number) => (
-                                    <View key={index}>
-                                        <Text style={styles.dt_album_name}>{item?.name}</Text>
-                                        <TouchableOpacity
-                                            style={styles.dt_album_container}
-                                            activeOpacity={0.8}
-                                            onPress={() => HandlePassword("Album 1")}
-                                        >
-                                            <Image
-                                                source={require('@images/dummy.png')}
-                                                style={styles.dt_image}
-                                            />
-                                            <View style={styles.dt_overlay}>
-                                                <View style={styles.dt_icon_container}>
-                                                    {item?.isPrivate ? (
-                                                        <LockIcon {...IconProps(ms(16))} fill={Colors.dt_error} />
-                                                    ) : (
-                                                        <LockOpenIcon {...IconProps(ms(16))} fill={Colors.dt_success_green} />
-                                                    )}
-                                                </View>
-                                                <View style={styles.dt_count_container}>
-                                                    <View style={styles.dt_info_container}>
-                                                        <CameraIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
-                                                        <Text style={styles.dt_count_text}>
-                                                            {item?.mediaStats?.totalPhotos ?? 0}
-                                                        </Text>
+                                return albums.map((item: any, index: number) => {
+                                    return (
+                                        <View key={index}>
+                                            <Text style={styles.dt_album_name}>{item?.name}</Text>
+                                            <TouchableOpacity
+                                                style={styles.dt_album_container}
+                                                activeOpacity={0.8}
+                                                onPress={() => HandlePassword( item?._id)}
+                                            >
+                                                <Image
+                                                    source={item?.coverImage ? { uri: item?.coverImage } : require('@images/dummy.png')}
+                                                    style={styles.dt_image}
+                                                />
+                                                <View style={styles.dt_overlay}>
+                                                    <View style={styles.dt_icon_container}>
+                                                        {item?.isPrivate ? (
+                                                            <LockIcon {...IconProps(ms(16))} fill={Colors.dt_error} />
+                                                        ) : (
+                                                            <LockOpenIcon {...IconProps(ms(16))} fill={Colors.dt_success_green} />
+                                                        )}
                                                     </View>
-                                                    <View style={styles.dt_info_container}>
-                                                        <PlayIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
-                                                        <Text style={styles.dt_count_text}>
-                                                            {item?.mediaStats?.totalVideos ?? 0}
-                                                        </Text>
+                                                    <View style={styles.dt_count_container}>
+                                                        <View style={styles.dt_info_container}>
+                                                            <CameraIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
+                                                            <Text style={styles.dt_count_text}>
+                                                                {item?.mediaStats?.totalPhotos ?? 0}
+                                                            </Text>
+                                                        </View>
+                                                        <View style={styles.dt_info_container}>
+                                                            <PlayIcon {...IconProps(ms(12))} fill={Colors.dt_white} />
+                                                            <Text style={styles.dt_count_text}>
+                                                                {item?.mediaStats?.totalVideos ?? 0}
+                                                            </Text>
+                                                        </View>
                                                     </View>
+                                                    <TouchableOpacity
+                                                        style={styles.dt_delete_container}
+                                                        onPress={() => HandleDeleteModal(item?._id)}
+                                                    >
+                                                        <DeleteIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
+                                                    </TouchableOpacity>
                                                 </View>
-                                                <TouchableOpacity
-                                                    style={styles.dt_delete_container}
-                                                    onPress={() => HandleDeleteModal(item?._id)}
-                                                >
-                                                    <DeleteIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
-                                                </TouchableOpacity>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-                                ));
+                                            </TouchableOpacity>
+                                        </View>
+                                    )
+                                });
                             })()
                         )
                     }

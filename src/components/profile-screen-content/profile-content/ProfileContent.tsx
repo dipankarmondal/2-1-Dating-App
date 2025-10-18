@@ -39,11 +39,10 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
     const { Token, user } = useAuth()
 
     const { data: userPhotoLiabary } = useQuery({
-        queryKey: ["userPhotoLiabary", user?.id],
-        queryFn: () => GetMediaLibrary(Token, user?.id, "image", "profile", null, null),
+        queryKey: ["userPhotoLiabary"],
+        queryFn: () => GetMediaLibrary(Token, user?.id, null, "profile", null, null),
         enabled: !!Token
     })
-
     const ProfilePhotos = userPhotoLiabary?.data?.media?.map((item) => item.url) || [];
 
     const images = [

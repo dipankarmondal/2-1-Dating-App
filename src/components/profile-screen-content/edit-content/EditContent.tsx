@@ -152,7 +152,7 @@ const EditContent: React.FC<Props> = ({ data }) => {
 
     useEffect(() => {
 
-        setValue("mode", data?.profile?.gender);
+        setValue("mode", {value:data?.profile?.gender, flag:true});
         setValue("description", data?.profile?.bio);
         setValue("frist_name", data?.profile?.firstName);
         setValue("last_name", data?.profile?.lastName);

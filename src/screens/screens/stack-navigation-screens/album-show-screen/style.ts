@@ -67,5 +67,9 @@ export const AlbumShowScreenStyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         gap:ms(10)
-    }
+    },
+    dt_center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+},
 })

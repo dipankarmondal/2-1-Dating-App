@@ -1226,7 +1226,7 @@ export const OpenAlbumBuilder = (control: Control<any>) => {
         },
     ]
 }
-export const AddAlbumBuilder = (control: Control<any>) => {
+export const AddPhotoAlbumBuilder = (control: Control<any>) => {
     return [
         {
             name: 'add_image',
@@ -1237,6 +1237,10 @@ export const AddAlbumBuilder = (control: Control<any>) => {
             placeholder: true,
             control: control,
         },
+    ]
+}
+export const AddVideoAlbumBuilder = (control: Control<any>) => {
+    return [
         {
             name: 'add_video',
             parent: 'open_album',

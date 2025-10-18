@@ -55,7 +55,7 @@ export const menuItems = (Navigation: any) => [
     },
     {
         id: "Frineds",
-        label: "Frineds",
+        label: "Friends",
         Icon: FrinedsIcon,
         size: 17,
         onPress: () => Navigation.navigate("FriendsScreen"),

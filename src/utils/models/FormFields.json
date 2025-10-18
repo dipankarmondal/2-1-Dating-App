@@ -840,6 +840,13 @@
                 "required": "title is required"
             }
         },
+        "file": {
+            "label": "Add cover photo",
+            "placeholder": "Add cover photo",
+            "errors": {
+                "required": "title is required"
+            }
+        },
         "password": {
             "label": "Password",
             "placeholder": "Password(optional)",

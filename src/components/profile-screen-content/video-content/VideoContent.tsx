@@ -17,7 +17,7 @@ import ModalAction from '../../modal/modal-action/ModalAction'
 
 /** Liabary*/
 import { useNavigation } from '@react-navigation/native'
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 /**Icons*/
 import PlayVideo from "@svgs/play.svg"
@@ -41,13 +41,13 @@ const VideoContent: React.FC = () => {
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
+        refetch,
     } = useInfiniteQuery({
         queryKey: ["userVideoLibrary", user?.id],
         queryFn: ({ pageParam = 1 }) =>
             GetMediaLibrary(Token, user?.id, "video", null, 10, pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
-            // 👇 Based on your API structure
             return lastPage?.data?.pagination?.hasNextPage
                 ? lastPage?.data?.pagination?.currentPage + 1
                 : undefined;
@@ -59,8 +59,9 @@ const VideoContent: React.FC = () => {
         mutationFn: (data: any) => DeleteSingleFile(Token, data),
         onSuccess: (res) => {
             if (res?.success === true) {
+                console.log("object", "delete")
                 toast("success", { title: res?.message });
-                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary', user?.id] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['userVideoLibrary', user?.id] });
             }
         }
     })
@@ -135,7 +136,6 @@ const VideoContent: React.FC = () => {
                             )}
                         </>
                     )}
-
                 </View>
                 <ModalAction
                     isModalVisible={showDeleteModal}

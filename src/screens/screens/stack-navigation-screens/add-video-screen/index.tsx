@@ -50,10 +50,9 @@ const AddVideoScreen: React.FC = () => {
     const AudltPhotoMutation = useMutation({
         mutationFn: (data: any) => UploadSingleContent(Token, data),
         onSuccess: (res) => {
-            console.log("object", res)
             if (res?.success === true) {
                 toast("success", { title: res?.message });
-                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary', user?.id] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['userVideoLibrary', user?.id] });
                 setVideoInfo({ uri: "", name: "", type: "" });
                 Navigation.goBack();
             }

@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -125,15 +125,17 @@ const PicturesContent: React.FC<Props> = ({ data }) => {
     };
 
     return (
-        <View style={styles.dt_container}>
-            <Text style={styles.dt_header_text}>
-                Your primary picture has to be a vanilla (non-adult) picture. Due to
-                Google & Apple policy we do not allow adult pictures as primary profile
-                pictures.
-            </Text>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={styles.dt_container}>
+                <Text style={styles.dt_header_text}>
+                    Your primary picture has to be a vanilla (non-adult) picture. Due to
+                    Google & Apple policy we do not allow adult pictures as primary profile
+                    pictures.
+                </Text>
 
-            {photoConfigs.map((config) => renderPhotoSection(config))}
-        </View>
+                {photoConfigs.map((config) => renderPhotoSection(config))}
+            </View>
+        </ScrollView>
     );
 };
 
