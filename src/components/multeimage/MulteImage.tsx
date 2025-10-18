@@ -27,6 +27,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
 );
 
 const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible }) => {
+    console.log("object", image.length)
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -129,19 +130,27 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
                             <TouchableOpacity
                                 style={[
                                     styles.dt_more_container,
-                                    { marginTop: ms(-5), opacity: currentIndex === 0 ? 0.4 : 1 },
+                                    {
+                                        marginTop: ms(-5),
+                                        opacity:image.length === 0 || currentIndex === 0 ? 0.4 : 1,
+                                    },
                                 ]}
-                                disabled={currentIndex === 0}
+                                disabled={image.length === 0 || currentIndex === 0}
                                 onPress={handlePrev}
                             >
                                 <LeftIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
                             </TouchableOpacity>
+
+                            {/* Right Button */}
                             <TouchableOpacity
                                 style={[
                                     styles.dt_more_container,
-                                    { marginTop: ms(-5), opacity: currentIndex === image.length - 1 ? 0.4 : 1 },
+                                    {
+                                        marginTop: ms(-5),
+                                        opacity: image.length === 0 || currentIndex === image.length - 1 ? 0.4 : 1,
+                                    },
                                 ]}
-                                disabled={currentIndex === image.length - 1}
+                                disabled={image.length === 0 || currentIndex === image.length - 1}
                                 onPress={handleNext}
                             >
                                 <RightIcon {...IconProps(ms(18))} fill={Colors.dt_white} />

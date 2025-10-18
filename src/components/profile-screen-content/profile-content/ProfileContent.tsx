@@ -9,6 +9,8 @@ import { ms } from '../../../utils/helpers/responsive'
 import { Colors, getAge } from '../../../utils/constant/Constant'
 import { profileButtons } from './helper'
 import { ProfileExtraMenuItems } from '../../common/helper'
+import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Icons*/
 import MaleIcon from '@svgs/male.svg'
@@ -21,9 +23,9 @@ import ComparisonTable from './ProfileDatiles'
 import TopMenu from '../../top-menu'
 import Certifications from './profile-extra-menu/Certifications'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
+
+/** Liabary*/
 import { useQuery } from '@tanstack/react-query'
-import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 type Props = {
     data: any
@@ -38,11 +40,14 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
 
     const { Token, user } = useAuth()
 
+    console.log("object", data?.friendCount)
+
     const { data: userPhotoLiabary } = useQuery({
         queryKey: ["userPhotoLiabary"],
         queryFn: () => GetMediaLibrary(Token, user?.id, null, "profile", null, null),
         enabled: !!Token
     })
+
     const ProfilePhotos = userPhotoLiabary?.data?.media?.map((item) => item.url) || [];
 
     const images = [
@@ -80,6 +85,7 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                             )}
                         </View>
                     </View>
+                    <Text style={styles.dt_profile_bio}>{data?.profile?.bio}</Text>
                     <View style={styles.dt_location_container}>
                         <LocationIcon {...IconProps(ms(17))} fill={Colors.dt_gray} />
                         <Text style={styles.dt_location_text}>{data?.profile?.address?.fullAddress}</Text>
@@ -98,10 +104,17 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                         />
                     </View>
                     <View style={styles.dt_profile_content}>
-                        {profileButtons.map(({ id, label, icon: Icon, onPress, size }) => (
+                        {profileButtons(data?.friendCount).map(({ id, label, icon: Icon, onPress, size }) => (
                             <TouchableOpacity key={id} style={styles.dt_button_two} onPress={onPress}>
-                                <Icon {...IconProps(ms(size))} fill={Colors.dt_card_blue} />
+                                <Icon {...IconProps(ms(size))} fill={Colors.dt_white} />
                                 <Text style={styles.dt_button_text}>{label}</Text>
+                                {
+                                    label !== "Share" && (
+                                        <View style={styles.dt_count_container}>
+                                            <Text style={[styles.dt_button_text, { fontSize: ms(10) }]}>{0}</Text>
+                                        </View>
+                                    )
+                                }
                             </TouchableOpacity>
                         ))}
                     </View>

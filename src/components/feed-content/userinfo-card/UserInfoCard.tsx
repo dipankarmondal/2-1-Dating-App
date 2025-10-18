@@ -31,30 +31,30 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visible, setVisible] = useState(false);
 
     const Navigation = useNavigation<any>()
-    const images = [
-        "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
-        "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
-        "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
-    ];
+    // const images = [
+    //     "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
+    //     "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
+    //     "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
+    // ];
+
+    const UserName = type === "viewme" ? item?.viewerId?.username : item?.username
 
     return (
         <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
             <View style={styles.dt_image_container}>
                 <Image
-                    source={{
-                        uri:
-                            item?.profile?.photos?.length > 0
-                                ? item?.profile?.photos[currentIndex]
-                                : images[currentIndex],
-                    }}
-                    // source={{ uri:item?.profile?.photos[currentIndex]}}
+                    source={
+                        profileImages?.[currentIndex]
+                            ? { uri: profileImages[currentIndex] }
+                            : require('@images/dummy.png')
+                    }
                     style={styles.dt_image}
                 />
                 {
@@ -63,7 +63,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             {...{
                                 currentIndex,
                                 setCurrentIndex,
-                                image: item?.profile?.photos ?? images,
+                                image: profileImages,
                                 isOption,
                                 type,
                                 isFilterOption,
@@ -76,7 +76,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
             </View>
             <View style={styles.dt_info_container}>
                 <View style={styles.dt_name_container}>
-                    <Text style={styles.dt_name}>{item?.username ?? "TestUser"}</Text>
+                    <Text style={styles.dt_name}>{UserName}</Text>
                     <View style={styles.dt_button_container}>
                         <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("info") }}>
                             <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
@@ -108,7 +108,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                         }
                     </View>
                 </View>
-                <View style={styles.dt_bio_container}>
+                {/* <View style={styles.dt_bio_container}>
                     <View style={[styles.dt_age_container, { justifyContent: "space-between" }]}>
                         <View style={styles.dt_age_container}>
                             <View style={styles.dt_age}>
@@ -233,7 +233,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             </View>
                         </View>
                     )
-                }
+                } */}
+                {children}
             </View>
 
             {Icon ? (
@@ -257,7 +258,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                 {...{
                     visible: visible,
                     setVisible: setVisible,
-                    photos: item?.profile?.photos ?? images
+                    photos: profileImages
                 }}
             />
         </View>

@@ -12,13 +12,7 @@ import Gallery from 'react-native-awesome-gallery';
 /**Main export*/
 const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos, isSingle }) => {
     const [index, setIndex] = useState(0);
-
-    const images = [
-        "https://picsum.photos/id/1/500/500",
-        "https://picsum.photos/id/2/500/500",
-        "https://picsum.photos/id/3/500/500",
-    ];
-
+console.log("photos", photos)
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
             <View style={styles.dt_gallery_wrapper}>
@@ -38,7 +32,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos
 
                 {/* Gallery */}
                 <Gallery
-                    data={photos ?? images}
+                    data={photos}
                     initialIndex={index}
                     onIndexChange={(i) => setIndex(i)}
                     onSwipeToClose={() => setVisible(false)}

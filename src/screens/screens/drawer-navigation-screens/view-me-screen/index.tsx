@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
 import { CommonStyles as commonstyle } from '../../common/CommonStyle'
+import { ViewMeScreenStyles as styles } from './styles'
 import { Colors } from '../../../../utils/constant/Constant'
 import { ViewMeOptions } from '../../../../components/common/helper'
 
@@ -16,6 +17,19 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 
 /** Liabary*/
 import { useIsFocused } from '@react-navigation/native'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useQuery } from '@tanstack/react-query'
+import { GetProfileViewers } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { ms } from '../../../../utils/helpers/responsive'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
+
+/**Icons*/
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
+import CoupleIcon from '@svgs/couple.svg'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import Loader from '../../../../components/loader/Loader'
+import NotFound from '../../../../components/notfound/NotFound'
 
 /**Main export*/
 const ViewMeScreen: React.FC = () => {
@@ -23,6 +37,7 @@ const ViewMeScreen: React.FC = () => {
     const [selected, setSelected] = useState<string>("");
 
     const isFocused = useIsFocused();
+    const { Token } = useAuth()
 
     useEffect(() => {
         if (isFocused) {
@@ -34,6 +49,12 @@ const ViewMeScreen: React.FC = () => {
         setShowDropdown(false);
         console.log("clicked")
     };
+
+    const { data: ProfileViewedData, isLoading, refetch } = useQuery({
+        queryKey: ["profile_viewed"],
+        queryFn: () => GetProfileViewers(Token),
+        enabled: isFocused && !!Token
+    })
 
 
     return (
@@ -48,26 +69,70 @@ const ViewMeScreen: React.FC = () => {
                 </TouchableOpacity>
             </ScreenHeader>
 
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={refetch} // just pass refetch here
+            >
                 <View style={commonstyle.dt_container}>
-                    <UserInfoCard
-                        {...{
-                            isMore: true,
-                            isOption: true,
-                            isFilterOption: false,
-                            isGallery: true
-                        }}
-                    />
-                    <UserInfoCard
-                        {...{
-                            isMore: true,
-                            isOption: true,
-                            isFilterOption: false,
-                            isGallery: true
-                        }}
-                    />
+                    {
+                        isLoading ? (
+                            <Loader />
+                        ) : ProfileViewedData?.data?.length > 0 ? (
+                            ProfileViewedData?.data?.map((item: any, index: number) => {
+                                const interest = item?.viewerId?.profile?.interestedIn || [];
+                                return (
+                                    <UserInfoCard
+                                        key={index}
+                                        {...{
+                                            type: "viewme",
+                                            item,
+                                            isMore: true,
+                                            isOption: true,
+                                            isFilterOption: false,
+                                            isGallery: item?.viewerId?.profile?.photos?.length > 0,
+                                            profileImages: item?.viewerId?.profile?.photos,
+                                        }}
+                                    >
+                                        <View style={styles.dt_intrest}>
+                                            <View style={styles.dt_intrest_container}>
+                                                <Text style={styles.dt_intrest_text}>Interests</Text>
+                                                <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                                                    {interest.includes('couple') && (
+                                                        <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                                                    )}
+                                                    {interest.includes('male') && (
+                                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                                    )}
+                                                    {interest.includes('female') && (
+                                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                                    )}
+                                                </View>
+                                            </View>
+
+                                            <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
+                                                <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
+                                                <View style={[styles.dt_location_container]}>
+                                                    <Text style={styles.dt_location_text}>
+                                                        {item?.viewerId?.profile?.address?.fullAddress ?? "Not specified"}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </UserInfoCard>
+                                );
+                            })
+                        ) : (
+                            <NotFound 
+                                {...{
+                                    title: "No one has viewed your profile yet. Stay active and you’ll see visitors here shortly",
+                                    photo: require("@images/notFound/view_not.png")
+                                }}
+                            />
+                        )
+                    }
+
                 </View>
-            </ScrollView>
+            </ScrollContent>
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}

@@ -329,3 +329,18 @@ export const EditAlbumMedia = async (token: any, album_id: any, data: any,) => {
         throw error;
     }
 };
+
+//Get Profile Viewers
+export const GetProfileViewers = async (token: any) => {
+    try {
+        const res = await API.get("users/profile-views", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

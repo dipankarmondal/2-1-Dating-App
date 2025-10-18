@@ -44,6 +44,12 @@ export const ProfileContentStyles = StyleSheet.create({
         gap:ms(10),
         marginVertical:ms(15),
     },
+    dt_profile_bio:{
+        fontSize: ms(13),
+        fontFamily: Fonts.Font_600,
+        color: Colors.dt_white,
+        marginTop:ms(5)
+    },
     dt_location_text:{
         fontSize: ms(14),
         fontFamily: Fonts.Font_600,
@@ -76,13 +82,21 @@ export const ProfileContentStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
-        gap: ms(8),
+        gap: ms(3),
         marginBottom: ms(5)
     },
     dt_button_text:{
-        fontSize: ms(12),
+        fontSize: ms(11),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white
+    },
+    dt_count_container:{
+        width:ms(15),
+        height:ms(15),
+        backgroundColor:Colors.dt_card_blue,
+        borderRadius:ms(50),
+        alignItems:"center",
+        justifyContent:"center"
     },
     container: {
         flex: 1,

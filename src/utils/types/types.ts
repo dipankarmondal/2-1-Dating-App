@@ -204,7 +204,9 @@ export type UserInfoCardProps = {
     isFilterOption?: boolean,
     isGallery?: boolean,
     isChecked?: boolean,
-    setIsChecked?: any
+    setIsChecked?: any,
+    children?: React.ReactNode,
+    profileImages?: any[],
 }
 
 export type MulteImageProps = {
