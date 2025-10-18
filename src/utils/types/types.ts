@@ -207,6 +207,7 @@ export type UserInfoCardProps = {
     setIsChecked?: any,
     children?: React.ReactNode,
     profileImages?: any[],
+    UserName?: string
 }
 
 export type MulteImageProps = {

@@ -12,7 +12,7 @@ import Gallery from 'react-native-awesome-gallery';
 /**Main export*/
 const GalleryModal: React.FC<GalleryModalProps> = ({ visible, setVisible, photos, isSingle }) => {
     const [index, setIndex] = useState(0);
-console.log("photos", photos)
+
     return (
         <Modal visible={visible} transparent={true} animationType="fade">
             <View style={styles.dt_gallery_wrapper}>

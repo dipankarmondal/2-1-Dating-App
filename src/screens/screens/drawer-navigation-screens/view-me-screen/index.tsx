@@ -14,6 +14,9 @@ import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
+import Loader from '../../../../components/loader/Loader'
+import NotFound from '../../../../components/notfound/NotFound'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 
 /** Liabary*/
 import { useIsFocused } from '@react-navigation/native'
@@ -27,9 +30,6 @@ import { IconProps } from '../../../../utils/helpers/Iconprops'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
-import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
-import Loader from '../../../../components/loader/Loader'
-import NotFound from '../../../../components/notfound/NotFound'
 
 /**Main export*/
 const ViewMeScreen: React.FC = () => {
@@ -91,6 +91,7 @@ const ViewMeScreen: React.FC = () => {
                                             isFilterOption: false,
                                             isGallery: item?.viewerId?.profile?.photos?.length > 0,
                                             profileImages: item?.viewerId?.profile?.photos,
+                                            UserName: item?.viewerId?.username
                                         }}
                                     >
                                         <View style={styles.dt_intrest}>

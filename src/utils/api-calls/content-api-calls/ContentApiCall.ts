@@ -5,7 +5,7 @@ import { API } from "../url";
 export const SearchUser = async (token: any, search: any, limit: any, online: any) => {
 
     try {
-        const endpoint = "users";
+        const endpoint = "/users";
         const params = {
             ...(search ? { search } : {}),
             ...(limit ? { limit } : {}),
@@ -334,6 +334,21 @@ export const EditAlbumMedia = async (token: any, album_id: any, data: any,) => {
 export const GetProfileViewers = async (token: any) => {
     try {
         const res = await API.get("users/profile-views", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Get hot date
+export const GetHotDate = async (token: any) => {
+    try {
+        const res = await API.get("/speed-dates", {
             headers: {
                 Authorization: `Bearer ${token}`
             }

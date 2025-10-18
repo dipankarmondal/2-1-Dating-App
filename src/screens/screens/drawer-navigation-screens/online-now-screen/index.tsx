@@ -38,6 +38,8 @@ const OnlineNowScreen: React.FC = () => {
         enabled: isFocused && !!Token
     });
 
+    console.log("object", data?.data)
+
     useEffect(() => {
         if (isFocused) {
             setSelected("")
@@ -76,7 +78,12 @@ const OnlineNowScreen: React.FC = () => {
                             />
                         ))
                     ) : (
-                        <NotFound />
+                        <NotFound 
+                            {...{
+                                title: "No users are currently online. Please check back later to see who’s available.",
+                                photo: require("@images/notFound/online_not.png"),
+                            }}
+                        />
                     )}
                 </View>
             </ScrollContent>
@@ -100,6 +107,7 @@ const OnlineNowScreen: React.FC = () => {
                 <TextInput
                     placeholder="Search by country"
                     style={styles.dt_searchInput}
+                    placeholderTextColor={Colors.dt_gray}
                 />
             </ModalAction>
         </ScreenLayout>
