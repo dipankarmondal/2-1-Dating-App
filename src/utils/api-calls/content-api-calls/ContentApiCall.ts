@@ -444,3 +444,22 @@ export const GetChatRooms = async (token: any) => {
         throw error;
     }
 };
+
+// List All Users
+export const ListAllUsers = async (token: any,page: any, limit: any) => {
+    try {
+        const res = await API.get("/users", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                page: page,
+                limit: limit
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

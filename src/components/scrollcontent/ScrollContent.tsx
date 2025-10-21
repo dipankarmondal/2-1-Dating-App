@@ -17,6 +17,8 @@ const ScrollContent: React.FC<ScrollContentProps> = ({ onRefresh, children, ...p
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
             }
+            onScroll={props.onScroll}
+            scrollEventThrottle={16}
         >
             {children}
         </ScrollView>

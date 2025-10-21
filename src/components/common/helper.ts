@@ -20,6 +20,7 @@ import VideoIcon from '@svgs/appicon/live.svg'
 import DubbleCheckIcon from '@svgs/dubble_check.svg'
 import LikeThumbIcon from '@svgs/like.svg'
 import GroupIcon from '@svgs/group.svg'
+import PlayIcon from '@svgs/play.svg'
 import SubscriptionIcon from '@svgs/subscription.svg'
 
 import { ms } from '../../utils/helpers/responsive'
@@ -276,6 +277,13 @@ export const WellfameActions = [
     { id: 3, icon: LikeIcon, size: ms(13), count: 0 },
     { id: 5, icon: ViewsIcon, size: ms(17), count: 0 },
 ];
+export const NewMemberActions= (data:any) => [
+    { id: 1, icon: CameraIcon, size: ms(13), count: data?.profile?.photos?.length ?? 0 },
+    { id: 2, icon: LikeThumbIcon, size: ms(17), count: 0 },
+    { id: 4, icon: UserIcon, size: ms(14), count: data?.friends?.length ?? 0 },
+    { id: 3, icon: PlayIcon, size: ms(13), count: 0 },
+];
+
 export const benefitsData = [
     {
         title: "Benefits of the website:",

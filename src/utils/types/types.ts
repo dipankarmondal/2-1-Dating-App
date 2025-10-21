@@ -1,4 +1,4 @@
-import { ScrollViewProps, StatusBarStyle, StyleProp, TextInputProps } from "react-native";
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollViewProps, StatusBarStyle, StyleProp, TextInputProps } from "react-native";
 import { TextStyle, ViewStyle } from "react-native-size-matters";
 import { DrawerParamList } from "../../navigation/navigation-types/NavigationTypes";
 
@@ -241,6 +241,7 @@ export type MenuItems = {
 export type ScrollContentProps = {
     onRefresh: () => void; // async refresh callback
     children: React.ReactNode;
+    onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
 } & ScrollViewProps;
 
 export type TopMenuProps = {
