@@ -19,14 +19,14 @@ import { OnlineOptions } from '../../../../components/common/helper'
 import { HotDateStyles as styles } from './styles'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { GetHotDate } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { GetHotDate, SendFriendRequest } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
-import { ms } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
 
 /** Liabary*/
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 /**Icons*/
 import MaleIcon from '@svgs/male.svg'
@@ -45,7 +45,8 @@ const HotDateScreen: React.FC = () => {
 
     const isFocused = useIsFocused();
     const Navigation = useNavigation<any>();
-    const { Token } = useAuth()
+    const { Token,user } = useAuth()
+    // "68b986f2def0361d51fc6ea8"
 
     useEffect(() => {
         if (isFocused) {
@@ -67,9 +68,25 @@ const HotDateScreen: React.FC = () => {
         enabled: isFocused && !!Token
     });
 
-    const formattedDate = (date: any)=>(
+    const formattedDate = (date: any) => (
         moment(date).format("MMM DD, YYYY")
     );
+
+    const SendFriendRequestMutation = useMutation({
+        mutationFn: (data: any) => SendFriendRequest(Token, data),
+        onSuccess: (res) => {
+            if(res?.success){
+                toast("success", { title: res?.message });
+            }
+        },
+    })
+
+    const handleSendFriendRequest = (id: any) => {
+        const payload = {
+            receiverId:id,
+        }
+        SendFriendRequestMutation.mutate(payload);
+    }
 
     return (
         <ScreenLayout>
@@ -94,7 +111,7 @@ const HotDateScreen: React.FC = () => {
                     {GetHotDateLoading ? <Loader /> :
                         GetHotDateData?.data?.length > 0 ? (
                             GetHotDateData?.data?.map((item: any, index: number) => {
-                                console.log("object", item?.startDate)
+                                const isUser = item?.creator?.id === user?.id
                                 return (
                                     <UserInfoCard
                                         key={index}
@@ -102,12 +119,13 @@ const HotDateScreen: React.FC = () => {
                                             type: "hotdate",
                                             item,
                                             isMore: true,
-                                            isOption: true,
+                                            isOption: isUser === true ? false : true,
                                             isUserContent: false,
                                             isFilterOption: true,
                                             isGallery: item?.creator?.profile?.photos?.length > 0 ? true : false,
                                             UserName: item?.creator?.profile?.firstName,
-                                            profileImages: item?.creator?.profile?.photos
+                                            profileImages: item?.creator?.profile?.photos,
+                                            onSendFriendRequest: () => handleSendFriendRequest(item?.creator?.id),
                                         }}
                                     >
                                         <View style={styles.dt_intrest}>
@@ -135,7 +153,7 @@ const HotDateScreen: React.FC = () => {
                                             </View>
                                         </View>
                                         <View style={styles.dt_intrest}>
-                                            <View style={[styles.dt_age_container,{marginTop:ms(10)}]}>
+                                            <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
                                                 {item?.creator?.profile?.gender === "couple" ? (
                                                     <>
                                                         <View style={styles.dt_age}>
@@ -160,11 +178,32 @@ const HotDateScreen: React.FC = () => {
                                                 )}
                                             </View>
                                             <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
-                                                 <View style={[styles.dt_location_container]}>
-                                                    <Text style={[styles.dt_location_text,{color:Colors.dt_error}]}>
+                                                <View style={[styles.dt_location_container]}>
+                                                    <Text style={[styles.dt_location_text, { color: Colors.dt_error }]}>
                                                         {formattedDate(item?.startDate)} - {formattedDate(item?.endDate)}
                                                     </Text>
-                                                 </View>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View style={styles.dt_intrest}>
+                                            <View style={styles.dt_intrest_container}>
+                                                <Text style={styles.dt_intrest_text}>Date type</Text>
+                                                <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                                                    <Text style={styles.dt_location_text}>{item?.type}</Text>
+                                                </View>
+                                            </View>
+                                            <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
+                                                <Text style={styles.dt_intrest_text}>Create date</Text>
+                                                <View style={[styles.dt_location_container]}>
+                                                    <Text style={[styles.dt_location_text, { color: Colors.dt_error }]}>
+                                                        {formattedDate(item?.createdAt)}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View style={styles.dt_intrest}>
+                                            <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                                                <Text style={[styles.dt_location_text, { textAlign: "left" }]}>{item?.details}</Text>
                                             </View>
                                         </View>
                                     </UserInfoCard>

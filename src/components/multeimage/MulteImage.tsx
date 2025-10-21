@@ -26,7 +26,7 @@ const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
     </TouchableOpacity>
 );
 
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible }) => {
+const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible, onSendFriendRequest }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState(false);
 
@@ -59,7 +59,7 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
     const mainMenuItems = [
         { key: "messenger", label: "Messenger", Icon: MessengerIcon },
         { key: "like", label: "Like", Icon: LikeIcon, onPress: () => setSubMenuVisible(true) },
-        { key: "friend", label: "Friend request", Icon: InviteFrindIcon },
+        { key: "friend", label: "Friend request", Icon: InviteFrindIcon, onPress: onSendFriendRequest },
         { key: "remember", label: "Remember", Icon: BellIcon },
     ];
 
@@ -131,7 +131,7 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
                                     styles.dt_more_container,
                                     {
                                         marginTop: ms(-5),
-                                        opacity:image.length === 0 || currentIndex === 0 ? 0.4 : 1,
+                                        opacity: image.length === 0 || currentIndex === 0 ? 0.4 : 1,
                                     },
                                 ]}
                                 disabled={image.length === 0 || currentIndex === 0}

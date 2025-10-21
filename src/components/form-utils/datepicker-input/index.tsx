@@ -19,9 +19,9 @@ import { Colors } from '../../../utils/constant/Constant';
 import { IconProps } from '../../../utils/helpers/Iconprops';
 
 /**Main export*/
-const  DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control, type, label }) => {
+const DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, control, type, label }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    
+
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 
@@ -33,7 +33,7 @@ const  DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, contro
             control={control}
             name={name}
             render={({ field: { onChange, value }, fieldState: { error } }) => {
-                const displayValue = value ? moment(value).format('DD-MM-YYYY') : FieldName.placeholder;
+                const displayValue = value ? moment(value).format('DD-MM-YYYY') : FieldName?.placeholder;
 
                 return (
                     <View style={{ marginBottom: ms(15) }}>
@@ -44,7 +44,7 @@ const  DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, contro
                             style={[
                                 styles.dt_select_input_wrapper,
                             ]}
-                            onPress={showDatePicker }
+                            onPress={showDatePicker}
                         >
                             <View style={styles.dt_select_input_text}>
                                 <Text style={[styles.dt_select_input, { color: !value ? Colors.dt_gray + 'BD' : Colors.dt_white },]}>
@@ -52,25 +52,26 @@ const  DatePickerInput: React.FC<DatePickerInputProps> = ({ name, parent, contro
                                 </Text>
                             </View>
 
-                            <DateDown {...IconProps(ms(15))} fill={ Colors.dt_white} />
+                            <DateDown {...IconProps(ms(15))} fill={Colors.dt_white} />
                         </Pressable>
 
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
                             mode="date"
                             onConfirm={(date) => {
-                                onChange(date.toISOString()); // or format if you want
+                                onChange(date.toISOString()); // or any format you prefer
                                 hideDatePicker();
                             }}
                             onCancel={hideDatePicker}
                             display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                            minimumDate={new Date()} // <-- this disables all previous dates
                         />
 
                         {error && <Text style={styles.dt_error}>{error.message}</Text>}
                     </View>
                 );
             }}
-            
+
         />
     );
 };

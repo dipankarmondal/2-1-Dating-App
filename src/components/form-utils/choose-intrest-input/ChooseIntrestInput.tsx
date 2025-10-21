@@ -11,7 +11,7 @@ import { ChooseIntrestInputProps } from '../../../utils/types/types';
 import { Controller } from 'react-hook-form';
 
 /**Main export*/
-const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, control, selectionData, label,flag }) => {
+const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, control, selectionData, label, flag }) => {
     const Fields = Formfields;
     const FieldName = parent ? Fields[parent][name] : Fields[name];
 
@@ -19,16 +19,22 @@ const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, c
         <Controller
             name={name}
             control={control}
-            defaultValue={flag === "speed_date" ? [] : ["couple"]}    // always array
+            defaultValue={flag === "speed_date" ? [] : ["couple"]}
             render={({ field: { onChange, value = [] } }) => {
                 const handleSelect = (key: string) => {
-                    let newValue = [...value];
-                    if (newValue.includes(key)) {
-                        newValue = newValue.filter((item) => item !== key);
+                    if (flag === "speed_date") {
+                        // only allow one selection
+                        onChange([key]);
                     } else {
-                        newValue.push(key);
+                        // multiple selection logic
+                        let newValue = [...value];
+                        if (newValue.includes(key)) {
+                            newValue = newValue.filter((item) => item !== key);
+                        } else {
+                            newValue.push(key);
+                        }
+                        onChange(newValue);
                     }
-                    onChange(newValue);
                 };
 
                 return (
@@ -40,19 +46,11 @@ const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, c
                                 return (
                                     <TouchableOpacity
                                         key={item.key}
-                                        style={[
-                                            styles.option,
-                                            isSelected && styles.optionSelected
-                                        ]}
+                                        style={[styles.option, isSelected && styles.optionSelected]}
                                         onPress={() => handleSelect(item.key)}
                                     >
                                         <Image source={item.image} style={styles.image} />
-                                        <Text
-                                            style={[
-                                                styles.optionText,
-                                                isSelected && styles.optionTextSelected
-                                            ]}
-                                        >
+                                        <Text style={[styles.optionText, isSelected && styles.optionTextSelected]}>
                                             {item.value}
                                         </Text>
                                     </TouchableOpacity>

@@ -161,9 +161,9 @@ export const SexualityOptions = [
     { key: "pansexual", value: "Pansexual" },
 ];
 export const DateTypeOptions = [
-    { key: "private_place", value: "Private Place" },
-    { key: "public_place", value: "Public Place" },
-    { key: "virtual_date", value: "Virtual Date" },
+    { key: "private", value: "Private Place" },
+    { key: "public", value: "Public Place" },
+    { key: "virtual", value: "Virtual Date" },
 ];
 export const BlockUserOptions = [
     { key: "yes", value: "Yes" },

@@ -31,7 +31,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [],UserName }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [],UserName,onSendFriendRequest }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -67,6 +67,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 isFilterOption,
                                 isGallery,
                                 setVisible,
+                                onSendFriendRequest,
                             }}
                         />
                     )

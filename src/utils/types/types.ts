@@ -147,6 +147,13 @@ export type ChooseIntrestInputProps = {
     label?: boolean;
     flag?: string
 };
+export type CountryInputProps = {
+    name: string;
+    parent?: string;
+    control: any; // You can replace `any` with the correct type from react-hook-form
+    selectionData?: any[];
+    label?: boolean;
+};
 
 export type ImagePickerChooseProps = {
     name: string;
@@ -207,7 +214,8 @@ export type UserInfoCardProps = {
     setIsChecked?: any,
     children?: React.ReactNode,
     profileImages?: any[],
-    UserName?: string
+    UserName?: string,
+    onSendFriendRequest?: () => void
 }
 
 export type MulteImageProps = {
@@ -218,7 +226,9 @@ export type MulteImageProps = {
     type?: string,
     isFilterOption?: boolean,
     isGallery?: boolean,
-    setVisible?: React.Dispatch<React.SetStateAction<boolean>>
+    setVisible?: React.Dispatch<React.SetStateAction<boolean>>,
+    onSendFriendRequest?: () => void,
+    use_id?: string
 }
 
 export type MenuItems = {

@@ -359,3 +359,50 @@ export const GetHotDate = async (token: any) => {
         throw error;
     }
 };
+
+//Create Speed Date
+export const CreateSpeedDate = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/speed-dates", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data?.message);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Send Friend Request
+export const SendFriendRequest = async (token: any, data: any,) => {
+    console.log("object", token,data)
+    try {
+        const res = await API.post("/friend-requests", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};

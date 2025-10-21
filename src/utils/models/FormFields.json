@@ -296,9 +296,16 @@
         }
     },
     "speed_date": {
-        "date": {
-            "label": "Select date",
-            "placeholder": "Select date",
+        "start_date": {
+            "label": "Select start date",
+            "placeholder": "Select start date",
+            "errors": {
+                "required": "date is required"
+            }
+        },
+        "end_date": {
+            "label": "Select end date",
+            "placeholder": "Select end date",
             "errors": {
                 "required": "date is required"
             }

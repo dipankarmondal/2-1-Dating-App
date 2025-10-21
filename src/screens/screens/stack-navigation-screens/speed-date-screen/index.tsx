@@ -4,7 +4,7 @@ import React from 'react'
 
 /**Local imports*/
 import { SpeedDateScreenStyles as styles } from './styles'
-import { ms } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
 import { SpeedDateBuilder } from '../../../../utils/builders'
 
 /**Components */
@@ -17,18 +17,55 @@ import SubmitButton from '../../../../components/submit-button'
 
 /** Liabary*/
 import { useForm } from 'react-hook-form'
+import CountryInput from '../../../../components/form-utils/country-input/CountryInput'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { CreateSpeedDate } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const SpeedDateScreen: React.FC = () => {
     const { control, handleSubmit, setValue, formState: { errors }, reset, } = useForm()
 
+    const { Token } = useAuth();
+    const Navigation = useNavigation()
+    const QueryInvalidater = useQueryClient();
+
+    const CreateSpeedDateCreation = useMutation({
+        mutationFn: (data: any) => CreateSpeedDate(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                QueryInvalidater.invalidateQueries({ queryKey: ['GetHotDate'] });
+                toast("success", { title: res?.message });
+                reset();
+                Navigation.goBack();
+            }
+        }
+    })
+    // GetHotDate
+
     const OnSubmit = (data: any) => {
-        console.log("object", data);
+        const payload = {
+            type: data?.date_type,
+            startDate: data?.start_date,
+            endDate: data?.end_date,
+            location: {
+                coordinates: [data?.country?.lat, data?.country?.lon],
+                address: {
+                    country: data?.country?.country,
+                    city: data?.country?.city,
+                    fullAddress: data?.country?.name,
+                }
+            },
+            preferredWith: data?.intrest,
+            details: data?.details
+        };
+        CreateSpeedDateCreation.mutate(payload);
     }
 
     return (
-        <ScreenLayout 
-            {...{ 
+        <ScreenLayout
+            {...{
                 type: "stack",
                 title: "Speed Date"
             }}
@@ -48,6 +85,8 @@ const SpeedDateScreen: React.FC = () => {
                                     return <DatePickerInput key={index} {...item} />
                                 } else if (item?.type === "choose") {
                                     return <ChooseIntrestInput key={index} {...item} flag="speed_date" />
+                                } else if (item?.type === "country") {
+                                    return <CountryInput key={index} {...item} />
                                 }
                             })}
                         </View>
@@ -56,7 +95,7 @@ const SpeedDateScreen: React.FC = () => {
                         <SubmitButton
                             {...{
                                 text: "Post Speed Date",
-                                loading: false,
+                                loading: CreateSpeedDateCreation.isPending,
                                 onPress: handleSubmit(OnSubmit)
                             }}
                         />

@@ -387,7 +387,7 @@ export const SpeedDateBuilder = (control: Control<any>) => {
             selectionData: DateTypeOptions
         },
         {
-            name: 'date',
+            name: 'start_date',
             parent: 'speed_date',
             type: "dob",
             label: false,
@@ -395,6 +395,15 @@ export const SpeedDateBuilder = (control: Control<any>) => {
             control: control,
             placeholder: true,
         },
+        {
+            name: 'end_date',
+            parent: 'speed_date',
+            type: "dob",
+            label: false,
+            styles: FormStyle,
+            control: control,
+            placeholder: true,
+        }, 
         {
             name: 'intrest',
             parent: 'speed_date',
@@ -408,7 +417,7 @@ export const SpeedDateBuilder = (control: Control<any>) => {
         {
             name: 'country',
             parent: 'speed_date',
-            type: "text",
+            type: "country",
             label: false,
             styles: FormStyle,
             control: control,

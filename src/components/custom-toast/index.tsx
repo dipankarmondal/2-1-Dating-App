@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     ws_toast_container: {
         backgroundColor: "#F2F6F9",
         paddingHorizontal: ms(10),
-        paddingVertical: ms(6),
+        paddingVertical: ms(2),
         borderRadius: 5,
         borderLeftWidth: 5,
         width: "100%",
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     ws_toast_text: {
         color: Colors.dt_black,
         flexWrap: "wrap",
-        fontFamily: Fonts.Font_600,
-        fontSize: ms(15),
-        lineHeight: ms(20),
+        fontFamily: Fonts.Font_500,
+        fontSize: ms(13),
+        lineHeight: ms(15),
         marginVertical: ms(7)
     }
 })
