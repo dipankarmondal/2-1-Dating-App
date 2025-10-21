@@ -406,3 +406,41 @@ export const SendFriendRequest = async (token: any, data: any,) => {
         throw error;
     }
 };
+
+//Create Chat Room
+export const CreateChatRoom = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/chatrooms", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Get chatrooms
+export const GetChatRooms = async (token: any) => {
+    try {
+        const res = await API.get("/chatrooms", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

@@ -89,7 +89,7 @@ const HotDateScreen: React.FC = () => {
     }
 
     return (
-        <ScreenLayout>
+        <ScreenLayout> 
 
             <ScreenHeader>
                 <Text style={CommonStyles.dt_header_title}>Hot Date</Text>

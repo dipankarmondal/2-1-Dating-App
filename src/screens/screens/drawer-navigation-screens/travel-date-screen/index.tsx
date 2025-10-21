@@ -10,6 +10,11 @@ import UserInfoCard from '../../../../components/feed-content/userinfo-card/User
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 import { TravelOptions } from '../../../../components/common/helper'
+import { TravelDateScreenStyles as styles } from './styles'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
+import { ms } from '../../../../utils/helpers/responsive'
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
 
 const TravelDateScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -51,20 +56,32 @@ const TravelDateScreen: React.FC = () => {
                             isMore: true,
                             isOption: true,
                             isUserContent: false,
-                            isFilterOption: true, 
-                            isGallery: true
-                        }}
-                    />
-                    <UserInfoCard
-                        {...{
-                            type: "travel",
-                            isMore: true,
-                            isOption: true,
-                            isUserContent: false,
                             isFilterOption: true,
                             isGallery: true
                         }}
-                    />
+                    >
+                        <View style={styles.dt_intrest}>
+                            <View style={styles.dt_intrest}>
+                                <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
+                                    <View style={styles.dt_age}>
+                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                        <Text style={styles.dt_age_text}>5</Text>
+                                    </View>
+                                    <View style={styles.dt_age}>
+                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                        <Text style={styles.dt_age_text}>2</Text>
+                                    </View>
+                                </View>
+                                <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
+                                    <View style={[styles.dt_location_container]}>
+                                        <Text style={[styles.dt_location_text, { color: Colors.dt_error }]}>
+                                            helo
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </UserInfoCard>
                 </View>
             </ScrollContent>
             <ModalAction

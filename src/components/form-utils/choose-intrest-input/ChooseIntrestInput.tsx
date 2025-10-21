@@ -22,19 +22,14 @@ const ChooseIntrestInput: React.FC<ChooseIntrestInputProps> = ({ name, parent, c
             defaultValue={flag === "speed_date" ? [] : ["couple"]}
             render={({ field: { onChange, value = [] } }) => {
                 const handleSelect = (key: string) => {
-                    if (flag === "speed_date") {
-                        // only allow one selection
-                        onChange([key]);
+                    // multiple selection logic
+                    let newValue = [...value];
+                    if (newValue.includes(key)) {
+                        newValue = newValue.filter((item) => item !== key);
                     } else {
-                        // multiple selection logic
-                        let newValue = [...value];
-                        if (newValue.includes(key)) {
-                            newValue = newValue.filter((item) => item !== key);
-                        } else {
-                            newValue.push(key);
-                        }
-                        onChange(newValue);
+                        newValue.push(key);
                     }
+                    onChange(newValue);
                 };
 
                 return (

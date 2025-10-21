@@ -7,14 +7,43 @@ import { ChatroomBuilder } from '../../../../utils/builders'
 import CustomInput from '../../../../components/form-utils/custom-input'
 import DropdownInput from '../../../../components/form-utils/dropdown-input'
 import SubmitButton from '../../../../components/submit-button'
-import { ms } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { CreateChatRoom } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useNavigation } from '@react-navigation/native'
 
 const AddChatroomScreen: React.FC = () => {
-    const { control, handleSubmit, setValue, formState: { errors }, reset, } = useForm()
+    const { control, handleSubmit, reset, } = useForm()
+
+    const { Token } = useAuth()
+    const Navigation = useNavigation();
+    const QueryInvalidater = useQueryClient();
+
+    const CreateRoomMutation = useMutation({
+        mutationFn: (data: any) => CreateChatRoom(Token, data),
+        onSuccess: (res) => {
+            console.log("object", res)
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                reset()
+                Navigation.goBack();
+                QueryInvalidater.invalidateQueries({ queryKey: ['GetChatRoom'] });
+            }
+        }
+    })
 
     const OnSubmit = (data: any) => {
-        console.log("object", data);
+        const payload = {
+            name: data?.title,
+            type: data?.date_type,
+            goingLive: data?.go_live,
+            blockSingleMales: data?.block_user === "yes" ? true : false,
+        }
+
+        CreateRoomMutation.mutate(payload);
     }
+
     return (
         <ScreenLayout
             {...{
@@ -37,7 +66,7 @@ const AddChatroomScreen: React.FC = () => {
                             <SubmitButton
                                 {...{
                                     text: "Create Chatroom",
-                                    loading: false,
+                                    loading: CreateRoomMutation.isPending,
                                     onPress: handleSubmit(OnSubmit)
                                 }}
                             />

@@ -161,17 +161,17 @@ export const SexualityOptions = [
     { key: "pansexual", value: "Pansexual" },
 ];
 export const DateTypeOptions = [
-    { key: "private", value: "Private Place" },
-    { key: "public", value: "Public Place" },
-    { key: "virtual", value: "Virtual Date" },
+    { key: "private", value: "Private Chatroom" },
+    { key: "public", value: "Public Chatroom" },
+    { key: "virtual", value: "Secret Chatroom" },
 ];
 export const BlockUserOptions = [
     { key: "yes", value: "Yes" },
     { key: "no", value: "No" },
 ];
 export const GoliveOptions = [
-    { key: "chat_now", value: "ChatNow" },
-    { key: "chat_later", value: "Chat later" },
+    { key: "now", value: "ChatNow" },
+    { key: "later", value: "Chat later" },
 ];
 export const ChooseInterst = [
     { key: "couple", value: "Couple", image: require('@images/couple.png') },

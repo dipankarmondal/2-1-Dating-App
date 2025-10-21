@@ -49,5 +49,28 @@ export const ChatroomCardStyles = StyleSheet.create({
         fontFamily:Fonts.Font_700,
         fontSize:ms(15),
         color:Colors.dt_white
+    },
+    dt_image_overlay:{
+        position:"absolute",
+        width:"100%",
+        height:ms(30),
+        backgroundColor:Colors.dt_white + "7D",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    dt_group_container:{
+        paddingHorizontal:ms(10),
+        paddingVertical:ms(5),
+        borderRadius:ms(50),
+        alignItems:"center",
+        justifyContent:"space-evenly",
+        flexDirection:"row",
+        backgroundColor:Colors.dt_bg
+    },
+    dt_group_text:{
+        fontSize:ms(13),
+        fontFamily:Fonts.Font_600,
+        color:Colors.dt_white,
+        marginLeft:ms(5)
     }
 })

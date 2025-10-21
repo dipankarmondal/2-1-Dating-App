@@ -5,6 +5,14 @@ import { CommonStyles } from '../../common/CommonStyle'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import { useNavigation } from '@react-navigation/native'
+import { LivestreamScreenStyles as styles } from './styles'
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
+import { ms } from '../../../../utils/helpers/responsive'
+import { Colors } from '../../../../utils/constant/Constant'
+import ViewIcon from '@svgs/setting/views.svg'
+import TimeIcon from '@svgs/setting/time.svg'
 
 const LivestreamScreen: React.FC = () => {
     const Navigation = useNavigation<any>();
@@ -28,16 +36,41 @@ const LivestreamScreen: React.FC = () => {
                             isOption: true,
                             isFilterOption: true,
                         }}
-                    /> 
-                    <UserInfoCard
-                        {...{
-                            type: "livestream",
-                            isMore: true, 
-                            isOption: true,
-                            isFilterOption: true,
-                            isGallery: true
-                        }}
-                    />
+                    >
+                        <View style={styles.dt_intrest}>
+                            <View style={styles.dt_intrest}>
+                                <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
+                                    <View style={styles.dt_age}>
+                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                        <Text style={styles.dt_age_text}>5</Text>
+                                    </View>
+                                    <View style={styles.dt_age}>
+                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                        <Text style={styles.dt_age_text}>2</Text>
+                                    </View>
+                                </View>
+                                <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
+                                    <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
+                                    <View style={[styles.dt_location_container]}>
+                                        <Text style={[styles.dt_location_text, { color: Colors.dt_error }]}>
+                                            helo
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[styles.dt_age_container, { marginTop: ms(5), gap: ms(8) }]}>
+                            <View style={styles.dt_live_info_container}>
+                                <ViewIcon {...IconProps(ms(20))} fill={Colors.dt_gray} />
+                                <Text style={styles.dt_location_text}>56</Text>
+                            </View>
+                            <View style={styles.dt_live_info_container}>
+                                <TimeIcon {...IconProps(ms(16))} fill={Colors.dt_gray} />
+                                <Text style={styles.dt_location_text}>55 min</Text>
+                            </View>
+                        </View>
+                    </UserInfoCard>
+
                 </View>
             </ScrollView>
         </ScreenLayout>
