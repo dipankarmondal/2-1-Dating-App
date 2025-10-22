@@ -21,7 +21,10 @@ export const VideoCardsStyles = StyleSheet.create({
         resizeMode: "stretch",
     },
     dt_info_container: {
-        marginTop: ms(10)
+        marginTop: ms(10),
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
     dt_name_container: {
         flexDirection: "row",
@@ -119,7 +122,8 @@ export const VideoCardsStyles = StyleSheet.create({
      menuItem: {
         paddingVertical: ms(8),
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent:"space-between",
     },
     menuText: {
         color:Colors.dt_white,
@@ -136,6 +140,11 @@ export const VideoCardsStyles = StyleSheet.create({
         borderRadius: 8, 
         elevation: 5,
         zIndex:1000
+    },
+    dt_menu_list:{
+        flexDirection:"row",
+        alignItems:"center",
+        marginRight:ms(5)
     },
     dt_play_box:{
         flexGrow:1, 

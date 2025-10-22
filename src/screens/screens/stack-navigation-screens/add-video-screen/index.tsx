@@ -53,6 +53,7 @@ const AddVideoScreen: React.FC = () => {
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['userVideoLibrary', user?.id] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary'] });
                 setVideoInfo({ uri: "", name: "", type: "" });
                 Navigation.goBack();
             }

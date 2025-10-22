@@ -138,6 +138,9 @@ export const GetMediaLibrary = async (token: any, id: any, type: any, source: an
         });
         return res?.data;
     } catch (error) {
+        const errorData = error?.response;
+        console.log("object", errorData)
+
         toast("error", { title: "Something went wrong" });
         throw error;
     }
@@ -385,7 +388,7 @@ export const CreateSpeedDate = async (token: any, data: any,) => {
 
 //Send Friend Request
 export const SendFriendRequest = async (token: any, data: any,) => {
-    console.log("object", token,data)
+    console.log("object", token, data)
     try {
         const res = await API.post("/friend-requests", data,
             {
@@ -446,7 +449,7 @@ export const GetChatRooms = async (token: any) => {
 };
 
 // List All Users
-export const ListAllUsers = async (token: any,page: any, limit: any) => {
+export const ListAllUsers = async (token: any, page: any, limit: any) => {
     try {
         const res = await API.get("/users", {
             headers: {
@@ -460,6 +463,51 @@ export const ListAllUsers = async (token: any,page: any, limit: any) => {
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Get Global Videos
+export const GetGlobalVideos = async (token: any, audlt: any, rating: any, visibility: any, page: any, limit: any) => {
+    try {
+        const res = await API.get("/media-library/global/videos", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(audlt ? { adultContent: audlt } : {}),
+                ...(rating ? { contentRating: rating } : {}),
+                ...(visibility ? { visibility: visibility } : {}),
+                page: page,
+                limit: limit
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Create Interaction
+export const CreateInteraction = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/interactions", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
         throw error;
     }
 };

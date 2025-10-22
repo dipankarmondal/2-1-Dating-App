@@ -15,8 +15,8 @@ export const MoreVideoContentStyles = StyleSheet.create<any>({
     dt_image_container: {
         width: ms(90),
         height: ms(75),
-        backgroundColor: "red",
         borderRadius: ms(8),
+        backgroundColor: Colors.dt_white,
         overflow: "hidden"
     },
     dt_image: {

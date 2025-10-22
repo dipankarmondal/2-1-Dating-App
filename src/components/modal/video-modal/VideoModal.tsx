@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Modal, TouchableOpacity } from 'react-native'
+import { View, Modal, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
@@ -16,11 +16,22 @@ import MoreIcon from '@svgs/layers.svg'
 import ModalAction from '../modal-action/ModalAction';
 import MoreVideoContent from '../modal-content/more-video-content/MoreVideoContent';
 import { VideoModalProps } from '../../../utils/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall';
+import { useAuth } from '../../../utils/context/auth-context/AuthContext';
 
 /**Main export*/
-const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) => {
-
+const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source,setSource }) => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const { Token } = useAuth()
+
+    const { data: AllVideo } = useQuery({
+        queryKey: ["all_video", source?.id],
+        queryFn: () => GetMediaLibrary(Token, source?.id, "video", null, null, null),
+        enabled: !!Token && !!source?.id
+    })
+
     return (
         <Modal
             transparent
@@ -34,17 +45,28 @@ const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) 
                 </TouchableOpacity>
 
                 <View style={styles.videoContainer}>
+                    {/* Loader */}
+                    {loading && (
+                        <View style={styles.loaderContainer}>
+                            <ActivityIndicator size="large" color={Colors.dt_border} />
+                        </View>
+                    )}
+
                     <Video
-                        source={{ uri: source }}
+                        source={{ uri: source?.link }}
                         style={styles.video}
                         resizeMode="contain"
-                        controls={true} // ✅ built-in play/pause & seek controls
-                        onError={(e) => console.log('Video error:', e)}
+                        controls={true}
                         paused={showDropdown}
+                        onError={(e) => console.log('Video error:', e)}
                         onEnd={() => setVisible(false)}
+                        onLoadStart={() => setLoading(true)} // start loading
+                        onLoad={() => setLoading(false)} // stop when loaded
+                        onBuffer={({ isBuffering }) => setLoading(isBuffering)} // handle buffering
                     />
                 </View>
             </View>
+
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
@@ -52,13 +74,13 @@ const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source }) 
                 type="logout"
             >
                 <MoreVideoContent
-                    {...{
-                        setShowDropdown: setShowDropdown
-                    }}
+                    setShowDropdown={setShowDropdown}
+                    moreVideoData={AllVideo?.data?.media}
+                    setSource={setSource}
                 />
             </ModalAction>
         </Modal>
-    )
-}
+    );
+};
 
-export default VideoModal
+export default VideoModal;

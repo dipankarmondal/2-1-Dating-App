@@ -9,7 +9,7 @@ export const VideoModalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-  
+
     videoContainer: {
         width: '100%',
         height: '100%',
@@ -21,15 +21,26 @@ export const VideoModalStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    overlay:{
+    overlay: {
         position: "absolute",
-        top: ms(20), right:ms(20),
+        top: ms(20), right: ms(20),
         backgroundColor: Colors.dt_white,
-        width:ms(30),
-        height:ms(30),
-        borderRadius:ms(50),
-        zIndex:10000,
-        alignItems:"center",
-        justifyContent:"center"
-    }
+        width: ms(30),
+        height: ms(30),
+        borderRadius: ms(50),
+        zIndex: 10000,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    loaderContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        zIndex: 10,
+    },
 })

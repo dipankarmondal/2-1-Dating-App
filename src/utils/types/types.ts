@@ -268,7 +268,8 @@ export type ModalSelectContentProps = {
 export type VideoModalProps = {
     visible: boolean,
     setVisible: (visible: boolean) => void,
-    source: string
+    source: any,
+    setSource: any
 }
 
 export type AccordionProps = {
