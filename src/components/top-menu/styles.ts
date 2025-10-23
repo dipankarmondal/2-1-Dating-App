@@ -11,6 +11,9 @@ export const TopMenuStyles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: ms(8),
         borderRadius: ms(5),
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
     },
     activeMenuItem: {
         backgroundColor: Colors.dt_bg,
@@ -35,5 +38,19 @@ export const TopMenuStyles = StyleSheet.create({
         width: "48%",
         alignItems: "center",
         justifyContent: "center"
+    },
+    dt_badge:{
+        width:ms(17),
+        height:ms(17),
+        backgroundColor:Colors.dt_white,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:ms(50),
+        marginLeft:ms(5)
+    },
+    dt_badge_text:{
+        color:Colors.dt_black,
+        fontSize:ms(12),
+        fontFamily:Fonts.Font_600
     }
 })

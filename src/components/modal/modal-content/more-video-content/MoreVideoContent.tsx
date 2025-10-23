@@ -23,7 +23,6 @@ const MoreVideoContent: React.FC<Props> = ({ setShowDropdown, moreVideoData,setS
         <View style={styles.dt_container}>
             {
                 moreVideoData?.map((item: any, index: number) => {
-                    console.log("object", item?.userId)
                     return (
                         <TouchableOpacity key={index} style={styles.dt_video_container} onPress={() => handlePlayVideo(item?.url, item?.userId)}>
                             <View style={styles.dt_image_container}>

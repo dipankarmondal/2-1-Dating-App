@@ -31,8 +31,6 @@ const AddVideoScreen: React.FC = () => {
                 type: [types.video],
             });
 
-            console.log("object", res)
-
             if (res && res.length > 0) {
                 setVideoInfo({ uri: res[0]?.uri, name: res[0]?.name, type: res[0]?.type });
 

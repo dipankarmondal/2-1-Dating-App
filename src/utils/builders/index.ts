@@ -702,16 +702,7 @@ export const CreateGroupBuilder = (control: Control<any>) => {
             name: 'location',
             parent: 'create_group',
             styles: FormStyle,
-            type: "text",
-            label: false,
-            placeholder: true,
-            control: control,
-        },
-        {
-            name: 'group_desc',
-            parent: 'create_group',
-            styles: FormStyle,
-            type: "textarea",
+            type: "location",
             label: false,
             placeholder: true,
             control: control,
@@ -745,7 +736,43 @@ export const CreateGroupBuilder = (control: Control<any>) => {
             placeholder: true,
             control: control,
             selectionData: GroupForOptions
-        }
+        },
+        {
+            name: 'tags',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'group_desc',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'rules',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'file',
+            parent: 'create_group',
+            styles: FormStyle,
+            type: "photo",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
     ]
 }
 export const EditProfileBuilder = (control: Control<any>) => {

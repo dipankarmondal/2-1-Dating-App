@@ -31,6 +31,9 @@ const TopMenu: React.FC<TopMenuProps> = ({ MenuData, activeKey, setActiveKey, is
                             >
                                 {item.label}
                             </Text>
+                            <View style={styles.dt_badge}>
+                                <Text style={styles.dt_badge_text}>0</Text>
+                            </View>
                         </TouchableOpacity>
                     ))}
                 </View>

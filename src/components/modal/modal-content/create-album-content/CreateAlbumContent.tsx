@@ -29,7 +29,6 @@ const CreateAlbumContent: React.FC<Props> = ({setShowCreateModal}) => {
     const CreateAlbumsMutation = useMutation({
         mutationFn: (data:any) => CreateAlbum(Token, data),
         onSuccess: (res) => {
-            console.log("object", res)
             if(res?.success === true) {
                 toast("success", { title: res?.message });
                 reset()

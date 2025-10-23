@@ -38,8 +38,6 @@ const OnlineNowScreen: React.FC = () => {
         enabled: isFocused && !!Token
     });
 
-    console.log("object", data?.data)
-
     useEffect(() => {
         if (isFocused) {
             setSelected("")

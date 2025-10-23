@@ -58,7 +58,7 @@ const NewMemberScreen: React.FC = () => {
         isLoading,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["searchUser"],
+        queryKey: ["list_all_user"],
         queryFn: ({ pageParam = 1 }) => ListAllUsers(Token, pageParam, 10),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
@@ -155,16 +155,15 @@ const NewMemberScreen: React.FC = () => {
                                                     {item?.profile?.interestedIn.includes('female') && (
                                                         <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
                                                     )}
-                                                </View>
+                                                </View> 
                                             </View>
                                         </View>
                                         <View style={styles.dt_intrest}>
                                             <View style={styles.dt_intrest_container}>
-                                                <Text style={styles.dt_intrest_text}>Interests</Text>
+                                                <Text style={styles.dt_intrest_text}>Location</Text>
                                                 <View style={[styles.dt_location_container]}>
                                                     <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
-                                                        {/* {item?.location?.address?.fullAddress ?? "Not specified"} */}
-                                                        helo
+                                                        {item?.profile?.address?.fullAddress ?? "Not specified"}
                                                     </Text>
                                                 </View>
                                             </View>

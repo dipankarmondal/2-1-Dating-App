@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { use } from 'react'
 
 /** Liabary*/
 import { useNavigation } from '@react-navigation/native'
@@ -13,10 +13,23 @@ import ScreenLayout from '../../common/ScreenLayout'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import GroupCard from '../../../../components/group-card/GroupCard'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useQuery } from '@tanstack/react-query'
+import { GetMyGroups } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Main export*/
 const MyGroupScreen: React.FC = () => {
+
     const Navigation = useNavigation<any>()
+    const { Token } = useAuth()
+
+    const { data, isLoading,refetch } = useQuery({
+        queryKey: ["my_groups"],
+        queryFn: () => GetMyGroups(Token),
+        enabled: !!Token
+    })
+
+
     return (
         <ScreenLayout
             {...{
@@ -37,10 +50,21 @@ const MyGroupScreen: React.FC = () => {
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={() => { }}
+                onRefresh={refetch}
             >
                 <View style={CommonStyles.dt_container}>
-                    <GroupCard />
+                    {
+                        data?.data?.groups?.map((item: any, index: number) => {
+                            return (
+                                <GroupCard
+                                    key={index}
+                                    {...{
+                                        item: item
+                                    }}
+                                />
+                            )
+                        })
+                    }
                 </View>
             </ScrollContent>
         </ScreenLayout>

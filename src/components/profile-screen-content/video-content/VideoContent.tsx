@@ -59,7 +59,6 @@ const VideoContent: React.FC = () => {
         mutationFn: (data: any) => DeleteSingleFile(Token, data),
         onSuccess: (res) => {
             if (res?.success === true) {
-                console.log("object", "delete")
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['userVideoLibrary', user?.id] });
             }

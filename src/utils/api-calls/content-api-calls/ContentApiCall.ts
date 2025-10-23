@@ -511,3 +511,86 @@ export const CreateInteraction = async (token: any, data: any,) => {
         throw error;
     }
 };
+
+//Create Group
+export const CreateNewGroup = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/groups", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Get All Groups
+export const GetAllGroups = async (token: any) => {
+    try {
+        const res = await API.get("/groups", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Get Single Group
+export const GetSingleGroup = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/groups/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Get Group Members
+export const GetGroupMembers = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/groups/${id}/members`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Get My Groups
+export const GetMyGroups = async (token: any) => {
+    try {
+        const res = await API.get("/groups/my-groups", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

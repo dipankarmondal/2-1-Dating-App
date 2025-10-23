@@ -1,25 +1,85 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import ScreenLayout from '../../common/ScreenLayout'
 import { useForm } from 'react-hook-form'
-import { ms, spacing } from '../../../../utils/helpers/responsive'
+import { ms, spacing, toast } from '../../../../utils/helpers/responsive'
 import CustomInput from '../../../../components/form-utils/custom-input'
 import { CreateGroupBuilder } from '../../../../utils/builders'
 import DropdownInput from '../../../../components/form-utils/dropdown-input'
 import SubmitButton from '../../../../components/submit-button'
+import FilePickerInput from '../../../../components/form-utils/file-picker-input/FilePickerInput'
+import CountryInput from '../../../../components/form-utils/country-input/CountryInput'
+import { useMutation } from '@tanstack/react-query'
+import { CreateNewGroup, UploadSingleContent } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 
 const CreateGroup: React.FC = () => {
 
+    const [CreateGroupPauload, setCreateGroupPauload] = useState({})
+
     const { control, handleSubmit, reset } = useForm()
+    const { Token } = useAuth()
+    const Navigation = useNavigation()
+
+    const CreateGroupsMutation = useMutation({
+        mutationFn: (data: any) => CreateNewGroup(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                reset()
+                Navigation.goBack();
+            }
+        }
+    })
+
+    const AddPhotoForGroupMutation = useMutation({
+        mutationFn: (data: any) => UploadSingleContent(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                const payload = {
+                    ...CreateGroupPauload,
+                    coverImage: res?.data?.files?.original?.url
+                }
+                CreateGroupsMutation.mutate(payload)
+                console.log("CreateGroupPauload", payload)
+            }
+        }
+    })
 
     const OnSubmit = (data: any) => {
-        console.log("object", data);
+        const TagsArray = data?.tags
+            ? data?.tags?.split(',').map((item: string) => item.trim())
+            : [];
+
+        const GroupCreatePayload = {
+            name: data?.group_name,
+            location: data?.location?.name,
+            category: data?.category,
+            groupType: data?.group_type,
+            targetAudience: data?.group_for,
+            description: data?.group_desc,
+            tags: TagsArray,
+            rules: data?.rules
+        }
+        setCreateGroupPauload(GroupCreatePayload)
+        const Image = data?.file[0];
+        const formData = new FormData();
+        formData.append("file", {
+            uri: Image.uri,
+            type: Image.type,
+            name: Image.fileName
+        })
+        formData.append("folder", "groups");
+        formData.append("optimize", true);
+        formData.append("createThumbnail", true)
+        AddPhotoForGroupMutation.mutate(formData)
     };
 
     return (
         <ScreenLayout
             {...{
-                type: "stack", 
+                type: "stack",
                 title: "Create Group",
             }}
         >
@@ -30,6 +90,10 @@ const CreateGroup: React.FC = () => {
                             return <CustomInput key={index} {...item} />;
                         } else if (item?.type === "dropdown") {
                             return <DropdownInput key={index} {...item} />
+                        } else if (item?.type === "photo") {
+                            return <FilePickerInput key={index} {...item} />
+                        } else if (item?.type === "location") {
+                            return <CountryInput key={index} {...item} />
                         } else {
                             return null;
                         }
@@ -38,7 +102,7 @@ const CreateGroup: React.FC = () => {
                         <SubmitButton
                             {...{
                                 text: "Create Group",
-                                loading: false,
+                                loading: CreateGroupsMutation.isPending || AddPhotoForGroupMutation.isPending,
                                 onPress: handleSubmit(OnSubmit)
                             }}
                         />

@@ -47,6 +47,7 @@ import PrivacyScreen from "../../screens/screens/stack-navigation-screens/privac
 import BugReportScreen from "../../screens/screens/stack-navigation-screens/bug-report-screen"
 import HideProfileScreen from "../../screens/screens/stack-navigation-screens/hide-profile-screen"
 import ContactAndHelpScreen from "../../screens/screens/stack-navigation-screens/contact-help-screen"
+import SingleGroupScreen from "../../screens/screens/stack-navigation-screens/single-group-screen"
 
 export const AuthStack = () => {
     return (
@@ -97,6 +98,7 @@ export const MainStack = () => {
             <Stack.Screen name="BugReportScreen" component={BugReportScreen} />
             <Stack.Screen name="HideProfileScreen" component={HideProfileScreen} />
             <Stack.Screen name="ContactAndHelpScreen" component={ContactAndHelpScreen} />
+            <Stack.Screen name="SingleGroupScreen" component={SingleGroupScreen} />
         </Stack.Navigator>
     )
 }

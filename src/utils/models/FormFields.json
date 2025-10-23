@@ -514,7 +514,28 @@
         },
         "group_desc": {
             "label": "Group Description",
-            "placeholder": "Enter your group description",
+            "placeholder": "Enter your group description..",
+            "errors": {
+                "required": "group description is required"
+            }
+        },
+        "tags": {
+            "label": "Group tags",
+            "placeholder": "e.g. parties, clubs, events, social",
+            "errors": {
+                "required": "group description is required"
+            }
+        },
+        "rules": {
+            "label": "Group rules",
+            "placeholder": "write group rules here..",
+            "errors": {
+                "required": "group rules description is required"
+            }
+        },
+        "file": {
+            "label": "Group image",
+            "placeholder": "File size of your documents should not exceed 10MB",
             "errors": {
                 "required": "group description is required"
             }

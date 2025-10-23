@@ -15,7 +15,8 @@ export const FilePickerInputStyles = StyleSheet.create({
     dt_text: {
         fontSize: ms(14),
         fontFamily: Fonts.Font_600,
-        color: Colors.dt_white
+        color: Colors.dt_white,
+        textAlign:"center",
     },
     dt_image_container:{
         width:ms(100),

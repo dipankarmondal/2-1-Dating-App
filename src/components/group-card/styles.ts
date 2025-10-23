@@ -22,23 +22,22 @@ export const GroupCardStyles = StyleSheet.create({
     },
     dt_overlay:{
         position: "absolute",
-        width: ms(50),
-        height: ms(30),
-        backgroundColor: Colors.dt_white,
+        width: ms(55),
+        height: ms(40),
+        backgroundColor: Colors.dt_border + "33",
         alignItems: "center",
         justifyContent: "center",
         borderBottomLeftRadius: ms(5),
-        opacity: 0.5,
         top: 0,
-        right:0
+        right:-1
     },
     dt_join_text:{
-        fontSize: ms(15),
-        fontFamily: Fonts.Font_600,
-        color: Colors.dt_black
+        fontSize: ms(16),
+        fontFamily: Fonts.Font_700,
+        color: Colors.dt_card_blue
     },
     dt_name: {
-        fontSize: ms(18),
+        fontSize: ms(17),
         fontFamily: Fonts.Font_700,
         color: Colors.dt_primary_green,
         textTransform: "uppercase",

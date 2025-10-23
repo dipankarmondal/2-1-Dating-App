@@ -41,6 +41,7 @@ export type RootStackParamList = {
   BugReportScreen: undefined;
   HideProfileScreen: undefined;
   ContactAndHelpScreen: undefined;
+  SingleGroupScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

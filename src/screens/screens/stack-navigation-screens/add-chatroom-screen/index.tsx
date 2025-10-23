@@ -23,7 +23,6 @@ const AddChatroomScreen: React.FC = () => {
     const CreateRoomMutation = useMutation({
         mutationFn: (data: any) => CreateChatRoom(Token, data),
         onSuccess: (res) => {
-            console.log("object", res)
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 reset()

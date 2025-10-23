@@ -65,7 +65,7 @@ const VideoCard: React.FC<Props> = ({ setVisible, item, setSource }) => {
     const UserIntrationMutation = useMutation({
         mutationFn: (data: any) => CreateInteraction(Token, data),
         onSuccess: (res) => {
-            console.log("object", res)
+
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 // setSubMenuVisible(false);
@@ -79,8 +79,6 @@ const VideoCard: React.FC<Props> = ({ setVisible, item, setSource }) => {
             targetUserId: id,
             interactionType: key
         }
-
-        console.log("object", payload)
         UserIntrationMutation.mutate(payload)
     }
 

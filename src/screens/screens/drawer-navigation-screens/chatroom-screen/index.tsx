@@ -30,8 +30,6 @@ const ChatroomScreen: React.FC = () => {
         enabled: !!Token
     })
 
-    console.log("object", ChatRoomData)
-
     return (
         <ScreenLayout>
             <ScreenHeader>

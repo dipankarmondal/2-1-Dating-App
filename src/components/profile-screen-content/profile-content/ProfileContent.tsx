@@ -40,7 +40,6 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
 
     const { Token, user } = useAuth()
 
-    console.log("object", data?.friendCount)
 
     const { data: userPhotoLiabary } = useQuery({
         queryKey: ["userPhotoLiabary"],

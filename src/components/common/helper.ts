@@ -366,6 +366,11 @@ export const ProfileExtraMenuItems = [
     { key: 'groups', label: 'Groups' },
     { key: 'friends', label: 'Friends' },
 ];
+export const SingleGroupMenuItems = [
+    { key: 'members', label: 'Members' },
+    { key: 'forum', label: 'Forum' },
+    { key: 'visuals', label: 'Visuals' },
+];
 export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },
     { key: 'group_messenger', label: 'Group Messenger' },
@@ -389,9 +394,9 @@ export const CategoryOptions = [
     { key: 'other', value: 'Other' },
 ];
 export const GroupTypeOptions = [
-    { key: 'open_group', value: 'Open Group' },
-    { key: 'closed_group', value: 'Closed Group' },
-    { key: 'private_group', value: 'Private Group' },
+    { key: 'open', value: 'Open Group' },
+    { key: 'closed', value: 'Closed Group' },
+    { key: 'private', value: 'Private Group' },
 ];
 export const GroupForOptions = [
     { key: 'couples', value: 'Couples' },
