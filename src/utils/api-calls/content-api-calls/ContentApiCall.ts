@@ -594,3 +594,53 @@ export const GetMyGroups = async (token: any) => {
         throw error;
     }
 };
+
+//Delete Group
+export const DeleteGroup = async (token: any, id: any,) => {
+    try {
+        const res = await API.delete(`/groups/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Join Group
+export const JoinGroup = async (token: any, id: any,) => {
+    try {
+        const res = await API.post(`/groups/${id}/join`, {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Leave Group 
+export const LeaveGroup = async (token: any, id: any) => {
+    try {
+        const fullUrl = `${API.defaults.baseURL}/groups/${id}/leave`;
+        console.log("Full API URL:", fullUrl);
+
+        const res = await API.post(`/groups/${id}/leave`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

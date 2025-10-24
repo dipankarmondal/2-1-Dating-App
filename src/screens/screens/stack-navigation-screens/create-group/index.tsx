@@ -9,7 +9,7 @@ import DropdownInput from '../../../../components/form-utils/dropdown-input'
 import SubmitButton from '../../../../components/submit-button'
 import FilePickerInput from '../../../../components/form-utils/file-picker-input/FilePickerInput'
 import CountryInput from '../../../../components/form-utils/country-input/CountryInput'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateNewGroup, UploadSingleContent } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { useNavigation } from '@react-navigation/native'
@@ -21,6 +21,7 @@ const CreateGroup: React.FC = () => {
     const { control, handleSubmit, reset } = useForm()
     const { Token } = useAuth()
     const Navigation = useNavigation()
+    const QueryInvalidater = useQueryClient();
 
     const CreateGroupsMutation = useMutation({
         mutationFn: (data: any) => CreateNewGroup(Token, data),
@@ -29,6 +30,7 @@ const CreateGroup: React.FC = () => {
                 toast("success", { title: res?.message });
                 reset()
                 Navigation.goBack();
+                QueryInvalidater.invalidateQueries({ queryKey: ['GroupAllData'] });
             }
         }
     })

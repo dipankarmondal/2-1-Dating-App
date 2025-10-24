@@ -46,7 +46,6 @@ const HotDateScreen: React.FC = () => {
     const isFocused = useIsFocused();
     const Navigation = useNavigation<any>();
     const { Token,user } = useAuth()
-    // "68b986f2def0361d51fc6ea8"
 
     useEffect(() => {
         if (isFocused) {

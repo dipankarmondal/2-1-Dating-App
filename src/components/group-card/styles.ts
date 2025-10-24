@@ -22,7 +22,7 @@ export const GroupCardStyles = StyleSheet.create({
     },
     dt_overlay:{
         position: "absolute",
-        width: ms(55),
+        padding: ms(8),
         height: ms(40),
         backgroundColor: Colors.dt_border + "33",
         alignItems: "center",
@@ -30,6 +30,16 @@ export const GroupCardStyles = StyleSheet.create({
         borderBottomLeftRadius: ms(5),
         top: 0,
         right:-1
+    },
+    dt_message_box:{
+        width:ms(25),
+        height:ms(25),
+        backgroundColor:Colors.dt_card_blue,
+        borderRadius:ms(50),
+        alignItems:"center",
+        justifyContent:"center",
+        elevation:5,
+        shadowColor:Colors.dt_white
     },
     dt_join_text:{
         fontSize: ms(16),
