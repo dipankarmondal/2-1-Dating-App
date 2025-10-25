@@ -8,7 +8,7 @@ import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors, getAge } from '../../../utils/constant/Constant'
 import { profileButtons } from './helper'
-import { ProfileExtraMenuItems } from '../../common/helper'
+import { ProfileExtraMenuItems, ProfileUserMenuItems } from '../../common/helper'
 import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
@@ -21,34 +21,36 @@ import LocationIcon from '@svgs/location.svg'
 import MulteImage from '../../multeimage/MulteImage'
 import ComparisonTable from './ProfileDatiles'
 import TopMenu from '../../top-menu'
-import Certifications from './profile-extra-menu/Certifications'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
 /** Liabary*/
 import { useQuery } from '@tanstack/react-query'
+import Loader from '../../loader/Loader'
+import ProfileTabContent from './profile-extra-menu/ProfileTabContent'
 
 type Props = {
-    data: any
+    data: any,
+    type?: string
 }
 
 /**Main export*/
-const ProfileContent: React.FC<Props> = ({ data }) => {
-
+const ProfileContent: React.FC<Props> = ({ data, type }) => {
+    
+    const userType = type === "friends" && "friend"
+    const { Token, user } = useAuth() 
+    
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [activeKey, setActiveKey] = useState("groups");
+    const [activeKey, setActiveKey] = useState(userType ? "certifications" : "groups");
     const [visible, setVisible] = useState(false);
-
-    const { Token, user } = useAuth()
-
-
-    const { data: userPhotoLiabary } = useQuery({
+    
+    const { data: userPhotoLiabary, isLoading } = useQuery({
         queryKey: ["userPhotoLiabary"],
         queryFn: () => GetMediaLibrary(Token, user?.id, null, "profile", null, null),
         enabled: !!Token
     })
 
-    const ProfilePhotos = userPhotoLiabary?.data?.media?.map((item) => item.url) || [];
-
+    const ProfilePhotos = type === "friends" ? data?.profile?.photos : userPhotoLiabary?.data?.media?.map((item) => item.url) ;
+ 
     const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
         "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
@@ -90,7 +92,10 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
                         <Text style={styles.dt_location_text}>{data?.profile?.address?.fullAddress}</Text>
                     </View>
                     <View style={styles.dt_image_container}>
-                        <Image source={{ uri: ProfilePhotos[currentIndex] ?? images[currentIndex] }} style={styles.dt_image} />
+                        {
+                            isLoading ? <Loader /> :
+                                <Image source={{ uri: ProfilePhotos[currentIndex] ?? images[currentIndex] }} style={styles.dt_image} />
+                        }
                         <MulteImage
                             {...{
                                 currentIndex,
@@ -130,13 +135,18 @@ const ProfileContent: React.FC<Props> = ({ data }) => {
 
             </View>
             <TopMenu {...{
-                MenuData: ProfileExtraMenuItems,
+                MenuData: userType ? ProfileUserMenuItems : ProfileExtraMenuItems,
                 activeKey,
                 setActiveKey,
-                isTwoItem: true
+                isTwoItem: userType ? false : true
             }} />
 
-            <Certifications activeKey={activeKey} />
+            <ProfileTabContent 
+                {...{
+                    userType,
+                    activeKey: activeKey
+                }}
+            />
             <GalleryModal
                 {...{
                     visible: visible,

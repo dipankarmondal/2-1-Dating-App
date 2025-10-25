@@ -1,11 +1,11 @@
 /**React Imports */
 import { View, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
 /**Local imports*/
 import { AccountScreenStyles as styles } from './styles'
 import { EditAccountBuilder } from '../../../../utils/builders'
-import { ms } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -16,20 +16,51 @@ import ModalContent from '../../../../components/modal/modal-content/logout-cont
 
 /** Liabary*/
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useMutation } from '@tanstack/react-query'
+import { UpdateAccount } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { AccountSchema } from '../../../../utils/schemas/Schemas'
+import { useNavigation } from '@react-navigation/native'
 
 /**Main export*/
 const AccountScreen: React.FC = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    const { control, handleSubmit, setValue } = useForm()
+    const { control, handleSubmit, setValue } = useForm<any>({
+        resolver: yupResolver(AccountSchema),
+    })
+
+    const { user, Token } = useAuth()
+    const Navigation = useNavigation<any>()
+
+    const AccountUpdateMutation = useMutation({
+        mutationFn: (data: any) => UpdateAccount(Token, data),
+        onSuccess: (res) => {
+            console.log("object", res)
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                Navigation.goBack()
+            }
+        }
+    })
+
 
     const onSubmit = (data: any) => {
-        console.log("object", data)
+        const payload = {
+            email: data?.email,
+            password: data?.confirm_password
+        }
+        AccountUpdateMutation.mutate(payload)
     }
 
     const handleDeleteAcount = () => {
         setShowDeleteModal(true)
     }
+
+    useEffect(() => {
+        setValue("email", user?.email || "")
+    }, [])
 
     return (
         <ScreenLayout
@@ -51,7 +82,7 @@ const AccountScreen: React.FC = () => {
                         <SubmitButton
                             {...{
                                 text: "Submit",
-                                loading: false,
+                                loading: AccountUpdateMutation.isPending,
                                 onPress: handleSubmit(onSubmit)
                             }}
                         />

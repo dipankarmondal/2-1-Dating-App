@@ -9,10 +9,10 @@ export const LoginSchema = yup.object().shape({
     password: yup
         .string()
         .required(FormFields.login.password.errors.required)
-        // .matches(
-        //     new RegExp(FormFields.login.password.errors.pattern.value),
-        //     FormFields.login.password.errors.pattern.message
-        // ),
+    // .matches(
+    //     new RegExp(FormFields.login.password.errors.pattern.value),
+    //     FormFields.login.password.errors.pattern.message
+    // ),
 });
 export const RegisterSchema = yup.object().shape({
     username: yup
@@ -44,3 +44,15 @@ export const RegisterSchema = yup.object().shape({
         .oneOf([true], "you must be at least 21 years old to register"),
 
 });
+
+export const AccountSchema = yup.object().shape({
+    confirm_password: yup
+        .string()
+        .required(FormFields.create_account.confirm_password.errors.required)
+        .oneOf(
+            [yup.ref('password'), null],
+            FormFields.create_account.confirm_password.errors.match
+        ),
+});
+
+

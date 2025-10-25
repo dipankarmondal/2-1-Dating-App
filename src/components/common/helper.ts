@@ -366,6 +366,13 @@ export const ProfileExtraMenuItems = [
     { key: 'groups', label: 'Groups' },
     { key: 'friends', label: 'Friends' },
 ];
+export const ProfileUserMenuItems = [
+    { key: 'certifications', label: 'Certifications'},
+    { key: 'groups', label: 'Groups'},
+    { key: 'parties_and_events', label: 'Parties & Events'},
+    { key: 'following', label: 'Following'},
+    { key: 'friends', label: 'Friends' },
+];
 export const SingleGroupMenuItems = [
     { key: 'members', label: 'Members' },
     { key: 'forum', label: 'Forum' },

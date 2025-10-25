@@ -78,7 +78,7 @@ const getExperienceLevel = (levelObj: any) => {
 
 export const ProfileContentData = (data: any) => [
   { label: "Age", char: getAge(data?.partner?.dateOfBirth), parm: getAge(data?.dateOfBirth) },
-  { label: "Body Hair", char: data?.partner?.bodyHair.join(", ") ?? "--", parm: data.bodyHair.join(", ") ?? "--" },
+  { label: "Body Hair", char: data?.partner?.bodyHair?.length > 0 ? data?.partner?.bodyHair.join(", ") : "--", parm:data.bodyHair?.length > 0 ? data.bodyHair.join(", ") : "--" },
   { label: "Height", char: data?.partner?.height ?? "--", parm: data?.height ?? "--" },
   { label: "Weight", char: data?.partner?.weight ?? "--", parm: data?.weight ?? "--" },
   { label: "Body type", char: data?.partner?.bodyType ?? "--", parm: data?.bodyType ?? "--" },
@@ -86,10 +86,10 @@ export const ProfileContentData = (data: any) => [
   { label: "Smoking", char: data?.partner?.smoking ?? "--", parm: data?.smoking ?? "--" },
   { label: "Piercings", char: data?.partner?.piercings ?? "--", parm: data?.piercings ?? "--" },
   { label: "Tattoos", char: data?.partner?.tattoos ?? "--", parm: data?.tattoos ?? "--" },
-  { label: "Languages Spoken", char: data?.partner?.languagesSpoken.join(", ") ?? "--", parm: data?.languagesSpoken.join(", ") ?? "--" },
-  { label: "Looks are important?", char: data?.partner?.looksAreImportant.replaceAll("_", " ") ?? "--", parm: data?.looksAreImportant.replaceAll("_", " ") ?? "--" },
-  { label: "Intelligence is important?", char: data?.partner?.intelligenceIsImportant.replaceAll("_", " ") ?? "--", parm: data?.intelligenceIsImportant.replaceAll("_", " ") ?? "--" },
-  { label: "Sexuality", char: data?.partner?.sexuality.replaceAll("_", " ") ?? "--", parm: data?.sexuality.replaceAll("_", " ") ?? "--" },
-  { label: "Relationship status", char: data?.partner?.relationshipOrientation.replaceAll("_", " ") ?? "--", parm: data?.relationshipOrientation.replaceAll("_", " ") ?? "--" },
+  { label: "Languages Spoken", char:data?.partner?.languagesSpoken?.length > 0 ? data?.partner?.languagesSpoken.join(", ") : "--", parm: data?.languagesSpoken?.length > 0 ? data?.languagesSpoken.join(", ") : "--" },
+  { label: "Looks are important?", char: data?.partner?.looksAreImportant?.replaceAll("_", " ") ?? "--", parm: data?.looksAreImportant?.replaceAll("_", " ") ?? "--" },
+  { label: "Intelligence is important?", char: data?.partner?.intelligenceIsImportant?.replaceAll("_", " ") ?? "--", parm: data?.intelligenceIsImportant?.replaceAll("_", " ") ?? "--" },
+  { label: "Sexuality", char: data?.partner?.sexuality?.replaceAll("_", " ") ?? "--", parm: data?.sexuality?.replaceAll("_", " ") ?? "--" },
+  { label: "Relationship status", char: data?.partner?.relationshipOrientation?.replaceAll("_", " ") ?? "--", parm: data?.relationshipOrientation?.replaceAll("_", " ") ?? "--" },
   { label: "Experience level", char: getExperienceLevel(data?.partner?.experienceLevel), parm: getExperienceLevel(data?.experienceLevel) },
 ];

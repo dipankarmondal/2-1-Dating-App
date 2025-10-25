@@ -1,5 +1,5 @@
 /**React Imports */
-import React, { useRef, useState, forwardRef, useImperativeHandle, useMemo } from "react";
+import React, { useRef, useState, forwardRef, useImperativeHandle, useMemo, useEffect, use } from "react";
 import { Animated, TextInput, TouchableOpacity, View, Text, ScrollView, Image, ActivityIndicator } from "react-native";
 
 /**Local imports*/
@@ -18,16 +18,28 @@ import { debounce } from "lodash";
 /**Icons*/
 import CrossIcon from "@svgs/cross.svg";
 import RightIcon from "@svgs/angle-small-right.svg";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 const AnimatedSearchBar = forwardRef<SearchBarRef, SearchBarProps>(({ headerHeight = 50 }, ref) => {
     const [visible, setVisible] = useState(false);
-    const [inputText, setInputText] = useState(""); // immediate input
-    const [query, setQuery] = useState(""); // debounced query for API
+    const [inputText, setInputText] = useState("");
+    const [query, setQuery] = useState("");
 
     const scaleAnim = useRef(new Animated.Value(0)).current;
     const opacityAnim = useRef(new Animated.Value(0)).current;
+    const inputRef = useRef<TextInput>(null);
 
     const { Token } = useAuth();
+    const Navigation = useNavigation<any>();
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            setVisible(false);
+            setQuery("");
+            setInputText("");
+        }
+    }, [isFocused]);
 
     // Debounced function to update query
     const debouncedQuery = useMemo(
@@ -59,10 +71,16 @@ const AnimatedSearchBar = forwardRef<SearchBarRef, SearchBarProps>(({ headerHeig
                 duration: 200,
                 useNativeDriver: true,
             }),
-        ]).start();
+        ]).start(() => {
+            setTimeout(() => {
+                inputRef.current?.focus();
+            }, 100);
+        });
     };
 
     const close = () => {
+        inputRef.current?.blur();
+
         Animated.parallel([
             Animated.timing(scaleAnim, {
                 toValue: 0,
@@ -102,6 +120,7 @@ const AnimatedSearchBar = forwardRef<SearchBarRef, SearchBarProps>(({ headerHeig
             <View style={styles.dt_search_input_wrapper}>
                 <View style={styles.dt_search_box}>
                     <TextInput
+                        ref={inputRef}
                         style={styles.searchInput}
                         placeholder="Search..."
                         placeholderTextColor="#ccc"
@@ -140,10 +159,15 @@ const AnimatedSearchBar = forwardRef<SearchBarRef, SearchBarProps>(({ headerHeig
                     {
                         data?.data?.map((item: any, index: number) => {
                             const userImage = item?.profile?.photos?.[0]
-                                ? { uri: item.profile.photos[0] } // remote image
-                                : require("@images/user.png");
+                                ? { uri: item.profile.photos[0] }
+                                : require("@images/dummy.png");
+
                             return (
-                                <TouchableOpacity key={index} style={styles.dt_search_header}>
+                                <TouchableOpacity
+                                    key={index}
+                                    style={styles.dt_search_header}
+                                    onPress={() => Navigation.navigate("ProfileScreen", { userId: item?._id,type:"friends" })}
+                                >
                                     <View style={styles.dt_search_header_wrapper}>
                                         <View style={styles.dt_search_user_image}>
                                             <Image source={userImage} style={styles.dt_image} />

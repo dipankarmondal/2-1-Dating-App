@@ -644,3 +644,56 @@ export const LeaveGroup = async (token: any, id: any) => {
         throw error;
     }
 };
+
+//Update Account
+export const UpdateAccount = async (token: any, data: any,) => {
+    try {
+        const res = await API.put("/account/info", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Get User Details
+export const GetUserDetails = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/users/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Get My Friends List
+export const GetMyFriendsList = async (token: any) => {
+    try {
+        const res = await API.get("/friends", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
