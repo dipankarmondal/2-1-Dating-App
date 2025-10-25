@@ -7,18 +7,12 @@ import { FeedContentStyles as styles } from '../FeedContentStyle'
 import { IconProps } from '../../../utils/helpers/Iconprops'
 import { ms } from '../../../utils/helpers/responsive'
 import { Colors } from '../../../utils/constant/Constant'
-import { getProfileActions, WellfameActions } from '../../common/helper'
 import { UserInfoCardProps } from '../../../utils/types/types'
 
 /**Icons*/
 import TvIcon from '@svgs/tv.svg'
 import MessageIcon from '@svgs/messages.svg'
-import MaleIcon from '@svgs/male.svg'
-import FemaleIcon from '@svgs/female.svg'
-import CoupleIcon from '@svgs/couple.svg'
 import ClockIcon from '@svgs/appicon/clock.svg'
-import ViewIcon from '@svgs/setting/views.svg'
-import TimeIcon from '@svgs/setting/time.svg'
 import CalendarIcon from '@svgs/drawericon/calendar.svg'
 import CheckIcon from '@svgs/check.svg'
 
@@ -31,83 +25,80 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [],UserName,onSendFriendRequest }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName, onSendFriendRequest }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visible, setVisible] = useState(false);
 
     const Navigation = useNavigation<any>()
-    // const images = [
-    //     "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
-    //     "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
-    //     "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
-    // ];
 
-    return (
-        <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
-            <View style={styles.dt_image_container}>
-                <Image
-                    source={
-                        profileImages?.[currentIndex]
-                            ? { uri: profileImages[currentIndex] }
-                            : require('@images/dummy.png')
+
+    const UserInfoContent = () => {
+        return (
+            <>
+                <View style={styles.dt_image_container}>
+                    <Image
+                        source={
+                            profileImages?.[currentIndex]
+                                ? { uri: profileImages[currentIndex] }
+                                : require('@images/dummy.png')
+                        }
+                        style={styles.dt_image}
+                    />
+                    {
+                        isMore && (
+                            <MulteImage
+                                {...{
+                                    currentIndex,
+                                    setCurrentIndex,
+                                    image: profileImages,
+                                    isOption,
+                                    type,
+                                    isFilterOption,
+                                    isGallery,
+                                    setVisible,
+                                    onSendFriendRequest,
+                                }}
+                            />
+                        )
                     }
-                    style={styles.dt_image}
-                />
-                {
-                    isMore && (
-                        <MulteImage
-                            {...{
-                                currentIndex,
-                                setCurrentIndex,
-                                image: profileImages,
-                                isOption,
-                                type,
-                                isFilterOption,
-                                isGallery,
-                                setVisible,
-                                onSendFriendRequest,
-                            }}
-                        />
-                    )
-                }
-            </View>
-            <View style={styles.dt_info_container}>
-                <View style={styles.dt_name_container}>
-                    <Text style={styles.dt_name}>{UserName}</Text>
-                    <View style={styles.dt_button_container}>
-                        <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("info") }}>
-                            <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.dt_button} onPress={() => Navigation.navigate("MessengerScreen")}>
-                            <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
-                        </TouchableOpacity>
-                        {
-                            (type === "hotdate" || type === "travel") && (
-                                <>
-                                    <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("speed_date") }}>
-                                        <ClockIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("travel_time") }}>
-                                        <CalendarIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
-                                    </TouchableOpacity>
-                                </>
-                            )
-                        }
-                        {
-                            type === "friends" && (
-                                <TouchableOpacity
-                                    style={[styles.dt_check_button, isChecked && { backgroundColor: Colors.dt_primary_green }]}
-                                    onPress={() => setIsChecked(!isChecked)}
-                                >
-                                    {isChecked && <CheckIcon {...IconProps(ms(18))} fill={"#fff"} />}
-                                </TouchableOpacity>
-                            )
-                        }
-                    </View>
                 </View>
-                {/* <View style={styles.dt_bio_container}>
+                <View style={styles.dt_info_container}>
+                    <View style={styles.dt_name_container}>
+                        <Text style={styles.dt_name}>{UserName}</Text>
+                        <View style={styles.dt_button_container}>
+                            <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("info") }}>
+                                <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.dt_button} onPress={() => Navigation.navigate("MessengerScreen")}>
+                                <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
+                            </TouchableOpacity>
+                            {
+                                (type === "hotdate" || type === "travel") && (
+                                    <>
+                                        <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("speed_date") }}>
+                                            <ClockIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("travel_time") }}>
+                                            <CalendarIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
+                                        </TouchableOpacity>
+                                    </>
+                                )
+                            }
+                            {
+                                type === "friends" && (
+                                    <TouchableOpacity
+                                        style={[styles.dt_check_button, isChecked && { backgroundColor: Colors.dt_primary_green }]}
+                                        onPress={() => setIsChecked(!isChecked)}
+                                    >
+                                        {isChecked && <CheckIcon {...IconProps(ms(18))} fill={"#fff"} />}
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </View>
+                    </View>
+                    {/* <View style={styles.dt_bio_container}>
                     <View style={[styles.dt_age_container, { justifyContent: "space-between" }]}>
                         <View style={styles.dt_age_container}>
                             <View style={styles.dt_age}>
@@ -233,33 +224,73 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                         </View>
                     )
                 } */}
-                {children}
-            </View>
-
-            {Icon ? (
-                <View style={styles.dt_overlay}>
-                    <Icon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                    {children}
                 </View>
-            ) : null}
-            <ModalAction
-                isModalVisible={showDropdown}
-                setModalVisible={setShowDropdown}
-                headerText={DropdownType === "speed_date" ? "Speed Date" : DropdownType === "travel_time" ? "Travel Time" : "Information"}
-                type="logout"
-            >
-                <Information
-                    {...{
-                        type: DropdownType
-                    }}
-                />
-            </ModalAction>
-            <GalleryModal
-                {...{
-                    visible: visible,
-                    setVisible: setVisible,
-                    photos: profileImages
-                }}
-            />
+
+                {Icon ? (
+                    <View style={styles.dt_overlay}>
+                        <Icon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                    </View>
+                ) : null}
+            </>
+        )
+    }
+
+    return (
+        <View>
+            {
+                type === "user" ? (
+                    <TouchableOpacity
+                        style={styles.dt_user_info_card}
+                        onPress={() => Navigation.navigate("ProfileScreen", { userId: item?._id, type: "friends" })}
+                        activeOpacity={0.5}
+                    >
+                        <UserInfoContent />
+                        <ModalAction
+                            isModalVisible={showDropdown}
+                            setModalVisible={setShowDropdown}
+                            headerText={DropdownType === "speed_date" ? "Speed Date" : DropdownType === "travel_time" ? "Travel Time" : "Information"}
+                        >
+                            <Information
+                                {...{
+                                    type: DropdownType
+                                }}
+                            />
+                        </ModalAction>
+                        <GalleryModal
+                            {...{
+                                visible: visible,
+                                setVisible: setVisible,
+                                photos: profileImages
+                            }}
+                        />
+                    </TouchableOpacity>
+                ) : (
+                    <View style={[styles.dt_user_info_card, { marginTop: type === "friend_request" ? ms(15) : ms(0) }]}>
+                        <UserInfoContent />
+                        <ModalAction
+                            isModalVisible={showDropdown}
+                            setModalVisible={setShowDropdown}
+                            headerText={DropdownType === "speed_date" ? "Speed Date" : DropdownType === "travel_time" ? "Travel Time" : "Information"}
+                            type="logout"
+                        >
+                            <Information
+                                {...{
+                                    type: DropdownType
+                                }}
+                            />
+                        </ModalAction>
+                        <GalleryModal
+                            {...{
+                                visible: visible,
+                                setVisible: setVisible,
+                                photos: profileImages
+                            }}
+                        />
+                    </View>
+                )
+            }
+
         </View>
     )
 }

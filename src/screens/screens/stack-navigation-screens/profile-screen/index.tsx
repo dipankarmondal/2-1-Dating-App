@@ -5,7 +5,7 @@ import React from 'react'
 /**Local imports*/
 import { ProfileMenuItems } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { GetMediaLibrary, GetUser, GetUserDetails } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { GetUser, GetUserDetails } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -42,18 +42,18 @@ const ProfileScreen: React.FC<Props> = ({ route }) => {
         queryFn: () => GetUserDetails(Token, userId),
         enabled: !!Token && !!userId
     });
-    
+
     if (isLoading) {
-    return (
-        <ScreenLayout
-            {...{
-                type: "stack",
-                title: "Profile"
-            }}
-        >
-            <Loader/>
-        </ScreenLayout>
-    )
+        return (
+            <ScreenLayout
+                {...{
+                    type: "stack",
+                    title: "Profile"
+                }}
+            >
+                <Loader />
+            </ScreenLayout>
+        )
     }
 
     return (

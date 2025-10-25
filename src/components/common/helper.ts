@@ -24,7 +24,7 @@ import PlayIcon from '@svgs/play.svg'
 import SubscriptionIcon from '@svgs/subscription.svg'
 
 import { ms } from '../../utils/helpers/responsive'
- 
+
 export const menuItems = (Navigation: any) => [
     {
         id: "settings",
@@ -63,7 +63,7 @@ export const menuItems = (Navigation: any) => [
     },
     {
         id: "InviteFrineds",
-        label: "Invite Frineds", 
+        label: "Invite Frineds",
         Icon: InviteIcon,
         size: 16,
         onPress: () => Navigation.navigate("InviteFriendsScreen"),
@@ -277,11 +277,16 @@ export const WellfameActions = [
     { id: 3, icon: LikeIcon, size: ms(13), count: 0 },
     { id: 5, icon: ViewsIcon, size: ms(17), count: 0 },
 ];
-export const NewMemberActions= (data:any) => [
+export const NewMemberActions = (data: any) => [
     { id: 1, icon: CameraIcon, size: ms(13), count: data?.profile?.photos?.length ?? 0 },
     { id: 2, icon: LikeThumbIcon, size: ms(17), count: 0 },
     { id: 4, icon: UserIcon, size: ms(14), count: data?.friends?.length ?? 0 },
     { id: 3, icon: PlayIcon, size: ms(13), count: 0 },
+];
+
+export const TABS = [
+    { key: "all_friends", label: "Friends" },
+    { key: "friends_request", label: "Friend request" },
 ];
 
 export const benefitsData = [
@@ -367,10 +372,10 @@ export const ProfileExtraMenuItems = [
     { key: 'friends', label: 'Friends' },
 ];
 export const ProfileUserMenuItems = [
-    { key: 'certifications', label: 'Certifications'},
-    { key: 'groups', label: 'Groups'},
-    { key: 'parties_and_events', label: 'Parties & Events'},
-    { key: 'following', label: 'Following'},
+    { key: 'certifications', label: 'Certifications' },
+    { key: 'groups', label: 'Groups' },
+    { key: 'parties_and_events', label: 'Parties & Events' },
+    { key: 'following', label: 'Following' },
     { key: 'friends', label: 'Friends' },
 ];
 export const SingleGroupMenuItems = [
@@ -471,28 +476,28 @@ export const features = [
     }
 ];
 export const restrictions = [
-  { id: 1, text: "Limited to 10 messages per day" },
-  { id: 2, text: "Can only receive friend requests" },
-  { id: 3, text: "View limited profile information" },
-  { id: 4, text: "No access to private media" },
-  { id: 5, text: "Cannot create events or groups" },
-  { id: 6, text: "Read-only forum access" },
-  { id: 7, text: "No VIP event access" },
+    { id: 1, text: "Limited to 10 messages per day" },
+    { id: 2, text: "Can only receive friend requests" },
+    { id: 3, text: "View limited profile information" },
+    { id: 4, text: "No access to private media" },
+    { id: 5, text: "Cannot create events or groups" },
+    { id: 6, text: "Read-only forum access" },
+    { id: 7, text: "No VIP event access" },
 ];
-export const Distance =[
+export const Distance = [
     { key: 'mi', value: 'MI' },
     { key: 'kms', value: 'KMS' },
 ]
 export const friendsfilterOptions = [
-  { key: "accepted", value: "Accepted" },
-  { key: "pending", value: "Pending" },
-  { key: "declined", value: "Declined" },
-  { key: "latest", value: "Latest" },
-  { key: "distance", value: "Distance" },
-  { key: "all", value: "All" },
-  { key: "couples_females", value: "Couples & Females" },
-  { key: "couples", value: "Couples" },
-  { key: "females", value: "Females" },
-  { key: "males", value: "Males" },
-  { key: "transgender", value: "Transgender" },
+    { key: "accepted", value: "Accepted" },
+    { key: "pending", value: "Pending" },
+    { key: "declined", value: "Declined" },
+    { key: "latest", value: "Latest" },
+    { key: "distance", value: "Distance" },
+    { key: "all", value: "All" },
+    { key: "couples_females", value: "Couples & Females" },
+    { key: "couples", value: "Couples" },
+    { key: "females", value: "Females" },
+    { key: "males", value: "Males" },
+    { key: "transgender", value: "Transgender" },
 ];

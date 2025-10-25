@@ -29,10 +29,11 @@ export const FeedContentStyles = StyleSheet.create({
         justifyContent: "space-between"
     },
     dt_name: {
-        fontSize: ms(18),
+        fontSize: ms(17),
         fontFamily: Fonts.Font_700,
         color: Colors.dt_white,
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        flexShrink: 1
     },
     dt_button_container: {
         flexDirection: "row",
@@ -278,7 +279,7 @@ export const FeedContentStyles = StyleSheet.create({
     dt_check_button: {
         width: ms(30),
         height: ms(30),
-        borderRadius: ms(10),
+        borderRadius: ms(10), 
         borderWidth: 1,
         borderColor: Colors.dt_white,
         alignItems: "center",

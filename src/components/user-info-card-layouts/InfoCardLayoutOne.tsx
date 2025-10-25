@@ -1,0 +1,134 @@
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React from 'react'
+import { InfoCardLayoutsStyles as styles } from './styles'
+import { Colors, getAge } from '../../utils/constant/Constant'
+import { NewMemberActions } from '../common/helper'
+import { ms } from '../../utils/helpers/responsive'
+import { IconProps } from '../../utils/helpers/Iconprops'
+
+/**Icons*/
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
+import CoupleIcon from '@svgs/couple.svg'
+import LoaderKitView from 'react-native-loader-kit'
+
+type Props = {
+    item: any,
+    type?: any,
+    handleAcceptCall?: (id: any) => void,
+    handleDeclineCall?: (id: any) => void,
+    loader?: any,
+    selectionAction?: any,
+    selectedId?: any,
+    itemId?: any
+}
+
+const InfoCardLayoutOne: React.FC<Props> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId }) => {
+    // console.log("object", selectionAction)
+    return (
+        <View>
+            <View style={styles.dt_intrest}>
+                <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
+                    {item?.profile?.gender === "couple" ? (
+                        <>
+                            <View style={styles.dt_age}>
+                                <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                <Text style={styles.dt_age_text}>{item?.profile?.partner?.dateOfBirth ? getAge(item?.profile?.partner?.dateOfBirth) : "0"}</Text>
+                            </View>
+                            <View style={styles.dt_age}>
+                                <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                <Text style={styles.dt_age_text}>{item?.profile?.age ? item?.profile?.age : "0"}</Text>
+                            </View>
+                        </>
+                    ) : item?.profile?.gender === "female" ? (
+                        <View style={styles.dt_age}>
+                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                            <Text style={styles.dt_age_text}>{item?.profile?.age ? item?.profile?.age : "0"}</Text>
+                        </View>
+                    ) : (
+                        <View style={styles.dt_age}>
+                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                            <Text style={styles.dt_age_text}>{item?.profile?.age ? item?.profile?.age : "0"}</Text>
+                        </View>
+                    )}
+                </View>
+                <View style={styles.dt_intrest_container}>
+                    <Text style={styles.dt_intrest_text}>Interests</Text>
+                    <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                        {item?.profile?.interestedIn.includes('couple') && (
+                            <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                        )}
+                        {item?.profile?.interestedIn.includes('male') && (
+                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                        )}
+                        {item?.profile?.interestedIn.includes('female') && (
+                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                        )}
+                        {!(
+                            item?.profile?.interestedIn?.includes('couple') ||
+                            item?.profile?.interestedIn?.includes('male') ||
+                            item?.profile?.interestedIn?.includes('female')
+                        ) && (
+                                <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
+                                    Not specified
+                                </Text>
+                            )}
+                    </View>
+                </View>
+            </View>
+            <View style={[styles.dt_intrest, { flexDirection: "column" }]}>
+                <View style={styles.dt_intrest_container}>
+                    <Text style={styles.dt_intrest_text}>Location</Text>
+                    <View style={[styles.dt_location_container]}>
+                        <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
+                            {item?.profile?.address?.fullAddress ?? "Not specified"}
+                        </Text>
+                    </View>
+                </View>
+                {
+                    type === "friends_request" && (
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.rejectButton} onPress={handleDeclineCall}>
+                                {loader && selectionAction === "decline" && itemId === selectedId ? (
+                                    <LoaderKitView
+                                        style={{ width: 35, height: 35 }}
+                                        name={'BallScaleMultiple'}
+                                        animationSpeedMultiplier={1.0}
+                                        color={Colors.dt_bg}
+                                    />
+                                ) : (
+                                    <Text style={styles.buttonText}>Reject</Text>
+                                )}
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.acceptButton} onPress={handleAcceptCall} >
+                                {loader && selectionAction === "accept" && itemId === selectedId ? (
+                                    <LoaderKitView
+                                        style={{ width: 35, height: 35 }}
+                                        name={'BallScaleMultiple'}
+                                        animationSpeedMultiplier={1.0}
+                                        color={Colors.dt_bg}
+                                    />
+                                ) : (
+                                    <Text style={styles.buttonText}>Accept</Text>
+                                )}
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
+            </View>
+            <View style={[styles.dt_profile_content, { marginTop: ms(10) }]}>
+                {NewMemberActions(item).map(({ id, icon: Icon, size, count }) => (
+                    <TouchableOpacity
+                        key={id}
+                        style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
+                    >
+                        <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
+                        <Text style={styles.dt_profile_text}>{count}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        </View>
+    )
+}
+
+export default InfoCardLayoutOne

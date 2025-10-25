@@ -8,7 +8,7 @@ import { useIsFocused } from '@react-navigation/native'
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
-import { friendsfilterOptions } from '../../../../components/common/helper'
+import { friendsfilterOptions, TABS } from '../../../../components/common/helper'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -17,24 +17,68 @@ import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { FriendRequestAction, GetFriendRequests, GetMyFriendsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import Loader from '../../../../components/loader/Loader'
+import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
+import NotFound from '../../../../components/notfound/NotFound'
+import { toast } from '../../../../utils/helpers/responsive'
 
 /**Main export*/
 const FriendsScreen: React.FC = () => {
+
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState("");
     const [activeTab, setActiveTab] = useState("all_friends");
     const [isChecked, setIsChecked] = useState(false);
+    const [selectionAction, setSelectionAction] = useState(null);
+    const [selectedId, setSelectedId] = useState<any>(null);
+    console.log("selectionAction", selectionAction)
 
     const isFocused = useIsFocused();
+    const { Token } = useAuth()
+    const QueryInvalidater = useQueryClient();
 
     useEffect(() => {
         if (isFocused) setSelected("");
     }, [isFocused]);
 
-    const TABS = [
-        { key: "all_friends", label: "Friends" },
-        { key: "friends_request", label: "Friend request" },
-    ];
+    const { data: friendData, isLoading: friendLoading, refetch: friendRefetch } = useQuery({
+        queryKey: ["my_all_friends"],
+        queryFn: () => GetMyFriendsList(Token),
+        enabled: !!Token
+    })
+    const { data: friendRequestData, isLoading: friendRequestLoading, refetch: friendRequstRefetch } = useQuery({
+        queryKey: ["my_friends_requests"],
+        queryFn: () => GetFriendRequests(Token, "received", "pending"),
+        enabled: !!Token
+    })
+
+
+    const handleFriendRequest = useMutation({
+        mutationFn: ({ id, data }: { id: any; data: any }) => FriendRequestAction(Token, id, data),
+        onSuccess: (res, data) => {
+            setSelectionAction(null); // reset after success
+            setSelectedId(null);
+            toast("success", { title: "Action successfully" });
+            QueryInvalidater.invalidateQueries({ queryKey: ['my_friends_requests'] });
+            QueryInvalidater.invalidateQueries({ queryKey: ['my_all_friends'] });
+        },
+    })
+
+    const handleAccept = (id: any) => {
+        setSelectionAction("accept");
+        setSelectedId(id);
+        const payload = { action: "accept", }
+        handleFriendRequest.mutate({ id, data: payload });
+    }
+    const handleDecline = (id: any) => {
+        setSelectionAction("decline");
+        setSelectedId(id);
+        const payload = { action: "decline" }
+        handleFriendRequest.mutate({ id, data: payload });
+    }
 
     return (
         <ScreenLayout type="stack" title="Friends">
@@ -83,38 +127,98 @@ const FriendsScreen: React.FC = () => {
                 }
             </ScreenHeader>
 
-            <ScrollContent contentContainerStyle={{ flexGrow: 1 }} onRefresh={() => { }}>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={async () => {
+                    await Promise.all([friendRefetch(), friendRequstRefetch()]);
+                }}
+            >
                 <View style={CommonStyles.dt_container}>
-
                     {
-                        activeTab === "all_friends" &&
-                        <View>
-                            <UserInfoCard
-                                type="friends"
-                                isMore
-                                isOption
-                                isUserContent={false}
-                                isFilterOption={false}
-                                isGallery
-                                isChecked={isChecked}
-                                setIsChecked={setIsChecked}
-                            />
-                        </View>
+                        activeTab === "all_friends" && (
+                            friendLoading ? (
+                                <Loader />
+                            ) : (
+                                friendData?.data?.friends?.length > 0 ?
+                                    friendData?.data?.friends?.map((item: any, index: number) => {
+                                        return (
+                                            <UserInfoCard
+                                                key={index}
+                                                type="user"
+                                                item={item}
+                                                isMore
+                                                isOption
+                                                isUserContent={false}
+                                                isFilterOption={false}
+                                                isGallery={item?.profile?.photos?.length > 0 ? true : false}
+                                                isChecked={isChecked}
+                                                setIsChecked={setIsChecked}
+                                                UserName={item?.username}
+                                                profileImages={item?.profile?.photos}
+                                            >
+                                                <InfoCardLayoutOne
+                                                    {...{
+                                                        item
+                                                    }}
+                                                />
+                                            </UserInfoCard>
+                                        )
+                                    }) : (
+                                        <NotFound
+                                            {...{
+                                                title: "You don't have any friends yet. Invite people, follow others, or refresh to find connections",
+                                                photo: require('@images/notFound/no_friends.png')
+                                            }}
+                                        />
+                                    )
+                            )
+                        )
                     }
                     {
-                        activeTab === "friends_request" &&
-                        <View>
-                            <UserInfoCard
-                                type="friends_request"
-                                isMore
-                                isOption
-                                isUserContent={false}
-                                isFilterOption={false}
-                                isGallery
-                            />
-                        </View>
-                    }
+                        activeTab === "friends_request" && (
+                            friendRequestLoading ? (
+                                <Loader />
+                            ) : (
+                                friendRequestData?.data?.length > 0 ?
+                                    friendRequestData?.data?.map((item: any, index: number) => {
 
+                                        return (
+                                            <UserInfoCard
+                                                key={index}
+                                                type="user"
+                                                item={item?.senderId}
+                                                isMore
+                                                isUserContent={false}
+                                                isFilterOption={false}
+                                                isGallery={item?.senderId?.profile?.photos?.length > 0 ? true : false}
+                                                UserName={item?.senderId?.username}
+                                                profileImages={item?.senderId?.profile?.photos}
+                                            >
+                                                <InfoCardLayoutOne
+                                                    {...{
+                                                        item: item?.senderId,
+                                                        type: "friends_request",
+                                                        handleAcceptCall: () => handleAccept(item?._id),
+                                                        handleDeclineCall: () => handleDecline(item?._id),
+                                                        loader: handleFriendRequest.isPending,
+                                                        selectionAction: selectionAction,
+                                                        selectedId,
+                                                        itemId: item?._id
+                                                    }}
+                                                />
+                                            </UserInfoCard>
+                                        )
+                                    }) : (
+                                        <NotFound
+                                            {...{
+                                                title: "You don't have any friends yet. Invite people, follow others, or refresh to find connections",
+                                                photo: require('@images/notFound/no_friends.png')
+                                            }}
+                                        />
+                                    )
+                            )
+                        )
+                    }
                 </View>
             </ScrollContent>
 

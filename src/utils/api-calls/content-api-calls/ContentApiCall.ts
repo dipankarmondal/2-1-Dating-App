@@ -697,3 +697,49 @@ export const GetMyFriendsList = async (token: any) => {
         throw error;
     }
 };
+
+// Get Friend Requests
+export const GetFriendRequests = async (token: any, type: any, status: any) => {
+    try {
+        const res = await API.get("/friend-requests", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                type: type,
+                status: status
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Friend Request action 
+export const FriendRequestAction = async (token: any, id: any, data: any) => {
+    try {
+        const endpoint = `/friend-requests/${id}/respond`;
+        const fullUrl = `${API.defaults.baseURL}${endpoint}`; // construct full URL
+        // console.log("Full API URL:", fullUrl);
+        // console.log("Request Data:", data);
+
+        const res = await API.put(endpoint, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error: any) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
