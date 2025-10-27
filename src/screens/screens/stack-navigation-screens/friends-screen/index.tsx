@@ -1,14 +1,20 @@
 /**React Imports */
-import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 /** Liabary*/
 import { useIsFocused } from '@react-navigation/native'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
 import { friendsfilterOptions, TABS } from '../../../../components/common/helper'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { ms, toast } from '../../../../utils/helpers/responsive'
+import { FriendsStyles as styles } from './styles'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
+import { FriendRequestAction, GetFriendRequests, GetMyFriendsList, SendBroadcastMessage } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -17,16 +23,12 @@ import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { FriendRequestAction, GetFriendRequests, GetMyFriendsList, SendBroadcastMessage } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Loader from '../../../../components/loader/Loader'
-import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
 import NotFound from '../../../../components/notfound/NotFound'
-import { ms, toast } from '../../../../utils/helpers/responsive'
-import { FriendsStyles as styles } from './styles'
+import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
+
+/**Icons*/
 import SendIcon from '@svgs/send.svg'
-import { IconProps } from '../../../../utils/helpers/Iconprops'
 
 /**Main export*/
 const FriendsScreen: React.FC = () => {
@@ -98,8 +100,7 @@ const FriendsScreen: React.FC = () => {
 
     const BroadcastMutation = useMutation({
         mutationFn: (data: any) => SendBroadcastMessage(Token, data),
-        onSuccess: (res, data) => {
-            console.log("object", res)
+        onSuccess: (res) => {
             if (res?.success === true) {
                 setselectedFriendsIds([]);
                 setBroadcastMessage("");

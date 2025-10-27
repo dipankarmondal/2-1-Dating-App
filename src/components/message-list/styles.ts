@@ -10,7 +10,7 @@ export const MessageListStyles = StyleSheet.create({
         padding:ms(10),
         flexDirection:"row",
         alignItems:"center",
-        gap:ms(15)
+        gap:ms(15),
     },
     dt_image_container:{
         width:ms(45),
@@ -36,8 +36,9 @@ export const MessageListStyles = StyleSheet.create({
     },
     dt_name:{
         fontFamily:Fonts.Font_600,
-        fontSize:ms(16),
-        color:Colors.dt_white
+        fontSize:ms(15),
+        color:Colors.dt_white,
+        textTransform:"capitalize"
     },
     dt_text:{
         fontFamily:Fonts.Font_500,

@@ -767,3 +767,36 @@ export const SendBroadcastMessage = async (token: any, data: any,) => {
         throw error;
     }
 };
+
+//Get Personal Conversations List
+
+export const GetPersonalConversationsList = async (token: any) => {
+    try {
+        const res = await API.get("/personal-messages/conversations", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+
+//Get Group Conversations List
+
+export const GetGroupConversationsList = async (token: any) => {
+    try {
+        const res = await API.get("/group-messages/conversations", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

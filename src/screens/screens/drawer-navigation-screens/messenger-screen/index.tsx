@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TextInput, ScrollView, TouchableOpacity, } from 'react-native'
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 
 /**Local imports*/
 import { HomeScreenStyles as styles } from './styles'
@@ -23,6 +23,10 @@ import FilterIcon from '@svgs/filter.svg'
 import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
 import { chats, createModalBtn, groupMessages, optionsData } from './helper'
 import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
+import { useQuery } from '@tanstack/react-query'
+import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 
 /**Local Import*/
 const MessengerScreen: React.FC = () => {
@@ -31,6 +35,8 @@ const MessengerScreen: React.FC = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [selectedChat, setSelectedChat] = useState<{ id: string; name: string } | null>(null);
+
+    const { Token } = useAuth();
 
     const handleMorePress = (id: string, name: string) => {
         setSelectedChat({ id, name });
@@ -53,6 +59,13 @@ const MessengerScreen: React.FC = () => {
         "Block": () => console.log("Block Clicked"),
         "Report": () => console.log("Report Clicked"),
     };
+
+    const { data: MessageUserList, isLoading, refetch: MessageUserListRefetch } = useQuery({
+        queryKey: ['MessageUserList', activeKey],
+        queryFn: () => GetPersonalConversationsList(Token),
+        enabled: !!Token
+    })
+
     return (
         <ScreenLayout>
             <TopMenu {...{
@@ -61,7 +74,10 @@ const MessengerScreen: React.FC = () => {
                 setActiveKey,
                 isTwoItem: true
             }} />
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={MessageUserListRefetch} // just pass refetch here
+            >
                 <View style={CommonStyles.dt_container}>
                     <View style={styles.dt_search_wrapper}>
                         <SearchIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
@@ -76,32 +92,38 @@ const MessengerScreen: React.FC = () => {
                     </View>
                     {
                         activeKey === "messenger" ? (
-                            chats.map((chat) => (
-                                <MessageList
-                                    key={chat.id}
-                                    {...{
-                                        chat,
-                                        onMorePress: handleMorePress,
-                                        type:"single"
-                                    }}
-                                />
-                            ))
+                            MessageUserList?.data?.map((chat: any, index: number) => {
+                                return (
+                                    <MessageList
+                                        key={index}
+                                        {...{
+                                            chat,
+                                            onMorePress: handleMorePress,
+                                            type: "single",
+                                            MessageData: MessageUserList
+                                        }}
+                                    />
+                                )
+                            })
                         ) : (
-                            groupMessages?.map((chat) => (
-                                <MessageList
-                                    key={chat.id}
-                                    {...{
-                                        chat,
-                                        onMorePress: handleMorePress,
-                                        type:"group"
-                                    }}
-                                />
-                            ))
+                            groupMessages?.map((chat) => {
+                                return (
+                                    <MessageList
+                                        key={chat.id}
+                                        {...{
+                                            chat,
+                                            onMorePress: handleMorePress,
+                                            type: "group",
+                                            MessageData: MessageUserList
+                                        }}
+                                    />
+                                )
+                            })
                         )
 
                     }
                 </View>
-            </ScrollView>
+            </ScrollContent>
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}

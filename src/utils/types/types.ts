@@ -280,3 +280,10 @@ export type AccordionProps = {
     isExpanded: boolean;
     onToggle: () => void;
 }
+
+export type MessageListProps = {
+    chat: any,
+    onMorePress?: any,
+    type: any,
+    MessageData: any
+}
