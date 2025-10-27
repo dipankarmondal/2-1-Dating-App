@@ -215,7 +215,9 @@ export type UserInfoCardProps = {
     children?: React.ReactNode,
     profileImages?: any[],
     UserName?: string,
-    onSendFriendRequest?: () => void
+    onSendFriendRequest?: () => void,
+    isBroadcastCheck?: boolean,
+    handleBroadcast?: any
 }
 
 export type MulteImageProps = {

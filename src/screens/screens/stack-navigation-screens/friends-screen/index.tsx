@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 /** Liabary*/
@@ -18,12 +18,15 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { FriendRequestAction, GetFriendRequests, GetMyFriendsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { FriendRequestAction, GetFriendRequests, GetMyFriendsList, SendBroadcastMessage } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Loader from '../../../../components/loader/Loader'
 import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
 import NotFound from '../../../../components/notfound/NotFound'
-import { toast } from '../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../utils/helpers/responsive'
+import { FriendsStyles as styles } from './styles'
+import SendIcon from '@svgs/send.svg'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
 
 /**Main export*/
 const FriendsScreen: React.FC = () => {
@@ -31,10 +34,11 @@ const FriendsScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState("");
     const [activeTab, setActiveTab] = useState("all_friends");
-    const [isChecked, setIsChecked] = useState(false);
     const [selectionAction, setSelectionAction] = useState(null);
     const [selectedId, setSelectedId] = useState<any>(null);
-    console.log("selectionAction", selectionAction)
+    const [selectedFriendsIds, setselectedFriendsIds] = useState<string[]>([]);
+    const [modalBroadcast, setModalBroadcast] = useState(false);
+    const [broadcastMessage, setBroadcastMessage] = useState("");
 
     const isFocused = useIsFocused();
     const { Token } = useAuth()
@@ -54,7 +58,6 @@ const FriendsScreen: React.FC = () => {
         queryFn: () => GetFriendRequests(Token, "received", "pending"),
         enabled: !!Token
     })
-
 
     const handleFriendRequest = useMutation({
         mutationFn: ({ id, data }: { id: any; data: any }) => FriendRequestAction(Token, id, data),
@@ -79,6 +82,50 @@ const FriendsScreen: React.FC = () => {
         const payload = { action: "decline" }
         handleFriendRequest.mutate({ id, data: payload });
     }
+
+    const handleBroadcast = (id: string) => {
+        // setIsChecked((prev) => !prev);
+        setselectedFriendsIds((prevSelected) => {
+            if (prevSelected.includes(id)) {
+                // Remove if already selected
+                return prevSelected.filter((itemId) => itemId !== id);
+            } else {
+                // Add if not selected
+                return [...prevSelected, id];
+            }
+        });
+    };
+
+    const BroadcastMutation = useMutation({
+        mutationFn: (data: any) => SendBroadcastMessage(Token, data),
+        onSuccess: (res, data) => {
+            console.log("object", res)
+            if (res?.success === true) {
+                setselectedFriendsIds([]);
+                setBroadcastMessage("");
+                setModalBroadcast(false);
+                toast("success", { title: "Broadcast successfully" });
+            }
+
+        },
+    })
+
+    const SendBroadcast = () => {
+        const payload = {
+            friendIds: selectedFriendsIds,
+            messageType: "text",
+            content: broadcastMessage,
+        }
+        BroadcastMutation.mutate(payload);
+    }
+
+    const handleOpenModal = () => {
+        if (selectedFriendsIds.length > 0) {
+            setModalBroadcast(true);
+        } else {
+            toast("error", { title: "Please select at least one friend" });
+        }
+    };
 
     return (
         <ScreenLayout type="stack" title="Friends">
@@ -120,7 +167,10 @@ const FriendsScreen: React.FC = () => {
                 </View>
                 {
                     activeTab === "all_friends" && (
-                        <TouchableOpacity style={[CommonStyles.dt_speed_date, { backgroundColor: Colors.dt_success_green }]}>
+                        <TouchableOpacity
+                            style={[CommonStyles.dt_speed_date, { backgroundColor: Colors.dt_success_green }]}
+                            onPress={handleOpenModal}
+                        >
                             <Text style={CommonStyles.dt_speed_date_text}>Broadcast</Text>
                         </TouchableOpacity>
                     )
@@ -141,6 +191,7 @@ const FriendsScreen: React.FC = () => {
                             ) : (
                                 friendData?.data?.friends?.length > 0 ?
                                     friendData?.data?.friends?.map((item: any, index: number) => {
+                                        const isFriendsChecked = selectedFriendsIds.includes(item?.id);
                                         return (
                                             <UserInfoCard
                                                 key={index}
@@ -151,10 +202,11 @@ const FriendsScreen: React.FC = () => {
                                                 isUserContent={false}
                                                 isFilterOption={false}
                                                 isGallery={item?.profile?.photos?.length > 0 ? true : false}
-                                                isChecked={isChecked}
-                                                setIsChecked={setIsChecked}
+                                                isChecked={isFriendsChecked}
+                                                handleBroadcast={() => handleBroadcast(item?.id)}
                                                 UserName={item?.username}
                                                 profileImages={item?.profile?.photos}
+                                                isBroadcastCheck={true}
                                             >
                                                 <InfoCardLayoutOne
                                                     {...{
@@ -237,6 +289,35 @@ const FriendsScreen: React.FC = () => {
                     selected={selected}
                     setSelected={setSelected}
                 />
+            </ModalAction>
+            <ModalAction
+                isModalVisible={modalBroadcast}
+                setModalVisible={setModalBroadcast}
+                headerText="Start Broadcast"
+                type="filters"
+                onModalClick={() => setModalBroadcast(false)}
+            >
+                <View style={styles.dt_input_container}>
+                    <TextInput
+                        style={styles.dt_input}
+                        placeholder="Enter Broadcast Message"
+                        placeholderTextColor={Colors.dt_gray}
+                        multiline
+                        textAlignVertical="center"
+                        scrollEnabled={false}
+                        value={broadcastMessage}
+                        onChangeText={(text) => setBroadcastMessage(text)}
+                    />
+                    <TouchableOpacity style={styles.dt_sendButton} onPress={SendBroadcast}>
+                        {
+                            BroadcastMutation.isPending ? (
+                                <ActivityIndicator size={ms(28)} color={Colors.dt_white} />
+                            ) : (
+                                <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                            )
+                        }
+                    </TouchableOpacity>
+                </View>
             </ModalAction>
         </ScreenLayout>
     );

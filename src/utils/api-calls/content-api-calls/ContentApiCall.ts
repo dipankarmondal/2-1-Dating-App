@@ -743,3 +743,27 @@ export const FriendRequestAction = async (token: any, id: any, data: any) => {
         throw error;
     }
 };
+
+
+// Send Broadcast Message
+export const SendBroadcastMessage = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/personal-messages/broadcast", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};

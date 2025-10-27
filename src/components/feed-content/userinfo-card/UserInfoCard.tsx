@@ -25,7 +25,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName, onSendFriendRequest }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName, onSendFriendRequest,isBroadcastCheck,handleBroadcast }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -87,10 +87,10 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 )
                             }
                             {
-                                type === "friends" && (
+                                isBroadcastCheck === true && (
                                     <TouchableOpacity
                                         style={[styles.dt_check_button, isChecked && { backgroundColor: Colors.dt_primary_green }]}
-                                        onPress={() => setIsChecked(!isChecked)}
+                                        onPress={handleBroadcast}
                                     >
                                         {isChecked && <CheckIcon {...IconProps(ms(18))} fill={"#fff"} />}
                                     </TouchableOpacity>
