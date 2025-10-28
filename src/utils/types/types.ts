@@ -285,5 +285,6 @@ export type MessageListProps = {
     chat: any,
     onMorePress?: any,
     type: any,
-    MessageData: any
+    MessageData: any,
+    showTyping?: any
 }

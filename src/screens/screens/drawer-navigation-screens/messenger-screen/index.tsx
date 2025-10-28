@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TextInput, ScrollView, TouchableOpacity, } from 'react-native'
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
 /**Local imports*/
 import { HomeScreenStyles as styles } from './styles'
@@ -23,10 +23,12 @@ import FilterIcon from '@svgs/filter.svg'
 import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
 import { chats, createModalBtn, groupMessages, optionsData } from './helper'
 import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
+import { useIsFocused } from '@react-navigation/native'
 
 /**Local Import*/
 const MessengerScreen: React.FC = () => {
@@ -35,8 +37,30 @@ const MessengerScreen: React.FC = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [selectedChat, setSelectedChat] = useState<{ id: string; name: string } | null>(null);
+    const [showTyping, setShowTyping] = useState(null);
+
+    const QueryInvalidater = useQueryClient();
 
     const { Token } = useAuth();
+    const { socket, socketConnected } = useSocket();
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (!socket || !socketConnected || !isFocused) return;
+
+        const handleNewMessage = (message: any) => {
+            QueryInvalidater.invalidateQueries({ queryKey: ['MessageUserList', activeKey] });
+        };
+        socket.on('new_personal_message', handleNewMessage);
+        socket.on('user_typing', (data: any) => {
+            setShowTyping(data);
+        });
+
+        return () => {
+            socket.off('new_personal_message', handleNewMessage);
+        };
+    }, [socket, socketConnected, isFocused]);
+
 
     const handleMorePress = (id: string, name: string) => {
         setSelectedChat({ id, name });
@@ -100,7 +124,8 @@ const MessengerScreen: React.FC = () => {
                                             chat,
                                             onMorePress: handleMorePress,
                                             type: "single",
-                                            MessageData: MessageUserList
+                                            MessageData: MessageUserList,
+                                            showTyping
                                         }}
                                     />
                                 )
@@ -114,7 +139,8 @@ const MessengerScreen: React.FC = () => {
                                             chat,
                                             onMorePress: handleMorePress,
                                             type: "group",
-                                            MessageData: MessageUserList
+                                            MessageData: MessageUserList,
+                                            showTyping
                                         }}
                                     />
                                 )

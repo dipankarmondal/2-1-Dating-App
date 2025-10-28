@@ -800,3 +800,24 @@ export const GetGroupConversationsList = async (token: any) => {
         throw error;
     }
 };
+
+//Get Conversation with User
+
+export const GetConversationWithUser = async (token: any, id: any, limit: any, page = 1) => {
+  try {
+    const fullUrl = `/personal-messages/conversations/${id}?page=${page}&limit=${limit}`;
+    console.log("📡 Full API URL:", fullUrl);
+
+    const res = await API.get(fullUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res?.data;
+  } catch (error) {
+    console.log("❌ API Error:", error?.response?.data || error);
+    toast("error", { title: "Something went wrong" });
+    throw error;
+  }
+};

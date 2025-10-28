@@ -8,6 +8,7 @@ import { AppNavigation } from './navigation/stack-navigation/StackNavigation';
 import CustomeToast from './components/custom-toast';
 import NetworkNotConnect from './components/network-not-connect';
 import { RightDrawerProvider } from './utils/context/right-drawer/RightDrawer';
+import { SocketProvider } from './utils/context/socket-context/SocketProvider';
 
 const App = () => {
     const [IsConnected, SetIsConnected] = useState(true);
@@ -34,7 +35,9 @@ const App = () => {
                         <NavigationContainer>
                             <AuthProvider>
                                 <RightDrawerProvider>
-                                    <AppNavigation />
+                                    <SocketProvider>
+                                        <AppNavigation />
+                                    </SocketProvider>
                                 </RightDrawerProvider>
                             </AuthProvider>
                         </NavigationContainer>

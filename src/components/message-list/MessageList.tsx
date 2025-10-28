@@ -1,21 +1,29 @@
+/**React Imports */
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { MessageListStyles as styles } from './styles'
-import MenuDotsIcon from '@svgs/menu-dots.svg'
 import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms } from '../../utils/helpers/responsive'
 import { Colors } from '../../utils/constant/Constant'
-import { useNavigation } from '@react-navigation/native'
 import { MessageListProps } from '../../utils/types/types'
 import { useAuth } from '../../utils/context/auth-context/AuthContext'
 
+/**Icons*/
+import MenuDotsIcon from '@svgs/menu-dots.svg'
 
-const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type }) => {
+/** Liabary*/
+import LoaderKitView from 'react-native-loader-kit'
+import { useNavigation } from '@react-navigation/native'
+
+/**Main export*/
+const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, showTyping }) => {
     const Navigation = useNavigation<any>();
     const { user } = useAuth();
 
     const isUser = chat?.lastMessage?.receiverId === user?.id;
-    const FullName = `${chat?.otherParticipant?.profile?.firstName || ''} ${chat?.otherParticipant?.profile?.lastName || ''}`.trim();
+    const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
 
     const getMessagePreview = () => {
         const msg = chat?.lastMessage;
@@ -24,7 +32,13 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type }) =>
 
         switch (msg.messageType) {
             case 'text':
-                return msg.content;
+                return isTyping ? 
+                 <LoaderKitView
+                    style={{ width: 17, height: 17 }}
+                    name={'BallPulse'}
+                    animationSpeedMultiplier={2.0}
+                    color={Colors.dt_white}
+                /> : msg.content;
             case 'image':
                 return isUser ? '📸 You sent a photo' : '📸 Photo received';
             case 'pdf':
@@ -54,7 +68,7 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type }) =>
                     style={[
                         styles.dt_status_overlay,
                         {
-                            backgroundColor: chat?.otherParticipant?.settings?.showOnline
+                            backgroundColor: chat?.otherParticipant?.settings?.showOnline === true
                                 ? Colors.dt_primary_green
                                 : Colors.dt_gray,
                         },
@@ -66,10 +80,10 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type }) =>
             <View style={styles.dt_text_container}>
                 <View style={styles.dt_text_wrapper}>
                     <View style={styles.dt_name_wrapper}>
-                        <Text style={styles.dt_name}>{FullName}</Text>
+                        <Text style={styles.dt_name}>{chat?.otherParticipant?.username}</Text>
                         <TouchableOpacity
                             style={styles.dt_more}
-                            onPress={() => onMorePress(chat?.lastMessage?.conversationId, FullName)}
+                            onPress={() => onMorePress(chat?.lastMessage?.conversationId, chat?.otherParticipant?.username,)}
                         >
                             <MenuDotsIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
                         </TouchableOpacity>

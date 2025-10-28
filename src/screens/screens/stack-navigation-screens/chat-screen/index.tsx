@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, Text, KeyboardAvoidingView, Platform, FlatList, TextInput, TouchableOpacity } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 
 /**Components */
 import ChatHeader from '../../../../components/chat-header/ChatHeader'
@@ -23,12 +23,25 @@ import EditIcon from '@svgs/edit.svg'
 
 /** Liabary*/
 import { launchImageLibrary } from 'react-native-image-picker';
+import { useIsFocused } from '@react-navigation/native'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { GetConversationWithUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
+import { LoaderKitView } from 'react-native-loader-kit';
 
 type Props = {
     route: any,
 }
 const ChatScreen: React.FC<Props> = ({ route }) => {
+
+    const { Token } = useAuth()
     const { chat, type } = route.params;
+    const { socket, socketConnected } = useSocket();
+    const QueryInvalidater = useQueryClient();
+
+    const isFocused = useIsFocused();
+    const flatListRef = useRef<FlatList>(null);
 
     const [messages, setMessages] = useState<any>([]);
     const [inputText, setInputText] = useState('');
@@ -37,21 +50,60 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editText, setEditText] = useState("");
     const [selectedMessage, setSelectedMessage] = useState<any>(null);
+    const [showTyping, setShowTyping] = useState(null);
 
-    const flatListRef = useRef<FlatList>(null);
+    const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
 
-    /** 🔹 Create new message */
-    const createMessage = (msg: Partial<any>): any => ({
-        id: Date.now().toString(),
-        sender: 'me',
-        timestamp: new Date().toISOString(),
-        ...msg,
-    });
+    useEffect(() => {
+        if (isFocused && socket && socketConnected && chat?.otherParticipant?._id) {
+            const otherUserId = chat.otherParticipant._id;
+            socket.emit('join_conversation', {
+                otherUserId: otherUserId
+            });
+            return () => {
+                socket.emit('leave_conversation', {
+                    otherUserId: otherUserId
+                });
+            }
+        }
+    }, [isFocused, socket, socketConnected, chat?.otherParticipant?._id]);
+
+
+    useEffect(() => {
+        if (!socket || !socketConnected || !chat?.otherParticipant?._id) return;
+
+        const handleNewMessage = (message: any) => {
+            QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+        };
+        const handleMessageSent = (message: any) => {
+            QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+        };
+        socket.on('new_personal_message', handleNewMessage);
+        socket.on('message_sent', handleMessageSent);
+        socket.on('user_typing', (data: any) => {
+            setShowTyping(data);
+        });
+
+        return () => {
+            socket.off('new_personal_message', handleNewMessage);
+            socket.off('message_sent', handleMessageSent);
+            socket.off('user_typing');
+        };
+    }, [socket, socketConnected, chat?.otherParticipant?._id]);
+
 
     /** 🔹 Send text message */
     const sendMessage = () => {
         if (!inputText.trim()) return;
-        setMessages(prev => [createMessage({ text: inputText }), ...prev]);
+        if (socket && socketConnected && chat?.otherParticipant?._id) {
+            const otherUserId = chat.otherParticipant._id;
+            socket.emit('send_personal_message', {
+                receiverId: otherUserId,
+                content: inputText,
+                messageType: 'text',
+            });
+            QueryInvalidater.invalidateQueries({ queryKey: ['MessageUserList'] });
+        }
         setInputText('');
     };
 
@@ -65,7 +117,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
 
             if (result.assets?.length) {
                 const file = result.assets[0];
-                setMessages(prev => [createMessage({ image: file.uri }), ...prev]);
+                // setMessages(prev => [createMessage({ image: file.uri }), ...prev]);
             }
         } catch (error) {
             console.log('Error picking image:', error);
@@ -119,6 +171,12 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         />
     );
 
+    const { data: messadeData, isLoading } = useQuery({
+        queryKey: ["messages", chat?.otherParticipant?._id],
+        queryFn: () => GetConversationWithUser(Token, chat?.otherParticipant?._id, 100, 1),
+        enabled: !!Token
+    })
+
     return (
         <View style={styles.dt_container}>
             <ChatHeader
@@ -134,12 +192,24 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
             >
                 <FlatList
                     ref={flatListRef}
-                    data={messages}
+                    data={[...(messadeData?.data || [])].reverse()}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    inverted
+                    keyExtractor={item => item?.id?.toString()}
                     contentContainerStyle={{ paddingVertical: 10 }}
+                    inverted
                 />
+                {
+                    isTyping && (
+                        <View style={[styles.dt_messageContainer, styles.dt_typing_Container]}>
+                            <LoaderKitView
+                                style={{ width: 20, height: 20 }}
+                                name={'BallPulse'}
+                                animationSpeedMultiplier={1.0}
+                                color={Colors.dt_white}
+                            />
+                        </View>
+                    )
+                }
 
                 {/* Input area */}
                 <View style={styles.dt_inputContainer}>

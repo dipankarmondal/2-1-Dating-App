@@ -1,30 +1,18 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import { useAuth } from '../../utils/context/auth-context/AuthContext';
 
+const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles }) => {
+    const {user} = useAuth()
+    const isUser = item?.senderId?._id === user?.id
 
-type Message = {
-    id: string;
-    text?: string;
-    image?: string;
-    sender: 'me' | 'other';
-    timestamp: string;
-};
-
-type Props = {
-    item: Message;
-    onLongPress: (item: Message) => void;
-    styles: any
-};
-
-
-const RenderMessageItem: React.FC<Props> = ({ item, onLongPress, styles }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.7}
             onLongPress={() => onLongPress(item)}
             style={[
                 styles.dt_messageContainer,
-                item.sender === 'me' ? styles.dt_myMessage : styles.dt_otherMessage,
+                isUser ? styles.dt_myMessage : styles.dt_otherMessage,
             ]}
         >
             {item.image ? (
@@ -34,7 +22,7 @@ const RenderMessageItem: React.FC<Props> = ({ item, onLongPress, styles }) => {
                     resizeMode="cover"
                 />
             ) : (
-                <Text style={styles.dt_messageText}>{item.text}</Text>
+                <Text style={styles.dt_messageText}>{item?.content}</Text>
             )}
             <Text style={styles.dt_timestamp}>
                 {new Date(item.timestamp).toLocaleTimeString()}

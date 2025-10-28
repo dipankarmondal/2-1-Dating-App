@@ -20,17 +20,25 @@ export const ChatScreenStyles = StyleSheet.create({
     },
     dt_myMessage: {
         backgroundColor: Colors.dt_card_blue,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        borderTopRightRadius:ms(0)
+    },
+    dt_typing_Container: {
+        backgroundColor: Colors.dt_card_blue,
+        alignSelf: "flex-start",
+        paddingHorizontal: 10,
+        paddingVertical: ms(2),
+        borderTopLeftRadius:ms(0),
     },
     dt_otherMessage: {
         backgroundColor: Colors.dt_card_blue,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        borderTopLeftRadius:ms(0)
     },
     dt_messageText: {
         fontSize: ms(14),
         color: Colors.dt_white,
         fontFamily: Fonts.Font_500,
-
     },
     dt_timestamp: {
         fontSize: ms(9),
@@ -117,50 +125,50 @@ export const ChatScreenStyles = StyleSheet.create({
         alignItems: "center",
         gap: ms(15)
     },
-    dt_admin_text:{
-        fontFamily:Fonts.Font_600,
-        fontSize:ms(16),
-        color:Colors.dt_white
+    dt_admin_text: {
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(16),
+        color: Colors.dt_white
     },
-     dt_image_container:{
-        width:ms(45),
-        height:ms(45),
-        borderRadius:ms(50),
+    dt_image_container: {
+        width: ms(45),
+        height: ms(45),
+        borderRadius: ms(50),
     },
-    dt_image:{
-        width:"100%",
-        height:"100%",
-        resizeMode:"cover",
-        borderRadius:ms(50),
+    dt_image: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover",
+        borderRadius: ms(50),
     },
-    dt_text_container:{
-        flex:1
+    dt_text_container: {
+        flex: 1
     },
-    dt_name_wrapper:{
-        flexDirection:"row",
-        alignItems:"center",
-        justifyContent:"space-between"
+    dt_name_wrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
-    dt_name:{
-        fontFamily:Fonts.Font_600,
-        fontSize:ms(16),
-        color:Colors.dt_white
+    dt_name: {
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(16),
+        color: Colors.dt_white
     },
-    dt_text:{
-        fontFamily:Fonts.Font_500,
-        fontSize:ms(12),
-        color:Colors.dt_gray,
-        marginTop:ms(3)
+    dt_text: {
+        fontFamily: Fonts.Font_500,
+        fontSize: ms(12),
+        color: Colors.dt_gray,
+        marginTop: ms(3)
     },
-    dt_location_wrapper:{
-        flexDirection:"row",
-        alignItems:"center",
-        gap:ms(5)
+    dt_location_wrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(5)
     },
-    dt_line:{
-        width:"100%",
-        height:ms(1),
-        backgroundColor:Colors.dt_gray + "33",
-        marginTop:ms(5)
+    dt_line: {
+        width: "100%",
+        height: ms(1),
+        backgroundColor: Colors.dt_gray + "33",
+        marginTop: ms(5)
     }
 })
