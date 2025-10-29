@@ -6,6 +6,8 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles }) => {
     const {user} = useAuth()
     const isUser = item?.senderId?._id === user?.id
 
+    console.log("object", item)
+
     return (
         <TouchableOpacity
             activeOpacity={0.7}

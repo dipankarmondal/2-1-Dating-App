@@ -1,6 +1,6 @@
 /**React Imports */
-import { View, TextInput, ScrollView, TouchableOpacity, } from 'react-native'
-import React, { use, useEffect, useState } from 'react'
+import { View, TextInput, TouchableOpacity, } from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
 import { HomeScreenStyles as styles } from './styles'
@@ -21,7 +21,7 @@ import ModalContent from '../../../../components/modal/modal-content/logout-cont
 import SearchIcon from '@svgs/search.svg'
 import FilterIcon from '@svgs/filter.svg'
 import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
-import { chats, createModalBtn, groupMessages, optionsData } from './helper'
+import { createModalBtn, groupMessages, optionsData } from './helper'
 import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
@@ -29,6 +29,8 @@ import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
 import { useIsFocused } from '@react-navigation/native'
+import Loader from '../../../../components/loader/Loader'
+import NotFound from '../../../../components/notfound/NotFound'
 
 /**Local Import*/
 const MessengerScreen: React.FC = () => {
@@ -116,20 +118,33 @@ const MessengerScreen: React.FC = () => {
                     </View>
                     {
                         activeKey === "messenger" ? (
-                            MessageUserList?.data?.map((chat: any, index: number) => {
-                                return (
-                                    <MessageList
-                                        key={index}
+                            isLoading ? (
+                                <Loader />
+                            ) : (
+                                MessageUserList?.data?.length > 0 ? (
+                                    MessageUserList?.data?.map((chat: any, index: number) => {
+                                        return (
+                                            <MessageList
+                                                key={index}
+                                                {...{
+                                                    chat,
+                                                    onMorePress: handleMorePress,
+                                                    type: "single",
+                                                    MessageData: MessageUserList,
+                                                    showTyping
+                                                }}
+                                            />
+                                        )
+                                    })
+                                ) : (
+                                    <NotFound 
                                         {...{
-                                            chat,
-                                            onMorePress: handleMorePress,
-                                            type: "single",
-                                            MessageData: MessageUserList,
-                                            showTyping
+                                            title: "No conversations available at the moment. Try sending a new message or checking your connections",
+                                            photo: require("@images/notFound/view_not.png")
                                         }}
                                     />
                                 )
-                            })
+                            )
                         ) : (
                             groupMessages?.map((chat) => {
                                 return (

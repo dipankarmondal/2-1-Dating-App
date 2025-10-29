@@ -231,9 +231,9 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     <TouchableOpacity style={styles.dt_sendButton} onPress={sendMessage}>
                         <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.dt_sendButton}>
+                    {/* <TouchableOpacity style={styles.dt_sendButton}>
                         <MicIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </KeyboardAvoidingView>
 

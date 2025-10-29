@@ -51,19 +51,6 @@ export const optionsData = [
     { id: "5", label: "Archive" },
 ];
 
-export const chats = [
-    { id: 1, name: "John Doe", message: "Hi, how are you?", image: "https://i.pravatar.cc/100?img=1" },
-    { id: 2, name: "Jane Smith", message: "Let’s meet tomorrow at 5pm!", image: "https://i.pravatar.cc/100?img=2" },
-    { id: 3, name: "Michael Lee", message: "Did you check the new design?", image: "https://i.pravatar.cc/100?img=3" },
-    { id: 4, name: "Emily Johnson", message: "I’ll send you the documents soon.", image: "https://i.pravatar.cc/100?img=4" },
-    { id: 5, name: "Chris Evans", message: "Great work on the project!", image: "https://i.pravatar.cc/100?img=5" },
-    { id: 6, name: "Sophia Brown", message: "Let’s catch up over coffee ☕", image: "https://i.pravatar.cc/100?img=6" },
-    { id: 7, name: "David Wilson", message: "Can you review my code?", image: "https://i.pravatar.cc/100?img=7" },
-    { id: 8, name: "Olivia Taylor", message: "I booked the tickets already 🎫", image: "https://i.pravatar.cc/100?img=8" },
-    { id: 9, name: "Daniel Martin", message: "Don’t forget the meeting at 3pm.", image: "https://i.pravatar.cc/100?img=9" },
-    { id: 10, name: "Ava Thompson", message: "Thanks for your help yesterday 🙌", image: "https://i.pravatar.cc/100?img=10" },
-];
-
 export const groupMessages = [
     {
         id: 1,

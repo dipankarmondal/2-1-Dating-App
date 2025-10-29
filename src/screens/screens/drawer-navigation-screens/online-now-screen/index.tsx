@@ -23,6 +23,7 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 /** Liabary*/
 import { useQuery } from '@tanstack/react-query'
 import { useIsFocused } from '@react-navigation/native'
+import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
 
 /**Main export*/
 const OnlineNowScreen: React.FC = () => {
@@ -70,13 +71,24 @@ const OnlineNowScreen: React.FC = () => {
                             <UserInfoCard
                                 key={index}
                                 {...{
+                                    type: "user",
                                     isMore: true,
-                                    item,
+                                    isOption: true,
+                                    isFilterOption: true,
+                                    isGallery: item?.profile?.photos?.length > 0 ? true : false,
+                                    profileImages: item?.profile?.photos,
+                                    UserName: item?.username,
                                 }}
-                            />
+                            >
+                                <InfoCardLayoutOne
+                                    {...{
+                                        item
+                                    }}
+                                />
+                            </UserInfoCard>
                         ))
                     ) : (
-                        <NotFound 
+                        <NotFound
                             {...{
                                 title: "No users are currently online. Please check back later to see who’s available.",
                                 photo: require("@images/notFound/online_not.png"),

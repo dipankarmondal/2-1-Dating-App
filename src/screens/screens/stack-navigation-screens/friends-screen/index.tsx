@@ -199,7 +199,7 @@ const FriendsScreen: React.FC = () => {
                                                 type="user"
                                                 item={item}
                                                 isMore
-                                                isOption
+                                                // isOption
                                                 isUserContent={false}
                                                 isFilterOption={false}
                                                 isGallery={item?.profile?.photos?.length > 0 ? true : false}
