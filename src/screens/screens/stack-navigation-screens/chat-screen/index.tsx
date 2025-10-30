@@ -1,6 +1,6 @@
 /**React Imports */
-import { View, Text, KeyboardAvoidingView, Platform, FlatList, TextInput, TouchableOpacity } from 'react-native'
-import React, { use, useEffect, useRef, useState } from 'react'
+import { View, Text, KeyboardAvoidingView, Platform, FlatList, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 
 /**Components */
 import ChatHeader from '../../../../components/chat-header/ChatHeader'
@@ -13,10 +13,12 @@ import { ChatScreenStyles as styles } from './styles'
 import { Colors } from '../../../../utils/constant/Constant'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { DeletePersonalMessage, EditPersonalMessage, GetConversationWithUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
 
 /**Icons*/
 import SendIcon from '@svgs/send.svg'
-import MicIcon from '@svgs/mic.svg'
 import PlusIcon from '@svgs/plus.svg'
 import DeleteIcon from '@svgs/delete.svg'
 import EditIcon from '@svgs/edit.svg'
@@ -24,15 +26,13 @@ import EditIcon from '@svgs/edit.svg'
 /** Liabary*/
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useIsFocused } from '@react-navigation/native'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { GetConversationWithUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { LoaderKitView } from 'react-native-loader-kit';
 
 type Props = {
     route: any,
 }
+
 const ChatScreen: React.FC<Props> = ({ route }) => {
 
     const { Token } = useAuth()
@@ -43,12 +43,11 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const isFocused = useIsFocused();
     const flatListRef = useRef<FlatList>(null);
 
-    const [messages, setMessages] = useState<any>([]);
     const [inputText, setInputText] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [editText, setEditText] = useState("");
+    const [editText, setEditText] = useState(null);
     const [selectedMessage, setSelectedMessage] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
 
@@ -67,7 +66,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
             }
         }
     }, [isFocused, socket, socketConnected, chat?.otherParticipant?._id]);
-
 
     useEffect(() => {
         if (!socket || !socketConnected || !chat?.otherParticipant?._id) return;
@@ -130,10 +128,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         setModalVisible(true);
     };
 
-    const DeleteBtnClick = () => {
-        setModalVisible(false);
-        setTimeout(() => setShowDeleteModal(true), 300);
-    }
     const EditBtnClick = () => {
         setModalVisible(false);
         setTimeout(() => setShowEditModal(true), 300);
@@ -141,24 +135,10 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
 
     useEffect(() => {
         if (showEditModal && selectedMessage) {
-            setEditText(selectedMessage.text || "");
+            setEditText(selectedMessage.content || "");
         }
     }, [showEditModal, selectedMessage]);
 
-    /** 🔹 Save Edited Message */
-    const handleSaveEdit = () => {
-        if (!editText.trim()) return;
-
-        setMessages(prev =>
-            prev.map(msg =>
-                msg.id === selectedMessage.id ? { ...msg, text: editText } : msg
-            )
-        );
-
-        setShowEditModal(false);
-        setSelectedMessage(null);
-        setEditText("");
-    };
 
     /** 🔹 Render chat bubble */
     const renderItem = ({ item }: { item: any, }) => (
@@ -177,6 +157,45 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         enabled: !!Token
     })
 
+    const DeleteMessageMutation = useMutation({
+        mutationFn: (id: any) => DeletePersonalMessage(Token, id),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                setShowDeleteModal(false);
+                QueryInvalidater.invalidateQueries({ queryKey: ['messages'] });
+            }
+        }
+    })
+
+    const DeleteBtnClick = () => {
+        setModalVisible(false);
+        setTimeout(() => setShowDeleteModal(true), 300);
+    }
+
+    const handleDeleteChat = () => {
+        DeleteMessageMutation.mutate(selectedMessage?._id);
+    }
+
+    const EditChatMutation = useMutation({
+        mutationFn: ({ id, data }: { id: any; data: any }) => EditPersonalMessage(Token, id, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                setShowEditModal(false);
+                setSelectedMessage(null);
+                setEditText("");
+                QueryInvalidater.invalidateQueries({ queryKey: ['messages',chat?.otherParticipant?._id] });
+            }
+        },
+    });
+
+    /** 🔹 Save Edited Message */
+    const handleSaveEdit = () => {
+        if (!editText.trim()) return;
+        const payload = { content: editText };
+        EditChatMutation.mutate({ id: selectedMessage?._id, data: { content: editText } });
+    };
+
+
     return (
         <View style={styles.dt_container}>
             <ChatHeader
@@ -184,7 +203,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     chat: chat,
                     type,
                 }}
-            />
+            /> 
             <KeyboardAvoidingView
                 style={styles.dt_message_container}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -194,7 +213,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     ref={flatListRef}
                     data={[...(messadeData?.data || [])].reverse()}
                     renderItem={renderItem}
-                    keyExtractor={item => item?.id?.toString()}
+                    keyExtractor={item => item?._id}
                     contentContainerStyle={{ paddingVertical: 10 }}
                     inverted
                 />
@@ -210,7 +229,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                         </View>
                     )
                 }
-
                 {/* Input area */}
                 <View style={styles.dt_inputContainer}>
                     <TouchableOpacity
@@ -265,16 +283,14 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                         title: `Do you want to delete this message ?`,
                         successText: "Yes, Delete Chat",
                         cancelText: "No, Keep Chat",
-                        onSuccess: () => {
-                            setShowDeleteModal(false);
-                        }
+                        onSuccess: handleDeleteChat
                     }}
                 />
             </ModalAction>
             <ModalAction
                 isModalVisible={showEditModal}
                 setModalVisible={setShowEditModal}
-                type="message"
+                headerText='Edit Chat'
             >
                 <View style={styles.dt_modal_input_wrapper}>
                     <View style={styles.dt_modal_input_Container}>
@@ -287,14 +303,16 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                             multiline
                             scrollEnabled
                         />
-
                         <TouchableOpacity style={[styles.dt_sendButton, { backgroundColor: Colors.dt_card_blue }]} onPress={handleSaveEdit}>
-                            <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                            {
+                                EditChatMutation?.isPending ?
+                                    <ActivityIndicator size={ms(22)} color={Colors.dt_white} /> :
+                                    <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                            }
                         </TouchableOpacity>
                     </View>
                 </View>
             </ModalAction>
-
         </View>
     );
 };

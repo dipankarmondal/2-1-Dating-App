@@ -39,6 +39,8 @@ const MyGroupScreen: React.FC = () => {
         enabled: !!Token
     })
 
+    console.log("object", data)
+
     const DeleteGroupMutation = useMutation({
         mutationFn: (id: any) => DeleteGroup(Token, id),
         onSuccess: (res: any) => {

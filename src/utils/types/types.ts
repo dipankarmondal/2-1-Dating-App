@@ -286,5 +286,15 @@ export type MessageListProps = {
     onMorePress?: any,
     type: any,
     MessageData: any,
-    showTyping?: any
+    showTyping?: any,
+    setUserID?: any
+}
+
+export type GroupCardProps = {
+    type?: any,
+    GroupData?: any,
+    isDeleteModal?: any,
+    isLeaveModal?: any,
+    ModalSelectData?: any,
+    isMyGroup?: any
 }

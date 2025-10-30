@@ -3,31 +3,31 @@ import ViewIcon from '@svgs/setting/views.svg'
 
 export const createModalBtn = (handlers: Record<string, () => void>) => [
     {
-        name: "Pin",
+        name: "Pin User",
         onPress: handlers["Pin"],
     },
+    // {
+    //     name: "Unread",
+    //     onPress: handlers["Unread"],
+    // },
+    // {
+    //     name: "Mute",
+    //     onPress: handlers["Mute"],
+    // },
+    // {
+    //     name: "Archive",
+    //     onPress: handlers["Archive"],
+    // },
+    // {
+    //     name: "Move to Folder",
+    //     onPress: handlers["Move to Folder"],
+    // },
+    // {
+    //     name: "View Profile",
+    //     onPress: handlers["View Profile"],
+    // },
     {
-        name: "Unread",
-        onPress: handlers["Unread"],
-    },
-    {
-        name: "Mute",
-        onPress: handlers["Mute"],
-    },
-    {
-        name: "Archive",
-        onPress: handlers["Archive"],
-    },
-    {
-        name: "Move to Folder",
-        onPress: handlers["Move to Folder"],
-    },
-    {
-        name: "View Profile",
-        onPress: handlers["View Profile"],
-    },
-    {
-        name: "Delete Chat",
+        name: "Delete User",
         onPress: handlers["Delete Chat"],
         type: "error"
     },
@@ -36,11 +36,11 @@ export const createModalBtn = (handlers: Record<string, () => void>) => [
         onPress: handlers["Block"],
         type: "error"
     },
-    {
-        name: "Report",
-        onPress: handlers["Report"],
-        type: "error"
-    },
+    // {
+    //     name: "Report",
+    //     onPress: handlers["Report"],
+    //     type: "error"
+    // },
 ]
 
 export const optionsData = [

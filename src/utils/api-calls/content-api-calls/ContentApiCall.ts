@@ -770,9 +770,9 @@ export const SendBroadcastMessage = async (token: any, data: any,) => {
 
 //Get Personal Conversations List
 
-export const GetPersonalConversationsList = async (token: any) => {
+export const GetPersonalConversationsList = async (token: any, url: any) => {
     try {
-        const res = await API.get("/personal-messages/conversations", {
+        const res = await API.get(url, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -804,20 +804,66 @@ export const GetGroupConversationsList = async (token: any) => {
 //Get Conversation with User
 
 export const GetConversationWithUser = async (token: any, id: any, limit: any, page = 1) => {
-  try {
-    const fullUrl = `/personal-messages/conversations/${id}?page=${page}&limit=${limit}`;
-    console.log("📡 Full API URL:", fullUrl);
+    try {
+        const fullUrl = `/personal-messages/conversations/${id}?page=${page}&limit=${limit}`;
+        console.log("📡 Full API URL:", fullUrl);
 
-    const res = await API.get(fullUrl, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+        const res = await API.get(fullUrl, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-    return res?.data;
-  } catch (error) {
-    console.log("❌ API Error:", error?.response?.data || error);
-    toast("error", { title: "Something went wrong" });
-    throw error;
-  }
+        return res?.data;
+    } catch (error) {
+        console.log("❌ API Error:", error?.response?.data || error);
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+
+// Delete Personal Message
+export const DeletePersonalMessage = async (token: any, id: any,) => {
+    try {
+        const res = await API.delete(`/personal-messages/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+// Edit Personal Message
+export const EditPersonalMessage = async (token: any, id: any, data: any,) => {
+    try {
+        const res = await API.put(`/personal-messages/${id}`, data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
 };

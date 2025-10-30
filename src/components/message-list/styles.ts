@@ -65,5 +65,10 @@ export const MessageListStyles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         zIndex:100
+    },
+    dt_message_wrapper:{
+        flexDirection:"row",
+        alignItems:"center",
+        gap:ms(3),
     }
 })

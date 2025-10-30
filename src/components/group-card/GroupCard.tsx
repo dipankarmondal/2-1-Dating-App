@@ -1,12 +1,15 @@
 /**React Imports */
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { use } from 'react'
+import React from 'react'
 
 /**Local imports*/
 import { GroupCardStyles as styles } from './styles'
 import { Colors } from '../../utils/constant/Constant'
 import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms, toast } from '../../utils/helpers/responsive'
+import { useAuth } from '../../utils/context/auth-context/AuthContext'
+import { JoinGroup } from '../../utils/api-calls/content-api-calls/ContentApiCall'
+import { GroupCardProps } from '../../utils/types/types'
 
 /**Icons*/
 import GroupIcon from '@svgs/group.svg'
@@ -17,22 +20,11 @@ import LeaveGroupIcon from '@svgs/user-logout.svg'
 /** Liabary*/
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '../../utils/context/auth-context/AuthContext'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { JoinGroup } from '../../utils/api-calls/content-api-calls/ContentApiCall'
 import LoaderKitView from 'react-native-loader-kit'
 
-type Props = {
-    type?: any,
-    GroupData?: any,
-    isDeleteModal?: any,
-    isLeaveModal?: any,
-    ModalSelectData?: any,
-    isMyGroup?: any
-}
-
 /**Main export*/
-const GroupCard: React.FC<Props> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData,isMyGroup }) => {
+const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData,isMyGroup }) => {
     const Navigation = useNavigation<any>();
     const { Token, user } = useAuth()
     const QueryInvalidater = useQueryClient();
@@ -42,7 +34,7 @@ const GroupCard: React.FC<Props> = ({ type, GroupData, isDeleteModal, isLeaveMod
     const formatDate = (date?: string) =>
         date ? moment.utc(date).local().format("MMM DD, YYYY") : "-";
 
-    const JoinGroupMutation = useMutation({
+    const JoinGroupMutation = useMutation({ 
         mutationFn: (id: any) => JoinGroup(Token, id),
         onSuccess: (res: any) => {
             if (res?.success === true) {
@@ -87,9 +79,9 @@ const GroupCard: React.FC<Props> = ({ type, GroupData, isDeleteModal, isLeaveMod
                                         <LeaveGroupIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
                                     </TouchableOpacity>
                             }
-                            <TouchableOpacity style={styles.dt_message_box}>
+                            <TouchableOpacity style={styles.dt_message_box} onPress={()=> Navigation.navigate("DrawerNavigator",{screen: 'MessengerScreen', params: { key: "group_messenger" },})}>
                                 <MessageIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> 
                         </View> :
                         <TouchableOpacity style={styles.dt_overlay} onPress={HandleJoinGroup}>
                             {

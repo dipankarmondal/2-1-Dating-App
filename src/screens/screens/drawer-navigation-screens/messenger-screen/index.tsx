@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TextInput, TouchableOpacity, } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
 /**Local imports*/
 import { HomeScreenStyles as styles } from './styles'
@@ -9,6 +9,10 @@ import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
 import { Colors } from '../../../../utils/constant/Constant'
 import { MessengerItems } from '../../../../components/common/helper'
+import { createModalBtn, optionsData } from './helper'
+import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -16,24 +20,26 @@ import TopMenu from '../../../../components/top-menu'
 import MessageList from '../../../../components/message-list/MessageList'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
+import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
+import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import Loader from '../../../../components/loader/Loader'
+import NotFound from '../../../../components/notfound/NotFound'
 
 /**Icons*/
 import SearchIcon from '@svgs/search.svg'
 import FilterIcon from '@svgs/filter.svg'
-import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
-import { createModalBtn, groupMessages, optionsData } from './helper'
-import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
+
+/** Liabary*/
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
-import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
 import { useIsFocused } from '@react-navigation/native'
-import Loader from '../../../../components/loader/Loader'
-import NotFound from '../../../../components/notfound/NotFound'
+
+type Props = {
+    route?: any
+}
 
 /**Local Import*/
-const MessengerScreen: React.FC = () => {
+const MessengerScreen: React.FC<Props> = ({ route }) => {
     const [activeKey, setActiveKey] = useState("messenger");
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -42,14 +48,21 @@ const MessengerScreen: React.FC = () => {
     const [showTyping, setShowTyping] = useState(null);
 
     const QueryInvalidater = useQueryClient();
+    const isFocused = useIsFocused();
 
     const { Token } = useAuth();
     const { socket, socketConnected } = useSocket();
-    const isFocused = useIsFocused();
+
+    const { key } = route.params || {}
+
+    useEffect(() => {
+        if (key) {
+            setActiveKey(key);
+        }
+    }, [key, isFocused]); 
 
     useEffect(() => {
         if (!socket || !socketConnected || !isFocused) return;
-
         const handleNewMessage = (message: any) => {
             QueryInvalidater.invalidateQueries({ queryKey: ['MessageUserList', activeKey] });
         };
@@ -57,12 +70,10 @@ const MessengerScreen: React.FC = () => {
         socket.on('user_typing', (data: any) => {
             setShowTyping(data);
         });
-
         return () => {
             socket.off('new_personal_message', handleNewMessage);
         };
     }, [socket, socketConnected, isFocused]);
-
 
     const handleMorePress = (id: string, name: string) => {
         setSelectedChat({ id, name });
@@ -86,9 +97,11 @@ const MessengerScreen: React.FC = () => {
         "Report": () => console.log("Report Clicked"),
     };
 
+    const URL = activeKey === "messenger" ? "/personal-messages/conversations" : "/group-messages/conversations";
+
     const { data: MessageUserList, isLoading, refetch: MessageUserListRefetch } = useQuery({
         queryKey: ['MessageUserList', activeKey],
-        queryFn: () => GetPersonalConversationsList(Token),
+        queryFn: () => GetPersonalConversationsList(Token, URL),
         enabled: !!Token
     })
 
@@ -102,7 +115,7 @@ const MessengerScreen: React.FC = () => {
             }} />
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={MessageUserListRefetch} // just pass refetch here
+                onRefresh={MessageUserListRefetch}
             >
                 <View style={CommonStyles.dt_container}>
                     <View style={styles.dt_search_wrapper}>
@@ -131,35 +144,48 @@ const MessengerScreen: React.FC = () => {
                                                     onMorePress: handleMorePress,
                                                     type: "single",
                                                     MessageData: MessageUserList,
-                                                    showTyping
+                                                    showTyping,
                                                 }}
                                             />
                                         )
                                     })
                                 ) : (
-                                    <NotFound 
+                                    <NotFound
                                         {...{
                                             title: "No conversations available at the moment. Try sending a new message or checking your connections",
-                                            photo: require("@images/notFound/view_not.png")
+                                            photo: require("@images/notFound/message_not.png")
                                         }}
                                     />
                                 )
                             )
                         ) : (
-                            groupMessages?.map((chat) => {
-                                return (
-                                    <MessageList
-                                        key={chat.id}
+                            isLoading ? (
+                                <Loader />
+                            ) : (
+                                MessageUserList?.data?.length > 0 ? (
+                                    MessageUserList?.data?.map((chat: any, index: number) => {
+                                        return (
+                                            <MessageList
+                                                key={index}
+                                                {...{
+                                                    chat,
+                                                    onMorePress: handleMorePress,
+                                                    type: "group",
+                                                    MessageData: MessageUserList,
+                                                    showTyping,
+                                                }}
+                                            />
+                                        )
+                                    })
+                                ) : (
+                                    <NotFound
                                         {...{
-                                            chat,
-                                            onMorePress: handleMorePress,
-                                            type: "group",
-                                            MessageData: MessageUserList,
-                                            showTyping
+                                            title: "Currently, there are no groups to display. Please check again later or create one",
+                                            photo: require("@images/notFound/groupchat_not.png")
                                         }}
                                     />
                                 )
-                            })
+                            )
                         )
 
                     }

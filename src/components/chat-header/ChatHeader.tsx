@@ -23,13 +23,21 @@ type Props = {
 const ChatHeader: React.FC<Props> = ({ chat, type }) => {
     const Navigation = useNavigation<any>();
 
+    const handleClick = () =>{
+        if(type === "single"){
+            Navigation.navigate("ProfileScreen", { userId: chat?.otherParticipant?._id, type: "friends" })
+        }else{
+            Navigation.navigate("GroupInfoScreen", { chat: chat, type: type })
+        }
+    }
+
     return (
         <View style={styles.dt_container}>
             <View style={styles.dt_left_header}>
                 <TouchableOpacity style={styles.dt_icon_box} onPress={() => Navigation.goBack()}>
                     <LeftIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.dt_profile_box} onPress={() => Navigation.navigate("ChatInfoScreen", { chat: chat, type: type })} >
+                <TouchableOpacity style={styles.dt_profile_box} onPress={handleClick} >
                     <View style={styles.dt_profile_image}>
                         <Image
                             source={chat?.otherParticipant?.profile?.photos?.length > 0 ? { uri: chat?.otherParticipant?.profile?.photos[0] } : require('@images/dummy.png')}

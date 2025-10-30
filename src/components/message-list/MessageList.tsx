@@ -12,6 +12,8 @@ import { useAuth } from '../../utils/context/auth-context/AuthContext'
 
 /**Icons*/
 import MenuDotsIcon from '@svgs/menu-dots.svg'
+import CheckIcon from "../../../assets/svgs/check.svg"
+import DubbleCheck from "../../../assets/svgs/dubble_check.svg"
 
 /** Liabary*/
 import LoaderKitView from 'react-native-loader-kit'
@@ -21,10 +23,10 @@ import { useNavigation } from '@react-navigation/native'
 const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, showTyping }) => {
     const Navigation = useNavigation<any>();
     const { user } = useAuth();
-
-    const isUser = chat?.lastMessage?.receiverId === user?.id;
+    
     const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
-
+    const isCheckIcon = chat?.lastMessage?.senderId === user?.id
+    
     const getMessagePreview = () => {
         const msg = chat?.lastMessage;
 
@@ -32,17 +34,17 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
 
         switch (msg.messageType) {
             case 'text':
-                return isTyping ? 
-                 <LoaderKitView
-                    style={{ width: 17, height: 17 }}
-                    name={'BallPulse'}
-                    animationSpeedMultiplier={2.0}
-                    color={Colors.dt_white}
-                /> : msg.content;
+                return isTyping ?
+                    <LoaderKitView
+                        style={{ width: 17, height: 17 }}
+                        name={'BallPulse'}
+                        animationSpeedMultiplier={2.0}
+                        color={Colors.dt_white}
+                    /> : msg.content;
             case 'image':
-                return isUser ? '📸 You sent a photo' : '📸 Photo received';
+                return isCheckIcon ? '📸 You sent a photo' : '📸 Photo received';
             case 'pdf':
-                return isUser ? '📄 You sent a document' : '📄 Document received';
+                return isCheckIcon ? '📄 You sent a document' : '📄 Document received';
             default:
                 return '';
         }
@@ -68,7 +70,7 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
                     style={[
                         styles.dt_status_overlay,
                         {
-                            backgroundColor: chat?.otherParticipant?.settings?.showOnline === true
+                            backgroundColor: chat?.otherParticipant?.isOnline === true
                                 ? Colors.dt_primary_green
                                 : Colors.dt_gray,
                         },
@@ -89,9 +91,18 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.dt_text} numberOfLines={2} ellipsizeMode="tail">
-                        {getMessagePreview()}
-                    </Text>
+                    <View style={styles.dt_message_wrapper}>
+                        {
+                            isCheckIcon && (
+                                chat?.lastMessage?.isRead ?
+                                    <DubbleCheck  {...IconProps(ms(15))} fill="#26a1f4" style={{ marginBottom: ms(-2), marginLeft: ms(-3) }} /> :
+                                    <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
+                            )
+                        }
+                        <Text style={styles.dt_text} numberOfLines={2} ellipsizeMode="tail">
+                            {getMessagePreview()}
+                        </Text>
+                    </View>
                 </View>
             </View>
         </TouchableOpacity>

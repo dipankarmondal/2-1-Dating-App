@@ -31,7 +31,7 @@ export const ChatScreenStyles = StyleSheet.create({
         borderTopLeftRadius:ms(0),
     },
     dt_otherMessage: {
-        backgroundColor: Colors.dt_card_blue,
+        backgroundColor: Colors.dt_success_green,
         alignSelf: 'flex-start',
         borderTopLeftRadius:ms(0)
     },
@@ -41,11 +41,11 @@ export const ChatScreenStyles = StyleSheet.create({
         fontFamily: Fonts.Font_500,
     },
     dt_timestamp: {
-        fontSize: ms(9),
+        fontSize: ms(10),
         color: '#999',
         marginTop: 3,
         textAlign: 'right',
-        fontFamily: Fonts.Font_500
+        fontFamily: Fonts.Font_600
     },
     dt_inputContainer: {
         flexDirection: 'row',
@@ -170,5 +170,10 @@ export const ChatScreenStyles = StyleSheet.create({
         height: ms(1),
         backgroundColor: Colors.dt_gray + "33",
         marginTop: ms(5)
+    },
+    dt_timestampContainer:{
+        flexDirection:"row",
+        alignItems:"center",
+        gap:ms(1)
     }
 })
