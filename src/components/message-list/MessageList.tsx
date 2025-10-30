@@ -43,8 +43,8 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
                     /> : msg.content;
             case 'image':
                 return isCheckIcon ? '📸 You sent a photo' : '📸 Photo received';
-            case 'pdf':
-                return isCheckIcon ? '📄 You sent a document' : '📄 Document received';
+            case 'video':
+                return isCheckIcon ? '🎥 You sent a video' : '🎥 Video received';
             default:
                 return '';
         }

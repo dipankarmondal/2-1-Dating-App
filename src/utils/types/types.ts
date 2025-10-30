@@ -271,7 +271,8 @@ export type VideoModalProps = {
     visible: boolean,
     setVisible: (visible: boolean) => void,
     source: any,
-    setSource: any
+    setSource?: any,
+    type?: any
 }
 
 export type AccordionProps = {

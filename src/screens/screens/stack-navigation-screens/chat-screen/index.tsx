@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, KeyboardAvoidingView, Platform, FlatList, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, FlatList, TextInput, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 
 /**Components */
@@ -14,7 +14,7 @@ import { Colors } from '../../../../utils/constant/Constant'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { DeletePersonalMessage, EditPersonalMessage, GetConversationWithUser } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { DeletePersonalMessage, EditPersonalMessage, GetConversationWithUser, UploadMessageMedia } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
 
 /**Icons*/
@@ -28,6 +28,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { useIsFocused } from '@react-navigation/native'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { LoaderKitView } from 'react-native-loader-kit';
+import { pick, types } from '@react-native-documents/picker'
 
 type Props = {
     route: any,
@@ -35,7 +36,7 @@ type Props = {
 
 const ChatScreen: React.FC<Props> = ({ route }) => {
 
-    const { Token } = useAuth()
+    const { Token, user } = useAuth()
     const { chat, type } = route.params;
     const { socket, socketConnected } = useSocket();
     const QueryInvalidater = useQueryClient();
@@ -50,7 +51,12 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const [editText, setEditText] = useState(null);
     const [selectedMessage, setSelectedMessage] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
+    const [imageModal, setImageModal] = useState(false);
+    const [document, setDocument] = useState(null);
+    const [imageInput, setImageInput] = useState(null);
 
+    const documentType = document?.mediaRecord?.type
+    const isUser = selectedMessage?.senderId?._id === user?.id
     const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
 
     useEffect(() => {
@@ -75,6 +81,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         };
         const handleMessageSent = (message: any) => {
             QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+            setImageModal(false);
         };
         socket.on('new_personal_message', handleNewMessage);
         socket.on('message_sent', handleMessageSent);
@@ -92,7 +99,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
 
     /** 🔹 Send text message */
     const sendMessage = () => {
-        if (!inputText.trim()) return;
         if (socket && socketConnected && chat?.otherParticipant?._id) {
             const otherUserId = chat.otherParticipant._id;
             socket.emit('send_personal_message', {
@@ -105,20 +111,40 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         setInputText('');
     };
 
-    /** 🔹 Pick and send image */
-    const handlePickImage = async () => {
+    const uploadMeadiaMutation = useMutation({
+        mutationFn: async (data: any) => UploadMessageMedia(Token, data),
+        onSuccess: (res: any) => {
+            if (res?.success === true) {
+                openImageModal(res?.data?.files)
+            }
+        }
+    })
+
+    const handlePickMedia = async () => {
         try {
-            const result = await launchImageLibrary({
-                mediaType: 'photo',
-                selectionLimit: 1,
+            const result = await pick({
+                type: [types.images, types.video], // allow both image and video
+                allowMultiSelection: false,
+                mode: 'open',
+                quality: 1
             });
 
-            if (result.assets?.length) {
-                const file = result.assets[0];
-                // setMessages(prev => [createMessage({ image: file.uri }), ...prev]);
+            if (result?.length) {
+                const file = result[0];
+
+                const formData = new FormData();
+                formData.append('media', {
+                    uri: file.uri,
+                    type: file.type,
+                    name: file.name || 'media',
+                });
+
+                setImageModal(true);
+
+                uploadMeadiaMutation.mutate(formData);
             }
-        } catch (error) {
-            console.log('Error picking image:', error);
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -139,14 +165,13 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         }
     }, [showEditModal, selectedMessage]);
 
-
     /** 🔹 Render chat bubble */
     const renderItem = ({ item }: { item: any, }) => (
         <RenderMessageItem
             {...{
                 styles,
                 item,
-                onLongPress: handleLongPress
+                onLongPress: handleLongPress,
             }}
         />
     );
@@ -183,7 +208,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 setShowEditModal(false);
                 setSelectedMessage(null);
                 setEditText("");
-                QueryInvalidater.invalidateQueries({ queryKey: ['messages',chat?.otherParticipant?._id] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
             }
         },
     });
@@ -191,8 +216,26 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     /** 🔹 Save Edited Message */
     const handleSaveEdit = () => {
         if (!editText.trim()) return;
-        const payload = { content: editText };
         EditChatMutation.mutate({ id: selectedMessage?._id, data: { content: editText } });
+    };
+
+    const openImageModal = (data: any) => {
+        setDocument(data);
+    }
+
+    const sendImageMessage = () => {
+        if (!imageInput.trim()) return;
+        if (socket && socketConnected && chat?.otherParticipant?._id) {
+            const otherUserId = chat.otherParticipant._id;
+            socket.emit('send_personal_message', {
+                receiverId: otherUserId,
+                content: imageInput ?? '',
+                messageType: documentType,
+                mediaUrl: document?.mediaRecord?.url
+            });
+            QueryInvalidater.invalidateQueries({ queryKey: ['MessageUserList'] });
+        }
+        setImageInput('');
     };
 
 
@@ -203,7 +246,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     chat: chat,
                     type,
                 }}
-            /> 
+            />
             <KeyboardAvoidingView
                 style={styles.dt_message_container}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -233,7 +276,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 <View style={styles.dt_inputContainer}>
                     <TouchableOpacity
                         style={[styles.dt_sendButton, { marginRight: 5 }]}
-                        onPress={handlePickImage}
+                        onPress={handlePickMedia}
                     >
                         <PlusIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>
@@ -262,10 +305,14 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 type="message"
             >
                 <View >
-                    <TouchableOpacity style={styles.dt_buttons} onPress={EditBtnClick}>
-                        <EditIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
-                        <Text style={styles.dt_btn_text}>Edit Chat</Text>
-                    </TouchableOpacity>
+                    {
+                        isUser && (
+                            <TouchableOpacity style={styles.dt_buttons} onPress={EditBtnClick}>
+                                <EditIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
+                                <Text style={styles.dt_btn_text}>Edit Chat</Text>
+                            </TouchableOpacity>
+                        )
+                    }
                     <TouchableOpacity style={styles.dt_buttons} onPress={DeleteBtnClick}>
                         <DeleteIcon {...IconProps(ms(17))} fill={Colors.dt_error} />
                         <Text style={[styles.dt_btn_text, { color: Colors.dt_error }]}>Delete message</Text>
@@ -313,6 +360,49 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     </View>
                 </View>
             </ModalAction>
+            <ModalAction
+                isModalVisible={imageModal}
+                setModalVisible={setImageModal}
+                type="message"
+            >
+                <View style={styles.dt_modal_input_wrapper}>
+                    {
+                        uploadMeadiaMutation?.isPending ?
+                            <LoaderKitView
+                                style={{ width: ms(55), height: ms(55) }}
+                                name={'BallScaleMultiple'}
+                                animationSpeedMultiplier={1.0}
+                                color={Colors.dt_white}
+                            />
+
+                            : (
+                                <>
+                                    <View style={styles.dt_image_Container}>
+                                        <Image
+                                            source={documentType === "video" ? require('@images/play.png') : { uri: document?.mediaRecord?.thumbnailUrl }}
+                                            style={[styles.dt_image_modal, { resizeMode: documentType === "video" ? "contain" : "cover" }]}
+                                        />
+                                    </View>
+                                    <View style={styles.dt_modal_input_Container}>
+                                        <TextInput
+                                            value={imageInput}
+                                            onChangeText={setImageInput}
+                                            placeholder="Type a message..."
+                                            style={styles.dt_input}
+                                            placeholderTextColor={Colors.dt_gray}
+                                            multiline
+                                            scrollEnabled
+                                        />
+                                        <TouchableOpacity style={[styles.dt_sendButton, { backgroundColor: Colors.dt_card_blue }]} onPress={sendImageMessage}>
+                                            <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                            )
+                    }
+                </View>
+            </ModalAction>
+
         </View>
     );
 };

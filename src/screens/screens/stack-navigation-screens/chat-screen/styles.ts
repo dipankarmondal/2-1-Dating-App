@@ -21,19 +21,19 @@ export const ChatScreenStyles = StyleSheet.create({
     dt_myMessage: {
         backgroundColor: Colors.dt_card_blue,
         alignSelf: 'flex-end',
-        borderTopRightRadius:ms(0)
+        borderTopRightRadius: ms(0)
     },
     dt_typing_Container: {
         backgroundColor: Colors.dt_card_blue,
         alignSelf: "flex-start",
         paddingHorizontal: 10,
         paddingVertical: ms(2),
-        borderTopLeftRadius:ms(0),
+        borderTopLeftRadius: ms(0),
     },
     dt_otherMessage: {
         backgroundColor: Colors.dt_success_green,
         alignSelf: 'flex-start',
-        borderTopLeftRadius:ms(0)
+        borderTopLeftRadius: ms(0)
     },
     dt_messageText: {
         fontSize: ms(14),
@@ -95,6 +95,7 @@ export const ChatScreenStyles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: ms(10),
+        marginVertical: ms(20)
     },
     dt_modal_input_wrapper: {
         flex: 1,
@@ -171,9 +172,30 @@ export const ChatScreenStyles = StyleSheet.create({
         backgroundColor: Colors.dt_gray + "33",
         marginTop: ms(5)
     },
-    dt_timestampContainer:{
-        flexDirection:"row",
-        alignItems:"center",
-        gap:ms(1)
-    }
+    dt_timestampContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(1)
+    },
+    dt_image_Container: {
+        width: "100%",
+        height: ms(250),
+        borderRadius: ms(8),
+        overflow: "hidden",
+        backgroundColor: Colors.dt_gray + "33"
+    },
+    dt_image_modal: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover"
+    },
+    dt_video_Container: {
+        width: ms(230),
+        height: ms(180),
+        borderRadius: ms(15),
+        backgroundColor: Colors.dt_gray + "7A",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+
 })

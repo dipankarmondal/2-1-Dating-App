@@ -867,3 +867,27 @@ export const EditPersonalMessage = async (token: any, id: any, data: any,) => {
         throw error;
     }
 };
+
+// Upload Message Media
+export const UploadMessageMedia = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/media/upload/message-media", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};

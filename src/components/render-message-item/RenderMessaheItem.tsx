@@ -1,26 +1,62 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../../utils/context/auth-context/AuthContext';
 import CheckIcon from "../../../assets/svgs/check.svg"
 import DubbleCheck from "../../../assets/svgs/dubble_check.svg"
 import { IconProps } from '../../utils/helpers/Iconprops';
 import { ms } from '../../utils/helpers/responsive';
-import { Colors, Fonts } from '../../utils/constant/Constant';
+import { Colors } from '../../utils/constant/Constant';
+import GalleryModal from '../modal/gallery-modal/GalleryModal';
+import VideoModal from '../modal/video-modal/VideoModal';
 
 const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles }) => {
     const { user } = useAuth()
     const isUser = item?.senderId?._id === user?.id
 
-    const messageContent = () => {
-        return (
-            <>
-                {item.messageType === 'image' ? ( 
+    const [visible, setVisible] = useState(false);
+    const [videoModal, setVideoModal] = useState(false);    
+    const [source, setSource] = useState(null);
+
+    const handleClick = (item: any) => {
+        if(item?.messageType === 'video') {
+            setVideoModal(true);
+            setSource(item?.mediaUrl)
+        }else(
+            setVisible(true),
+            setSource([item?.mediaUrl])
+        )
+    }
+
+
+    return (
+        <>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onLongPress={() => onLongPress(item)}
+                style={[
+                    styles.dt_messageContainer,
+                    isUser ? styles.dt_myMessage : styles.dt_otherMessage,
+                ]}
+                onPress={() => handleClick(item)}
+            >
+                {item.messageType === 'image' ? (
                     <>
                         <Image
                             source={{ uri: item?.mediaUrl }}
                             style={{ width: 200, height: 200, borderRadius: 10 }}
                             resizeMode="cover"
                         />
+                        <Text style={[styles.dt_messageText, { marginTop: ms(5) }]}>{item?.content}</Text>
+                    </>
+                ) : item.messageType === 'video' ? (
+                    <>
+                        <View style={styles.dt_video_Container}>
+                            <Image
+                                source={require('@images/play.png')}
+                                style={{ width: 150, height: 150, borderRadius: 10 }}
+                                resizeMode="cover"
+                            />
+                        </View>
                         <Text style={[styles.dt_messageText, { marginTop: ms(5) }]}>{item?.content}</Text>
                     </>
                 ) : (
@@ -35,44 +71,30 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles }) => {
                                 <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
                         )
                     }
-                    <Text style={[styles.dt_timestamp,{color:  Colors.dt_black}]}> {new Date(item.timestamp).toLocaleTimeString()}</Text>
+                    <Text style={[styles.dt_timestamp, { color: Colors.dt_black }]}> {new Date(item.timestamp).toLocaleTimeString()}</Text>
                     {
                         item?.isEdited && (
-                            <Text style={[styles.dt_timestamp,{fontStyle: 'italic', color: Colors.dt_black}]}> Edited </Text>
+                            <Text style={[styles.dt_timestamp, { fontStyle: 'italic', color: Colors.dt_black }]}> Edited </Text>
                         )
                     }
                 </View>
-            </>
-        )
-    }
-
-    return (
-        <>
-            {
-                isUser ? (
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        onLongPress={() => onLongPress(item)}
-                        style={[
-                            styles.dt_messageContainer,
-                            isUser ? styles.dt_myMessage : styles.dt_otherMessage,
-                        ]}
-                    >
-                        {messageContent()}
-                    </TouchableOpacity>
-                ) : (
-                    <View
-                        style={[
-                            styles.dt_messageContainer,
-                            isUser ? styles.dt_myMessage : styles.dt_otherMessage,
-                        ]}
-                    >
-                        {messageContent()}
-                    </View>
-                )
-          }
+            </TouchableOpacity>
+            <GalleryModal
+                {...{
+                    visible: visible,
+                    setVisible: setVisible,
+                    photos: source
+                }}
+            />
+            <VideoModal
+                {...{
+                    setVisible: setVideoModal,
+                    visible: videoModal,
+                    source: source,
+                    type:"message"
+                }}
+            />
         </>
-
     )
 }
 

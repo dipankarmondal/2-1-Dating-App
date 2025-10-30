@@ -21,7 +21,7 @@ import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/Cont
 import { useAuth } from '../../../utils/context/auth-context/AuthContext';
 
 /**Main export*/
-const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source,setSource }) => {
+const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source,setSource,type }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [loading, setLoading] = useState(true);
     const { Token } = useAuth()
@@ -40,20 +40,23 @@ const VideoModal: React.FC<VideoModalProps> = ({ visible, setVisible, source,set
             onRequestClose={() => setVisible(false)} // for Android back button
         >
             <View style={styles.modalBackground}>
-                <TouchableOpacity style={styles.overlay} onPress={() => setShowDropdown(true)}>
-                    <MoreIcon {...IconProps(ms(18))} fill={Colors.dt_border} />
-                </TouchableOpacity>
+                {
+                    type !== "message" &&
+                    <TouchableOpacity style={styles.overlay} onPress={() => setVisible(false)}>
+                        <MoreIcon {...IconProps(ms(18))} fill={Colors.dt_border} />
+                    </TouchableOpacity>
+                }
 
                 <View style={styles.videoContainer}>
                     {/* Loader */}
                     {loading && (
                         <View style={styles.loaderContainer}>
-                            <ActivityIndicator size="large" color={Colors.dt_border} />
+                            <ActivityIndicator size="large" color={Colors.dt_white} />
                         </View>
                     )}
 
                     <Video
-                        source={{ uri: source?.link }}
+                        source={{ uri: source?.link ?? source }}
                         style={styles.video}
                         resizeMode="contain"
                         controls={true}
