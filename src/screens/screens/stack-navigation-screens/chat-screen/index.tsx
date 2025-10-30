@@ -60,8 +60,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const isUser = chatType ? selectedMessage?.senderId?._id === user?.id : selectedMessage?.sender?._id === user?.id
     const isTyping = showTyping?.userId === conversationId && showTyping?.isTyping === true;
 
-    console.log("object" , selectedMessage)
-
     // Socket Connection
     useEffect(() => {
         if (isFocused && socket && socketConnected && conversationId) {

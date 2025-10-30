@@ -27,7 +27,7 @@ const ChatHeader: React.FC<Props> = ({ chat, type }) => {
         if (type === "single") {
             Navigation.navigate("ProfileScreen", { userId: chat?.otherParticipant?._id, type: "friends" })
         } else {
-            Navigation.navigate("GroupInfoScreen", { chat: chat, type: type })
+            Navigation.navigate("ChatInfoScreen", { chat: chat, type: type })
         }
     }
 
