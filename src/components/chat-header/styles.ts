@@ -16,7 +16,8 @@ export const ChatHeaderStyles = StyleSheet.create({
     dt_left_header: {
         flexDirection: "row",
         alignItems: "center",
-        gap: ms(10)
+        gap: ms(10),
+        flexShrink: 1
     },
     dt_icon_box: {
         width: ms(25),
@@ -42,7 +43,8 @@ export const ChatHeaderStyles = StyleSheet.create({
         fontSize:ms(17),
         fontFamily:Fonts.Font_600,
         color:Colors.dt_white,
-        textTransform:"capitalize"
+        textTransform:"capitalize",
+        flexShrink: 1,
     },
     dt_right_header:{
         flexDirection:"row",
@@ -60,6 +62,7 @@ export const ChatHeaderStyles = StyleSheet.create({
     dt_profile_box:{
         flexDirection:"row",
         alignItems:"center",
-        gap:ms(10)
+        gap:ms(10),
+        flexShrink: 1,
     }
 })

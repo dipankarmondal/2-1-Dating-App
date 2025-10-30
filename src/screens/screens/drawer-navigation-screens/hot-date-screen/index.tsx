@@ -56,7 +56,6 @@ const HotDateScreen: React.FC = () => {
     const OnModalFormClick = () => {
         setShowDropdown(false);
         setSelected("");
-        console.log("clicked")
     };
 
     const hideDatePicker = () => setDatePickerVisibility(false);

@@ -1,11 +1,11 @@
 import DeleteIcon from '@svgs/delete.svg'
 import ViewIcon from '@svgs/setting/views.svg'
 
-export const createModalBtn = (handlers: Record<string, () => void>) => [
-    {
-        name: "Pin User",
-        onPress: handlers["Pin"],
-    },
+export const createModalBtn = (handlers: Record<string, () => void>, type: string) => [
+    // {
+    //     name: "Pin User",
+    //     onPress: handlers["Pin"],
+    // },
     // {
     //     name: "Unread",
     //     onPress: handlers["Unread"],
@@ -27,7 +27,7 @@ export const createModalBtn = (handlers: Record<string, () => void>) => [
     //     onPress: handlers["View Profile"],
     // },
     {
-        name: "Delete User",
+        name: type === "messenger" ? "Delete User" : "Delete Group",
         onPress: handlers["Delete Chat"],
         type: "error"
     },

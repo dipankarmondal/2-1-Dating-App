@@ -23,10 +23,10 @@ import { useNavigation } from '@react-navigation/native'
 const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, showTyping }) => {
     const Navigation = useNavigation<any>();
     const { user } = useAuth();
-    
+
     const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
     const isCheckIcon = chat?.lastMessage?.senderId === user?.id
-    
+
     const getMessagePreview = () => {
         const msg = chat?.lastMessage;
 
@@ -50,6 +50,15 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
         }
     };
 
+    const ProfileImage =
+        type === 'group'
+            ? chat?.group?.coverImage
+                ? { uri: chat.group.coverImage }
+                : require('@images/dummy.png')
+            : chat?.otherParticipant?.profile?.photos?.[0]
+                ? { uri: chat.otherParticipant.profile.photos[0] }
+                : require('@images/dummy.png');
+
     return (
         <TouchableOpacity
             style={styles.dt_messenger_wrapper}
@@ -59,33 +68,33 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
             {/* User Avatar */}
             <View style={styles.dt_image_container}>
                 <Image
-                    source={
-                        chat?.otherParticipant?.profile?.photos?.length > 0
-                            ? { uri: chat?.otherParticipant?.profile?.photos[0] }
-                            : require('@images/dummy.png')
-                    }
+                    source={ProfileImage}
                     style={styles.dt_image}
                 />
-                <View
-                    style={[
-                        styles.dt_status_overlay,
-                        {
-                            backgroundColor: chat?.otherParticipant?.isOnline === true
-                                ? Colors.dt_primary_green
-                                : Colors.dt_gray,
-                        },
-                    ]}
-                />
+                {
+                    type !== 'group' && (
+                        <View
+                            style={[
+                                styles.dt_status_overlay,
+                                {
+                                    backgroundColor: chat?.otherParticipant?.isOnline === true
+                                        ? Colors.dt_primary_green
+                                        : Colors.dt_gray,
+                                },
+                            ]}
+                        />
+                    )
+                }
             </View>
 
             {/* Message Text */}
             <View style={styles.dt_text_container}>
                 <View style={styles.dt_text_wrapper}>
                     <View style={styles.dt_name_wrapper}>
-                        <Text style={styles.dt_name}>{chat?.otherParticipant?.username}</Text>
+                        <Text style={styles.dt_name}>{type === 'group' ? chat?.group?.name : chat?.otherParticipant?.username}</Text>
                         <TouchableOpacity
                             style={styles.dt_more}
-                            onPress={() => onMorePress(chat?.lastMessage?.conversationId, chat?.otherParticipant?.username,)}
+                            onPress={() => onMorePress(chat)}
                         >
                             <MenuDotsIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
                         </TouchableOpacity>

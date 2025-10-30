@@ -388,7 +388,7 @@ export const CreateSpeedDate = async (token: any, data: any,) => {
 
 //Send Friend Request
 export const SendFriendRequest = async (token: any, data: any,) => {
-    console.log("object", token, data)
+
     try {
         const res = await API.post("/friend-requests", data,
             {
@@ -803,15 +803,21 @@ export const GetGroupConversationsList = async (token: any) => {
 
 //Get Conversation with User
 
-export const GetConversationWithUser = async (token: any, id: any, limit: any, page = 1) => {
+export const GetConversationWithUser = async (token: any, id: any, limit: any, page = 1, type: any) => {
     try {
+        const URL = type === "group" ? `/group-messages/${id}` : `/personal-messages/conversations/${id}`;
+
         const fullUrl = `/personal-messages/conversations/${id}?page=${page}&limit=${limit}`;
         console.log("📡 Full API URL:", fullUrl);
 
-        const res = await API.get(fullUrl, {
+        const res = await API.get(URL, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            params: {
+                page: page,
+                limit: limit
+            }
         });
 
         return res?.data;
@@ -824,9 +830,10 @@ export const GetConversationWithUser = async (token: any, id: any, limit: any, p
 
 
 // Delete Personal Message
-export const DeletePersonalMessage = async (token: any, id: any,) => {
+export const DeletePersonalMessage = async (token: any, id: any, type: any) => {
     try {
-        const res = await API.delete(`/personal-messages/${id}`, {
+        const URL = type === "group" ? "/group-messages" : "/personal-messages";
+        const res = await API.delete(`${URL}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -846,9 +853,10 @@ export const DeletePersonalMessage = async (token: any, id: any,) => {
 };
 
 // Edit Personal Message
-export const EditPersonalMessage = async (token: any, id: any, data: any,) => {
+export const EditPersonalMessage = async (token: any, id: any, data: any, type: any) => {
     try {
-        const res = await API.put(`/personal-messages/${id}`, data,
+        const URL = type === "group" ? "/group-messages" : "/personal-messages";
+        const res = await API.put(`${URL}/${id}`, data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

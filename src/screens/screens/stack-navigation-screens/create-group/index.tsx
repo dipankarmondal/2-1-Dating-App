@@ -44,7 +44,6 @@ const CreateGroup: React.FC = () => {
                     coverImage: res?.data?.files?.original?.url
                 }
                 CreateGroupsMutation.mutate(payload)
-                console.log("CreateGroupPauload", payload)
             }
         }
     })

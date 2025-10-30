@@ -23,13 +23,22 @@ type Props = {
 const ChatHeader: React.FC<Props> = ({ chat, type }) => {
     const Navigation = useNavigation<any>();
 
-    const handleClick = () =>{
-        if(type === "single"){
+    const handleClick = () => {
+        if (type === "single") {
             Navigation.navigate("ProfileScreen", { userId: chat?.otherParticipant?._id, type: "friends" })
-        }else{
+        } else {
             Navigation.navigate("GroupInfoScreen", { chat: chat, type: type })
         }
     }
+
+    const ProfileImage =
+        type === 'group'
+            ? chat?.group?.coverImage
+                ? { uri: chat.group.coverImage }
+                : require('@images/dummy.png')
+            : chat?.otherParticipant?.profile?.photos?.[0]
+                ? { uri: chat.otherParticipant.profile.photos[0] }
+                : require('@images/dummy.png');
 
     return (
         <View style={styles.dt_container}>
@@ -40,11 +49,13 @@ const ChatHeader: React.FC<Props> = ({ chat, type }) => {
                 <TouchableOpacity style={styles.dt_profile_box} onPress={handleClick} >
                     <View style={styles.dt_profile_image}>
                         <Image
-                            source={chat?.otherParticipant?.profile?.photos?.length > 0 ? { uri: chat?.otherParticipant?.profile?.photos[0] } : require('@images/dummy.png')}
+                            source={ProfileImage}
                             style={styles.dt_image}
                         />
                     </View>
-                    <Text style={styles.dt_name}>{chat?.otherParticipant?.username}</Text>
+                    <Text style={styles.dt_name} numberOfLines={1} ellipsizeMode="middle">
+                        {type === 'group' ? chat?.group?.name : chat?.otherParticipant?.username}
+                    </Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.dt_right_header}>

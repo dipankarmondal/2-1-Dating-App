@@ -21,7 +21,8 @@ export const ChatScreenStyles = StyleSheet.create({
     dt_myMessage: {
         backgroundColor: Colors.dt_card_blue,
         alignSelf: 'flex-end',
-        borderTopRightRadius: ms(0)
+        borderTopRightRadius: ms(0),
+        marginRight: ms(15)
     },
     dt_typing_Container: {
         backgroundColor: Colors.dt_card_blue,
@@ -54,6 +55,13 @@ export const ChatScreenStyles = StyleSheet.create({
         backgroundColor: Colors.dt_border,
         alignItems: 'flex-end',
     },
+    dt_group_username: {
+        marginBottom: ms(5),
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(16),
+        color: Colors.dt_black,
+        marginTop: ms(-5)
+    },
     dt_input: {
         flex: 1,
         borderWidth: 1,
@@ -65,10 +73,10 @@ export const ChatScreenStyles = StyleSheet.create({
         minHeight: ms(42),
         color: Colors.dt_white,
         fontSize: ms(14),
-        fontFamily: Fonts.Font_600
+        fontFamily: Fonts.Font_600,
+        marginHorizontal: ms(8)
     },
     dt_sendButton: {
-        marginLeft: 5,
         backgroundColor: Colors.dt_gray + "33",
         width: ms(40),
         height: ms(40),
@@ -197,5 +205,31 @@ export const ChatScreenStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    dt_group_image_container:{
+        width:ms(30),
+        height:ms(30),
+        borderRadius:ms(50),
+        backgroundColor:Colors.dt_gray+"33",
+        marginLeft:ms(8),
+        marginRight:ms(0),
+        marginTop:ms(2),
+        overflow:"hidden"
+    },
+    dt_group_image:{
+        width:"100%",
+        height:"100%",
+        resizeMode:"cover",
+    },
+    dt_pyramidContainer:{
+        position:"absolute",
+        transform:[{rotate:"180deg"}],
+        left:ms(-5),
+        top:ms(-0.2),
+    },
+    dt_chat_user:{
+        position:"absolute",
+        transform:[{rotate:"180deg"}],
+        right:ms(-5)
+    }
 
 })

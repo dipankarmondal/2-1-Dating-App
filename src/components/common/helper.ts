@@ -382,7 +382,7 @@ export const SingleGroupMenuItems = [
     { key: 'members', label: 'Members' },
     { key: 'forum', label: 'Forum' },
     { key: 'visuals', label: 'Visuals' },
-];
+]; 
 export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },
     { key: 'group_messenger', label: 'Group Messenger' },

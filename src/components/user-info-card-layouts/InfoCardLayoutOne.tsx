@@ -24,7 +24,7 @@ type Props = {
 }
 
 const InfoCardLayoutOne: React.FC<Props> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId }) => {
-    // console.log("object", selectionAction)
+
     return (
         <View>
             <View style={styles.dt_intrest}>

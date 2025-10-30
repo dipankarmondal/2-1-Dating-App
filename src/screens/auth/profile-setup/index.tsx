@@ -52,7 +52,6 @@ const ProfileSetup: React.FC = () => {
     const ProfileSetUpMutation = useMutation({
         mutationFn: (data: any) => UpdateProfileSetup(Token, data),
         onSuccess: (res) => {
-            console.log("ProfileSetUpMutation", res);
             if (res?.success === true) {
                 QueryInvalidater.invalidateQueries({ queryKey: ['GetUser'] });
                 toast("success", { title: res?.message });

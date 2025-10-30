@@ -92,7 +92,6 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
     })
 
     const handleDeleteGroup = () => {
-        console.log("object", "action")
         setGroupDeteleModal(false),
         DeleteGroupMutation.mutate(modalSelectId)
     }

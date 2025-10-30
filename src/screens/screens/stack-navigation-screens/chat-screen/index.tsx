@@ -24,7 +24,6 @@ import DeleteIcon from '@svgs/delete.svg'
 import EditIcon from '@svgs/edit.svg'
 
 /** Liabary*/
-import { launchImageLibrary } from 'react-native-image-picker';
 import { useIsFocused } from '@react-navigation/native'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { LoaderKitView } from 'react-native-loader-kit';
@@ -55,54 +54,72 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const [document, setDocument] = useState(null);
     const [imageInput, setImageInput] = useState(null);
 
+    const chatType = type === 'single'
+    const conversationId = chatType ? chat?.otherParticipant._id : chat?._id;
     const documentType = document?.mediaRecord?.type
-    const isUser = selectedMessage?.senderId?._id === user?.id
-    const isTyping = showTyping?.userId === chat?.otherParticipant?._id && showTyping?.isTyping === true;
+    const isUser = chatType ? selectedMessage?.senderId?._id === user?.id : selectedMessage?.sender?._id === user?.id
+    const isTyping = showTyping?.userId === conversationId && showTyping?.isTyping === true;
 
+    console.log("object" , selectedMessage)
+
+    // Socket Connection
     useEffect(() => {
-        if (isFocused && socket && socketConnected && chat?.otherParticipant?._id) {
-            const otherUserId = chat.otherParticipant._id;
-            socket.emit('join_conversation', {
-                otherUserId: otherUserId
-            });
+        if (isFocused && socket && socketConnected && conversationId) {
+            const eventJoin = type === 'single' ? 'join_conversation' : 'join_group';
+            const eventLeave = type === 'single' ? 'leave_conversation' : 'leave_group';
+            const payload = type === 'single'
+                ? { otherUserId: conversationId }
+                : { groupId: conversationId };
+
+            socket.emit(eventJoin, payload);
+
             return () => {
-                socket.emit('leave_conversation', {
-                    otherUserId: otherUserId
-                });
-            }
+                socket.emit(eventLeave, payload);
+            };
         }
-    }, [isFocused, socket, socketConnected, chat?.otherParticipant?._id]);
+    }, [isFocused, socket, socketConnected, conversationId, type]);
 
+    // Socket Listeners
     useEffect(() => {
-        if (!socket || !socketConnected || !chat?.otherParticipant?._id) return;
+        if (!socket || !socketConnected || !conversationId) return;
+
+        const messageEvent = chatType ? 'new_personal_message' : 'new_group_message';
+        const sentEvent = chatType ? 'message_sent' : 'group_message_sent';
+        const typingEvent = chatType ? 'user_typing' : 'group_typing_start';
+
+        const invalidateMessages = () => {
+            QueryInvalidater.invalidateQueries({ queryKey: ['messages', conversationId] });
+        };
 
         const handleNewMessage = (message: any) => {
-            QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+            invalidateMessages();
         };
+
         const handleMessageSent = (message: any) => {
-            QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+            invalidateMessages();
             setImageModal(false);
         };
-        socket.on('new_personal_message', handleNewMessage);
-        socket.on('message_sent', handleMessageSent);
-        socket.on('user_typing', (data: any) => {
+
+        const handleTyping = (data: any) => {
             setShowTyping(data);
-        });
+        };
+
+        socket.on(messageEvent, handleNewMessage);
+        socket.on(sentEvent, handleMessageSent);
+        socket.on(typingEvent, handleTyping);
 
         return () => {
-            socket.off('new_personal_message', handleNewMessage);
-            socket.off('message_sent', handleMessageSent);
-            socket.off('user_typing');
+            socket.off(messageEvent, handleNewMessage);
+            socket.off(sentEvent, handleMessageSent);
+            socket.off(typingEvent, handleTyping);
         };
-    }, [socket, socketConnected, chat?.otherParticipant?._id]);
-
+    }, [socket, socketConnected, conversationId, chatType]);
 
     /** 🔹 Send text message */
     const sendMessage = () => {
-        if (socket && socketConnected && chat?.otherParticipant?._id) {
-            const otherUserId = chat.otherParticipant._id;
-            socket.emit('send_personal_message', {
-                receiverId: otherUserId,
+        if (socket && socketConnected && conversationId) {
+            socket.emit(chatType ? 'send_personal_message' : 'send_group_message', {
+                [chatType ? 'receiverId' : 'groupId']: conversationId,
                 content: inputText,
                 messageType: 'text',
             });
@@ -111,6 +128,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         setInputText('');
     };
 
+    //* 🔹 Send media message */
     const uploadMeadiaMutation = useMutation({
         mutationFn: async (data: any) => UploadMessageMedia(Token, data),
         onSuccess: (res: any) => {
@@ -120,6 +138,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         }
     })
 
+    //* 🔹 Send media message */
     const handlePickMedia = async () => {
         try {
             const result = await pick({
@@ -138,6 +157,8 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     type: file.type,
                     name: file.name || 'media',
                 });
+                formData.append("optimize", true);
+                formData.append("createThumbnail", true)
 
                 setImageModal(true);
 
@@ -154,11 +175,13 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         setModalVisible(true);
     };
 
+    //* 🔹 Edit message
     const EditBtnClick = () => {
         setModalVisible(false);
         setTimeout(() => setShowEditModal(true), 300);
     }
 
+    //* 🔹 Edit message
     useEffect(() => {
         if (showEditModal && selectedMessage) {
             setEditText(selectedMessage.content || "");
@@ -172,18 +195,21 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 styles,
                 item,
                 onLongPress: handleLongPress,
+                type
             }}
         />
     );
 
+    //* 🔹 Get messages
     const { data: messadeData, isLoading } = useQuery({
-        queryKey: ["messages", chat?.otherParticipant?._id],
-        queryFn: () => GetConversationWithUser(Token, chat?.otherParticipant?._id, 100, 1),
+        queryKey: ["messages", conversationId],
+        queryFn: () => GetConversationWithUser(Token, conversationId, 100, 1, type),
         enabled: !!Token
     })
 
+    //* 🔹 Delete message
     const DeleteMessageMutation = useMutation({
-        mutationFn: (id: any) => DeletePersonalMessage(Token, id),
+        mutationFn: (id: any) => DeletePersonalMessage(Token, id, type),
         onSuccess: (res) => {
             if (res?.success === true) {
                 setShowDeleteModal(false);
@@ -192,23 +218,26 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         }
     })
 
+    //* 🔹 Delete message
     const DeleteBtnClick = () => {
         setModalVisible(false);
         setTimeout(() => setShowDeleteModal(true), 300);
     }
 
+    //* 🔹 Delete message
     const handleDeleteChat = () => {
         DeleteMessageMutation.mutate(selectedMessage?._id);
     }
 
+    //* 🔹 Edit message
     const EditChatMutation = useMutation({
-        mutationFn: ({ id, data }: { id: any; data: any }) => EditPersonalMessage(Token, id, data),
-        onSuccess: (res) => {
+        mutationFn: ({ id, data }: { id: any; data: any }) => EditPersonalMessage(Token, id, data, type),
+        onSuccess: (res: any) => {
             if (res?.success === true) {
                 setShowEditModal(false);
                 setSelectedMessage(null);
                 setEditText("");
-                QueryInvalidater.invalidateQueries({ queryKey: ['messages', chat?.otherParticipant?._id] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['messages', conversationId] });
             }
         },
     });
@@ -219,13 +248,15 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         EditChatMutation.mutate({ id: selectedMessage?._id, data: { content: editText } });
     };
 
+    //* 🔹 Open image modal
     const openImageModal = (data: any) => {
         setDocument(data);
     }
 
+    //* 🔹 Send image message
     const sendImageMessage = () => {
         if (!imageInput.trim()) return;
-        if (socket && socketConnected && chat?.otherParticipant?._id) {
+        if (socket && socketConnected && conversationId) {
             const otherUserId = chat.otherParticipant._id;
             socket.emit('send_personal_message', {
                 receiverId: otherUserId,
@@ -237,7 +268,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         }
         setImageInput('');
     };
-
 
     return (
         <View style={styles.dt_container}>
@@ -263,6 +293,12 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 {
                     isTyping && (
                         <View style={[styles.dt_messageContainer, styles.dt_typing_Container]}>
+                            {
+                                chatType &&
+                                <Text style={[styles.dt_messageText, { marginBottom: ms(-5) }]}>
+                                    {showTyping?.username}
+                                </Text>
+                            }
                             <LoaderKitView
                                 style={{ width: 20, height: 20 }}
                                 name={'BallPulse'}
@@ -275,7 +311,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 {/* Input area */}
                 <View style={styles.dt_inputContainer}>
                     <TouchableOpacity
-                        style={[styles.dt_sendButton, { marginRight: 5 }]}
+                        style={[styles.dt_sendButton]}
                         onPress={handlePickMedia}
                     >
                         <PlusIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
@@ -402,7 +438,6 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     }
                 </View>
             </ModalAction>
-
         </View>
     );
 };

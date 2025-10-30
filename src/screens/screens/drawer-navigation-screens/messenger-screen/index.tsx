@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TextInput, TouchableOpacity, } from 'react-native'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
 import { HomeScreenStyles as styles } from './styles'
@@ -44,8 +44,10 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showFilterModal, setShowFilterModal] = useState(false);
-    const [selectedChat, setSelectedChat] = useState<{ id: string; name: string } | null>(null);
+    const [selectedChat, setSelectedChat] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
+
+    console.log("object", selectedChat?.otherParticipant?.username)
 
     const QueryInvalidater = useQueryClient();
     const isFocused = useIsFocused();
@@ -59,24 +61,24 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
         if (key) {
             setActiveKey(key);
         }
-    }, [key, isFocused]); 
+    }, [key, isFocused]);
 
     useEffect(() => {
         if (!socket || !socketConnected || !isFocused) return;
         const handleNewMessage = (message: any) => {
             QueryInvalidater.invalidateQueries({ queryKey: ['MessageUserList', activeKey] });
         };
-        socket.on('new_personal_message', handleNewMessage);
-        socket.on('user_typing', (data: any) => {
+        socket.on(activeKey === 'messenger' ? 'new_personal_message' : 'new_group_message', handleNewMessage);
+        socket.on(activeKey === 'messenger' ? 'user_typing' : 'group_typing_start', (data: any) => {
             setShowTyping(data);
         });
         return () => {
-            socket.off('new_personal_message', handleNewMessage);
+            socket.off(activeKey === 'messenger' ? 'new_personal_message' : 'new_group_message', handleNewMessage);
         };
     }, [socket, socketConnected, isFocused]);
 
-    const handleMorePress = (id: string, name: string) => {
-        setSelectedChat({ id, name });
+    const handleMorePress = (data: any) => {
+        setSelectedChat(data);
         setShowDropdown(true);
     };
 
@@ -194,10 +196,10 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}
-                headerText={`${selectedChat?.name}` || "--"}
+                headerText={activeKey === "messenger" ? `${selectedChat?.otherParticipant?.username}` : `${selectedChat?.group?.name}`}
             >
                 <View style={styles.dt_buttons_wrapper}>
-                    {createModalBtn(handlers)?.map((item, index) => {
+                    {createModalBtn(handlers, activeKey)?.map((item, index) => {
                         return (
                             <ModalButtons
                                 key={index}
@@ -212,12 +214,12 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
             <ModalAction
                 isModalVisible={showDeleteModal}
                 setModalVisible={setShowDeleteModal}
-                headerText={`Delete chat with ${selectedChat?.name}?`}
+                headerText={`Delete chat with ${activeKey === "messenger" ? `${selectedChat?.otherParticipant?.username}` : `${selectedChat?.group?.name}`}?`}
             >
                 <ModalContent
                     {...{
                         setModal: setShowDeleteModal,
-                        title: `Do you want to delete this chat with ${selectedChat?.name}?`,
+                        title: `Do you want to delete this chat with ${activeKey === "messenger" ? `${selectedChat?.otherParticipant?.username}` : `${selectedChat?.group?.name}`}?`,
                         successText: "Yes, Delete Chat",
                         cancelText: "No, Keep Chat",
                         onSuccess: () => {
