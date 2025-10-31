@@ -32,6 +32,8 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
         )
     }
 
+    console.log("object",  item?.senderId?._id === user?.id)
+
     return (
         <View style={{ flexDirection: isUser ? 'row-reverse' : 'row' }}>
             {
@@ -87,7 +89,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                 )}
                 <View style={styles.dt_timestampContainer}>
                     {
-                        chatType && !isUser && (
+                        chatType && isUser && (
                             item?.isRead ?
                                 <DubbleCheck  {...IconProps(ms(15))} fill="#26a1f4" style={{ marginBottom: ms(-2), marginLeft: ms(-3) }} /> :
                                 <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
