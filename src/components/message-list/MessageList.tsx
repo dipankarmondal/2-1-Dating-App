@@ -90,28 +90,32 @@ const MessageList: React.FC<MessageListProps> = ({ chat, onMorePress, type, show
             {/* Message Text */}
             <View style={styles.dt_text_container}>
                 <View style={styles.dt_text_wrapper}>
-                    <View style={styles.dt_name_wrapper}>
-                        <Text style={styles.dt_name}>{type === 'group' ? chat?.group?.name : chat?.otherParticipant?.username}</Text>
+                    <Text style={styles.dt_name}>{type === 'group' ? chat?.group?.name : chat?.otherParticipant?.username}</Text>
+                    {/* <View style={styles.dt_name_wrapper}>
                         <TouchableOpacity
                             style={styles.dt_more}
                             onPress={() => onMorePress(chat)}
                         >
                             <MenuDotsIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
-                    <View style={styles.dt_message_wrapper}>
-                        {
-                            isCheckIcon && (
-                                chat?.lastMessage?.isRead ?
-                                    <DubbleCheck  {...IconProps(ms(15))} fill="#26a1f4" style={{ marginBottom: ms(-2), marginLeft: ms(-3) }} /> :
-                                    <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
-                            )
-                        }
-                        <Text style={styles.dt_text} numberOfLines={2} ellipsizeMode="tail">
-                            {getMessagePreview()}
-                        </Text>
-                    </View>
+                    {
+                        chat?.lastMessage && (
+                            <View style={styles.dt_message_wrapper}>
+                                {
+                                    isCheckIcon && (
+                                        chat?.lastMessage?.isRead ?
+                                            <DubbleCheck  {...IconProps(ms(15))} fill="#26a1f4" style={{ marginBottom: ms(-2), marginLeft: ms(-3) }} /> :
+                                            <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
+                                    )
+                                }
+                                <Text style={styles.dt_text} numberOfLines={2} ellipsizeMode="tail">
+                                    {getMessagePreview()}
+                                </Text>
+                            </View>
+                        )
+                    }
                 </View>
             </View>
         </TouchableOpacity>

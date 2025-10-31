@@ -24,12 +24,15 @@ export const MessageListStyles = StyleSheet.create({
         borderRadius:ms(50),
     },
     dt_text_container:{
-        flex:1
+        flex:1,
+        // backgroundColor:"red",
+        flexDirection:"row"
     },
     dt_name_wrapper:{
         flexDirection:"row",
         alignItems:"center",
-        justifyContent:"space-between"
+        justifyContent:"space-between",
+        backgroundColor:"red"
     },
     dt_text_wrapper:{
         flex:1

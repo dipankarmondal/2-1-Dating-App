@@ -202,7 +202,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                     {createModalBtn(handlers, activeKey)?.map((item, index) => {
                         return (
                             <ModalButtons
-                                key={index}
+                                key={index} 
                                 {...{
                                     item
                                 }}

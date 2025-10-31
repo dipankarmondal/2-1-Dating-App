@@ -26,7 +26,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
         if (item?.messageType === 'video') {
             setVideoModal(true);
             setSource(item?.mediaUrl)
-        } else  if(item?.messageType === 'image') (
+        } else if (item?.messageType === 'image') (
             setVisible(true),
             setSource([item?.mediaUrl])
         )
@@ -49,7 +49,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                 style={[
                     styles.dt_messageContainer,
                     isUser ? styles.dt_myMessage : styles.dt_otherMessage,
-                ]}
+                    { marginLeft: chatType && ms(15) }]}
                 onPress={() => handleClick(item)}
             >
                 {
@@ -59,7 +59,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                         </Text>
                     )
                 }
-                <View style={[isUser ? styles.dt_chat_user : styles.dt_pyramidContainer, ]}>
+                <View style={[isUser ? styles.dt_chat_user : styles.dt_pyramidContainer,]}>
                     <PyramidIcon {...IconProps(ms(13))} fill={isUser ? Colors.dt_card_blue : Colors.dt_success_green} />
                 </View>
                 {item.messageType === 'image' ? (
@@ -93,7 +93,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                                 <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
                         )
                     }
-                    
+
                     <Text style={[styles.dt_timestamp, { color: Colors.dt_black }]}> {new Date(item.timestamp).toLocaleTimeString()}</Text>
                     {
                         item?.isEdited && (

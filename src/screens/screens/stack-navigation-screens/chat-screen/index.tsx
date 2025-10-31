@@ -28,6 +28,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { LoaderKitView } from 'react-native-loader-kit';
 import { pick, types } from '@react-native-documents/picker'
+import Loader from '../../../../components/loader/Loader'
 
 type Props = {
     route: any,
@@ -55,7 +56,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
     const [imageInput, setImageInput] = useState(null);
 
     const chatType = type === 'single'
-    const conversationId = chatType ? chat?.otherParticipant._id : chat?._id;
+    const conversationId = chatType ? chat?.otherParticipant._id : chat?.group?._id;
     const documentType = document?.mediaRecord?.type
     const isUser = chatType ? selectedMessage?.senderId?._id === user?.id : selectedMessage?.sender?._id === user?.id
     const isTyping = showTyping?.userId === conversationId && showTyping?.isTyping === true;
@@ -280,33 +281,38 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 keyboardVerticalOffset={80}
             >
-                <FlatList
-                    ref={flatListRef}
-                    data={[...(messadeData?.data || [])].reverse()}
-                    renderItem={renderItem}
-                    keyExtractor={item => item?._id}
-                    contentContainerStyle={{ paddingVertical: 10 }}
-                    inverted
-                />
-                {
-                    isTyping && (
-                        <View style={[styles.dt_messageContainer, styles.dt_typing_Container]}>
-                            {
-                                chatType &&
-                                <Text style={[styles.dt_messageText, { marginBottom: ms(-5) }]}>
-                                    {showTyping?.username}
-                                </Text>
-                            }
-                            <LoaderKitView
-                                style={{ width: 20, height: 20 }}
-                                name={'BallPulse'}
-                                animationSpeedMultiplier={1.0}
-                                color={Colors.dt_white}
-                            />
-                        </View>
-                    )
-                }
-                {/* Input area */}
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <FlatList
+                            ref={flatListRef}
+                            data={[...(messadeData?.data || [])].reverse()}
+                            renderItem={renderItem}
+                            keyExtractor={item => item?._id}
+                            contentContainerStyle={{ paddingVertical: 10 }}
+                            inverted
+                        />
+
+                        {isTyping && (
+                            <View style={[styles.dt_messageContainer, styles.dt_typing_Container]}>
+                                {chatType && (
+                                    <Text style={[styles.dt_messageText, { marginBottom: ms(-5) }]}>
+                                        {showTyping?.username}
+                                    </Text>
+                                )}
+                                <LoaderKitView
+                                    style={{ width: 20, height: 20 }}
+                                    name={'BallPulse'}
+                                    animationSpeedMultiplier={1.0}
+                                    color={Colors.dt_white}
+                                />
+                            </View>
+                        )}
+
+                        {/* Input area */}
+                    </>
+                )}
                 <View style={styles.dt_inputContainer}>
                     <TouchableOpacity
                         style={[styles.dt_sendButton]}
@@ -326,11 +332,9 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     <TouchableOpacity style={styles.dt_sendButton} onPress={sendMessage}>
                         <SendIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
                     </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.dt_sendButton}>
-                        <MicIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
-                    </TouchableOpacity> */}
                 </View>
             </KeyboardAvoidingView>
+
 
             {/* Modal */}
             <ModalAction

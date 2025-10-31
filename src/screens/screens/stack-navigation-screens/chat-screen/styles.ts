@@ -34,7 +34,8 @@ export const ChatScreenStyles = StyleSheet.create({
     dt_otherMessage: {
         backgroundColor: Colors.dt_success_green,
         alignSelf: 'flex-start',
-        borderTopLeftRadius: ms(0)
+        borderTopLeftRadius: ms(0),
+        marginLeft: ms(15)
     },
     dt_messageText: {
         fontSize: ms(14),

@@ -823,7 +823,7 @@ export const GetConversationWithUser = async (token: any, id: any, limit: any, p
         return res?.data;
     } catch (error) {
         console.log("❌ API Error:", error?.response?.data || error);
-        toast("error", { title: "Something went wrong" });
+        toast("error", { title: "pratik" });
         throw error;
     }
 };
