@@ -206,31 +206,55 @@ export const ChatScreenStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    dt_group_image_container:{
-        width:ms(30),
-        height:ms(30),
-        borderRadius:ms(50),
-        backgroundColor:Colors.dt_gray+"33",
-        marginLeft:ms(8),
-        marginRight:ms(0),
-        marginTop:ms(2),
-        overflow:"hidden"
+    dt_group_image_container: {
+        width: ms(30),
+        height: ms(30),
+        borderRadius: ms(50),
+        backgroundColor: Colors.dt_gray + "33",
+        marginLeft: ms(8),
+        marginRight: ms(0),
+        marginTop: ms(2),
+        overflow: "hidden"
     },
-    dt_group_image:{
-        width:"100%",
-        height:"100%",
-        resizeMode:"cover",
+    dt_group_image: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover",
     },
-    dt_pyramidContainer:{
-        position:"absolute",
-        transform:[{rotate:"180deg"}],
-        left:ms(-5),
-        top:ms(-0.2),
+    dt_pyramidContainer: {
+        position: "absolute",
+        transform: [{ rotate: "180deg" }],
+        left: ms(-5),
+        top: ms(-0.2),
     },
-    dt_chat_user:{
-        position:"absolute",
-        transform:[{rotate:"180deg"}],
-        right:ms(-5)
+    dt_chat_user: {
+        position: "absolute",
+        transform: [{ rotate: "180deg" }],
+        right: ms(-5)
+    },
+    dt_wrapper: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: ms(30)
+    },
+    dt_group_image_container_wrapper: {
+        width: ms(120),
+        height: ms(120),
+        backgroundColor: Colors.dt_gray + "78",
+        borderRadius: "100%",
+        padding:ms(5),
+    },
+    dt_group_image_wrapper: {
+        width: "100%",
+        height: "100%",
+        borderRadius: "100%",
+        overflow: "hidden",
+    },
+    dt_group_description:{
+        fontFamily:Fonts.Font_500,
+        fontSize:ms(12),
+        color:Colors.dt_white
     }
 
 })

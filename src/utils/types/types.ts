@@ -171,15 +171,6 @@ export type MultiselectInputProps = {
     option?: any
 }
 
-export type SearchBoxProps = {
-    setSearchText: (text: string) => void,
-    searchText: string,
-    type?: string,
-    activeKey?: string,
-    levelOptions?: any[],
-    onLevelSelect?: any
-}
-
 export type ScreenHeaderProps = {
     children: React.ReactNode,
     filterData?: any[],
@@ -299,3 +290,10 @@ export type GroupCardProps = {
     ModalSelectData?: any,
     isMyGroup?: any
 }
+
+export type MemberItemProps = {
+    name: string;
+    isOnline?: boolean,
+    photo?: string,
+    id: string
+};

@@ -536,11 +536,14 @@ export const CreateNewGroup = async (token: any, data: any,) => {
 };
 
 //Get All Groups
-export const GetAllGroups = async (token: any) => {
+export const GetAllGroups = async (token: any, search: any) => {
     try {
         const res = await API.get("/groups", {
             headers: {
                 Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {})
             }
         });
         return res?.data;

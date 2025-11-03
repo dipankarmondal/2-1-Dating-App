@@ -24,6 +24,7 @@ import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
 import { toast } from '../../../../utils/helpers/responsive'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const GroupsScreen: React.FC = () => {
@@ -32,6 +33,7 @@ const GroupsScreen: React.FC = () => {
     const [groupDeteleModal, setGroupDeteleModal] = useState(false);
     const [groupLeaveModal, setGroupLeaveModal] = useState(false);
     const [modalSelectId, setModalSelectId] = useState<any>(null)
+    const [search, setSearch] = useState("");
 
     const isFocused = useIsFocused();
     const Navigation = useNavigation<any>()
@@ -49,25 +51,26 @@ const GroupsScreen: React.FC = () => {
     };
 
     const { data: GroupAllData, isLoading, refetch } = useQuery({
-        queryKey: ["GroupAllData"],
-        queryFn: () => GetAllGroups(Token),
-        enabled: !!Token
+        queryKey: ["GroupAllData",search],
+        queryFn: () => GetAllGroups(Token,search),
+        enabled: !!Token,
     })
+    console.log("object",search)
 
     const DeleteGroupMutation = useMutation({
         mutationFn: (id: any) => DeleteGroup(Token, id),
         onSuccess: (res: any) => {
-            if(res?.success === true) {
+            if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['GroupAllData'] });
             }
         }
     })
-    
+
     const LeaveGroupMutation = useMutation({
         mutationFn: (id: any) => LeaveGroup(Token, id),
         onSuccess: (res: any) => {
-            if(res?.success === true) {
+            if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['GroupAllData'] });
             }
@@ -76,7 +79,7 @@ const GroupsScreen: React.FC = () => {
 
     const handleDeleteGroup = () => {
         setGroupDeteleModal(false),
-        DeleteGroupMutation.mutate(modalSelectId)
+            DeleteGroupMutation.mutate(modalSelectId)
     }
     const handleLeaveGroup = () => {
         setGroupLeaveModal(false)
@@ -105,6 +108,12 @@ const GroupsScreen: React.FC = () => {
                 onRefresh={refetch} // just pass refetch here
             >
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox 
+                        {...{
+                            search,
+                            setSearch
+                        }}
+                    />
                     {isLoading ? <Loader /> :
                         GroupAllData?.data?.groups?.length > 0 ? (
                             GroupAllData?.data?.groups?.map((item: any, index: number) => {
@@ -118,10 +127,10 @@ const GroupsScreen: React.FC = () => {
                                     createDate: item?.createdAt,
                                     createdId: item?.creator?._id,
                                     isUserJoined: item?.userMembership?.status,
-                                    groupId:item?._id
+                                    groupId: item?._id
                                 }
 
-                                return (  
+                                return (
                                     <GroupCard
                                         key={index}
                                         {...{
@@ -175,7 +184,7 @@ const GroupsScreen: React.FC = () => {
                         title: "Are you sure you want to delete this group?",
                         successText: "Yes, Delete Group",
                         cancelText: "No, Cancel",
-                        onSuccess:handleDeleteGroup
+                        onSuccess: handleDeleteGroup
                     }}
                 />
             </ModalAction>
@@ -191,7 +200,7 @@ const GroupsScreen: React.FC = () => {
                         title: "Are you sure you want to leave this group?",
                         successText: "Yes, Leave Group",
                         cancelText: "No, Cancel",
-                        onSuccess:handleLeaveGroup
+                        onSuccess: handleLeaveGroup
                     }}
                 />
             </ModalAction>

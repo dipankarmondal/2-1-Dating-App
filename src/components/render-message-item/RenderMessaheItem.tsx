@@ -32,8 +32,6 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
         )
     }
 
-    console.log("object",  item?.senderId?._id === user?.id)
-
     return (
         <View style={{ flexDirection: isUser ? 'row-reverse' : 'row' }}>
             {

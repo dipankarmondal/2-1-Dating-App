@@ -1,42 +1,40 @@
 /**React Imports */
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
 import { ChatScreenStyles as styles } from '../styles'
 import { CommonStyles as CommonStyles } from '../../../common/CommonStyle'
 import { IconProps } from '../../../../../utils/helpers/Iconprops'
-import { ms } from '../../../../../utils/helpers/responsive'
+import { ms, toast } from '../../../../../utils/helpers/responsive'
+import { DeleteGroup, GetGroupMembers, LeaveGroup } from '../../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../../utils/context/auth-context/AuthContext'
+import { MemberItemProps } from '../../../../../utils/types/types'
 import { Colors } from '../../../../../utils/constant/Constant'
 
 /**Components */
 import ScreenLayout from '../../../common/ScreenLayout'
 import ModalAction from '../../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../../components/modal/modal-content/logout-content/ModalContent'
+import ScrollContent from '../../../../../components/scrollcontent/ScrollContent'
+import Loader from '../../../../../components/loader/Loader'
 
 /**Icons*/
-import MuteIcon from '@svgs/mute.svg'
 import LeaveIcon from '@svgs/user-logout.svg'
-import LocationIcon from '@svgs/location.svg'
-import { GetGroupMembers } from '../../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useQuery } from '@tanstack/react-query'
-import { useAuth } from '../../../../../utils/context/auth-context/AuthContext'
+import DeleteIcon from '@svgs/cross.svg'
+
+/** Liabary*/
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     route: any
 }
 
-type MemberItemProps = {
-    name: string;
-    isOnline?: boolean,
-    photo?: string,
-    id: string
-};
-
 const ChatInfoScreen: React.FC<Props> = ({ route }) => {
 
     const [showLeaveModal, setShowLeaveModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const { chat, type } = route.params || {}
     const { Token, user } = useAuth()
@@ -48,9 +46,29 @@ const ChatInfoScreen: React.FC<Props> = ({ route }) => {
         enabled: !!Token
     })
 
-    console.log("object", chat )
+    const LeavegroupMutation = useMutation({
+        mutationFn: (id: any) => LeaveGroup(Token, id),
+        onSuccess: (res: any) => {
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                Navigation.navigate("DrawerNavigator", { screen: 'MessengerScreen', params: { key: "group_messenger" }, })
+            }
+        }
+    })
 
-    const CreaterData = groupFriends?.data?.members?.find((item: any) => item?.user?._id === chat?.group?.creator)
+    const DeletegroupMutation = useMutation({
+        mutationFn: (id: any) => DeleteGroup(Token, id),
+        onSuccess: (res: any) => {
+            if (res?.success === true) {
+                toast("success", { title: res?.message });
+                Navigation.navigate("DrawerNavigator", { screen: 'MessengerScreen', params: { key: "group_messenger" }, })
+            }
+        }
+    })
+
+    const CreaterData = groupFriends?.data?.members?.find((item: any) => item?.role === "creator")
+
+    const isUser = user?.id === CreaterData?.user?._id
 
     const MemberItem: React.FC<MemberItemProps> = ({ name, isOnline, photo, id }) => {
         const isUser = user?.id === id
@@ -96,6 +114,16 @@ const ChatInfoScreen: React.FC<Props> = ({ route }) => {
         )
     };
 
+    const HandleLeaveGroup = () => {
+        setShowLeaveModal(false)
+        LeavegroupMutation.mutate(chat?.group?._id)
+    }
+
+    const HandleDeleteGroup = () => {
+        setShowDeleteModal(false)
+        DeletegroupMutation.mutate(chat?.group?._id)
+    }
+
     return (
         <ScreenLayout
             {...{
@@ -104,58 +132,99 @@ const ChatInfoScreen: React.FC<Props> = ({ route }) => {
                 ...(type === "group" && {
                     headerChildren: (
                         <View style={styles.dt_menu_wrapper}>
-                            <TouchableOpacity style={styles.dt_menu_container}>
-                                <MuteIcon {...IconProps(ms(20))} fill={Colors.dt_white} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.dt_menu_container} onPress={() => setShowLeaveModal(true)}>
-                                <LeaveIcon {...IconProps(ms(16))} fill={Colors.dt_error} />
-                            </TouchableOpacity>
+                            {
+                                !isUser && (
+                                    <TouchableOpacity style={styles.dt_menu_container} onPress={() => setShowLeaveModal(true)}>
+                                        <LeaveIcon {...IconProps(ms(18))} fill={Colors.dt_error} />
+                                    </TouchableOpacity>
+                                )
+                            }
+                            {
+                                isUser && (
+                                    <TouchableOpacity style={styles.dt_menu_container} onPress={() => setShowDeleteModal(true)}>
+                                        <DeleteIcon {...IconProps(ms(25))} fill={Colors.dt_error} />
+                                    </TouchableOpacity>
+                                )
+                            }
                         </View>
                     ),
                 })
             }}
         >
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View style={CommonStyles.dt_container}>
-                    <Text style={styles.dt_admin_text}>Admin</Text>
-                    <MemberItem
-                        {...{
-                            name: CreaterData?.user?.username ?? "--",
-                            isOnline: CreaterData?.user?.isOnline,
-                            photo: CreaterData?.user?.profile?.photos[0],
-                            id: CreaterData?.user?._id
-                        }}
-                    />
-
-                    <View style={styles.dt_line} />
-                    <Text style={styles.dt_admin_text}>Members ({groupFriends?.data?.members?.length})</Text>
-
-                    <View style={{ gap: ms(16) }}>
-                        {
-                            groupFriends?.data?.members?.map((item: any, index: number) => {
-
-                                if (item?.role === "creator") return null;
-
-                                return (
-                                    <MemberItem
-                                        key={index}
-                                        {...{
-                                            name: item?.user?.username ?? "--",
-                                            isOnline: item?.user?.isOnline,
-                                            photo: item?.user?.profile?.photos[0],
-                                            id: item?.user?._id
-                                        }}
-                                    />
-                                )
-                            })
-                        }
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={groupFriendsRefetch}
+            >
+                <View style={styles.dt_wrapper}>
+                    <View style={styles.dt_group_image_container_wrapper}>
+                        <View style={styles.dt_group_image_wrapper}>
+                            <Image source={chat?.group?.coverImage ? { uri: chat?.group?.coverImage } : require('@images/dummy.png')} style={styles.dt_group_image} />
+                        </View>
+                    </View>
+                    <View style={{ width: "80%", marginTop: ms(16) }}>
+                        <Text style={[styles.dt_name, { textAlign: "center", lineHeight: ms(20) }]}>{chat?.group?.description}</Text>
                     </View>
                 </View>
-            </ScrollView>
+                {
+                    groupFriendsLoading ? (
+                        <Loader />
+                    ) : (
+                        <View style={CommonStyles.dt_container}>
+                            <Text style={styles.dt_admin_text}>Admin</Text>
+                            <MemberItem
+                                {...{
+                                    name: CreaterData?.user?.username ?? "--",
+                                    isOnline: CreaterData?.user?.isOnline,
+                                    photo: CreaterData?.user?.profile?.photos[0],
+                                    id: CreaterData?.user?._id
+                                }}
+                            />
+
+                            <View style={styles.dt_line} />
+                            <Text style={styles.dt_admin_text}>Members ({groupFriends?.data?.members?.length})</Text>
+                            <View style={{ gap: ms(16) }}>
+                                {
+                                    groupFriends?.data?.members?.map((item: any, index: number) => {
+
+                                        if (item?.role === "creator") return null;
+
+                                        return (
+                                            <MemberItem
+                                                key={index}
+                                                {...{
+                                                    name: item?.user?.username ?? "--",
+                                                    isOnline: item?.user?.isOnline,
+                                                    photo: item?.user?.profile?.photos[0],
+                                                    id: item?.user?._id
+                                                }}
+                                            />
+                                        )
+                                    })
+                                }
+                            </View>
+                        </View>
+                    )
+                }
+            </ScrollContent>
+            <ModalAction
+                isModalVisible={showDeleteModal}
+                setModalVisible={setShowDeleteModal}
+                headerText="Delete Group"
+            >
+                <ModalContent
+                    {...{
+                        setModal: setShowLeaveModal,
+                        title: `Do you want to delete this group?`,
+                        successText: "Yes, Delete Group",
+                        cancelText: "No, Stay",
+                        onSuccess: HandleDeleteGroup
+                    }}
+                />
+            </ModalAction>
             <ModalAction
                 isModalVisible={showLeaveModal}
                 setModalVisible={setShowLeaveModal}
-                headerText="Delete Chat"
+                headerText="Leave Group"
             >
                 <ModalContent
                     {...{
@@ -163,9 +232,7 @@ const ChatInfoScreen: React.FC<Props> = ({ route }) => {
                         title: `Do you want to leave this group?`,
                         successText: "Yes, Leave Group",
                         cancelText: "No, Stay",
-                        onSuccess: () => {
-                            setShowLeaveModal(false);
-                        }
+                        onSuccess: HandleLeaveGroup
                     }}
                 />
             </ModalAction>

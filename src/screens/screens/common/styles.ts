@@ -41,7 +41,8 @@ export const ScreenLayoutStyles = StyleSheet.create({
         fontSize: ms(18),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white,
-        textTransform:"capitalize"
+        textTransform:"capitalize",
+        flexShrink: 1
     }
 })
 

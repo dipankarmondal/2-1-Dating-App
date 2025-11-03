@@ -47,8 +47,6 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
     const [selectedChat, setSelectedChat] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
 
-    console.log("object", selectedChat?.otherParticipant?.username)
-
     const QueryInvalidater = useQueryClient();
     const isFocused = useIsFocused();
 
@@ -127,9 +125,9 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                             style={styles.dt_search_input}
                             selectionColor={Colors.dt_white}
                         />
-                        <TouchableOpacity style={styles.dt_filter_wrapper} onPress={() => setShowFilterModal(true)}>
+                        {/* <TouchableOpacity style={styles.dt_filter_wrapper} onPress={() => setShowFilterModal(true)}>
                             <FilterIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     {
                         activeKey === "messenger" ? (
@@ -229,7 +227,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                     }}
                 />
             </ModalAction>
-            <ModalAction
+            {/* <ModalAction
                 isModalVisible={showFilterModal}
                 setModalVisible={setShowFilterModal}
                 type="message"
@@ -248,7 +246,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                         })
                     }
                 </View>
-            </ModalAction>
+            </ModalAction> */}
         </ScreenLayout>
     )
 }
