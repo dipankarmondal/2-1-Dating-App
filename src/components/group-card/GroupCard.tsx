@@ -24,7 +24,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import LoaderKitView from 'react-native-loader-kit'
 
 /**Main export*/
-const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData,isMyGroup }) => {
+const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData, isMyGroup }) => {
     const Navigation = useNavigation<any>();
     const { Token, user } = useAuth()
     const QueryInvalidater = useQueryClient();
@@ -34,7 +34,7 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
     const formatDate = (date?: string) =>
         date ? moment.utc(date).local().format("MMM DD, YYYY") : "-";
 
-    const JoinGroupMutation = useMutation({ 
+    const JoinGroupMutation = useMutation({
         mutationFn: (id: any) => JoinGroup(Token, id),
         onSuccess: (res: any) => {
             if (res?.success === true) {
@@ -79,9 +79,9 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
                                         <LeaveGroupIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
                                     </TouchableOpacity>
                             }
-                            <TouchableOpacity style={styles.dt_message_box} onPress={()=> Navigation.navigate("DrawerNavigator",{screen: 'MessengerScreen', params: { key: "group_messenger" },})}>
+                            {/* <TouchableOpacity style={styles.dt_message_box} onPress={()=> Navigation.navigate("DrawerNavigator",{screen: 'MessengerScreen', params: { key: "group_messenger" },})}>
                                 <MessageIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                            </TouchableOpacity> 
+                            </TouchableOpacity>  */}
                         </View> :
                         <TouchableOpacity style={styles.dt_overlay} onPress={HandleJoinGroup}>
                             {

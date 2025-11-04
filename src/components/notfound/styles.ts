@@ -9,7 +9,7 @@ export const NotFoundStyles = StyleSheet.create({
         alignItems: "center",
     },
     dt_text:{
-        fontSize:ms(12),
+        fontSize:ms(14),
         fontFamily:Fonts.Font_700,
         color:Colors.dt_gray ,
         textAlign:"center",

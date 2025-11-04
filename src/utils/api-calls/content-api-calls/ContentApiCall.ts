@@ -902,3 +902,35 @@ export const UploadMessageMedia = async (token: any, data: any,) => {
         throw error;
     }
 };
+
+//My Profile Views
+
+export const MyProfileViews = async (token: any) => {
+    try {
+        const res = await API.get("/users/my-profile-views", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+
+// Users I Liked
+export const UsersInteractions = async (token: any, endPoint: any) => {
+    try {
+        const res = await API.get(`/interactions/${endPoint}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

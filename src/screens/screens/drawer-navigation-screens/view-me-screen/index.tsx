@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
@@ -7,6 +7,9 @@ import { CommonStyles as commonstyle } from '../../common/CommonStyle'
 import { ViewMeScreenStyles as styles } from './styles'
 import { Colors } from '../../../../utils/constant/Constant'
 import { ViewMeOptions } from '../../../../components/common/helper'
+import { GetProfileViewers } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { ms } from '../../../../utils/helpers/responsive'
+import { IconProps } from '../../../../utils/helpers/Iconprops'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -22,9 +25,6 @@ import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import { useIsFocused } from '@react-navigation/native'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { useQuery } from '@tanstack/react-query'
-import { GetProfileViewers } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { ms } from '../../../../utils/helpers/responsive'
-import { IconProps } from '../../../../utils/helpers/Iconprops'
 
 /**Icons*/
 import MaleIcon from '@svgs/male.svg'

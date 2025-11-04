@@ -11,19 +11,12 @@ import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
 import LoaderKitView from 'react-native-loader-kit'
+import { InfoCardLayoutOnetype } from '../../utils/types/types'
 
-type Props = {
-    item: any,
-    type?: any,
-    handleAcceptCall?: (id: any) => void,
-    handleDeclineCall?: (id: any) => void,
-    loader?: any,
-    selectionAction?: any,
-    selectedId?: any,
-    itemId?: any
-}
+const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId, }) => {
 
-const InfoCardLayoutOne: React.FC<Props> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId }) => {
+    const Intrest = item?.viewedUserId?.profile?.interestedIn || item?.profile?.interestedIn || item?.targetUserId?.profile?.interestedIn
+    const Location = item?.viewedUserId?.profile?.address?.fullAddress || item?.profile?.address?.fullAddress || item?.targetUserId?.profile?.address?.fullAddress
 
     return (
         <View>
@@ -52,36 +45,40 @@ const InfoCardLayoutOne: React.FC<Props> = ({ item = [], type, handleAcceptCall,
                         </View>
                     )}
                 </View>
-                <View style={styles.dt_intrest_container}>
-                    <Text style={styles.dt_intrest_text}>Interests</Text>
-                    <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                        {item?.profile?.interestedIn.includes('couple') && (
-                            <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
-                        )}
-                        {item?.profile?.interestedIn.includes('male') && (
-                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                        )}
-                        {item?.profile?.interestedIn.includes('female') && (
-                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                        )}
-                        {!(
-                            item?.profile?.interestedIn?.includes('couple') ||
-                            item?.profile?.interestedIn?.includes('male') ||
-                            item?.profile?.interestedIn?.includes('female')
-                        ) && (
-                                <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
-                                    Not specified
-                                </Text>
-                            )}
-                    </View>
-                </View>
+                {
+                    type !== "like_and_dislike" && (
+                        <View style={styles.dt_intrest_container}>
+                            <Text style={styles.dt_intrest_text}>Interests</Text>
+                            <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
+                                {Intrest.includes('couple') && (
+                                    <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
+                                )}
+                                {Intrest.includes('male') && (
+                                    <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
+                                )}
+                                {Intrest.includes('female') && (
+                                    <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
+                                )}
+                                {!(
+                                    Intrest?.includes('couple') ||
+                                    Intrest?.includes('male') ||
+                                    Intrest?.includes('female')
+                                ) && (
+                                        <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
+                                            Not specified
+                                        </Text>
+                                    )}
+                            </View>
+                        </View>
+                    )
+                }
             </View>
             <View style={[styles.dt_intrest, { flexDirection: "column" }]}>
                 <View style={styles.dt_intrest_container}>
                     <Text style={styles.dt_intrest_text}>Location</Text>
                     <View style={[styles.dt_location_container]}>
                         <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
-                            {item?.profile?.address?.fullAddress ?? "Not specified"}
+                            {Location ?? "Not specified"}
                         </Text>
                     </View>
                 </View>

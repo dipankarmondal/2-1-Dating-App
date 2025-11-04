@@ -208,7 +208,8 @@ export type UserInfoCardProps = {
     UserName?: string,
     onSendFriendRequest?: () => void,
     isBroadcastCheck?: boolean,
-    handleBroadcast?: any
+    handleBroadcast?: any,
+    userId?: string
 }
 
 export type MulteImageProps = {
@@ -297,3 +298,14 @@ export type MemberItemProps = {
     photo?: string,
     id: string
 };
+
+export type InfoCardLayoutOnetype = {
+    item: any,
+    type?: any,
+    handleAcceptCall?: (id: any) => void,
+    handleDeclineCall?: (id: any) => void,
+    loader?: any,
+    selectionAction?: any,
+    selectedId?: any,
+    itemId?: any,
+}
