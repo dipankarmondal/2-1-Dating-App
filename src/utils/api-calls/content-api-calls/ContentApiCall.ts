@@ -958,3 +958,35 @@ export const UsersInteractions = async (token: any, endPoint: any) => {
         throw error;
     }
 };
+
+//Get Remember
+
+export const GetRemember = async (token: any,url: any) => {
+    try {
+        const res = await API.get(`remember-me/${url}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Delete Remember Me
+
+export const DeleteRemember = async (token: any, id: any) => {
+    try {
+        const res = await API.delete(`remember-me/${id}`,  {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

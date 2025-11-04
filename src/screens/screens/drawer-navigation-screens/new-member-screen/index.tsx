@@ -8,6 +8,7 @@ import { Colors } from '../../../../utils/constant/Constant'
 import { OnlineOptions } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { CreateInteraction, ListAllUsers, SendFriendRequest, SendRememberMe } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { showToast } from '../../../../utils/helpers/responsive'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -29,7 +30,6 @@ import LikeIcon from '@svgs/like.svg'
 import DislikeIcon from '@svgs/dislike.svg'
 import InviteFrindIcon from '@svgs/setting/invite.svg'
 import BellIcon from '@svgs/bell.svg'
-import { showToast, toast } from '../../../../utils/helpers/responsive'
 
 /**Main export*/
 const NewMemberScreen: React.FC = () => {

@@ -5,18 +5,18 @@ import { Colors, getAge } from '../../utils/constant/Constant'
 import { NewMemberActions } from '../common/helper'
 import { ms } from '../../utils/helpers/responsive'
 import { IconProps } from '../../utils/helpers/Iconprops'
+import { InfoCardLayoutOnetype } from '../../utils/types/types'
 
 /**Icons*/
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
 import LoaderKitView from 'react-native-loader-kit'
-import { InfoCardLayoutOnetype } from '../../utils/types/types'
 
 const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId, }) => {
 
-    const Intrest = item?.viewedUserId?.profile?.interestedIn || item?.profile?.interestedIn || item?.targetUserId?.profile?.interestedIn
-    const Location = item?.viewedUserId?.profile?.address?.fullAddress || item?.profile?.address?.fullAddress || item?.targetUserId?.profile?.address?.fullAddress
+    const Intrest = item?.viewedUserId?.profile?.interestedIn || item?.profile?.interestedIn || item?.targetUserId?.profile?.interestedIn || item?.receiverId?.profile?.interestedIn
+    const Location = item?.viewedUserId?.profile?.address?.fullAddress || item?.profile?.address?.fullAddress || item?.targetUserId?.profile?.address?.fullAddress || item?.receiverId?.profile?.address?.fullAddress
 
     return (
         <View>

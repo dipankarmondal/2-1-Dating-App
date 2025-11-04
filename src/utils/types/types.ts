@@ -210,7 +210,9 @@ export type UserInfoCardProps = {
     handleBroadcast?: any,
     userId?: string,
     menuData?: any,
-    isLoading?: boolean
+    isLoading?: boolean,
+    openDropdown?: () => void,
+    isDelete?: boolean
 }
 
 export type MulteImageProps = {

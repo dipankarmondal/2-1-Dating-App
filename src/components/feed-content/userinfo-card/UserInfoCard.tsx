@@ -12,6 +12,7 @@ import { UserInfoCardProps } from '../../../utils/types/types'
 /**Icons*/
 import TvIcon from '@svgs/tv.svg'
 import MessageIcon from '@svgs/messages.svg'
+import CrossIcon from '@svgs/cross.svg'
 import ClockIcon from '@svgs/appicon/clock.svg'
 import CalendarIcon from '@svgs/drawericon/calendar.svg'
 import CheckIcon from '@svgs/check.svg'
@@ -25,7 +26,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName,isBroadcastCheck,handleBroadcast,userId,menuData }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName,isBroadcastCheck,handleBroadcast,userId,menuData,openDropdown,isDelete }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -74,6 +75,14 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                             {/* <TouchableOpacity style={styles.dt_button} onPress={() => Navigation.navigate("DrawerNavigator","MessengerScreen")}>
                                 <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                             </TouchableOpacity> */}
+                            {
+                                isDelete && (
+                                    <TouchableOpacity style={[styles.dt_button,{backgroundColor:Colors.dt_error}]} onPress={openDropdown}>
+                                        <CrossIcon {...IconProps(ms(22))} fill={Colors.dt_white} />
+                                    </TouchableOpacity>
+                                )
+                            }
+                   
                             {
                                 (type === "hotdate" || type === "travel") && (
                                     <>
