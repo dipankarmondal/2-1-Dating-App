@@ -1,47 +1,31 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+/**React Imports */
+import { View, TouchableOpacity } from 'react-native'
+import React from 'react'
+
+/**Local imports*/
 import { MulteImageStyles as styles } from './styles'
 import { IconProps } from '../../utils/helpers/Iconprops'
 import { ms } from '../../utils/helpers/responsive'
 import { Colors } from '../../utils/constant/Constant'
-import DotIcon from '@svgs/dots-vertical.svg'
+import { MulteImageProps } from '../../utils/types/types'
+
+/**Components */
+import MenuBox from '../menu-box/MenuBox'
+
+/**Icons*/
 import GalleryIcon from '@svgs/gallery.svg'
 import LeftIcon from '@svgs/angle-small-left.svg'
 import RightIcon from '@svgs/angle-small-right.svg'
-import MessengerIcon from '@svgs/messenger.svg'
 import LikeIcon from '@svgs/like.svg'
+import DislikeIcon from '@svgs/dislike.svg'
 import InviteFrindIcon from '@svgs/setting/invite.svg'
 import BellIcon from '@svgs/bell.svg'
 import PlayIcon from '@svgs/play.svg'
-import { useIsFocused } from '@react-navigation/native'
-import { MenuItems, MulteImageProps } from '../../utils/types/types'
 
-// ✅ Reusable MenuItem component
-const MenuItem: React.FC<MenuItems> = ({ Icon, label, onPress, iconStyle }) => (
-    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-        <View style={iconStyle}>
-            <Icon {...IconProps(ms(15))} fill={Colors.dt_white} />
-        </View>
-        <Text style={styles.menuText}>{label}</Text>
-    </TouchableOpacity>
-);
-
-const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible, onSendFriendRequest }) => {
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [subMenuVisible, setSubMenuVisible] = useState(false);
-
-    const isFocused = useIsFocused();
-
-    // 🔹 Reset menus
-    const resetMenus = () => {
-        setMenuVisible(false);
-        setSubMenuVisible(false);
-    };
-
-    useEffect(() => resetMenus(), [currentIndex]);
-    useEffect(() => {
-        if (!isFocused) resetMenus();
-    }, [isFocused]);
+/**Main export*/
+const MulteImage: React.FC<MulteImageProps> = (
+    { currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible, onSendFriendRequest }
+) => {
 
     const handlePrev = () =>
         currentIndex > 0 && setCurrentIndex((prev) => prev - 1);
@@ -50,43 +34,13 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
         currentIndex < image.length - 1 &&
         setCurrentIndex((prev) => prev + 1);
 
-    const toggleMenu = () => {
-        setMenuVisible((prev) => !prev);
-        setSubMenuVisible(false);
-    };
-
     // 🔹 Menu data
     const mainMenuItems = [
-        { key: "messenger", label: "Messenger", Icon: MessengerIcon },
-        { key: "like", label: "Like", Icon: LikeIcon, onPress: () => setSubMenuVisible(true) },
+        { key: "like", label: "Like", Icon: LikeIcon },
+        { key: "dislike", label: "Not intrested", Icon: DislikeIcon },
         { key: "friend", label: "Friend request", Icon: InviteFrindIcon, onPress: onSendFriendRequest },
         { key: "remember", label: "Remember", Icon: BellIcon },
     ];
-
-    const subMenuItems = [
-        { key: "like", label: "Like", Icon: LikeIcon, onPress: () => { } },
-        { key: "not_interested", label: "Not Interested", Icon: LikeIcon, iconStyle: { transform: [{ rotate: "180deg" }] }, onPress: () => { } },
-    ];
-
-    const filteredMenuItems = isFilterOption
-        ? mainMenuItems.filter(item => item.key !== "like" && item.key !== "remember")
-        : mainMenuItems;
-
-    const renderMenu = () => (
-        <View style={styles.menuContainer}>
-            {filteredMenuItems.map(({ key, Icon, label, onPress }) => (
-                <MenuItem key={key} Icon={Icon} label={label} onPress={onPress} />
-            ))}
-        </View>
-    );
-
-    const renderSubMenu = () => (
-        <View style={styles.menuContainer}>
-            {subMenuItems.map(({ key, Icon, label, onPress, iconStyle }) => (
-                <MenuItem key={key} Icon={Icon} label={label} onPress={onPress} iconStyle={iconStyle} />
-            ))}
-        </View>
-    );
 
     return (
         <View style={styles.dt_image_overlay}>
@@ -102,20 +56,15 @@ const MulteImage: React.FC<MulteImageProps> = ({ currentIndex, setCurrentIndex, 
                     </TouchableOpacity>
                 }
                 {
-                    isOption &&
-                    <TouchableOpacity
-                        style={[styles.dt_more_container, { alignSelf: "flex-end" }]}
-                        onPress={toggleMenu}
-                    >
-                        <DotIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
-                    </TouchableOpacity>
+                    isOption && (
+                        <MenuBox
+                            {...{
+                                MenuData: mainMenuItems
+                            }}
+                        />
+                    )
                 }
             </View>
-
-            {/* Menus */}
-            {menuVisible && (subMenuVisible ? renderSubMenu() : renderMenu())}
-
-            {/* Navigation Arrows */}
             {
                 type == "livestream" ? (
                     <View style={styles.dt_livestream_play}>

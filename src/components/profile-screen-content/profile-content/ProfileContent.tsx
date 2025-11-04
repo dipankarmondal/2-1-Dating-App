@@ -16,6 +16,11 @@ import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import LocationIcon from '@svgs/location.svg'
+import BanIcon from '@svgs/ban.svg'
+import ReportUserIcon from '@svgs/report_user.svg'
+import LikeIcon from '@svgs/like.svg'
+import InviteFrindIcon from '@svgs/setting/invite.svg'
+import BellIcon from '@svgs/bell.svg'
 
 /**Components */
 import MulteImage from '../../multeimage/MulteImage'
@@ -27,6 +32,7 @@ import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '../../loader/Loader'
 import ProfileTabContent from './profile-extra-menu/ProfileTabContent'
+import MenuBox from '../../menu-box/MenuBox'
 
 type Props = {
     data: any,
@@ -35,26 +41,31 @@ type Props = {
 
 /**Main export*/
 const ProfileContent: React.FC<Props> = ({ data, type }) => {
-    
+
     const userType = type === "friends" && "friend"
-    const { Token, user } = useAuth() 
-    
+    const { Token, user } = useAuth()
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeKey, setActiveKey] = useState(userType ? "certifications" : "groups");
     const [visible, setVisible] = useState(false);
-    
+
     const { data: userPhotoLiabary, isLoading } = useQuery({
         queryKey: ["userPhotoLiabary"],
         queryFn: () => GetMediaLibrary(Token, user?.id, null, "profile", null, null),
         enabled: !!Token
     })
 
-    const ProfilePhotos = type === "friends" ? data?.profile?.photos : userPhotoLiabary?.data?.media?.map((item) => item.url) ;
- 
+    const ProfilePhotos = type === "friends" ? data?.profile?.photos : userPhotoLiabary?.data?.media?.map((item) => item.url);
+
     const images = [
         "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg",
         "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
         "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
+    ];
+
+    const mainMenuItems = [
+        { key: "block", label: "Block User", Icon: BanIcon },
+        { key: "report", label: "Report User", Icon: ReportUserIcon, },
     ];
 
     const GenderInfo = ({ Icon, color, age }: { Icon: any; color: string; age: number }) => (
@@ -64,9 +75,10 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
         </View>
     );
 
+    const isUser = user?._id === data?.id
+
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-
             <View style={styles.dt_container}>
                 <View style={styles.dt_profile_card_container}>
                     <View style={styles.dt_profile_header}>
@@ -82,8 +94,17 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                                 <>
                                     <GenderInfo Icon={MaleIcon} color={Colors.dt_card_blue} age={data?.profile?.dateOfBirth} />
                                     <GenderInfo Icon={FemaleIcon} color={Colors.dt_error} age={data?.profile?.dateOfBirth} />
-                                </>
+                                </> 
                             )}
+                            {
+                                !isUser && (
+                                    <MenuBox
+                                        {...{
+                                            MenuData: mainMenuItems
+                                        }}
+                                    />
+                                )
+                            }
                         </View>
                     </View>
                     <Text style={styles.dt_profile_bio}>{data?.profile?.bio}</Text>
@@ -141,7 +162,7 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                 isTwoItem: userType ? false : true
             }} />
 
-            <ProfileTabContent 
+            <ProfileTabContent
                 {...{
                     userType,
                     activeKey: activeKey

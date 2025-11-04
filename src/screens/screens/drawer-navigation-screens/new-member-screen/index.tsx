@@ -118,7 +118,7 @@ const NewMemberScreen: React.FC = () => {
                                             UserName: item?.username,
                                         }}
                                     >
-                                        <View style={styles.dt_intrest}>
+                                        <View style={styles.dt_intrest}> 
                                             <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
                                                 {item?.profile?.gender === "couple" ? (
                                                     <>

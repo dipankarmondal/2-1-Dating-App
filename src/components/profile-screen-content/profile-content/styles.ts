@@ -145,5 +145,13 @@ export const ProfileContentStyles = StyleSheet.create({
         fontSize:ms(14),
         fontFamily:Fonts.Font_700,
         color:Colors.dt_white
-    }
+    },
+      dt_more_container: {
+        width: ms(25),
+        height: ms(25),
+        backgroundColor: Colors.dt_border + "63",
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
+    },
 })

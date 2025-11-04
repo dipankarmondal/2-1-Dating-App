@@ -19,7 +19,6 @@ export const MulteImageStyles = StyleSheet.create({
         borderRadius: ms(50),
         alignItems: "center",
         justifyContent: "center",
-
     },
     dt_icon_container: {
         flex: 1,
