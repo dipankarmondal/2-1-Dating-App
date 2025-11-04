@@ -1,6 +1,6 @@
 /**React Imports */
 import { View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 /**Local imports*/
 import { MulteImageStyles as styles } from './styles'
@@ -24,8 +24,10 @@ import PlayIcon from '@svgs/play.svg'
 
 /**Main export*/
 const MulteImage: React.FC<MulteImageProps> = (
-    { currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible, onSendFriendRequest }
+    { currentIndex, setCurrentIndex, image, isOption, type, isFilterOption, isGallery, setVisible, menuData, }
 ) => {
+
+    const [isVisible, setIsVisible] = useState(false);
 
     const handlePrev = () =>
         currentIndex > 0 && setCurrentIndex((prev) => prev - 1);
@@ -33,14 +35,6 @@ const MulteImage: React.FC<MulteImageProps> = (
     const handleNext = () =>
         currentIndex < image.length - 1 &&
         setCurrentIndex((prev) => prev + 1);
-
-    // 🔹 Menu data
-    const mainMenuItems = [
-        { key: "like", label: "Like", Icon: LikeIcon },
-        { key: "dislike", label: "Not intrested", Icon: DislikeIcon },
-        { key: "friend", label: "Friend request", Icon: InviteFrindIcon, onPress: onSendFriendRequest },
-        { key: "remember", label: "Remember", Icon: BellIcon },
-    ];
 
     return (
         <View style={styles.dt_image_overlay}>
@@ -59,7 +53,9 @@ const MulteImage: React.FC<MulteImageProps> = (
                     isOption && (
                         <MenuBox
                             {...{
-                                MenuData: mainMenuItems
+                                MenuData: menuData,
+                                isVisible: isVisible,
+                                setIsVisible: setIsVisible
                             }}
                         />
                     )

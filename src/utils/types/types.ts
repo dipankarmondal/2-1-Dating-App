@@ -206,10 +206,11 @@ export type UserInfoCardProps = {
     children?: React.ReactNode,
     profileImages?: any[],
     UserName?: string,
-    onSendFriendRequest?: () => void,
     isBroadcastCheck?: boolean,
     handleBroadcast?: any,
-    userId?: string
+    userId?: string,
+    menuData?: any,
+    isLoading?: boolean
 }
 
 export type MulteImageProps = {
@@ -221,8 +222,9 @@ export type MulteImageProps = {
     isFilterOption?: boolean,
     isGallery?: boolean,
     setVisible?: React.Dispatch<React.SetStateAction<boolean>>,
-    onSendFriendRequest?: () => void,
-    use_id?: string
+    use_id?: string,
+    menuData?: any,
+    isLoading?: boolean
 }
 
 export type MenuItems = {

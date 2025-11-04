@@ -4,13 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
-import { Colors, getAge } from '../../../../utils/constant/Constant'
-import { NewMemberActions, OnlineOptions } from '../../../../components/common/helper'
-import { NewMemberScreenStyles as styles } from './styles'
+import { Colors } from '../../../../utils/constant/Constant'
+import { OnlineOptions } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { ListAllUsers } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { IconProps } from '../../../../utils/helpers/Iconprops'
-import { ms } from '../../../../utils/helpers/responsive'
+import { CreateInteraction, ListAllUsers, SendFriendRequest, SendRememberMe } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -21,15 +18,18 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 import Loader from '../../../../components/loader/Loader'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import NotFound from '../../../../components/notfound/NotFound'
+import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
 
 /** Liabary*/
 import { useIsFocused } from '@react-navigation/native'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 /**Icons*/
-import MaleIcon from '@svgs/male.svg'
-import FemaleIcon from '@svgs/female.svg'
-import CoupleIcon from '@svgs/couple.svg'
+import LikeIcon from '@svgs/like.svg'
+import DislikeIcon from '@svgs/dislike.svg'
+import InviteFrindIcon from '@svgs/setting/invite.svg'
+import BellIcon from '@svgs/bell.svg'
+import { showToast, toast } from '../../../../utils/helpers/responsive'
 
 /**Main export*/
 const NewMemberScreen: React.FC = () => {
@@ -38,6 +38,7 @@ const NewMemberScreen: React.FC = () => {
 
     const isFocused = useIsFocused();
     const { Token } = useAuth()
+    const QueryInvalidater = useQueryClient();
 
     useEffect(() => {
         if (isFocused) {
@@ -68,6 +69,8 @@ const NewMemberScreen: React.FC = () => {
         enabled: isFocused && !!Token,
     });
 
+    // here also add tags for like, isFreind, dislike 
+
     const allUsers = data?.pages?.flatMap((page) => page?.data) || [];
 
     const handleScroll = useCallback(
@@ -81,6 +84,70 @@ const NewMemberScreen: React.FC = () => {
         },
         [hasNextPage, isFetchingNextPage]
     );
+
+    const UserInteractionMutation = useMutation({
+        mutationFn: (data: any) => CreateInteraction(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                showToast("success", res?.message);
+                QueryInvalidater.invalidateQueries({ queryKey: ['list_all_user'] });
+            }
+        },
+        onError: (error: any) => {
+            showToast("error", error?.response?.data?.message);
+        }
+    })
+    const SendFriendRequestMutation = useMutation({
+        mutationFn: (data: any) => SendFriendRequest(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                showToast("success", res?.message);
+                QueryInvalidater.invalidateQueries({ queryKey: ['list_all_user'] });
+            }
+        },
+        onError: (error: any) => {
+            showToast("error", error?.response?.data?.message);
+        }
+    })
+    const SendRememberMutation = useMutation({
+        mutationFn: (data: any) => SendRememberMe(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                showToast("success", res?.message);
+                QueryInvalidater.invalidateQueries({ queryKey: ['list_all_user'] });
+            }
+        },
+        onError: (error: any) => {
+            showToast("error", error?.response?.data?.message);
+        }
+    })
+
+    const handleClick = (id: string, type: string) => {
+        if (type === "friend") {
+            const payload = {
+                receiverId: id,
+            }
+            SendFriendRequestMutation.mutate(payload)
+        } else if (type === "remember") {
+            const payload = {
+                receiverId: id,
+            }
+            SendRememberMutation.mutate(payload)
+        } else {
+            const payload = {
+                targetUserId: id,
+                interactionType: type
+            }
+            UserInteractionMutation.mutate(payload)
+        }
+    };
+
+    const mainMenuItems = (id: any) => [
+        { key: "friend", label: "Friend request", Icon: InviteFrindIcon, onClick: () => handleClick(id, "friend") },
+        { key: "remember", label: "Remember", Icon: BellIcon, onClick: () => handleClick(id, "remember") },
+        { key: "like", label: "Like", Icon: LikeIcon, onClick: () => handleClick(id, "like") },
+        { key: "dislike", label: "Not intrested", Icon: DislikeIcon, onClick: () => handleClick(id, "dislike") },
+    ];
 
     return (
         <ScreenLayout>
@@ -99,7 +166,7 @@ const NewMemberScreen: React.FC = () => {
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={refetch} // just pass refetch here
+                onRefresh={refetch}
                 onScroll={handleScroll}
             >
                 <View style={CommonStyles.dt_container}>
@@ -110,75 +177,22 @@ const NewMemberScreen: React.FC = () => {
                                     <UserInfoCard
                                         key={index}
                                         {...{
+                                            type: "user",
                                             isMore: true,
                                             isOption: true,
                                             isFilterOption: true,
                                             isGallery: item?.profile?.photos?.length > 0 ? true : false,
                                             profileImages: item?.profile?.photos,
                                             UserName: item?.username,
+                                            userId: item?._id,
+                                            menuData: mainMenuItems(item?._id),
                                         }}
                                     >
-                                        <View style={styles.dt_intrest}> 
-                                            <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
-                                                {item?.profile?.gender === "couple" ? (
-                                                    <>
-                                                        <View style={styles.dt_age}>
-                                                            <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                                            <Text style={styles.dt_age_text}>{getAge(item?.profile?.partner?.dateOfBirth)}</Text>
-                                                        </View>
-                                                        <View style={styles.dt_age}>
-                                                            <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                                            <Text style={styles.dt_age_text}>{item?.profile?.age}</Text>
-                                                        </View>
-                                                    </>
-                                                ) : item?.profile?.gender === "female" ? (
-                                                    <View style={styles.dt_age}>
-                                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                                        <Text style={styles.dt_age_text}>{item?.profile?.age}</Text>
-                                                    </View>
-                                                ) : (
-                                                    <View style={styles.dt_age}>
-                                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                                        <Text style={styles.dt_age_text}>{item?.profile?.age}</Text>
-                                                    </View>
-                                                )}
-                                            </View>
-                                            <View style={styles.dt_intrest_container}>
-                                                <Text style={styles.dt_intrest_text}>Interests</Text>
-                                                <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                                                    {item?.profile?.interestedIn.includes('couple') && (
-                                                        <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
-                                                    )}
-                                                    {item?.profile?.interestedIn.includes('male') && (
-                                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                                    )}
-                                                    {item?.profile?.interestedIn.includes('female') && (
-                                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                                    )}
-                                                </View> 
-                                            </View>
-                                        </View>
-                                        <View style={styles.dt_intrest}>
-                                            <View style={styles.dt_intrest_container}>
-                                                <Text style={styles.dt_intrest_text}>Location</Text>
-                                                <View style={[styles.dt_location_container]}>
-                                                    <Text style={[styles.dt_location_text, { textAlign: "left" }]}>
-                                                        {item?.profile?.address?.fullAddress ?? "Not specified"}
-                                                    </Text>
-                                                </View>
-                                            </View>
-                                        </View>
-                                        <View style={[styles.dt_profile_content, { marginTop: ms(10) }]}>
-                                            {NewMemberActions(item).map(({ id, icon: Icon, size, count }) => (
-                                                <TouchableOpacity
-                                                    key={id}
-                                                    style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
-                                                >
-                                                    <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
-                                                    <Text style={styles.dt_profile_text}>{count}</Text>
-                                                </TouchableOpacity>
-                                            ))}
-                                        </View>
+                                        <InfoCardLayoutOne
+                                            {...{
+                                                item,
+                                            }}
+                                        />
                                     </UserInfoCard>
                                 )
                             })

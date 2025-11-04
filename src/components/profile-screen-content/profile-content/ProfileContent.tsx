@@ -5,11 +5,11 @@ import React, { use, useState } from 'react'
 /**Local imports*/
 import { ProfileContentStyles as styles } from './styles'
 import { IconProps } from '../../../utils/helpers/Iconprops'
-import { ms } from '../../../utils/helpers/responsive'
+import { ms, showToast } from '../../../utils/helpers/responsive'
 import { Colors, getAge } from '../../../utils/constant/Constant'
 import { profileButtons } from './helper'
 import { ProfileExtraMenuItems, ProfileUserMenuItems } from '../../common/helper'
-import { GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { CreateInteraction, GetMediaLibrary } from '../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../utils/context/auth-context/AuthContext'
 
 /**Icons*/
@@ -29,7 +29,7 @@ import TopMenu from '../../top-menu'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
 /** Liabary*/
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Loader from '../../loader/Loader'
 import ProfileTabContent from './profile-extra-menu/ProfileTabContent'
 import MenuBox from '../../menu-box/MenuBox'
@@ -44,10 +44,13 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
 
     const userType = type === "friends" && "friend"
     const { Token, user } = useAuth()
+    const QueryInvalidater = useQueryClient();
+    const isUser = user?._id === data?.id
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeKey, setActiveKey] = useState(userType ? "certifications" : "groups");
     const [visible, setVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const { data: userPhotoLiabary, isLoading } = useQuery({
         queryKey: ["userPhotoLiabary"],
@@ -64,8 +67,8 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
     ];
 
     const mainMenuItems = [
-        { key: "block", label: "Block User", Icon: BanIcon },
-        { key: "report", label: "Report User", Icon: ReportUserIcon, },
+        { key: "block", label: "Block User", Icon: BanIcon, onClick: () => handleClick(data?.id, "block")},
+        { key: "report", label: "Report User", Icon: ReportUserIcon, onClick: () => handleClick(data?.id, "report")},
     ];
 
     const GenderInfo = ({ Icon, color, age }: { Icon: any; color: string; age: number }) => (
@@ -75,7 +78,29 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
         </View>
     );
 
-    const isUser = user?._id === data?.id
+    const handleClick = (id: string, type: string) => {
+        const payload = {
+            targetUserId: id,
+            interactionType: type
+        }
+        UserInteractionMutation.mutate(payload)
+    };
+
+
+    const UserInteractionMutation = useMutation({
+        mutationFn: (data: any) => CreateInteraction(Token, data),
+        onSuccess: (res) => {
+            if (res?.success === true) {
+                showToast("success", res?.message);
+                setIsVisible(false);
+                QueryInvalidater.invalidateQueries({ queryKey: ['userSinleProfile'] });
+                QueryInvalidater.invalidateQueries({ queryKey: ['userPhotoLiabary'] });
+            }
+        },
+        onError: (error: any) => {
+            showToast("error", error?.response?.data?.message);
+        }
+    })
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -94,13 +119,15 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                                 <>
                                     <GenderInfo Icon={MaleIcon} color={Colors.dt_card_blue} age={data?.profile?.dateOfBirth} />
                                     <GenderInfo Icon={FemaleIcon} color={Colors.dt_error} age={data?.profile?.dateOfBirth} />
-                                </> 
+                                </>
                             )}
                             {
                                 !isUser && (
                                     <MenuBox
                                         {...{
-                                            MenuData: mainMenuItems
+                                            MenuData: mainMenuItems,
+                                            isVisible:isVisible,
+                                            setIsVisible:setIsVisible
                                         }}
                                     />
                                 )

@@ -1,4 +1,4 @@
-import { toast } from "../../helpers/responsive";
+import { showToast, toast } from "../../helpers/responsive";
 import { API } from "../url";
 
 //search user
@@ -399,13 +399,13 @@ export const SendFriendRequest = async (token: any, data: any,) => {
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
-        console.log("adsfasd", error?.response?.data);
+        console.log("adsfasd", error?.response?.data?.message);
 
         let firstMessage = error?.response?.data?.message ?? "Something went wrong";
-        if (Array.isArray(errorData) && errorData.length > 0) {
+        if (Array.isArray(errorData) && errorData?.length > 0) {
             firstMessage = errorData[0]?.message || firstMessage;
         }
-        toast("error", { title: firstMessage });
+        showToast("error", firstMessage);
         throw error;
     }
 };
@@ -501,7 +501,31 @@ export const CreateInteraction = async (token: any, data: any,) => {
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
-        console.log("adsfasd", error?.response?.data);
+        console.log("adsfasd", error?.response?.data?.message);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        showToast("error", firstMessage);
+        throw error;
+    }
+};
+
+//Send Remember Me
+
+export const SendRememberMe = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/remember-me", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data?.message);
 
         let firstMessage = error?.response?.data?.message ?? "Something went wrong";
         if (Array.isArray(errorData) && errorData.length > 0) {

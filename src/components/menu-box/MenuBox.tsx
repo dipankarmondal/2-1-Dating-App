@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
@@ -12,16 +12,18 @@ import { MenuBoxStyles as styles } from './styles'
 import DotIcon from '@svgs/dots-vertical.svg'
 
 type props = {
-    MenuData: any
+    MenuData: any,
+    isVisible: boolean,
+    setIsVisible: any
 }
 
 /**Main export*/
-const MenuBox: React.FC<props> = ({ MenuData }) => {
-    const [isVisible, setIsVisible] = useState(false);
+const MenuBox: React.FC<props> = ({ MenuData,isVisible, setIsVisible  }) => {
 
     const handleToggleMenu = () => {
         setIsVisible(!isVisible);
     };
+
 
     return (
         <>
@@ -34,7 +36,7 @@ const MenuBox: React.FC<props> = ({ MenuData }) => {
                     {MenuData?.map((item: any, index: any) => {
                         const Icon = item?.Icon;
                         return (
-                            <TouchableOpacity key={index} style={styles.menuItem} onPress={item?.onPress}>
+                            <TouchableOpacity key={index} style={styles.menuItem} onPress={item?.onClick}>
                                 <Icon {...IconProps(ms(15))} fill={Colors.dt_white} />
                                 <Text style={styles.menuText}>{item?.label}</Text>
                             </TouchableOpacity>

@@ -30,4 +30,12 @@ const toast = (type: string, content: { title: string, }) => {
     });
 };
 
-export { hs, vs, ms, toast, spacing };
+const showToast = (type: 'success' | 'error' | 'info', title: string, message?: string) => {
+  Toast.show({
+    type,
+    text1: title,
+    text2: message,
+  });
+};
+
+export { hs, vs, ms, toast, spacing, showToast };

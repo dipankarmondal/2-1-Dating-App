@@ -123,7 +123,6 @@ const HotDateScreen: React.FC = () => {
                                             isGallery: item?.creator?.profile?.photos?.length > 0 ? true : false,
                                             UserName: item?.creator?.profile?.firstName,
                                             profileImages: item?.creator?.profile?.photos,
-                                            onSendFriendRequest: () => handleSendFriendRequest(item?.creator?.id),
                                         }}
                                     >
                                         <View style={styles.dt_intrest}>
