@@ -1,31 +1,36 @@
 /**React Imports */
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
 import { ProfileContentStyles as styles } from '../styles'
 import { ms, toast } from '../../../../utils/helpers/responsive'
 import { ProfileExtraMenuItems, ProfileUserMenuItems } from '../../../common/helper'
+import { DeleteGroup, GetMyFriendsList, GetMyGroups, GetUserFriends, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { Colors } from '../../../../utils/constant/Constant'
 
 /**Components */
-import UserInfoCard from '../../../feed-content/userinfo-card/UserInfoCard'
 import GroupCard from '../../../group-card/GroupCard'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { DeleteGroup, GetMyFriendsList, GetMyGroups, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import NotFound from '../../../notfound/NotFound'
 import Loader from '../../../loader/Loader'
 import { useNavigation } from '@react-navigation/native'
 import ModalAction from '../../../modal/modal-action/ModalAction'
 import ModalContent from '../../../modal/modal-content/logout-content/ModalContent'
-import { Colors } from '../../../../utils/constant/Constant'
+
+/** Liabary*/
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import UserInfoCard from '../../../feed-content/userinfo-card/UserInfoCard'
+import InfoCardLayoutOne from '../../../user-info-card-layouts/InfoCardLayoutOne'
 
 type Props = {
     activeKey: string,
-    userType?: string
+    userType?: string,
+    setCounts?: any,
+    ID?: any
 }
 /**Main export*/
-const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
+const ProfileTabContent: React.FC<Props> = ({ activeKey, userType, setCounts,ID }) => {
 
     const { Token } = useAuth()
     const Navigation = useNavigation()
@@ -35,7 +40,7 @@ const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
     const [modalSelectId, setModalSelectId] = useState<any>(null)
     const [groupDeteleModal, setGroupDeteleModal] = useState(false);
 
-    const menuItems = userType ? ProfileUserMenuItems : ProfileExtraMenuItems
+    const menuItems = userType ? ProfileUserMenuItems({ friends: 0, groups: 0 }) : ProfileExtraMenuItems({ friends: 0, groups: 0 })
     const activeItem = menuItems.find(item => item.key === activeKey)
 
     const { data, isLoading, refetch } = useQuery({
@@ -76,13 +81,15 @@ const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
         LeaveGroupMutation.mutate(modalSelectId)
     }
 
-    // const { data: friendData, isLoading: friendLoading, refetch: friendRefetch } = useQuery({
-    //     queryKey: ["my_all_friends"],
-    //     queryFn: () => GetMyFriendsList(Token),
-    //     enabled: !!Token
-    // })
+    const { data: friendData, isLoading: friendLoading, refetch: friendRefetch } = useQuery({
+        queryKey: ["my_user_friends",ID],
+        queryFn: () => GetUserFriends(Token,ID),
+        enabled: !!Token && !!ID
+    })
 
-    // console.log("object", friendData)
+    useEffect(() => {
+        setCounts({ friends: friendData?.data?.friends?.length, groups: data?.data?.groups?.length })
+    }, [isLoading, friendLoading])
 
     return (
         <View style={styles.dt_container}>
@@ -92,12 +99,8 @@ const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
                     <Text style={styles.dt_view_all_text}>View All</Text>
                 </TouchableOpacity>
             </View>
-            {/* {
-                activeItem?.key === "groups" ?
-                    <GroupCard /> :
-                    <UserInfoCard />
-            } */}
-            <View style={{gap: ms(16), marginVertical:data?.data?.groups?.length > 0 ? ms(0) : ms(30)}}>
+
+            <View style={{ gap: ms(16), marginVertical: data?.data?.groups?.length > 0 ? ms(0) : ms(30) }}>
                 {
                     activeKey === "groups" ? (
                         isLoading ? <Loader /> :
@@ -115,7 +118,7 @@ const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
                                         isUserJoined: item?.status,
                                         groupId: item?.group?._id
                                     }
-        
+
                                     return (
                                         <GroupCard
                                             key={index}
@@ -137,9 +140,40 @@ const ProfileTabContent: React.FC<Props> = ({ activeKey, userType }) => {
                                     }}
                                 />
                             )
-                        
                     ) : (
-                        <Text style={{color: Colors.dt_white}}>Work in progress...</Text>
+                        isLoading ? <Loader /> :
+                            friendData?.data?.friends?.length > 0 ? (
+                                friendData?.data?.friends?.map((item: any, index: number) => {
+                                    return (
+                                        <UserInfoCard
+                                            key={index}
+                                            {...{
+                                                type: "user",
+                                                isMore: true,
+                                                isFilterOption: true,
+                                                isGallery: item?.profile?.photos?.length > 0 ? true : false,
+                                                profileImages: item?.profile?.photos,
+                                                UserName: item?.username,
+                                                userId: item?._id,
+                                            }}
+                                        >
+                                            <InfoCardLayoutOne
+                                                {...{
+                                                    item,
+                                                }}
+                                            />
+                                        </UserInfoCard>
+                                    )
+                                })
+                            ) : (
+                                <NotFound
+                                    {...{
+                                        title: "We couldn’t find any members. Try adjusting your search or wait a bit for more people to join.",
+                                        photo: require("@images/notFound/new_members.png"),
+                                    }}
+                                />
+                            )
+
                     )
                 }
             </View>

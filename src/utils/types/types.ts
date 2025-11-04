@@ -243,10 +243,11 @@ export type ScrollContentProps = {
 } & ScrollViewProps;
 
 export type TopMenuProps = {
-    MenuData: { key: string; label: string }[],
+    MenuData:any,
     activeKey: string,
     setActiveKey: React.Dispatch<React.SetStateAction<string>>
-    isTwoItem?: boolean
+    isTwoItem?: boolean,
+    type?: string
 }
 
 export type GalleryModalProps = {

@@ -48,9 +48,10 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
     const isUser = user?._id === data?.id
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [activeKey, setActiveKey] = useState(userType ? "certifications" : "groups");
+    const [activeKey, setActiveKey] = useState(userType ? "groups" : "groups");
     const [visible, setVisible] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [Counts, setCounts] = useState({friends: 0, groups: 0,});
 
     const { data: userPhotoLiabary, isLoading } = useQuery({
         queryKey: ["userPhotoLiabary"],
@@ -183,16 +184,19 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
 
             </View>
             <TopMenu {...{
-                MenuData: userType ? ProfileUserMenuItems : ProfileExtraMenuItems,
+                MenuData: userType ? ProfileUserMenuItems(Counts) : ProfileExtraMenuItems(Counts),
                 activeKey,
                 setActiveKey,
-                isTwoItem: userType ? false : true
+                isTwoItem:  true,
+                type: "profile"
             }} />
 
             <ProfileTabContent
                 {...{
                     userType,
-                    activeKey: activeKey
+                    activeKey: activeKey,
+                    setCounts,
+                    ID:data?._id
                 }}
             />
             <GalleryModal

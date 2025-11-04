@@ -367,16 +367,16 @@ export const ProfileMenuItems = [
     { key: 'videos', label: 'Videos' },
     { key: 'album', label: 'Album' },
 ];
-export const ProfileExtraMenuItems = [
-    { key: 'groups', label: 'Groups' },
-    { key: 'friends', label: 'Friends' },
+export const ProfileExtraMenuItems= (count: any) => [
+    { key: 'groups', label: 'Groups', number: count?.groups ?? 0 },
+    { key: 'friends', label: 'Friends', number: count?.friends ?? 0 },
 ];
-export const ProfileUserMenuItems = [
-    { key: 'certifications', label: 'Certifications' },
-    { key: 'groups', label: 'Groups' },
-    { key: 'parties_and_events', label: 'Parties & Events' },
-    { key: 'following', label: 'Following' },
-    { key: 'friends', label: 'Friends' },
+export const ProfileUserMenuItems= (count: any) => [
+    // { key: 'certifications', label: 'Certifications' },
+    { key: 'groups', label: 'Groups', number: count?.groups ?? 0 },
+    // { key: 'parties_and_events', label: 'Parties & Events' },
+    // { key: 'following', label: 'Following' },
+    { key: 'friends', label: 'Friends', number: count?.friends ?? 0 },
 ];
 export const SingleGroupMenuItems = [
     { key: 'members', label: 'Members' },

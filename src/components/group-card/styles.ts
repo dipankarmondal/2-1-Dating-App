@@ -69,13 +69,12 @@ export const GroupCardStyles = StyleSheet.create({
         marginTop: ms(5),
         maxWidth: ms(300),
         width: ms(200),
-        justifyContent: "flex-end"
     },
     dt_location_text: {
         fontSize: ms(12),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white,
-        textAlign: "right",
+        textAlign: "left",
     },
     dt_member_box:{
         flexDirection: "row",

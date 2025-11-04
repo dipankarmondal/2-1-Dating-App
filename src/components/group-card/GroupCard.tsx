@@ -101,15 +101,8 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
             <Text style={styles.dt_name}>{GroupData?.name ?? "--"}</Text>
 
             <View style={styles.dt_age_container}>
-                <Text style={styles.dt_intrest_text}>
-                    by{" "}
-                    <Text style={{ color: Colors.dt_primary_green }}>
-                        {GroupData?.userName || "--"}
-                    </Text>
-                </Text>
-
                 <View style={[styles.dt_intrest_container]}>
-                    <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>
+                    <Text style={[styles.dt_intrest_text,  ]}>
                         Location
                     </Text>
                     <View style={[styles.dt_location_container]}>
@@ -118,6 +111,13 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
                         </Text>
                     </View>
                 </View>
+                <Text style={[styles.dt_intrest_text,{marginTop:ms(5)}]}>
+                    by{" "}
+                    <Text style={{ color: Colors.dt_primary_green }}>
+                        {GroupData?.userName || "--"}
+                    </Text>
+                </Text>
+
             </View>
 
             <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>

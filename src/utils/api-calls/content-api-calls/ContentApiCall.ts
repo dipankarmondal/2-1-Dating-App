@@ -990,3 +990,19 @@ export const DeleteRemember = async (token: any, id: any) => {
         throw error;
     }
 };
+
+//Get User's Friends List
+
+export const GetUserFriends = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/friends/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

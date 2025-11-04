@@ -40,8 +40,8 @@ export const TopMenuStyles = StyleSheet.create({
         justifyContent: "center"
     },
     dt_badge:{
-        width:ms(17),
-        height:ms(17),
+        paddingHorizontal:ms(5),
+        paddingVertical:ms(1),
         backgroundColor:Colors.dt_white,
         alignItems:"center",
         justifyContent:"center",
@@ -50,7 +50,7 @@ export const TopMenuStyles = StyleSheet.create({
     },
     dt_badge_text:{
         color:Colors.dt_black,
-        fontSize:ms(12),
-        fontFamily:Fonts.Font_600
+        fontSize:ms(13),
+        fontFamily:Fonts.Font_700
     }
 })
