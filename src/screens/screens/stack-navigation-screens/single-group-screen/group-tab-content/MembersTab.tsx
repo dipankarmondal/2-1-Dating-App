@@ -43,9 +43,9 @@ const MembersTab: React.FC<Props> = ({ Data }) => {
                     return (
                         <UserInfoCard
                             key={index}
-                            {...{
+                            {...{                         
                                 isMore: true,
-                                isOption: isUser === true ? false : true,
+                                // isOption: isUser === true ? false : true,
                                 isFilterOption: true,
                                 isGallery: item?.user?.profile?.photos?.length > 0 ? true : false,
                                 profileImages: item?.user?.profile?.photos,

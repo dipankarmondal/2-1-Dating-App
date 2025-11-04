@@ -1,5 +1,5 @@
 /**React Imports */
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import React, { useState } from 'react'
 
 /**Local imports*/
@@ -8,6 +8,7 @@ import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { DeleteGroup, GetGroupMembers, GetSingleGroup, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { SingleGroupMenuItems } from '../../../../components/common/helper'
 import { ms, toast } from '../../../../utils/helpers/responsive'
+import {SingleGroupScreenstyles as styles} from "./styles"
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -35,7 +36,7 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
     const [groupLeaveModal, setGroupLeaveModal] = useState(false);
     const [modalSelectId, setModalSelectId] = useState<any>(null)
 
-    const { groupName, groupId,isMyGroup } = route?.params || {}
+    const { groupName, groupId, isMyGroup } = route?.params || {}
     const { Token } = useAuth()
     const QueryInvalidater = useQueryClient();
     const Navigation = useNavigation<any>()
@@ -46,7 +47,7 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
         enabled: !!Token
     })
 
-    const { data: groupFriends, isLoading: groupFriendsLoading,refetch: groupFriendsRefetch } = useQuery({
+    const { data: groupFriends, isLoading: groupFriendsLoading, refetch: groupFriendsRefetch } = useQuery({
         queryKey: ["single_group_friends"],
         queryFn: () => GetGroupMembers(Token, groupId),
         enabled: !!Token
@@ -68,23 +69,23 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
     const DeleteGroupMutation = useMutation({
         mutationFn: (id: any) => DeleteGroup(Token, id),
         onSuccess: (res: any) => {
-            if(res?.success === true) {
+            if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['GroupAllData'] });
                 Navigation.goBack();
             }
         }
-    }) 
-    
+    })
+
     const LeaveGroupMutation = useMutation({
         mutationFn: (id: any) => LeaveGroup(Token, id),
         onSuccess: (res: any) => {
-            if(res?.success === true) {
+            if (res?.success === true) {
                 toast("success", { title: res?.message });
                 QueryInvalidater.invalidateQueries({ queryKey: ['GroupAllData'] });
                 QueryInvalidater.invalidateQueries({ queryKey: ['single_group'] });
                 QueryInvalidater.invalidateQueries({ queryKey: ['my_groups'] });
-                if(isMyGroup === true){
+                if (isMyGroup === true) {
                     Navigation.goBack();
                 }
             }
@@ -93,7 +94,7 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
 
     const handleDeleteGroup = () => {
         setGroupDeteleModal(false),
-        DeleteGroupMutation.mutate(modalSelectId)
+            DeleteGroupMutation.mutate(modalSelectId)
     }
     const handleLeaveGroup = () => {
         setGroupLeaveModal(false)
@@ -114,13 +115,19 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
                                         isDeleteModal: setGroupDeteleModal,
                                         isLeaveModal: setGroupLeaveModal,
                                         ModalSelectData: setModalSelectId,
+                                        item: data?.data?.group
                                     }}
                                 />
+                                <View style={styles.dt_user_info_card}>
+                                    <Text style={styles.dt_group_rouls}>Rules</Text>
+                                    <Text style={styles.dt_group_rouls_text}>{data?.data?.group?.rules ?? "--"}</Text>
+                                </View>
                                 <View style={{ borderRadius: ms(5), overflow: "hidden" }}>
                                     <TopMenu {...{
-                                        MenuData: SingleGroupMenuItems,
+                                        MenuData: SingleGroupMenuItems(groupFriends?.data?.members?.length),
                                         activeKey,
                                         setActiveKey,
+                                        type: "profile"
                                     }} />
                                 </View>
                                 {

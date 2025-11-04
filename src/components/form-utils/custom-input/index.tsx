@@ -90,7 +90,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                                     }
                                 ]}
                                 placeholder={FieldName?.placeholder}
-                                value={value || ''}
+                                value={Array.isArray(value) ? value.join(', ') : value || ''}
                                 onBlur={onBlur}
                                 onFocus={onBlur}
                                 onChangeText={(text) => handleChange({ onChange }, text)}

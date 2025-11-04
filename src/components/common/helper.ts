@@ -378,10 +378,10 @@ export const ProfileUserMenuItems= (count: any) => [
     // { key: 'following', label: 'Following' },
     { key: 'friends', label: 'Friends', number: count?.friends ?? 0 },
 ];
-export const SingleGroupMenuItems = [
-    { key: 'members', label: 'Members' },
-    { key: 'forum', label: 'Forum' },
-    { key: 'visuals', label: 'Visuals' },
+export const SingleGroupMenuItems=(count: any) => [
+    { key: 'members', label: 'Members',number: count ?? 0 },
+    // { key: 'forum', label: 'Forum' },
+    // { key: 'visuals', label: 'Visuals' },
 ]; 
 export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },

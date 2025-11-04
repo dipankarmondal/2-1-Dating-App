@@ -20,7 +20,7 @@ export const GroupCardStyles = StyleSheet.create({
         height: "100%",
         resizeMode: "stretch",
     },
-    dt_overlay:{
+    dt_overlay: {
         position: "absolute",
         padding: ms(8),
         height: ms(40),
@@ -29,43 +29,82 @@ export const GroupCardStyles = StyleSheet.create({
         justifyContent: "center",
         borderBottomLeftRadius: ms(5),
         top: 0,
-        right:-1
+        right: -1
     },
-    dt_message_box:{
-        width:ms(25),
-        height:ms(25),
-        backgroundColor:Colors.dt_card_blue,
-        borderRadius:ms(50),
-        alignItems:"center",
-        justifyContent:"center",
-        elevation:5,
-        shadowColor:Colors.dt_white
+    dt_message_box: {
+        width: ms(25),
+        height: ms(25),
+        backgroundColor: Colors.dt_card_blue,
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center",
+        elevation: 5,
+        shadowColor: Colors.dt_white
     },
-    dt_join_text:{
+    dt_join_text: {
         fontSize: ms(16),
         fontFamily: Fonts.Font_700,
         color: Colors.dt_card_blue
+    },
+    dt_image_overlay: {
+        backgroundColor: Colors.dt_border + "33",
+        paddingHorizontal: ms(10),
+        height: ms(40),
+        position: "absolute",
+        alignItems: "center",
+        justifyContent: "center",
+        borderBottomRightRadius: ms(5),
+        flexDirection: "row",
+        gap: ms(10)
+    },
+    dt_group_container: {
+        borderRadius: ms(5),
+        backgroundColor: Colors.dt_success_green,
+        paddingHorizontal: ms(5),
+        height: ms(25),
+        paddingVertical: ms(5),
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    dt_group_text: {
+        fontSize: ms(14),
+        fontFamily: Fonts.Font_700,
+        color: Colors.dt_white
+    },
+    dt_name_container: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        flex: 1,
+        marginVertical: ms(10),
+    },
+    dt_button: {
+        width: ms(30),
+        height: ms(30),
+        backgroundColor: Colors.dt_primary_green,
+        borderRadius: ms(50),
+        alignItems: "center",
+        justifyContent: "center"
     },
     dt_name: {
         fontSize: ms(17),
         fontFamily: Fonts.Font_700,
         color: Colors.dt_primary_green,
         textTransform: "uppercase",
-        marginVertical: ms(5)
+        flexShrink: 1
     },
-     dt_age_container: {
+    dt_age_container: {
         flexDirection: "row",
         justifyContent: "space-between"
     },
-       dt_intrest_text: {
+    dt_intrest_text: {
         fontSize: ms(15),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white
     },
-     dt_intrest_container: {
+    dt_intrest_container: {
         marginTop: ms(8),
     },
-     dt_location_container: {
+    dt_location_container: {
         marginTop: ms(5),
         maxWidth: ms(300),
         width: ms(200),
@@ -76,12 +115,12 @@ export const GroupCardStyles = StyleSheet.create({
         color: Colors.dt_white,
         textAlign: "left",
     },
-    dt_member_box:{
+    dt_member_box: {
         flexDirection: "row",
         alignItems: "center",
         gap: ms(8)
     },
-    dt_member_text:{
+    dt_member_text: {
         fontSize: ms(12),
         fontFamily: Fonts.Font_600,
         color: Colors.dt_white

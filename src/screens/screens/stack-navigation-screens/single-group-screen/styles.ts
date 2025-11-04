@@ -9,6 +9,16 @@ export const SingleGroupScreenstyles = StyleSheet.create({
         backgroundColor: Colors.dt_gray + "33",
         borderRadius: ms(5),
     },
+    dt_group_rouls:{
+        fontFamily:Fonts.Font_500,
+        fontSize:ms(17),
+        color:Colors.dt_coin_yellow
+    },
+    dt_group_rouls_text:{
+        fontFamily:Fonts.Font_500,
+        fontSize:ms(15),
+        color:Colors.dt_white
+    },
     dt_intrest: {
             flexDirection: "row",
             justifyContent: "space-between",

@@ -55,7 +55,6 @@ const GroupsScreen: React.FC = () => {
         queryFn: () => GetAllGroups(Token,search),
         enabled: !!Token,
     })
-    console.log("object",search)
 
     const DeleteGroupMutation = useMutation({
         mutationFn: (id: any) => DeleteGroup(Token, id),
@@ -102,10 +101,9 @@ const GroupsScreen: React.FC = () => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
-
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={refetch} // just pass refetch here
+                onRefresh={refetch}
             >
                 <View style={CommonStyles.dt_container}>
                     <SearchBox 
@@ -129,7 +127,6 @@ const GroupsScreen: React.FC = () => {
                                     isUserJoined: item?.userMembership?.status,
                                     groupId: item?._id
                                 }
-
                                 return (
                                     <GroupCard
                                         key={index}
@@ -138,6 +135,7 @@ const GroupsScreen: React.FC = () => {
                                             isDeleteModal: setGroupDeteleModal,
                                             isLeaveModal: setGroupLeaveModal,
                                             ModalSelectData: setModalSelectId,
+                                            item
                                         }}
                                     />
                                 )

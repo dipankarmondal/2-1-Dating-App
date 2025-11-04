@@ -449,17 +449,27 @@ export const GetChatRooms = async (token: any) => {
 };
 
 // List All Users
-export const ListAllUsers = async (token: any, page: any, limit: any) => {
+export const ListAllUsers = async (token: any, page: any, limit: any, search: any) => {
     try {
+        const params = {
+            page: page,
+            limit: limit,
+            ...(search ? { search: search } : {})
+        };
+
+        // Construct full URL for debugging
+        const queryString = new URLSearchParams(params).toString();
+        const fullUrl = `${API.defaults.baseURL}/users?${queryString}`;
+
+        console.log("📡 Full API URL:", fullUrl);
+
         const res = await API.get("/users", {
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            params: {
-                page: page,
-                limit: limit
-            }
+            params
         });
+
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
@@ -540,6 +550,29 @@ export const SendRememberMe = async (token: any, data: any,) => {
 export const CreateNewGroup = async (token: any, data: any,) => {
     try {
         const res = await API.post("/groups", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//Update Group
+export const UpdateGroup = async (token: any, id: any, data: any,) => {
+    try {
+        const res = await API.put(`/groups/${id}`, data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -961,7 +994,7 @@ export const UsersInteractions = async (token: any, endPoint: any) => {
 
 //Get Remember
 
-export const GetRemember = async (token: any,url: any) => {
+export const GetRemember = async (token: any, url: any) => {
     try {
         const res = await API.get(`remember-me/${url}`, {
             headers: {
@@ -979,7 +1012,7 @@ export const GetRemember = async (token: any,url: any) => {
 
 export const DeleteRemember = async (token: any, id: any) => {
     try {
-        const res = await API.delete(`remember-me/${id}`,  {
+        const res = await API.delete(`remember-me/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

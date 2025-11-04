@@ -294,7 +294,8 @@ export type GroupCardProps = {
     isDeleteModal?: any,
     isLeaveModal?: any,
     ModalSelectData?: any,
-    isMyGroup?: any
+    isMyGroup?: any,
+    item?: any
 }
 
 export type MemberItemProps = {

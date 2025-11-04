@@ -72,7 +72,7 @@ const CountryInput: React.FC<CountryInputProps> = ({ name, parent, control, labe
                             style={styles.dt_select_input}
                             placeholder={FieldName?.placeholder || "Search country or city"}
                             placeholderTextColor={Colors.dt_gray + "BD"}
-                            value={value?.name || query}
+                            value={typeof value === 'string' ? value : value?.name || query}
                             onChangeText={(text) => {
                                 setQuery(text);
                                 onChange(text);

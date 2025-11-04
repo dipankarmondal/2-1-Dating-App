@@ -97,6 +97,7 @@ const MyGroupScreen: React.FC = () => {
                     {isLoading ? <Loader /> :
                         data?.data?.groups?.length > 0 ? (
                             data?.data?.groups?.map((item: any, index: number) => {
+                                
                                 const GroupData = {
                                     name: item?.group?.name,
                                     coverImage: item?.group?.coverImage,
@@ -118,7 +119,8 @@ const MyGroupScreen: React.FC = () => {
                                             isDeleteModal: setGroupDeteleModal,
                                             isLeaveModal: setGroupLeaveModal,
                                             ModalSelectData: setModalSelectId,
-                                            isMyGroup: true
+                                            isMyGroup: true,
+                                            item: item?.group
                                         }}
                                     />
                                 )

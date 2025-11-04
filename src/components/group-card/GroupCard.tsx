@@ -16,6 +16,7 @@ import GroupIcon from '@svgs/group.svg'
 import MessageIcon from '@svgs/messages.svg'
 import CrossIcon from '@svgs/cross.svg'
 import LeaveGroupIcon from '@svgs/user-logout.svg'
+import EditIcon from '@svgs/edit.svg'
 
 /** Liabary*/
 import moment from 'moment'
@@ -24,7 +25,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import LoaderKitView from 'react-native-loader-kit'
 
 /**Main export*/
-const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData, isMyGroup }) => {
+const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, isLeaveModal, ModalSelectData, isMyGroup, item }) => {
     const Navigation = useNavigation<any>();
     const { Token, user } = useAuth()
     const QueryInvalidater = useQueryClient();
@@ -45,6 +46,7 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
             }
         }
     })
+
 
     const HandleModalOpen = () => {
         ModalSelectData(GroupData?.groupId)
@@ -79,9 +81,9 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
                                         <LeaveGroupIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
                                     </TouchableOpacity>
                             }
-                            {/* <TouchableOpacity style={styles.dt_message_box} onPress={()=> Navigation.navigate("DrawerNavigator",{screen: 'MessengerScreen', params: { key: "group_messenger" },})}>
+                            <TouchableOpacity style={styles.dt_message_box} onPress={() => Navigation.navigate("DrawerNavigator", { screen: 'MessengerScreen', params: { key: "group_messenger" }, })}>
                                 <MessageIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                            </TouchableOpacity>  */}
+                            </TouchableOpacity>
                         </View> :
                         <TouchableOpacity style={styles.dt_overlay} onPress={HandleJoinGroup}>
                             {
@@ -96,13 +98,30 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
                             }
                         </TouchableOpacity>
                 }
+                <View style={styles.dt_image_overlay}>
+                    <View style={styles.dt_group_container}>
+                        <Text style={styles.dt_group_text}>{item?.category ?? "--"}</Text>
+                    </View>
+                    <View style={[styles.dt_group_container, { backgroundColor: "#3b82f6" }]}>
+                        <Text style={styles.dt_group_text}>{item?.groupType ?? "--"}</Text>
+                    </View>
+                </View>
             </View>
 
-            <Text style={styles.dt_name}>{GroupData?.name ?? "--"}</Text>
+            <View style={styles.dt_name_container}>
+                <Text style={styles.dt_name}>{GroupData?.name ?? "--"}</Text>
+                {
+                    isUser && (
+                        <TouchableOpacity style={styles.dt_button} onPress={() => { Navigation.navigate("CreateGroup", { type: "edit", data: item }) }}>
+                            <EditIcon {...IconProps(ms(18))} fill={Colors.dt_white} />
+                        </TouchableOpacity>
+                    )
+                }
+            </View>
 
             <View style={styles.dt_age_container}>
                 <View style={[styles.dt_intrest_container]}>
-                    <Text style={[styles.dt_intrest_text,  ]}>
+                    <Text style={[styles.dt_intrest_text,]}>
                         Location
                     </Text>
                     <View style={[styles.dt_location_container]}>
@@ -111,7 +130,7 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
                         </Text>
                     </View>
                 </View>
-                <Text style={[styles.dt_intrest_text,{marginTop:ms(5)}]}>
+                <Text style={[styles.dt_intrest_text, { marginTop: ms(5) }]}>
                     by{" "}
                     <Text style={{ color: Colors.dt_primary_green }}>
                         {GroupData?.userName || "--"}

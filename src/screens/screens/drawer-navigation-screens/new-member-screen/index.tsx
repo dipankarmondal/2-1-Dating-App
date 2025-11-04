@@ -30,11 +30,13 @@ import LikeIcon from '@svgs/like.svg'
 import DislikeIcon from '@svgs/dislike.svg'
 import InviteFrindIcon from '@svgs/setting/invite.svg'
 import BellIcon from '@svgs/bell.svg'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const NewMemberScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
+    const [search, setSearch] = useState("");
 
     const isFocused = useIsFocused();
     const { Token } = useAuth()
@@ -59,14 +61,14 @@ const NewMemberScreen: React.FC = () => {
         isLoading,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["list_all_user"],
-        queryFn: ({ pageParam = 1 }) => ListAllUsers(Token, pageParam, 10),
+        queryKey: ["list_all_user",search],
+        queryFn: ({ pageParam = 1 }) => ListAllUsers(Token, pageParam, 10,search),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
             const pagination = lastPage?.meta?.pagination;
             return pagination?.hasNext ? pagination.page + 1 : undefined;
         },
-        enabled: isFocused && !!Token,
+        enabled: isFocused && !!Token ,
     });
 
     // here also add tags for like, isFreind, dislike 
@@ -170,6 +172,12 @@ const NewMemberScreen: React.FC = () => {
                 onScroll={handleScroll}
             >
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch
+                        }}
+                    />
                     {isLoading ? <Loader /> :
                         allUsers?.length > 0 ? (
                             allUsers?.map((item: any, index: number) => {
