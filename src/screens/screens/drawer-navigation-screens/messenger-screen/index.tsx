@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, TextInput, TouchableOpacity, } from 'react-native'
+import { View, TextInput, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 /**Local imports*/
@@ -9,7 +9,7 @@ import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
 import { Colors } from '../../../../utils/constant/Constant'
 import { MessengerItems } from '../../../../components/common/helper'
-import { createModalBtn, optionsData } from './helper'
+import { createModalBtn } from './helper'
 import { GetPersonalConversationsList } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { useSocket } from '../../../../utils/context/socket-context/SocketProvider'
@@ -21,14 +21,12 @@ import MessageList from '../../../../components/message-list/MessageList'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
 import ModalButtons from '../../../../components/modal/modal-content/modal-buttons/ModalButtons'
-import ModalMultiSelecter from '../../../../components/modal/modal-content/modal-multi-selecter/ModalMultiSelecter'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
 
 /**Icons*/
-import SearchIcon from '@svgs/search.svg'
-import FilterIcon from '@svgs/filter.svg'
+import SearchIcon from '@svgs/search.svg' 
 
 /** Liabary*/
 import { useQuery, useQueryClient } from '@tanstack/react-query'

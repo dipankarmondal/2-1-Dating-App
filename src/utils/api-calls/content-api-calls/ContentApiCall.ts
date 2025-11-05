@@ -1083,3 +1083,19 @@ export const GetUserFriends = async (token: any, id: any) => {
         throw error;
     }
 };
+
+//Get Feed
+
+export const GetFeed = async (token: any) => {
+    try {
+        const res = await API.get(`/feed`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};

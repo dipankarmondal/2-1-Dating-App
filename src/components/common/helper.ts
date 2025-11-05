@@ -387,6 +387,12 @@ export const MessengerItems = [
     { key: 'messenger', label: 'Messenger' },
     { key: 'group_messenger', label: 'Group Messenger' },
 ];
+
+export const FeedTabs = [
+    { key: 'global_feeds', label: 'Global Feeds' },
+    { key: 'your_feeds', label: 'Your Feeds' },
+    { key: 'notifications', label: 'Notifications' },
+];
 export const WallofFameItems = [
     { key: 'most_photos', label: 'Most Photos' },
     { key: 'most_videos', label: 'Most Videos' },

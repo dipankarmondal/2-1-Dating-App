@@ -38,9 +38,9 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, typ
 
     const handleNotification = () => {
         if (type === "feed") {
-            setUpdateKey?.("notification");
+            setUpdateKey?.("notifications"); 
         } else {
-            Navigation.navigate("FeedScreen", { key: "notification" });
+            Navigation.navigate("FeedScreen", { key: "notifications" });
         }
     };
 
