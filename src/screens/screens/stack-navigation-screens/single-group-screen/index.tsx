@@ -8,7 +8,7 @@ import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { DeleteGroup, GetGroupMembers, GetSingleGroup, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { SingleGroupMenuItems } from '../../../../components/common/helper'
 import { ms, toast } from '../../../../utils/helpers/responsive'
-import {SingleGroupScreenstyles as styles} from "./styles"
+import { SingleGroupScreenstyles as styles } from "./styles"
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -16,12 +16,13 @@ import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import TopMenu from '../../../../components/top-menu'
 import MembersTab from './group-tab-content/MembersTab'
 import GroupCard from '../../../../components/group-card/GroupCard'
-
-/** Liabary*/
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Loader from '../../../../components/loader/Loader'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
+import { GropInfo } from '../../drawer-navigation-screens/groups-screen/helper'
+
+/** Liabary*/
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 
 type Props = {
@@ -118,9 +119,17 @@ const SingleGroupScreen: React.FC<Props> = ({ route }) => {
                                         item: data?.data?.group
                                     }}
                                 />
-                                <View style={styles.dt_user_info_card}>
-                                    <Text style={styles.dt_group_rouls}>Rules</Text>
-                                    <Text style={styles.dt_group_rouls_text}>{data?.data?.group?.rules ?? "--"}</Text>
+                                <View style={[styles.dt_user_info_card, { gap: ms(10) }]}>
+                                    {
+                                        GropInfo(data)?.map((item: any, index: number) => {
+                                            return (
+                                                <View key={index} style={{ flexDirection: "row", alignItems: "center" }}>
+                                                    <Text style={styles.dt_group_rouls}>{item?.title}: </Text>
+                                                    <Text style={[styles.dt_group_rouls_text]}> {item?.value}</Text>
+                                                </View>
+                                            )
+                                        })
+                                    }
                                 </View>
                                 <View style={{ borderRadius: ms(5), overflow: "hidden" }}>
                                     <TopMenu {...{

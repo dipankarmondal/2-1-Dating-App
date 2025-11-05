@@ -82,37 +82,37 @@ const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, h
                         </Text>
                     </View>
                 </View>
-                {
-                    type === "friends_request" && (
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.rejectButton} onPress={handleDeclineCall}>
-                                {loader && selectionAction === "decline" && itemId === selectedId ? (
-                                    <LoaderKitView
-                                        style={{ width: 35, height: 35 }}
-                                        name={'BallScaleMultiple'}
-                                        animationSpeedMultiplier={1.0}
-                                        color={Colors.dt_bg}
-                                    />
-                                ) : (
-                                    <Text style={styles.buttonText}>Reject</Text>
-                                )}
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.acceptButton} onPress={handleAcceptCall} >
-                                {loader && selectionAction === "accept" && itemId === selectedId ? (
-                                    <LoaderKitView
-                                        style={{ width: 35, height: 35 }}
-                                        name={'BallScaleMultiple'}
-                                        animationSpeedMultiplier={1.0}
-                                        color={Colors.dt_bg}
-                                    />
-                                ) : (
-                                    <Text style={styles.buttonText}>Accept</Text>
-                                )}
-                            </TouchableOpacity>
-                        </View>
-                    )
-                }
             </View>
+            {
+                type === "friends_request" && (
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.rejectButton} onPress={handleDeclineCall}>
+                            {loader && selectionAction === "decline" && itemId === selectedId ? (
+                                <LoaderKitView
+                                    style={{ width: 35, height: 35 }}
+                                    name={'BallScaleMultiple'}
+                                    animationSpeedMultiplier={1.0}
+                                    color={Colors.dt_bg}
+                                />
+                            ) : (
+                                <Text style={styles.buttonText}>Reject</Text>
+                            )}
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.acceptButton} onPress={handleAcceptCall} >
+                            {loader && selectionAction === "accept" && itemId === selectedId ? (
+                                <LoaderKitView
+                                    style={{ width: 35, height: 35 }}
+                                    name={'BallScaleMultiple'}
+                                    animationSpeedMultiplier={1.0}
+                                    color={Colors.dt_bg}
+                                />
+                            ) : (
+                                <Text style={styles.buttonText}>Accept</Text>
+                            )}
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
             <View style={[styles.dt_profile_content, { marginTop: ms(10) }]}>
                 {NewMemberActions(item).map(({ id, icon: Icon, size, count }) => (
                     <TouchableOpacity

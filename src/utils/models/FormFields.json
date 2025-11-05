@@ -981,5 +981,36 @@
                 "required": "second location is required"
             }
         }
+    },
+    "group_filter": {
+        "category": {
+            "label": "Category",
+            "placeholder": "Select Category",
+            "errors": {
+                "required": "Category is required"
+            }
+        },
+        "groupType": {
+            "label": "Group type",
+            "placeholder": "Select group tupe",
+            "errors": {
+                "required": "group type is required"
+            }
+        },
+        "targetAudience": {
+            "label": "Target Audience",
+            "placeholder": "Select Target Audience",
+            "errors": {
+                "required": "Target Audience is required"
+            }
+        },
+        "sortBy": {
+            "label": "Sort By",
+            "placeholder": "Select Sort By",
+            "errors": {
+                "required": "Sort By is required"
+            }
+        }
     }
+
 }

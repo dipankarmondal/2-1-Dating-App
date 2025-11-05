@@ -4,6 +4,7 @@ import { FormStyle } from "../constant/Constant"
 import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, Distance, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
+import { CategoriesFilter, GroupTypesFilter, SortOptionsFilter, TargetAudienceFilter } from "../../screens/screens/drawer-navigation-screens/groups-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -403,7 +404,7 @@ export const SpeedDateBuilder = (control: Control<any>) => {
             styles: FormStyle,
             control: control,
             placeholder: true,
-        }, 
+        },
         {
             name: 'intrest',
             parent: 'speed_date',
@@ -1387,3 +1388,48 @@ export const BugReport = (control: Control<any>) => {
         },
     ]
 }
+export const GroupFilter = (control: Control<any>) => {
+    return [
+        {
+            name: 'category',
+            parent: 'group_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: CategoriesFilter
+        },
+        {
+            name: 'targetAudience',
+            parent: 'group_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: TargetAudienceFilter
+        },
+        {
+            name: 'sortBy',
+            parent: 'group_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: SortOptionsFilter
+        },
+        {
+            name: 'groupType',
+            parent: 'group_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: GroupTypesFilter
+        },
+    ]
+}
+

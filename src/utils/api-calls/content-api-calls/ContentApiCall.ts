@@ -593,14 +593,20 @@ export const UpdateGroup = async (token: any, id: any, data: any,) => {
 };
 
 //Get All Groups
-export const GetAllGroups = async (token: any, search: any) => {
+export const GetAllGroups = async (token: any, search: any, limit: any, page: any,filter: any) => {
     try {
         const res = await API.get("/groups", {
             headers: {
                 Authorization: `Bearer ${token}`
             },
             params: {
-                ...(search ? { search } : {})
+                ...(search ? { search } : {}),
+                ...(filter?.category ? { category: filter.category } : {}),
+                ...(filter?.groupType ? { groupType: filter.groupType } : {}),
+                ...(filter?.targetAudience ? { targetAudience: filter.targetAudience } : {}),
+                ...(filter?.sortBy ? { sortBy: filter.sortBy } : {}),
+                limit: limit,
+                page: page
             }
         });
         return res?.data;
@@ -744,13 +750,26 @@ export const GetUserDetails = async (token: any, id: any) => {
 };
 
 // Get My Friends List
-export const GetMyFriendsList = async (token: any) => {
+export const GetMyFriendsList = async (token: any, search: any) => {
     try {
-        const res = await API.get("/friends", {
+        // Build the URL manually to log it
+        const baseURL = API.defaults.baseURL || ""; // Axios base URL
+        const endpoint = "/friends";
+
+        const params = new URLSearchParams();
+        if (search) params.append("search", search);
+
+        const fullUrl = `${baseURL}${endpoint}${params.toString() ? `?${params.toString()}` : ""}`;
+        console.log("Full API URL:", fullUrl);
+
+        // Make the API call
+        const res = await API.get(endpoint, {
             headers: {
                 Authorization: `Bearer ${token}`
-            }
+            },
+            params: search ? { search } : {}
         });
+
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });

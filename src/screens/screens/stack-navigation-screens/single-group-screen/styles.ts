@@ -17,7 +17,7 @@ export const SingleGroupScreenstyles = StyleSheet.create({
     dt_group_rouls_text:{
         fontFamily:Fonts.Font_500,
         fontSize:ms(15),
-        color:Colors.dt_white
+        color:Colors.dt_white,
     },
     dt_intrest: {
             flexDirection: "row",

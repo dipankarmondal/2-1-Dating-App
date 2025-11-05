@@ -4,7 +4,7 @@ import { Colors, Fonts } from "../../utils/constant/Constant";
 export const SubmitButtonStyles = StyleSheet.create({
     dt_button: {
         width: "100%",
-        height: ms(40),
+        height: ms(45),
         backgroundColor: Colors.dt_primary_green,
         alignItems: 'center',
         justifyContent: 'center',

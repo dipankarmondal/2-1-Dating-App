@@ -1,5 +1,5 @@
 /**React Imports */
-import { View,TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -14,17 +14,18 @@ import CrossIcon from '@svgs/cross.svg'
 
 type Props = {
     search: string
-    setSearch: React.Dispatch<React.SetStateAction<string>>
+    setSearch: React.Dispatch<React.SetStateAction<string>>,
+    placeholder?: string
 }
 
 /**Main export*/
-const SearchBox: React.FC<Props> = ({ search, setSearch }) => {
+const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder }) => {
 
     return (
         <View style={styles.dt_search_wrapper}>
             <SearchIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
             <TextInput
-                placeholder="Search..."
+                placeholder={placeholder ?? "Search..."}
                 placeholderTextColor={Colors.dt_gray}
                 style={styles.dt_search_input}
                 selectionColor={Colors.dt_white}

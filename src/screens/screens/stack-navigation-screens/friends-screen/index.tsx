@@ -29,6 +29,7 @@ import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/Inf
 
 /**Icons*/
 import SendIcon from '@svgs/send.svg'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const FriendsScreen: React.FC = () => {
@@ -41,6 +42,7 @@ const FriendsScreen: React.FC = () => {
     const [selectedFriendsIds, setselectedFriendsIds] = useState<string[]>([]);
     const [modalBroadcast, setModalBroadcast] = useState(false);
     const [broadcastMessage, setBroadcastMessage] = useState("");
+    const [search, setSearch] = useState("");
 
     const isFocused = useIsFocused();
     const { Token } = useAuth()
@@ -51,10 +53,11 @@ const FriendsScreen: React.FC = () => {
     }, [isFocused]);
 
     const { data: friendData, isLoading: friendLoading, refetch: friendRefetch } = useQuery({
-        queryKey: ["my_all_friends"],
-        queryFn: () => GetMyFriendsList(Token),
+        queryKey: ["my_all_friends", search],
+        queryFn: () => GetMyFriendsList(Token,search),
         enabled: !!Token
     })
+    console.log("object", friendData)
     const { data: friendRequestData, isLoading: friendRequestLoading, refetch: friendRequstRefetch } = useQuery({
         queryKey: ["my_friends_requests"],
         queryFn: () => GetFriendRequests(Token, "received", "pending"),
@@ -187,6 +190,16 @@ const FriendsScreen: React.FC = () => {
                 <View style={CommonStyles.dt_container}>
                     {
                         activeTab === "all_friends" && (
+                            <SearchBox
+                                {...{
+                                    search,
+                                    setSearch
+                                }}
+                            />
+                        )
+                    }
+                    {
+                        activeTab === "all_friends" && (
                             friendLoading ? (
                                 <Loader />
                             ) : (
@@ -199,7 +212,6 @@ const FriendsScreen: React.FC = () => {
                                                 type="user"
                                                 item={item}
                                                 isMore
-                                                // isOption
                                                 isUserContent={false}
                                                 isFilterOption={false}
                                                 isGallery={item?.profile?.photos?.length > 0 ? true : false}

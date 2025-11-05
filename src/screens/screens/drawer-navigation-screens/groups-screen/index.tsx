@@ -6,6 +6,9 @@ import React, { useEffect, useState } from 'react'
 import { CommonStyles } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
 import { TravelOptions } from '../../../../components/common/helper'
+import { DeleteGroup, GetAllGroups, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { ms, toast } from '../../../../utils/helpers/responsive'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -14,47 +17,63 @@ import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import GroupCard from '../../../../components/group-card/GroupCard'
-
-/** Liabary*/
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { DeleteGroup, GetAllGroups, JoinGroup, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
-import { toast } from '../../../../utils/helpers/responsive'
 import SearchBox from '../../../../components/search-box/SearchBox'
+
+/** Liabary*/
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { GroupFilter } from '../../../../utils/builders'
+import DropdownInput from '../../../../components/form-utils/dropdown-input'
+import SubmitButton from '../../../../components/submit-button'
 
 /**Main export*/
 const GroupsScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false)
-    const [selected, setSelected] = useState<string>("");
     const [groupDeteleModal, setGroupDeteleModal] = useState(false);
     const [groupLeaveModal, setGroupLeaveModal] = useState(false);
     const [modalSelectId, setModalSelectId] = useState<any>(null)
     const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState(null);
 
-    const isFocused = useIsFocused();
     const Navigation = useNavigation<any>()
     const { Token } = useAuth()
     const QueryInvalidater = useQueryClient();
 
-    useEffect(() => {
-        if (isFocused) {
-            setSelected("");
-        }
-    }, [isFocused]);
+    const { control, handleSubmit, reset } = useForm()
 
-    const OnModalFormClick = () => {
-        setShowDropdown(false);
-    };
+    const onFilter = (data: any) =>{
+        setFilter(data)
+        setShowDropdown(false)
+        reset()
+    }
 
-    const { data: GroupAllData, isLoading, refetch } = useQuery({
-        queryKey: ["GroupAllData",search],
-        queryFn: () => GetAllGroups(Token,search),
+    const {
+        data: GroupAllData,
+        isLoading,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        refetch,
+    } = useInfiniteQuery({
+        queryKey: ["GroupAllData", search,filter],
+        queryFn: ({ pageParam = 1 }) => GetAllGroups(Token, search, 5, pageParam,filter),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            const pagination = lastPage?.data?.pagination;
+            if (pagination?.hasNext) {
+                // increment current page
+                return Number(pagination.page) + 1;
+            }
+            return undefined; // stop fetching when no more pages
+        },
         enabled: !!Token,
-    })
+    });
+
+    const GroupsData = GroupAllData?.pages?.flatMap((page) => page?.data?.groups) || [];
 
     const DeleteGroupMutation = useMutation({
         mutationFn: (id: any) => DeleteGroup(Token, id),
@@ -85,6 +104,22 @@ const GroupsScreen: React.FC = () => {
         LeaveGroupMutation.mutate(modalSelectId)
     }
 
+    const handleScrollToEnd = (nativeEvent: any) => {
+        const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+
+        const isCloseToBottom =
+            layoutMeasurement.height + contentOffset.y >= contentSize.height - 100;
+
+        if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    };
+
+    const RefreshCall = () =>{
+        refetch()
+        setFilter(null)
+    }
+
     return (
         <ScreenLayout>
             <ScreenHeader>
@@ -103,18 +138,21 @@ const GroupsScreen: React.FC = () => {
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={refetch}
+                onRefresh={RefreshCall}
+                onScroll={({ nativeEvent }) => handleScrollToEnd(nativeEvent)}
+                scrollEventThrottle={400}
             >
                 <View style={CommonStyles.dt_container}>
-                    <SearchBox 
+                    <SearchBox
                         {...{
                             search,
-                            setSearch
+                            setSearch,
+                            placeholder: "Search group name, description, and tags..",
                         }}
                     />
                     {isLoading ? <Loader /> :
-                        GroupAllData?.data?.groups?.length > 0 ? (
-                            GroupAllData?.data?.groups?.map((item: any, index: number) => {
+                        GroupsData?.length > 0 ? (
+                            GroupsData?.map((item: any, index: number) => {
                                 const GroupData = {
                                     name: item?.name,
                                     coverImage: item?.coverImage,
@@ -149,6 +187,11 @@ const GroupsScreen: React.FC = () => {
                             />
                         )
                     }
+                    {isFetchingNextPage && (
+                        <View style={{ marginVertical: ms(10) }}>
+                            <Loader />
+                        </View>
+                    )}
                 </View>
             </ScrollContent>
 
@@ -157,19 +200,26 @@ const GroupsScreen: React.FC = () => {
                 setModalVisible={setShowDropdown}
                 headerText="Filters"
                 type="filters"
-                onModalClick={OnModalFormClick}
-                selected={selected}
-                setSelected={setSelected}
             >
-                <ModalSelectContent
-                    {...{
-                        filterData: TravelOptions,
-                        setModalVisible: setShowDropdown,
-                        selected: selected,
-                        setSelected: setSelected
-                    }}
-                />
+                {
+                    GroupFilter(control).map((item, index) => {
+                        if (item.type === "dropdown") {
+                            return <DropdownInput key={index} {...item} />;
+                        }
+                    })
+                }
+                <View style={{ marginVertical: ms(40) }} />
+                <View style={{marginBottom: ms(10)}}>
+                    <SubmitButton
+                        {...{
+                            text: "Submit",
+                            loading: false,
+                            onPress: handleSubmit(onFilter),
+                        }}
+                    />
+                </View>
             </ModalAction>
+
             <ModalAction
                 isModalVisible={groupDeteleModal}
                 setModalVisible={setGroupDeteleModal}

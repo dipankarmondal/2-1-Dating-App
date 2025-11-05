@@ -43,7 +43,6 @@ const CreateGroup: React.FC<Props> = ({ route }) => {
     const UpdateGroupsMutation = useMutation({
         mutationFn: (data: any) => UpdateGroup(Token, updatedData?._id, data),
         onSuccess: (res) => {
-        console.log("object", res)
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 reset()
@@ -134,7 +133,7 @@ const CreateGroup: React.FC<Props> = ({ route }) => {
                 title: type === "edit" ? "Edit Group" : "Create Group",
             }}
         >
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
                 <View style={styles.dt_container}>
                     {CreateGroupBuilder(control)
                         .filter(item => !(type === "edit" && item.name === "file"))
