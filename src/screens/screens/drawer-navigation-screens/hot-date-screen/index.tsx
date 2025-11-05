@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, ScrollView, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 /**Components */
@@ -11,13 +11,13 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 import HotdateContent from '../../../../components/modal/modal-content/hotdate-content/HotdateContent'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
 import { Colors, getAge } from '../../../../utils/constant/Constant'
 import { OnlineOptions } from '../../../../components/common/helper'
 import { HotDateStyles as styles } from './styles'
-import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { GetHotDate, SendFriendRequest } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
@@ -27,42 +27,52 @@ import { ms, toast } from '../../../../utils/helpers/responsive'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useMutation, useQuery } from '@tanstack/react-query'
+import moment from 'moment'
 
 /**Icons*/
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
-import moment from 'moment'
+import SearchBox from '../../../../components/search-box/SearchBox'
+import { useForm, useFormState } from 'react-hook-form'
+import DropdownInput from '../../../../components/form-utils/dropdown-input'
+import { HotdateFilter } from '../../../../utils/builders'
+import SubmitButton from '../../../../components/submit-button'
 
 /**Main export*/
 const HotDateScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
-    const [selected, setSelected] = useState<string>("");
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [distance, setDistance] = useState(500);
+    const [distance, setDistance] = useState(0);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [search, setSearch] = useState<string>("");
+    const [location, setLocation] = useState("");
+    const [filter, setFilter] = useState();
+
+    const FilterDate = moment(selectedDate).isValid()
+        ? moment(selectedDate).format("YYYY-MM-DD")
+        : null;
 
     const isFocused = useIsFocused();
     const Navigation = useNavigation<any>();
-    const { Token,user } = useAuth()
+    const { Token } = useAuth()
+
+    const { control, handleSubmit, reset } = useForm()
 
     useEffect(() => {
         if (isFocused) {
-            setSelected("")
+            setLocation("")
+            setFilter(null)
+            setSelectedDate(null)
+            setDistance(0)
         }
     }, [isFocused]);
-
-    const OnModalFormClick = () => {
-        setShowDropdown(false);
-        setSelected("");
-    };
 
     const hideDatePicker = () => setDatePickerVisibility(false);
 
     const { data: GetHotDateData, isLoading: GetHotDateLoading, refetch: GetHotDateRefetch } = useQuery({
-        queryKey: ["GetHotDate"],
-        queryFn: () => GetHotDate(Token),
+        queryKey: ["GetHotDate", FilterDate, distance, location, filter],
+        queryFn: () => GetHotDate(Token, FilterDate, distance, location, filter),
         enabled: isFocused && !!Token
     });
 
@@ -70,25 +80,23 @@ const HotDateScreen: React.FC = () => {
         moment(date).format("MMM DD, YYYY")
     );
 
-    const SendFriendRequestMutation = useMutation({
-        mutationFn: (data: any) => SendFriendRequest(Token, data),
-        onSuccess: (res) => {
-            if(res?.success){
-                toast("success", { title: res?.message });
-            }
-        },
-    })
+    const onFilter = (data: any) => {
+        setFilter(data)
+        setShowDropdown(false)
+        setLocation("")
+        reset()
+    }
 
-    const handleSendFriendRequest = (id: any) => {
-        const payload = {
-            receiverId:id,
-        }
-        SendFriendRequestMutation.mutate(payload);
+    const OnApiRefresh = () => {
+        setLocation("")
+        setFilter(null)
+        setSelectedDate(null)
+        setDistance(0)
+        GetHotDateRefetch()
     }
 
     return (
-        <ScreenLayout> 
-
+        <ScreenLayout>
             <ScreenHeader>
                 <Text style={CommonStyles.dt_header_title}>Hot Date</Text>
                 <View style={CommonStyles.dt_filter_container_btn}>
@@ -103,26 +111,32 @@ const HotDateScreen: React.FC = () => {
 
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={GetHotDateRefetch} // just pass refetch here
+                onRefresh={OnApiRefresh}
             >
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch,
+                            placeholder: "Search you hot dates here...",
+                        }}
+                    />
                     {GetHotDateLoading ? <Loader /> :
                         GetHotDateData?.data?.length > 0 ? (
                             GetHotDateData?.data?.map((item: any, index: number) => {
-                                const isUser = item?.creator?.id === user?.id
                                 return (
                                     <UserInfoCard
                                         key={index}
                                         {...{
-                                            type: "hotdate",
+                                            type: "user",
                                             item,
                                             isMore: true,
-                                            isOption: isUser === true ? false : true,
                                             isUserContent: false,
                                             isFilterOption: true,
                                             isGallery: item?.creator?.profile?.photos?.length > 0 ? true : false,
                                             UserName: item?.creator?.profile?.firstName,
                                             profileImages: item?.creator?.profile?.photos,
+                                            userId: item?.creator?._id,
                                         }}
                                     >
                                         <View style={styles.dt_intrest}>
@@ -222,26 +236,35 @@ const HotDateScreen: React.FC = () => {
                 setModalVisible={setShowDropdown}
                 headerText="Filters"
                 type="filters"
-                onModalClick={OnModalFormClick}
-                selected={selected}
-                setSelected={setSelected}
             >
-                <ModalSelectContent
-                    {...{
-                        filterData: OnlineOptions,
-                        setModalVisible: setShowDropdown,
-                        selected: selected,
-                        setSelected: setSelected
-                    }}
-                />
+
+                {
+                    HotdateFilter(control).map((item, index) => {
+                        if (item.type === "dropdown") {
+                            return <DropdownInput key={index} {...item} />;
+                        }
+                    })
+                }
                 <HotdateContent
                     {...{
                         distance,
                         setDistance,
                         setDatePickerVisibility,
                         selectedDate,
+                        location,
+                        setLocation
                     }}
                 />
+
+                <View style={{ marginBottom: ms(10) }}>
+                    <SubmitButton
+                        {...{
+                            text: "Submit",
+                            loading: false,
+                            onPress: handleSubmit(onFilter),
+                        }}
+                    />
+                </View>
             </ModalAction>
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}

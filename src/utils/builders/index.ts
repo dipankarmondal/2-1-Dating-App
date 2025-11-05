@@ -5,6 +5,7 @@ import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst,
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 import { CategoriesFilter, GroupTypesFilter, SortOptionsFilter, TargetAudienceFilter } from "../../screens/screens/drawer-navigation-screens/groups-screen/helper"
+import { PlaceTypeFilter, SpeedDateUserFilter } from "../../screens/screens/drawer-navigation-screens/hot-date-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -1429,6 +1430,30 @@ export const GroupFilter = (control: Control<any>) => {
             placeholder: true,
             control: control,
             selectionData: GroupTypesFilter
+        },
+    ]
+}
+export const HotdateFilter = (control: Control<any>) => {
+    return [
+        {
+            name: 'speed_date_type',
+            parent: 'hotdate_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: SpeedDateUserFilter
+        },
+        {
+            name: 'place_type',
+            parent: 'hotdate_filter',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: PlaceTypeFilter
         },
     ]
 }

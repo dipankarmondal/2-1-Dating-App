@@ -57,7 +57,7 @@ const FriendsScreen: React.FC = () => {
         queryFn: () => GetMyFriendsList(Token,search),
         enabled: !!Token
     })
-    console.log("object", friendData)
+
     const { data: friendRequestData, isLoading: friendRequestLoading, refetch: friendRequstRefetch } = useQuery({
         queryKey: ["my_friends_requests"],
         queryFn: () => GetFriendRequests(Token, "received", "pending"),

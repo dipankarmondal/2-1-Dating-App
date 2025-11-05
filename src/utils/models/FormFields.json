@@ -1011,6 +1011,21 @@
                 "required": "Sort By is required"
             }
         }
+    },
+    "hotdate_filter": {
+        "speed_date_type": {
+            "label": "Speed Date Type",
+            "placeholder": "Select speed-date type",
+            "errors": {
+                "required": "speed-date type is required"
+            }
+        },
+        "place_type": {
+            "label": "Place type",
+            "placeholder": "Select place type",
+            "errors": {
+                "required": "place type is required"
+            }
+        }
     }
-
 }

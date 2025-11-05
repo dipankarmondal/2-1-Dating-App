@@ -26,7 +26,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, isOption, isUserContent, isFilterOption, isGallery, isChecked, setIsChecked, children, profileImages = [], UserName,isBroadcastCheck,handleBroadcast,userId,menuData,openDropdown,isDelete }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore,isOption, isFilterOption, isGallery, isChecked, children, profileImages = [], UserName,isBroadcastCheck,handleBroadcast,userId,menuData,openDropdown,isDelete }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,9 +34,8 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
 
     const Navigation = useNavigation<any>()
 
-
     const UserInfoContent = () => {
-        return (
+        return ( 
             <>
                 <View style={styles.dt_image_container}>
                     <Image
@@ -83,7 +82,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                 )
                             }
                    
-                            {
+                            {/* {
                                 (type === "hotdate" || type === "travel") && (
                                     <>
                                         <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("speed_date") }}>
@@ -94,7 +93,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                                         </TouchableOpacity>
                                     </>
                                 )
-                            }
+                            } */}
                             {
                                 isBroadcastCheck === true && (
                                     <TouchableOpacity
@@ -251,7 +250,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, item, i
                 type === "user" ? (
                     <TouchableOpacity
                         style={styles.dt_user_info_card}
-                        onPress={() => Navigation.navigate("ProfileScreen", { userId: item?._id ? item?._id : userId, type: "friends" })}
+                        onPress={() => Navigation.navigate("ProfileScreen", { userId: userId, type: "friends" })}
                         activeOpacity={0.5}
                     >
                         <UserInfoContent />

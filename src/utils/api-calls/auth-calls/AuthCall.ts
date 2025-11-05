@@ -8,7 +8,7 @@ export const VerifayPhone = async (data: any) => {
             type: "signup",
         };
 
-        const res = await API.post("otp/request", NewData);
+        const res = await API.post("/otp/request", NewData);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -26,7 +26,7 @@ export const VerifayPhone = async (data: any) => {
 export const VerifayOtp = async (data: any) => {
     try {
 
-        const res = await API.post("otp/verify", data);
+        const res = await API.post("/otp/verify", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -44,7 +44,7 @@ export const VerifayOtp = async (data: any) => {
 export const CreateUser = async (data: any) => {
     try {
 
-        const res = await API.post("auth/signup", data);
+        const res = await API.post("/auth/signup", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -62,7 +62,7 @@ export const CreateUser = async (data: any) => {
 export const LoginUser = async (data: any) => {
     try {
 
-        const res = await API.post("auth/login", data);
+        const res = await API.post("/auth/login", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -81,7 +81,7 @@ export const LoginUser = async (data: any) => {
 // Get profile
 export const GetProfile = async (token: any) => {
     try {
-        const res = await API.get("profile", { headers: { Authorization: `Bearer ${token}` } });
+        const res = await API.get("/profile", { headers: { Authorization: `Bearer ${token}` } });
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
@@ -93,7 +93,7 @@ export const GetProfile = async (token: any) => {
 // Profile setup
 export const UpdateProfileSetup = async (token: any, data: any,) => {
     try {
-        const res = await API.post("onboarding/complete", data, { headers: { Authorization: `Bearer ${token}` } });
+        const res = await API.post("/onboarding/complete", data, { headers: { Authorization: `Bearer ${token}` } });
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -113,7 +113,7 @@ export const UpdateProfileSetup = async (token: any, data: any,) => {
 //business-request
 export const BusinessRequest = async (token: any, data: any,) => {
     try {
-        const res = await API.post("business-request", data,
+        const res = await API.post("/business-request", data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -137,7 +137,7 @@ export const BusinessRequest = async (token: any, data: any,) => {
 //forgot-password 
 export const ForgotPasswordRequest = async (data: any) => {
     try {
-        const res = await API.post("auth/forgot-password", data);
+        const res = await API.post("/auth/forgot-password", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -157,7 +157,7 @@ export const ForgotPasswordRequest = async (data: any) => {
 
 export const VerifyResetOtp = async (data: any) => {
     try {
-        const res = await API.post("auth/verify-reset-otp", data);
+        const res = await API.post("/auth/verify-reset-otp", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;
@@ -176,7 +176,7 @@ export const VerifyResetOtp = async (data: any) => {
 //reset-password
 export const ResetPassword = async (data: any) => {
     try {
-        const res = await API.post("auth/reset-password-with-token", data);
+        const res = await API.post("/auth/reset-password-with-token", data);
         return res?.data;
     } catch (error) {
         const errorData = error?.response?.data?.error;

@@ -37,7 +37,6 @@ const AccountScreen: React.FC = () => {
     const AccountUpdateMutation = useMutation({
         mutationFn: (data: any) => UpdateAccount(Token, data),
         onSuccess: (res) => {
-            console.log("object", res)
             if (res?.success === true) {
                 toast("success", { title: res?.message });
                 Navigation.goBack()

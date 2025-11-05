@@ -10,9 +10,11 @@ type Props = {
     setDistance: (val: number) => void;
     setDatePickerVisibility: (val: boolean) => void;
     selectedDate: Date | null;
+    setLocation?: any,
+    location?: any
 }
 
-const HotdateContent: React.FC<Props> = ({ distance, setDistance, setDatePickerVisibility, selectedDate }) => {
+const HotdateContent: React.FC<Props> = ({ distance, setDistance, setDatePickerVisibility, selectedDate, location, setLocation }) => {
 
     return (
         <View style={styles.container}>
@@ -48,6 +50,10 @@ const HotdateContent: React.FC<Props> = ({ distance, setDistance, setDatePickerV
                 placeholder="Search by country"
                 style={styles.dt_searchInput}
                 placeholderTextColor={Colors.dt_gray}
+                value={location}
+                onChangeText={(text) => {
+                    setLocation(text);
+                }}
             />
 
         </View>

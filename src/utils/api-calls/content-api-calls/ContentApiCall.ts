@@ -341,24 +341,49 @@ export const GetProfileViewers = async (token: any) => {
                 Authorization: `Bearer ${token}`
             }
         });
+
+        // Log full API URL (baseURL + endpoint)
+        console.log("Full API URL:", res?.config?.baseURL + res?.config?.url);
+
         return res?.data;
-    } catch (error) {
+    } catch (error: any) {
+        // Log full API URL in case of error
+        console.log("Full API URL:", error?.config?.baseURL + error?.config?.url);
+        console.log("Response:", error?.response);
+
         toast("error", { title: "Something went wrong" });
         throw error;
     }
 };
 
+
 // Get hot date
-export const GetHotDate = async (token: any) => {
+export const GetHotDate = async (token: any, date: any, distance: any, location: any, filter: any) => {
     try {
+        const params: any = {
+            ...(date ? { startDate: date } : {}),
+            ...(filter?.speed_date_type ? { preferredWith: filter?.speed_date_type } : {}),
+            ...(filter?.place_type ? { type: filter?.place_type } : {}),
+            ...(distance ? { "location[maxDistance]": distance } : {}),
+        };
+
+        // Construct query string manually
+        const queryString = new URLSearchParams(params).toString();
+        const fullUrl = `/speed-dates${queryString ? `?${queryString}` : ""}`;
+
+        console.log("🔗 Full API URL:", API.defaults.baseURL + fullUrl);
+
         const res = await API.get("/speed-dates", {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
+            params,
         });
+
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
+        console.log("object", error?.response)
         throw error;
     }
 };
@@ -593,7 +618,7 @@ export const UpdateGroup = async (token: any, id: any, data: any,) => {
 };
 
 //Get All Groups
-export const GetAllGroups = async (token: any, search: any, limit: any, page: any,filter: any) => {
+export const GetAllGroups = async (token: any, search: any, limit: any, page: any, filter: any) => {
     try {
         const res = await API.get("/groups", {
             headers: {
