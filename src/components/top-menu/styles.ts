@@ -39,6 +39,11 @@ export const TopMenuStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    dt_isThreeItem: {
+        width: "31%",
+        alignItems: "center",
+        justifyContent:"center"
+    },
     dt_badge:{
         paddingHorizontal:ms(5),
         paddingVertical:ms(1),

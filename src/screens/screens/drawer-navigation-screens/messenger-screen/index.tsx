@@ -41,7 +41,6 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
     const [activeKey, setActiveKey] = useState("messenger");
     const [showDropdown, setShowDropdown] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showFilterModal, setShowFilterModal] = useState(false);
     const [selectedChat, setSelectedChat] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
 
@@ -50,7 +49,6 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
 
     const { Token } = useAuth();
     const { socket, socketConnected } = useSocket();
-
     const { key } = route.params || {}
 
     useEffect(() => {
@@ -78,7 +76,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
         setShowDropdown(true);
     };
 
-    const DeleteBtnClick = () => {
+    const DeleteBtnClick = () => { 
         setShowDropdown(false);
         setTimeout(() => setShowDeleteModal(true), 300);
     }

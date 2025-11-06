@@ -7,7 +7,7 @@ export const LoaderStyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center",
-        flex:1
+        flex:1,
     },
     dt_loading_text:{
         color:Colors.dt_white,

@@ -7,11 +7,11 @@ import { TopMenuStyles as styles } from './styles'
 import { TopMenuProps } from '../../utils/types/types'
 
 /**Main export*/
-const TopMenu: React.FC<TopMenuProps> = ({ MenuData, activeKey, setActiveKey, isTwoItem, type }) => {
+const TopMenu: React.FC<TopMenuProps> = ({ MenuData, activeKey, setActiveKey, isTwoItem, type,isThreeItem }) => {
 
     return (
         <View style={styles.menuContainer}>
-            <ScrollView horizontal={isTwoItem ? false : true} showsHorizontalScrollIndicator={false} >
+            <ScrollView horizontal={isTwoItem || isThreeItem ? false : true} showsHorizontalScrollIndicator={false} >
                 <View style={[styles.menu]}>
                     {MenuData.map((item) => (
                         <TouchableOpacity
@@ -20,7 +20,8 @@ const TopMenu: React.FC<TopMenuProps> = ({ MenuData, activeKey, setActiveKey, is
                             style={[
                                 styles.menuItem,
                                 activeKey === item.key && styles.activeMenuItem,
-                                isTwoItem && styles.dt_isTwoItem
+                                isTwoItem && styles.dt_isTwoItem,
+                                isThreeItem && styles.dt_isThreeItem
                             ]}
                         >
                             <Text

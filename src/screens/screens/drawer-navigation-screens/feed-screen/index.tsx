@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 /**Local imports*/
-import { FeedTabs, FrindItems, GeneralItems, HeaderBtn } from '../../../../components/common/helper'
+import { FeedTabs, FrindItems, GeneralItems } from '../../../../components/common/helper'
 import { CommonStyles as commonstyle } from '../../common/CommonStyle'
-import GobalFeedContent from './GobalFeedContent'
 import { Colors } from '../../../../utils/constant/Constant'
-import { ms } from '../../../../utils/helpers/responsive'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
@@ -16,10 +14,9 @@ import Notification from './Notification'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { useQuery } from '@tanstack/react-query'
-import { GetFeed } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
-import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import TopMenu from '../../../../components/top-menu'
+import YourFeedContent from './YourFeedContent'
+import GlobalFeedContent from './GlobalFeedContent'
 
 /**Main export*/
 const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
@@ -37,21 +34,6 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
         }
     }, [key]);
 
-    const renderTab = (item: { key: string; title: string }) => {
-        const isActive = item.key === activeKey;
-        return (
-            <TouchableOpacity
-                key={item.key}
-                style={[commonstyle.dt_title_container, isActive && { borderBottomWidth: ms(1), borderBottomColor: "white" }]}
-                onPress={() => setActiveKey(item.key)}
-            >
-                <Text style={[commonstyle.dt_tab_title, { color: isActive ? Colors.dt_white : Colors.dt_gray + "89", }]}>
-                    {item.title}
-                </Text>
-            </TouchableOpacity>
-        );
-    };
-
     const handleFilterPress = (type: "general" | "friend") => {
         setShowDropdown(true);
         setFilterType(type);
@@ -62,11 +44,6 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
         console.log("clicked")
         setSelected("");
     };
-
-    const { data: FeedData, isLoading, refetch } = useQuery({
-        queryKey: ["FeedData"],
-        queryFn: () => GetFeed(Token),
-    })
 
     return (
         <ScreenLayout
@@ -89,34 +66,33 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
-            <ScrollContent
+            <ScrollView
+                showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={refetch}
             >
                 <TopMenu {...{
                     MenuData: FeedTabs,
                     activeKey,
                     setActiveKey,
-                    isTwoItem: false
+                    isThreeItem: true
                 }} />
-                <View style={commonstyle.dt_container}>
-                    {
-                        activeKey === "your_feeds" ?
-                            <GobalFeedContent
-                                {...{
-                                    FeedData: FeedData?.data
-                                }}
-                            /> :
-                            activeKey === "global_feeds" ?
-                                <GobalFeedContent
-                                    {...{
-                                        FeedData: FeedData?.data
-                                    }}
-                                /> :
-                                <Notification />
-                    }
-                </View>
-            </ScrollContent>
+                {
+                    activeKey === "your_feeds" ?
+                        <YourFeedContent
+                            {...{
+                                activeKey: activeKey
+                            }}
+                        /> :
+                        activeKey === "global_feeds" ?
+                            <GlobalFeedContent
+                            {...{
+                                activeKey: activeKey
+                            }}
+                        />
+                            :
+                            <Notification />
+                }
+            </ScrollView>
             <ModalAction
                 isModalVisible={showDropdown}
                 setModalVisible={setShowDropdown}

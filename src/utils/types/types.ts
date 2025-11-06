@@ -244,7 +244,8 @@ export type TopMenuProps = {
     activeKey: string,
     setActiveKey: React.Dispatch<React.SetStateAction<string>>
     isTwoItem?: boolean,
-    type?: string
+    type?: string,
+    isThreeItem?:boolean
 }
 
 export type GalleryModalProps = {

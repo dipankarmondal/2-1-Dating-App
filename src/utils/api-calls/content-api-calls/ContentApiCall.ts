@@ -1099,3 +1099,19 @@ export const GetFeed = async (token: any) => {
         throw error;
     }
 };
+
+//Get global Feed
+
+export const GetGlobalFeed = async (token: any) => {
+    try {
+        const res = await API.get(`/global-feed`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
