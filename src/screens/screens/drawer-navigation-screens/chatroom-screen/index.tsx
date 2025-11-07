@@ -4,18 +4,15 @@ import React, { useState } from 'react'
 
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { DeleteChatRoom, GetRoom, LeaveChatRoom } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { toast } from '../../../../utils/helpers/responsive'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
 import ChatroomCard from '../../../../components/chatroom-card/ChatroomCard'
 import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
-
-/** Liabary*/
-import { useNavigation } from '@react-navigation/native'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { DeleteChatRoom, GetRoom, LeaveChatRoom } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
 import TopMenu from '../../../../components/top-menu'
@@ -23,7 +20,10 @@ import { CgatRoomTabs } from '../../../../components/common/helper'
 import SearchBox from '../../../../components/search-box/SearchBox'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
 import ModalContent from '../../../../components/modal/modal-content/logout-content/ModalContent'
-import { toast } from '../../../../utils/helpers/responsive'
+
+/** Liabary*/
+import { useNavigation } from '@react-navigation/native'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 /**Main export*/
 const ChatroomScreen: React.FC = () => {
@@ -94,7 +94,7 @@ const ChatroomScreen: React.FC = () => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 onRefresh={refetch}
             >
-                <TopMenu {...{
+                <TopMenu {...{ 
                     MenuData: CgatRoomTabs,
                     activeKey,
                     setActiveKey,
@@ -107,6 +107,7 @@ const ChatroomScreen: React.FC = () => {
                             search,
                             setSearch,
                             placeholder: "Search chatrooms here...",
+                            isFilter: true
                         }}
                     />
                     {isLoading ? <Loader /> :

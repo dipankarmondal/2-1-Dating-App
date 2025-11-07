@@ -134,6 +134,13 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
             if (res?.success === true) {
                 openImageModal(res?.data?.files)
             }
+        },
+        onError: (err: any) => {
+            if (err?.response) {
+                if (err.response.status === 413) {
+                    setImageModal(false);
+                }
+            }
         }
     })
 

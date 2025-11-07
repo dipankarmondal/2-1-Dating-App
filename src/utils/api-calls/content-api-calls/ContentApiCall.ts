@@ -1002,7 +1002,11 @@ export const UploadMessageMedia = async (token: any, data: any,) => {
         if (Array.isArray(errorData) && errorData.length > 0) {
             firstMessage = errorData[0]?.message || firstMessage;
         }
-        toast("error", { title: firstMessage });
+        if(error.response.status === 413){
+            toast("error", { title: "Having a problem with file size" });
+        }else{
+            toast("error", { title: firstMessage });
+        }
         throw error;
     }
 };
@@ -1207,6 +1211,21 @@ export const LeaveChatRoom = async (token: any, id: any) => {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+// Get Room Details
+export const GetRoomDetails = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/chatrooms/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
         throw error;
     }
 };

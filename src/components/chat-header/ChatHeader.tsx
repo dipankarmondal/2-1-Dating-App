@@ -22,14 +22,14 @@ type Props = {
 }
 const ChatHeader: React.FC<Props> = ({ chat, type }) => {
     const Navigation = useNavigation<any>();
-
+ 
     const handleClick = () => {
         if (type === "single") {
             Navigation.navigate("ProfileScreen", { userId: chat?.otherParticipant?._id, type: "friends" })
         } else if (type === "group") {
             Navigation.navigate("ChatInfoScreen", { chat: chat, type: type })
-        } else if (type === "chatroom") {
-            console.log("chatroom header")
+        } else {
+            Navigation.navigate("ChatroomInfoScreen", { ID: chat?._id})
         }
     }
 

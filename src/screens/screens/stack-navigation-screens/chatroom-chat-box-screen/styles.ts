@@ -135,4 +135,121 @@ export const ChatroomChatboxScreenStyles = StyleSheet.create({
         textAlign: 'right',
         fontFamily: Fonts.Font_600
     },
+    dt_modal_input_wrapper: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    dt_modal_input_Container: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(10),
+        marginVertical: ms(20)
+    },
+
+    // chatinfo style
+    dt_wrapper: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: ms(30)
+    },
+    dt_group_image_container_wrapper: {
+        width: ms(120),
+        height: ms(120),
+        backgroundColor: Colors.dt_gray + "78",
+        borderRadius: "100%",
+        padding: ms(5),
+    },
+    dt_group_image_wrapper: {
+        width: "100%",
+        height: "100%",
+        borderRadius: "100%",
+        overflow: "hidden",
+    },
+    dt_group_description: {
+        fontFamily: Fonts.Font_500,
+        fontSize: ms(12),
+        color: Colors.dt_white
+    },
+    dt_name: {
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(16),
+        color: Colors.dt_white
+    },
+    dt_messenger_wrapper: {
+        backgroundColor: Colors.dt_gray + "33",
+        borderRadius: ms(8),
+        width: "100%",
+        padding: ms(10),
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(15)
+    },
+    dt_image_container: {
+        width: ms(45),
+        height: ms(45),
+        borderRadius: ms(50),
+    },
+    dt_image: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover",
+        borderRadius: ms(50),
+    },
+    dt_text_container: {
+        flex: 1
+    },
+    dt_name_wrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    dt_location_wrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: ms(5)
+    },
+    dt_text: {
+        fontFamily: Fonts.Font_500,
+        fontSize: ms(12),
+        color: Colors.dt_gray,
+        marginTop: ms(3)
+    },
+    dt_admin_text: {
+        fontFamily: Fonts.Font_600,
+        fontSize: ms(16),
+        color: Colors.dt_white
+    },
+     dt_line: {
+        width: "100%",
+        height: ms(1),
+        backgroundColor: Colors.dt_gray + "33",
+        marginTop: ms(5)
+    },
+     dt_menu_container: {
+        width: ms(35),
+        height: ms(35),
+        borderRadius: ms(50),
+        backgroundColor: Colors.dt_gray + "33",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    dt_btn_text:{
+        fontSize:ms(12),
+        fontFamily:Fonts.Font_600,
+        color:Colors.dt_white
+    },
+    dt_btn_wrapper:{
+        alignItems:"center",
+        gap:ms(5),
+    },
+    dt_action_container:{
+        flexDirection:"row",
+        alignItems:"center",
+        gap:ms(25),
+        justifyContent:"center",
+        flex:1
+    }
 })
+

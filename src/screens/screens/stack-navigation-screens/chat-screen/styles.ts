@@ -233,7 +233,7 @@ export const ChatScreenStyles = StyleSheet.create({
     },
     dt_wrapper: {
         width: "100%",
-        alignItems: "center",
+        alignItems: "center",  
         justifyContent: "center",
         marginTop: ms(30)
     },

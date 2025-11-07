@@ -9,9 +9,10 @@ export const SearchBoxstyles = StyleSheet.create({
         backgroundColor: Colors.dt_gray + "33",
         flexDirection: "row",
         alignItems: "center",
-        paddingHorizontal: ms(8),
+        justifyContent:"space-between",
+        paddingLeft: ms(8),
         marginTop: ms(2),
-        borderRadius: ms(8)
+        borderRadius: ms(8),
     },
     dt_search_input: {
         paddingHorizontal: ms(8),
@@ -27,5 +28,9 @@ export const SearchBoxstyles = StyleSheet.create({
         borderRadius:ms(50),
         alignItems:"center",
         justifyContent:"center"
+    },
+    dt_filter_btn:{
+        padding:ms(6),
+        marginRight:ms(2)
     }
 })

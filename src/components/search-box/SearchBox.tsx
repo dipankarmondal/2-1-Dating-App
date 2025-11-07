@@ -11,19 +11,21 @@ import { IconProps } from '../../utils/helpers/Iconprops'
 /**Icons*/
 import SearchIcon from '@svgs/search.svg'
 import CrossIcon from '@svgs/cross.svg'
+import FilterIcon from '@svgs/settings.svg'
 
 type Props = {
     search: string
     setSearch: React.Dispatch<React.SetStateAction<string>>,
     placeholder?: string
+    isFilter?: boolean
 }
 
 /**Main export*/
-const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder }) => {
+const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder, isFilter }) => {
 
     return (
         <View style={styles.dt_search_wrapper}>
-            <SearchIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
+            <SearchIcon {...IconProps(ms(17))} fill={Colors.dt_white} />
             <TextInput
                 placeholder={placeholder ?? "Search..."}
                 placeholderTextColor={Colors.dt_gray}
@@ -40,6 +42,13 @@ const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder }) => {
                     <CrossIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
                 </TouchableOpacity>
             )}
+            {
+                isFilter && (
+                    <TouchableOpacity style={styles.dt_filter_btn}>
+                        <FilterIcon {...IconProps(ms(17))} fill={Colors.dt_white} />
+                    </TouchableOpacity>
+                )
+            }
         </View>
     )
 }
