@@ -33,7 +33,6 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
         queryFn: () => GetGlobalFeed(Token),
         enabled: !!Token,
     })
-    console.log("GlobalFeedData", GlobalFeedData?.data)
 
     const NewData = GlobalFeedData?.data?.filter((item: any) => item?.type === "friend_request") ?? [];
 

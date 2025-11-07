@@ -26,8 +26,10 @@ const ChatHeader: React.FC<Props> = ({ chat, type }) => {
     const handleClick = () => {
         if (type === "single") {
             Navigation.navigate("ProfileScreen", { userId: chat?.otherParticipant?._id, type: "friends" })
-        } else {
+        } else if (type === "group") {
             Navigation.navigate("ChatInfoScreen", { chat: chat, type: type })
+        } else if (type === "chatroom") {
+            console.log("chatroom header")
         }
     }
 
@@ -39,6 +41,9 @@ const ChatHeader: React.FC<Props> = ({ chat, type }) => {
             : chat?.otherParticipant?.profile?.photos?.[0]
                 ? { uri: chat.otherParticipant.profile.photos[0] }
                 : require('@images/dummy.png');
+
+
+    const HeaderName = chat?.group?.name || chat?.otherParticipant?.username || chat?.name
 
     return (
         <View style={styles.dt_container}>
@@ -54,18 +59,22 @@ const ChatHeader: React.FC<Props> = ({ chat, type }) => {
                         />
                     </View>
                     <Text style={styles.dt_name} numberOfLines={1} ellipsizeMode="middle">
-                        {type === 'group' ? chat?.group?.name : chat?.otherParticipant?.username}
+                        {HeaderName}
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.dt_right_header}>
-                <TouchableOpacity style={styles.dt_btn_box}>
-                    <CallIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.dt_btn_box}>
-                    <VideoIcon {...IconProps(ms(19))} fill={Colors.dt_white} />
-                </TouchableOpacity>
-            </View>
+            {
+                type !== "chatroom" && (
+                    <View style={styles.dt_right_header}>
+                        <TouchableOpacity style={styles.dt_btn_box}>
+                            <CallIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.dt_btn_box}>
+                            <VideoIcon {...IconProps(ms(19))} fill={Colors.dt_white} />
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
         </View>
     )
 }

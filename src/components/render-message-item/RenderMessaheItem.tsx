@@ -1,22 +1,34 @@
-import { View, Text, TouchableOpacity, Image, Pressable } from 'react-native'
+/**React Imports */
+import { View, Text, Image, Pressable } from 'react-native'
 import React, { useState } from 'react'
+
+/**Local imports*/
 import { useAuth } from '../../utils/context/auth-context/AuthContext';
-import CheckIcon from "../../../assets/svgs/check.svg"
-import DubbleCheck from "../../../assets/svgs/dubble_check.svg"
 import { IconProps } from '../../utils/helpers/Iconprops';
 import { ms } from '../../utils/helpers/responsive';
-import { Colors, Fonts } from '../../utils/constant/Constant';
-import GalleryModal from '../modal/gallery-modal/GalleryModal';
-import VideoModal from '../modal/video-modal/VideoModal';
+import { Colors } from '../../utils/constant/Constant';
+
+/**Icons*/
+import CheckIcon from "../../../assets/svgs/check.svg"
+import DubbleCheck from "../../../assets/svgs/dubble_check.svg"
 import PyramidIcon from "@svgs/pyramid.svg"
 
+/**Components */
+import GalleryModal from '../modal/gallery-modal/GalleryModal';
+import VideoModal from '../modal/video-modal/VideoModal';
+
+/**Main export*/
 const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) => {
 
     const chatType = type === 'single'
+    const chatRoomType = type === 'chatroom'
     const { user } = useAuth()
+
     const isUser = chatType
-        ? item?.senderId?._id === user?.id // for personal chat
-        : item?.sender?._id === user?.id;
+        ? item?.senderId?._id === user?.id
+        : chatRoomType
+            ? item?.userId?._id === user?.id
+            : item?.sender?._id === user?.id;
 
     const [visible, setVisible] = useState(false);
     const [videoModal, setVideoModal] = useState(false);
@@ -32,13 +44,16 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
         )
     }
 
+    const userPhoto = item?.sender?.profile?.photos[0] || item?.userId?.profile?.photos[0]
+    const userName = item?.sender?.username || item?.userId?.username
+
     return (
         <View style={{ flexDirection: isUser ? 'row-reverse' : 'row' }}>
             {
                 !chatType && !isUser && (
                     <View style={styles.dt_group_image_container}>
                         <Image
-                            source={{ uri: item?.sender?.profile?.photos[0] }}
+                            source={{ uri: userPhoto }}
                             style={styles.dt_group_image}
                         />
                     </View>
@@ -55,7 +70,7 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                 {
                     !chatType && !isUser && (
                         <Text style={[styles.dt_messageText, styles.dt_group_username]}>
-                            {item?.sender?.username}
+                            {userName}
                         </Text>
                     )
                 }
@@ -93,7 +108,6 @@ const RenderMessageItem: React.FC<any> = ({ item, onLongPress, styles, type }) =
                                 <CheckIcon  {...IconProps(ms(11))} fill={Colors.dt_gray} style={{ marginBottom: ms(-3) }} />
                         )
                     }
-
                     <Text style={[styles.dt_timestamp, { color: Colors.dt_black }]}> {new Date(item.timestamp).toLocaleTimeString()}</Text>
                     {
                         item?.isEdited && (

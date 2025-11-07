@@ -334,11 +334,14 @@ export const EditAlbumMedia = async (token: any, album_id: any, data: any,) => {
 };
 
 //Get Profile Viewers
-export const GetProfileViewers = async (token: any) => {
+export const GetProfileViewers = async (token: any, search: string) => {
     try {
         const res = await API.get("users/profile-views", {
             headers: {
                 Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {})
             }
         });
 
@@ -459,9 +462,9 @@ export const CreateChatRoom = async (token: any, data: any,) => {
 };
 
 //Get chatrooms
-export const GetChatRooms = async (token: any) => {
+export const GetChatRooms = async (token: any, URL: string) => {
     try {
-        const res = await API.get("/chatrooms", {
+        const res = await API.get(`${URL}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -1112,6 +1115,98 @@ export const GetGlobalFeed = async (token: any) => {
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Get My Rooms
+export const GetRoom = async (token: any, URL: any, search: string) => {
+    try {
+        const res = await API.get(`${URL}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {}),
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Join Room
+
+export const JoinRoom = async (token: any, id: any) => {
+    try {
+        const fullUrl = `https://api.desicouplesz.com/chatrooms/${id}/join`; // 👈 full URL
+        console.log("Full URL:", fullUrl);
+
+        const res = await API.post(fullUrl, {}, {   // 👈 second arg = body (empty)
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        console.log("Error response:", error?.response);
+        throw error;
+    }
+};
+
+//Get Room Messages
+export const GetRoomMessages = async (token: any, id: any) => {
+    try {
+        const res = await API.get(`/chatrooms/${id}/messages`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res?.data;
+    } catch (error: any) {
+        // console.log("Full API URL:", error?.config?.baseURL + error?.config?.url);
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+// Detele chatroom
+export const DeleteChatRoom = async (token: any, id: any) => {
+    try {
+        const res = await API.delete(`/chatrooms/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Leave Room
+export const LeaveChatRoom = async (token: any, id: any) => {
+    try {
+        const res = await API.post(`/chatrooms/${id}/leave`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
         throw error;
     }
 };

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "../../utils/constant/Constant";
-import { ms } from "../../utils/helpers/responsive";
+import { font, ms } from "../../utils/helpers/responsive";
 
 export const TopMenuStyles = StyleSheet.create({
     menuContainer: {
@@ -20,7 +20,7 @@ export const TopMenuStyles = StyleSheet.create({
     },
     menuText: {
         color: Colors.dt_white,
-        fontSize: 15,
+        fontSize: font(12),
         fontFamily: Fonts.Font_700
     },
     activeMenuText: {

@@ -30,11 +30,13 @@ import { useQuery } from '@tanstack/react-query'
 import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const ViewMeScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
+    const [search, setSearch] = useState("")
 
     const isFocused = useIsFocused();
     const { Token } = useAuth()
@@ -51,11 +53,10 @@ const ViewMeScreen: React.FC = () => {
     };
 
     const { data: ProfileViewedData, isLoading, refetch } = useQuery({
-        queryKey: ["profile_viewed"],
-        queryFn: () => GetProfileViewers(Token),
+        queryKey: ["profile_viewed", search],
+        queryFn: () => GetProfileViewers(Token, search),
         enabled: isFocused && !!Token
     })
-
 
     return (
         <ScreenLayout>
@@ -74,6 +75,13 @@ const ViewMeScreen: React.FC = () => {
                 onRefresh={refetch} // just pass refetch here
             >
                 <View style={commonstyle.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch,
+                            placeholder: "Search here...",
+                        }}
+                    />
                     {
                         isLoading ? (
                             <Loader />
@@ -123,7 +131,7 @@ const ViewMeScreen: React.FC = () => {
                                 );
                             })
                         ) : (
-                            <NotFound 
+                            <NotFound
                                 {...{
                                     title: "No one has viewed your profile yet. Stay active and you’ll see visitors here shortly",
                                     photo: require("@images/notFound/view_not.png")

@@ -9,7 +9,6 @@ export const ChatScreenStyles = StyleSheet.create({
     },
     dt_message_container: {
         flex: 1,
-
     },
     dt_messageContainer: {
         marginVertical: 5,

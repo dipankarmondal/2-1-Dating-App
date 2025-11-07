@@ -48,6 +48,7 @@ import BugReportScreen from "../../screens/screens/stack-navigation-screens/bug-
 import HideProfileScreen from "../../screens/screens/stack-navigation-screens/hide-profile-screen"
 import ContactAndHelpScreen from "../../screens/screens/stack-navigation-screens/contact-help-screen"
 import SingleGroupScreen from "../../screens/screens/stack-navigation-screens/single-group-screen"
+import ChatroomChatboxScreen from "../../screens/screens/stack-navigation-screens/chatroom-chat-box-screen"
 
 export const AuthStack = () => {
     return (
@@ -99,6 +100,7 @@ export const MainStack = () => {
             <Stack.Screen name="HideProfileScreen" component={HideProfileScreen} />
             <Stack.Screen name="ContactAndHelpScreen" component={ContactAndHelpScreen} />
             <Stack.Screen name="SingleGroupScreen" component={SingleGroupScreen} />
+            <Stack.Screen name="ChatroomChatboxScreen" component={ChatroomChatboxScreen} />
         </Stack.Navigator>
     )
 }

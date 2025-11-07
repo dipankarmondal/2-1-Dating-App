@@ -38,4 +38,4 @@ const showToast = (type: 'success' | 'error' | 'info', title: string, message?: 
   });
 };
 
-export { hs, vs, ms, toast, spacing, showToast };
+export { hs, vs, ms, toast, spacing, showToast,font };

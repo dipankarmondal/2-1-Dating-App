@@ -22,7 +22,7 @@ const Notification: React.FC = () => {
     };
 
     return (
-        <View style={{ flex: 1, gap: ms(16), }}>
+        <View style={{ flex: 1, gap: ms(16),marginTop:ms(16) }}>
             {
                 NotificationData?.map((item) => {
                     return (

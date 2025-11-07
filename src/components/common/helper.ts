@@ -393,6 +393,10 @@ export const FeedTabs = [
     { key: 'your_feeds', label: 'Your Feeds' },
     { key: 'notifications', label: 'Notifications' },
 ];
+export const CgatRoomTabs = [
+    { key: 'all_public_room', label: 'All Chatroom' },
+    { key: 'my_chatroom', label: 'My Chatroom' },
+];
 export const WallofFameItems = [
     { key: 'most_photos', label: 'Most Photos' },
     { key: 'most_videos', label: 'Most Videos' },
