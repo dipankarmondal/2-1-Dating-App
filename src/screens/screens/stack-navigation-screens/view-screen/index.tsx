@@ -1,6 +1,6 @@
 /**React Imports */
 import { View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 /** Liabary*/
 import { useQuery } from '@tanstack/react-query'
@@ -17,26 +17,42 @@ import UserInfoCard from '../../../../components/feed-content/userinfo-card/User
 import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const ViewScreen: React.FC = () => {
 
     const { Token } = useAuth()
 
-    const { data: UserViewData, isLoading, refetch } = useQuery({
-        queryKey: ["user_view_data"],
-        queryFn: () => MyProfileViews(Token),
-    })
+    const [search, setSearch] = useState<string>("")
 
-    return (
+    const { data: UserViewData, isLoading, refetch } = useQuery({
+        queryKey: ["user_view_data",search],
+        queryFn: () => MyProfileViews(Token, search),
+    })
+  
+    const Refatch = ()=>{
+        setSearch("")
+        refetch()
+    }
+
+    return (  
         <ScreenLayout
             {...{
                 type: "stack",
                 title: "Who I viewed"
             }}
         >
-            <ScrollContent contentContainerStyle={{ flexGrow: 1 }} onRefresh={refetch}>
+            <ScrollContent contentContainerStyle={{ flexGrow: 1 }} onRefresh={Refatch}>
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch,
+                            placeholder: "Search chatrooms here...",
+                            isFilter: true,
+                        }}
+                    />
                     {
                         isLoading ? <Loader /> :
                             UserViewData?.data?.length > 0 ? (

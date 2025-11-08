@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
-import { OnlineOptions } from '../../../../components/common/helper'
+import { NewMemberForOptions } from '../../../../components/common/helper'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { CreateInteraction, ListAllUsers, SendFriendRequest, SendRememberMe } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { showToast } from '../../../../utils/helpers/responsive'
@@ -61,8 +61,8 @@ const NewMemberScreen: React.FC = () => {
         isLoading,
         refetch,
     } = useInfiniteQuery({
-        queryKey: ["list_all_user",search],
-        queryFn: ({ pageParam = 1 }) => ListAllUsers(Token, pageParam, 10,search),
+        queryKey: ["list_all_user",search,selected],
+        queryFn: ({ pageParam = 1 }) => ListAllUsers(Token, pageParam, 10,search,selected),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => {
             const pagination = lastPage?.meta?.pagination;
@@ -70,6 +70,8 @@ const NewMemberScreen: React.FC = () => {
         },
         enabled: isFocused && !!Token ,
     });
+
+    console.log("adfasdfasdfasdf", data )
 
     // here also add tags for like, isFreind, dislike 
 
@@ -151,6 +153,11 @@ const NewMemberScreen: React.FC = () => {
         { key: "dislike", label: "Not intrested", Icon: DislikeIcon, onClick: () => handleClick(id, "dislike") },
     ];
 
+    const RefatchApi = () => {
+        refetch()
+        setSelected("")
+    }
+
     return (
         <ScreenLayout>
             <ScreenHeader>
@@ -168,7 +175,7 @@ const NewMemberScreen: React.FC = () => {
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={refetch}
+                onRefresh={RefatchApi}
                 onScroll={handleScroll}
             >
                 <View style={CommonStyles.dt_container}>
@@ -231,7 +238,7 @@ const NewMemberScreen: React.FC = () => {
             >
                 <ModalSelectContent
                     {...{
-                        filterData: OnlineOptions,
+                        filterData: NewMemberForOptions,
                         setModalVisible: setShowDropdown,
                         selected: selected,
                         setSelected: setSelected

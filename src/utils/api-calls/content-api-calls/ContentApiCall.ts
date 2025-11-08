@@ -477,12 +477,13 @@ export const GetChatRooms = async (token: any, URL: string) => {
 };
 
 // List All Users
-export const ListAllUsers = async (token: any, page: any, limit: any, search: any) => {
+export const ListAllUsers = async (token: any, page: any, limit: any, search: any,gender: any) => {
     try {
         const params = {
             page: page,
             limit: limit,
-            ...(search ? { search: search } : {})
+            ...(search ? { search: search } : {}),
+            ...(gender ? { gender: gender } : {})
         };
 
         // Construct full URL for debugging
@@ -1013,11 +1014,14 @@ export const UploadMessageMedia = async (token: any, data: any,) => {
 
 //My Profile Views
 
-export const MyProfileViews = async (token: any) => {
+export const MyProfileViews = async (token: any,search: any) => {
     try {
         const res = await API.get("/users/my-profile-views", {
             headers: {
                 Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {})
             }
         });
         return res?.data;

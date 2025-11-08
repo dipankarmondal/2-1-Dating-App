@@ -27,7 +27,8 @@ export const SearchBoxstyles = StyleSheet.create({
         backgroundColor:Colors.dt_error + "AB",
         borderRadius:ms(50),
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        marginRight:ms(7)
     },
     dt_filter_btn:{
         padding:ms(6),

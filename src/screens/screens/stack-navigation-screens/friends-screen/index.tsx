@@ -210,9 +210,7 @@ const FriendsScreen: React.FC = () => {
                                             <UserInfoCard
                                                 key={index}
                                                 type="user"
-                                                item={item}
                                                 isMore
-                                                isUserContent={false}
                                                 isFilterOption={false}
                                                 isGallery={item?.profile?.photos?.length > 0 ? true : false}
                                                 isChecked={isFriendsChecked}
@@ -251,9 +249,7 @@ const FriendsScreen: React.FC = () => {
                                             <UserInfoCard
                                                 key={index}
                                                 type="user"
-                                                item={item?.senderId}
                                                 isMore
-                                                isUserContent={false}
                                                 isFilterOption={false}
                                                 isGallery={item?.senderId?.profile?.photos?.length > 0 ? true : false}
                                                 UserName={item?.senderId?.username}

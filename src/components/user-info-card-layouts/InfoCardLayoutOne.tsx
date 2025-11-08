@@ -1,5 +1,8 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+/**React Imports */
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+
+/**Local imports*/
 import { InfoCardLayoutsStyles as styles } from './styles'
 import { Colors, getAge } from '../../utils/constant/Constant'
 import { NewMemberActions } from '../common/helper'
@@ -13,16 +16,15 @@ import FemaleIcon from '@svgs/female.svg'
 import CoupleIcon from '@svgs/couple.svg'
 import LoaderKitView from 'react-native-loader-kit'
 
+/**Main export*/
 const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, handleAcceptCall, handleDeclineCall, loader, selectionAction, selectedId, itemId, }) => {
 
     const Intrest = item?.viewedUserId?.profile?.interestedIn || item?.profile?.interestedIn || item?.targetUserId?.profile?.interestedIn || item?.receiverId?.profile?.interestedIn || item?.interestIn
     const Location = item?.viewedUserId?.profile?.address?.fullAddress || item?.profile?.address?.fullAddress || item?.targetUserId?.profile?.address?.fullAddress || item?.receiverId?.profile?.address?.fullAddress || item?.address?.fullAddress
 
     const Gender = item?.profile?.gender ?? item?.gender
-    const PartnerAge = item?.profile?.partner?.dateOfBirth ?? item?.partnerAge
+    const PartnerAge = getAge(item?.profile?.partner?.dateOfBirth) ?? item?.partnerAge
     const Age = item?.profile?.age ?? item?.age
-
-    console.log("object",item)
 
     return (
         <View>
@@ -56,13 +58,13 @@ const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, h
                         <View style={styles.dt_intrest_container}>
                             <Text style={styles.dt_intrest_text}>Interests</Text>
                             <View style={[styles.dt_age_container, { marginTop: ms(5) }]}>
-                                {Intrest.includes('couple') && (
+                                {Intrest?.includes('couple') && (
                                     <CoupleIcon {...IconProps(ms(20))} fill={Colors.dt_light_purple} />
                                 )}
-                                {Intrest.includes('male') && (
+                                {Intrest?.includes('male') && (
                                     <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
                                 )}
-                                {Intrest.includes('female') && (
+                                {Intrest?.includes('female') && (
                                     <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
                                 )}
                                 {!(

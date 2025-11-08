@@ -26,12 +26,12 @@ const TwoPlusOneScreen = () => {
             onClick: () => {Navigation.navigate("InviteFriendsScreen")}, 
             label: "Grow your network by inviting friends to join 2+1! Share your unique QR code, invitation text, or send email invites to enhance your lifestyle journey together. "
         },
-        {
-            icon: CoinIcon,
-            btnText: "2+1 Partner",
-            onClick: () => { },
-            label: "Make money and grow your business with 2+1 - all with the flexibility of one Partner Account. Participate as an affiliate, an advertiser, or both! Learn more about how to grow your brand and earn 50% affiliate commissions."
-        },
+        // {
+        //     icon: CoinIcon,
+        //     btnText: "2+1 Partner",
+        //     onClick: () => { },
+        //     label: "Make money and grow your business with 2+1 - all with the flexibility of one Partner Account. Participate as an affiliate, an advertiser, or both! Learn more about how to grow your brand and earn 50% affiliate commissions."
+        // },
     ]
     return (
         <ScreenLayout>

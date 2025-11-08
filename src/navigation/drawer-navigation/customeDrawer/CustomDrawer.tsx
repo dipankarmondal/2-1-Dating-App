@@ -91,14 +91,14 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = ({ state, nav
                 </View>
             </ScrollView>
             {/* Footer - Logout */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={[styles.logout, { marginBottom: ms(0), backgroundColor: Colors.dt_gray + "36" }]}
                 // onPress={handleLogoutPress}
                 activeOpacity={0.7}
             >
                 <ReportIcon {...IconProps(ms(16))} fill={Colors.dt_white} />
                 <Text style={styles.logoutText}>Report</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
                 style={[styles.logout,]}
                 onPress={() => setShowDropdown(true)}

@@ -70,7 +70,7 @@ export const menuItems = (Navigation: any) => [
     },
     {
         id: "Views",
-        label: "Views",
+        label: "Who i viewed",
         Icon: ViewsIcon,
         size: 15,
         onPress: () => Navigation.navigate("ViewScreen"),
@@ -89,13 +89,13 @@ export const menuItems = (Navigation: any) => [
         size: 17,
         onPress: () => Navigation.navigate("BlockListScreen"),
     },
-    {
-        id: "Note",
-        label: "Notes",
-        Icon: NoteIcon,
-        size: 15,
-        onPress: () => Navigation.navigate("NoteScreen"),
-    },
+    // {
+    //     id: "Note",
+    //     label: "Notes",
+    //     Icon: NoteIcon,
+    //     size: 15,
+    //     onPress: () => Navigation.navigate("NoteScreen"),
+    // },
     {
         id: "Time",
         label: "Remembered",
@@ -124,27 +124,27 @@ export const menuItems = (Navigation: any) => [
     //     size: 16,
     //     onPress: () => console.log("Member Service clicked"),
     // },
-    {
-        id: "Bug",
-        label: "Bug Report",
-        Icon: BugIcon,
-        size: 14,
-        onPress: () => Navigation.navigate("BugReportScreen"),
-    },
-    {
-        id: "Hide",
-        label: "Hide Profile",
-        Icon: HideIcon,
-        size: 15,
-        onPress: () => Navigation.navigate("HideProfileScreen"),
-    },
-    {
-        id: "Call",
-        label: "Contact & Help",
-        Icon: CallIcon,
-        size: 15,
-        onPress: () => Navigation.navigate("ContactAndHelpScreen"),
-    },
+    // {
+    //     id: "Bug",
+    //     label: "Bug Report",
+    //     Icon: BugIcon,
+    //     size: 14,
+    //     onPress: () => Navigation.navigate("BugReportScreen"),
+    // },
+    // {
+    //     id: "Hide",
+    //     label: "Hide Profile",
+    //     Icon: HideIcon,
+    //     size: 15,
+    //     onPress: () => Navigation.navigate("HideProfileScreen"),
+    // },
+    // {
+    //     id: "Call",
+    //     label: "Contact & Help",
+    //     Icon: CallIcon,
+    //     size: 15,
+    //     onPress: () => Navigation.navigate("ContactAndHelpScreen"),
+    // },
 ];
 
 export const ModeOptions = [
@@ -394,7 +394,7 @@ export const MessengerItems = [
 ];
 
 export const FeedTabs = [
-    { key: 'global_feeds', label: 'Global Feeds' },
+    // { key: 'global_feeds', label: 'Global Feeds' },
     { key: 'your_feeds', label: 'Your Feeds' },
     { key: 'notifications', label: 'Notifications' },
 ];
@@ -431,6 +431,12 @@ export const GroupForOptions = [
     { key: 'males', value: 'Males' },
     { key: 'transgender', value: 'Transgender' },
     { key: 'business', value: 'Business' }
+]
+export const NewMemberForOptions = [
+    { key: 'couple', value: 'Couple' },
+    { key: 'female', value: 'Female' },
+    { key: 'male', value: 'Male' },
+    // { key: 'transgender', value: 'Transgender' },
 ]
 export const Categories = [
     {
