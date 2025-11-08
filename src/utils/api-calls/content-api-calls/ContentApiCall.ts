@@ -477,7 +477,7 @@ export const GetChatRooms = async (token: any, URL: string) => {
 };
 
 // List All Users
-export const ListAllUsers = async (token: any, page: any, limit: any, search: any,gender: any) => {
+export const ListAllUsers = async (token: any, page: any, limit: any, search: any, gender: any) => {
     try {
         const params = {
             page: page,
@@ -1014,7 +1014,7 @@ export const UploadMessageMedia = async (token: any, data: any,) => {
 
 //My Profile Views
 
-export const MyProfileViews = async (token: any,search: any) => {
+export const MyProfileViews = async (token: any, search: any) => {
     try {
         const res = await API.get("/users/my-profile-views", {
             headers: {
@@ -1240,6 +1240,28 @@ export const GetRoomDetails = async (token: any, id: any) => {
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Report Chatroom
+export const ReportChatroom = async (token: any, id: any, data: any) => {
+    try {
+        const res = await API.post(`/chatrooms/${id}/report`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
         throw error;
     }
 };

@@ -73,7 +73,6 @@ const ChatroomCard: React.FC<Props> = ({ item, handleDeleteModal, handleLeaveMod
                                         isDeleteLoaderId && deleteLoader?.isPending ?
                                             <ActivityIndicator size={ms(13)} color={Colors.dt_white} /> :
                                             <DeleteIcon {...IconProps(ms(17))} fill={Colors.dt_white} />
-
                                     }
                                 </TouchableOpacity>
                             )

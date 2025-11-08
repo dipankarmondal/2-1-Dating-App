@@ -5,7 +5,7 @@ import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst,
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
 import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 import { CategoriesFilter, GroupTypesFilter, SortOptionsFilter, TargetAudienceFilter } from "../../screens/screens/drawer-navigation-screens/groups-screen/helper"
-import { PlaceTypeFilter, SpeedDateUserFilter } from "../../screens/screens/drawer-navigation-screens/hot-date-screen/helper"
+import { PlaceTypeFilter, ReportReasons, SpeedDateUserFilter } from "../../screens/screens/drawer-navigation-screens/hot-date-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -1464,10 +1464,11 @@ export const ChatroomReport = (control: Control<any>) => {
             name: 'reason',
             parent: 'chatroom_report',
             styles: FormStyle,
-            type: "text",
+            type: "dropdown",
             label: false,
             placeholder: true,
             control: control,
+            selectionData: ReportReasons
         },
         {
             name: 'description',

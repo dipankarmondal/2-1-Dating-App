@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigation } from '@react-navigation/native'
 
 /**Local imports*/
-import { DeleteChatRoom, GetRoomDetails, LeaveChatRoom } from '../../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { DeleteChatRoom, GetRoomDetails, LeaveChatRoom, ReportChatroom } from '../../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../../utils/context/auth-context/AuthContext'
 import ScrollContent from '../../../../../components/scrollcontent/ScrollContent'
 import { ChatroomChatboxScreenStyles as styles } from '../styles'
@@ -29,6 +29,7 @@ import { useForm } from 'react-hook-form'
 import { ChatroomReport, LoginBuilder } from '../../../../../utils/builders'
 import CustomInput from '../../../../../components/form-utils/custom-input'
 import SubmitButton from '../../../../../components/submit-button'
+import DropdownInput from '../../../../../components/form-utils/dropdown-input'
 
 type Props = {
     route: any
@@ -118,6 +119,18 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
         }
     })
 
+    const ReportChatroomMutation = useMutation({
+        mutationFn: (data: any) => ReportChatroom(Token, ID, data),
+        onSuccess: (res: any) => {
+            if (res?.success === true) {
+                setReportchatroomModal(false)
+                Navigation.navigate("DrawerNavigator", { screen: 'ChatroomScreen' })
+                toast("success", { title: res?.message });
+                QueryInvalidater.invalidateQueries({ queryKey: ['GetChatRoom'] });
+            }
+        }
+    })
+
     const handleDeletechatroom = () => {
         DeleteChatroomMutation.mutate(ID)
     }
@@ -125,9 +138,12 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
         LeaveChatroomMutation.mutate(ID)
     }
 
-    const ReportSubmit = (data:any)=>{
-        console.log("data",data)
-        setReportchatroomModal(false)
+    const ReportSubmit = (data: any) => {
+        const payload = {
+            reportType: data?.reason,
+            description: data?.description,
+        }
+        ReportChatroomMutation.mutate(payload)
     }
 
     return (
@@ -260,15 +276,16 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
                 {ChatroomReport(control).map((item, index) => {
                     if (item.type === 'text' || item.type === 'textarea') {
                         return <CustomInput key={index} {...item} />;
-                    } else {
-                        return null;
+                    } else if (item?.type === "dropdown") {
+                        return <DropdownInput key={index} {...item} />;
                     }
                 })}
-                <View style={{ marginVertical: ms(10) }}>
+                <View style={{ height: ms(150) }} />
+                <View style={{ marginBottom: ms(20) }}>
                     <SubmitButton
                         {...{
                             text: "Report",
-                            loading: false,
+                            loading: ReportChatroomMutation?.isPending,
                             onPress: handleSubmit(ReportSubmit)
                         }}
                     />

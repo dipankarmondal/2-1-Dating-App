@@ -17,7 +17,8 @@ export const ChatroomCardStyles = StyleSheet.create({
         width: ms(130),
         height: ms(110),
         borderRadius: ms(8),
-        overflow: "hidden"
+        overflow: "hidden",
+        backgroundColor:Colors.dt_gray + "33"
     },
     dt_image: {
         width: "100%",

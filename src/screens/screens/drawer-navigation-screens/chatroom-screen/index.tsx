@@ -128,7 +128,6 @@ const ChatroomScreen: React.FC = () => {
                 }} />
 
                 <View style={CommonStyles.dt_container}>
-                
                     <SearchBox
                         {...{
                             search,
