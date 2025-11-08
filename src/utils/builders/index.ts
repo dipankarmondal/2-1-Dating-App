@@ -1458,3 +1458,26 @@ export const HotdateFilter = (control: Control<any>) => {
     ]
 }
 
+export const ChatroomReport = (control: Control<any>) => {
+    return [
+        {
+            name: 'reason',
+            parent: 'chatroom_report',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'description',
+            parent: 'chatroom_report',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}
+

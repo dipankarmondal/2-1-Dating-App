@@ -1027,5 +1027,21 @@
                 "required": "place type is required"
             }
         }
+    },
+    "chatroom_report": {
+        "reason": {
+            "label": "Report reason",
+            "placeholder": "Report reason",
+            "errors": {
+                "required": "reason is required"
+            }
+        },
+        "description": {
+            "label": "Report description",
+            "placeholder": "Report description",
+            "errors": {
+                "required": "description is required"
+            }
+        }
     }
 }

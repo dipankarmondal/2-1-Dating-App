@@ -1002,9 +1002,9 @@ export const UploadMessageMedia = async (token: any, data: any,) => {
         if (Array.isArray(errorData) && errorData.length > 0) {
             firstMessage = errorData[0]?.message || firstMessage;
         }
-        if(error.response.status === 413){
+        if (error.response.status === 413) {
             toast("error", { title: "Having a problem with file size" });
-        }else{
+        } else {
             toast("error", { title: firstMessage });
         }
         throw error;
@@ -1124,16 +1124,26 @@ export const GetGlobalFeed = async (token: any) => {
 };
 
 //Get My Rooms
-export const GetRoom = async (token: any, URL: any, search: string) => {
+export const GetRoom = async (token: any, URL: string, search: string, type: string, singleMale: boolean) => {
     try {
-        const res = await API.get(`${URL}`, {
+        const params: any = {
+            ...(search ? { search } : {}),
+            ...(type ? { type } : {}),
+            ...(singleMale ? { singleMaleBlocked: singleMale } : {})
+        };
+
+        // Build full URL with query params
+        const queryString = new URLSearchParams(params).toString();
+        const fullUrl = `${URL}${queryString ? `?${queryString}` : ''}`;
+
+        console.log("Full Request URL:", fullUrl);
+
+        const res = await API.get(fullUrl, {
             headers: {
                 Authorization: `Bearer ${token}`
-            },
-            params: {
-                ...(search ? { search } : {}),
             }
         });
+
         return res?.data;
     } catch (error) {
         toast("error", { title: "Something went wrong" });

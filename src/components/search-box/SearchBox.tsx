@@ -17,11 +17,12 @@ type Props = {
     search: string
     setSearch: React.Dispatch<React.SetStateAction<string>>,
     placeholder?: string
-    isFilter?: boolean
+    isFilter?: boolean,
+    setSetFilterModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 /**Main export*/
-const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder, isFilter }) => {
+const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder, isFilter,setSetFilterModal }) => {
 
     return (
         <View style={styles.dt_search_wrapper}>
@@ -33,7 +34,7 @@ const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder, isFilter }
                 selectionColor={Colors.dt_white}
                 value={search}
                 onChangeText={setSearch}
-            />
+            />  
             {search.length > 0 && (
                 <TouchableOpacity
                     style={styles.dt_clear_btn}
@@ -44,7 +45,7 @@ const SearchBox: React.FC<Props> = ({ search, setSearch, placeholder, isFilter }
             )}
             {
                 isFilter && (
-                    <TouchableOpacity style={styles.dt_filter_btn}>
+                    <TouchableOpacity style={styles.dt_filter_btn} onPress={()=> setSetFilterModal(true)}>
                         <FilterIcon {...IconProps(ms(17))} fill={Colors.dt_white} />
                     </TouchableOpacity>
                 )

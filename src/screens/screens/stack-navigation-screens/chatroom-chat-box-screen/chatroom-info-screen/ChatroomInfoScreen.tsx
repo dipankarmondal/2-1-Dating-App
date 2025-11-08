@@ -1,27 +1,40 @@
+/**React Imports */
 import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
+
+/** Liabary*/
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useNavigation } from '@react-navigation/native'
+
+/**Local imports*/
 import { DeleteChatRoom, GetRoomDetails, LeaveChatRoom } from '../../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../../utils/context/auth-context/AuthContext'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import ScreenLayout from '../../../common/ScreenLayout'
 import ScrollContent from '../../../../../components/scrollcontent/ScrollContent'
 import { ChatroomChatboxScreenStyles as styles } from '../styles'
 import { ms, toast } from '../../../../../utils/helpers/responsive'
 import { Colors } from '../../../../../utils/constant/Constant'
 import { CommonStyles } from '../../../common/CommonStyle'
-import { useNavigation } from '@react-navigation/native'
 import { IconProps } from '../../../../../utils/helpers/Iconprops'
+
+/**Components */
+import ScreenLayout from '../../../common/ScreenLayout'
+import ModalContent from '../../../../../components/modal/modal-content/logout-content/ModalContent'
+import ModalAction from '../../../../../components/modal/modal-action/ModalAction'
+
 /**Icons*/
 import LeaveIcon from '@svgs/user-logout.svg'
 import DeleteIcon from '@svgs/cross.svg'
 import ReportIcon from '@svgs/report.svg'
-import ModalContent from '../../../../../components/modal/modal-content/logout-content/ModalContent'
-import ModalAction from '../../../../../components/modal/modal-action/ModalAction'
+import { useForm } from 'react-hook-form'
+import { ChatroomReport, LoginBuilder } from '../../../../../utils/builders'
+import CustomInput from '../../../../../components/form-utils/custom-input'
+import SubmitButton from '../../../../../components/submit-button'
 
 type Props = {
     route: any
 }
 
+/**Main export*/
 const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
 
     const { ID } = route.params || {}
@@ -31,6 +44,9 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
 
     const [chatroomDeteleModal, setChatroomDeteleModal] = useState(false);
     const [chatroomLeaveModal, setChatroomLeaveModal] = useState(false);
+    const [ReportchatroomModal, setReportchatroomModal] = useState(false);
+
+    const { control, handleSubmit, } = useForm()
 
     const { data: GetRoomDetailsData, isLoading: GetRoomDetailsLoading, refetch } = useQuery({
         queryKey: ["chatroom_details", ID],
@@ -109,6 +125,11 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
         LeaveChatroomMutation.mutate(ID)
     }
 
+    const ReportSubmit = (data:any)=>{
+        console.log("data",data)
+        setReportchatroomModal(false)
+    }
+
     return (
         <ScreenLayout
             {...{
@@ -160,7 +181,7 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
                             }
                             {
                                 !isUser && (
-                                    <TouchableOpacity style={styles.dt_btn_wrapper}>
+                                    <TouchableOpacity style={styles.dt_btn_wrapper} onPress={() => setReportchatroomModal(true)}>
                                         <View style={styles.dt_menu_container} >
                                             <ReportIcon {...IconProps(ms(18))} fill={Colors.dt_error} />
                                         </View>
@@ -224,11 +245,34 @@ const ChatroomInfoScreen: React.FC<Props> = ({ route }) => {
                     {...{
                         setModal: setChatroomLeaveModal,
                         title: "Are you sure you want to leave this chatroom?",
-                        successText: "Yes, Leave chatroom",
+                        successText: "Yes, Leave",
                         cancelText: "No, Cancel",
                         onSuccess: handleLeavechatroom
                     }}
                 />
+            </ModalAction>
+            <ModalAction
+                isModalVisible={ReportchatroomModal}
+                setModalVisible={setReportchatroomModal}
+                headerText="Report Chatroom"
+                type="filters"
+            >
+                {ChatroomReport(control).map((item, index) => {
+                    if (item.type === 'text' || item.type === 'textarea') {
+                        return <CustomInput key={index} {...item} />;
+                    } else {
+                        return null;
+                    }
+                })}
+                <View style={{ marginVertical: ms(10) }}>
+                    <SubmitButton
+                        {...{
+                            text: "Report",
+                            loading: false,
+                            onPress: handleSubmit(ReportSubmit)
+                        }}
+                    />
+                </View>
             </ModalAction>
         </ScreenLayout>
     )

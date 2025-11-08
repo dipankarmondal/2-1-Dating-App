@@ -260,6 +260,11 @@ export const TravelOptions = [
     { key: 'member_services', value: 'Member Services' },
     { key: 'new_friends_followers', value: 'New Friends / Followers' },
 ];
+export const ChatroomFilterOptions = [
+    { key: 'public', value: 'Public' },
+    { key: 'private', value: 'Private' },
+    { key: 'secret', value: 'Secret' },
+];
 export const HeaderBtn = [
     { key: "feed", title: "Feed" },
     { key: "notification", title: "2+1 Notification" },
