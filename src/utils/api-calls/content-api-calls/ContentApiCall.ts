@@ -878,11 +878,14 @@ export const SendBroadcastMessage = async (token: any, data: any,) => {
 
 //Get Personal Conversations List
 
-export const GetPersonalConversationsList = async (token: any, url: any) => {
+export const GetPersonalConversationsList = async (token: any, url: any,search: any) => {
     try {
         const res = await API.get(url, {
             headers: {
                 Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {})
             }
         });
         return res?.data;

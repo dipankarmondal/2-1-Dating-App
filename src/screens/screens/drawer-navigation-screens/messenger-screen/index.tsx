@@ -26,11 +26,12 @@ import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
 
 /**Icons*/
-import SearchIcon from '@svgs/search.svg' 
+import SearchIcon from '@svgs/search.svg'
 
 /** Liabary*/
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useIsFocused } from '@react-navigation/native'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 type Props = {
     route?: any
@@ -43,6 +44,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedChat, setSelectedChat] = useState<any>(null);
     const [showTyping, setShowTyping] = useState(null);
+    const [search, setSearch] = useState("");
 
     const QueryInvalidater = useQueryClient();
     const isFocused = useIsFocused();
@@ -76,7 +78,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
         setShowDropdown(true);
     };
 
-    const DeleteBtnClick = () => { 
+    const DeleteBtnClick = () => {
         setShowDropdown(false);
         setTimeout(() => setShowDeleteModal(true), 300);
     }
@@ -96,8 +98,8 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
     const URL = activeKey === "messenger" ? "/personal-messages/conversations" : "/group-messages/conversations";
 
     const { data: MessageUserList, isLoading, refetch: MessageUserListRefetch } = useQuery({
-        queryKey: ['MessageUserList', activeKey],
-        queryFn: () => GetPersonalConversationsList(Token, URL),
+        queryKey: ['MessageUserList', activeKey,search],
+        queryFn: () => GetPersonalConversationsList(Token, URL,search),
         enabled: !!Token
     })
 
@@ -114,17 +116,13 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                 onRefresh={MessageUserListRefetch}
             >
                 <View style={CommonStyles.dt_container}>
-                    <View style={styles.dt_search_wrapper}>
-                        <SearchIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                        <TextInput placeholder='Search...'
-                            placeholderTextColor={Colors.dt_gray}
-                            style={styles.dt_search_input}
-                            selectionColor={Colors.dt_white}
-                        />
-                        {/* <TouchableOpacity style={styles.dt_filter_wrapper} onPress={() => setShowFilterModal(true)}>
-                            <FilterIcon {...IconProps(ms(15))} fill={Colors.dt_white} />
-                        </TouchableOpacity> */}
-                    </View>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch,
+                            placeholder: "Search chatrooms here...",
+                        }}
+                    />
                     {
                         activeKey === "messenger" ? (
                             isLoading ? (
@@ -196,7 +194,7 @@ const MessengerScreen: React.FC<Props> = ({ route }) => {
                     {createModalBtn(handlers, activeKey)?.map((item, index) => {
                         return (
                             <ModalButtons
-                                key={index} 
+                                key={index}
                                 {...{
                                     item
                                 }}
