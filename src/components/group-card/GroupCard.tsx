@@ -31,8 +31,7 @@ const GroupCard: React.FC<GroupCardProps> = ({ type, GroupData, isDeleteModal, i
     const QueryInvalidater = useQueryClient();
 
     const isUser = GroupData?.createdId === user?._id
-
-    const formatDate = (date?: string) =>
+     const formatDate = (date?: string) =>
         date ? moment.utc(date).local().format("MMM DD, YYYY") : "-";
 
     const JoinGroupMutation = useMutation({

@@ -163,6 +163,10 @@ export const FeedContentStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
+    dt_group_image_container:{
+        flex:1,
+        height:ms(50)
+    },
     dt_apply_button: {
         paddingHorizontal: ms(18),
         paddingVertical: ms(8),

@@ -1,5 +1,5 @@
 /**React Imports */
-import { View, Text, ScrollView } from 'react-native'
+import { Text, } from 'react-native'
 import React from 'react'
 
 /**Local imports*/
@@ -41,7 +41,7 @@ const ProfileScreen: React.FC<Props> = ({ route }) => {
         queryKey: ["userSinleProfile", userId],
         queryFn: () => GetUserDetails(Token, userId),
         enabled: !!Token && !!userId
-    });
+    }); // feed > profile (getting 500 error )
 
     if (isLoading) {
         return (

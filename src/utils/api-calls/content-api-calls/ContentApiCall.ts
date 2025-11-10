@@ -773,7 +773,7 @@ export const GetUserDetails = async (token: any, id: any) => {
         });
         return res?.data;
     } catch (error) {
-        toast("error", { title: "Something went wrong" });
+        toast("error", { title: "Something went wrong pratik" });
         throw error;
     }
 };
@@ -1093,7 +1093,7 @@ export const GetUserFriends = async (token: any, id: any) => {
         });
         return res?.data;
     } catch (error) {
-        toast("error", { title: "Something went wrong" });
+        toast("error", { title: "Something went wrong pratik" });
         throw error;
     }
 };

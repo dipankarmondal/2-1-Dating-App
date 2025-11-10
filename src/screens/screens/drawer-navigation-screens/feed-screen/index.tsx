@@ -6,17 +6,17 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { FeedTabs, FrindItems, GeneralItems } from '../../../../components/common/helper'
 import { CommonStyles as commonstyle } from '../../common/CommonStyle'
 import { Colors } from '../../../../utils/constant/Constant'
+import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 
 /**Components */
 import ScreenLayout from '../../common/ScreenLayout'
 import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
 import Notification from './Notification'
 import ModalAction from '../../../../components/modal/modal-action/ModalAction'
-import ModalSelectContent from '../../../../components/modal/modal-content/modal-select-content/ModalSelectContent'
-import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import TopMenu from '../../../../components/top-menu'
-import YourFeedContent from './YourFeedContent'
 import GlobalFeedContent from './GlobalFeedContent'
+import YourFeedContent from './YourFeedContent'
 
 /**Main export*/
 const FeedScreen: React.FC<{ route: any }> = ({ route }) => {

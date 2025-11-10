@@ -206,6 +206,7 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                     photos: ProfilePhotos ?? images
                 }}
             />
+      
         </ScrollView>
 
     )
