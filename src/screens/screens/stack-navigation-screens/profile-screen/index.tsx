@@ -79,7 +79,7 @@ const ProfileScreen: React.FC<Props> = ({ route }) => {
                                 activeKey,
                                 setActiveKey
                             }} />
-                            {activeKey === "profile" && <ProfileContent data={data?.data} />}
+                            {activeKey === "profile" && <ProfileContent data={data?.data} setTopMenuKey={setActiveKey} />}
                             {activeKey === "edit" && <EditContent data={data?.data} />}
                             {activeKey === "pictures" && <PicturesContent data={data?.data} />}
                             {activeKey === "videos" && <VideoContent />}

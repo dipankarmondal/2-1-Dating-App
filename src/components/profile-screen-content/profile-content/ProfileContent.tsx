@@ -33,25 +33,28 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Loader from '../../loader/Loader'
 import ProfileTabContent from './profile-extra-menu/ProfileTabContent'
 import MenuBox from '../../menu-box/MenuBox'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     data: any,
-    type?: string
+    type?: string,
+    setTopMenuKey?: any
 }
 
 /**Main export*/
-const ProfileContent: React.FC<Props> = ({ data, type }) => {
+const ProfileContent: React.FC<Props> = ({ data, type, setTopMenuKey }) => {
 
     const userType = type === "friends" && "friend"
     const { Token, user } = useAuth()
     const QueryInvalidater = useQueryClient();
     const isUser = user?._id === data?.id
+    const Navigation = useNavigation();
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeKey, setActiveKey] = useState(userType ? "groups" : "groups");
     const [visible, setVisible] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
-    const [Counts, setCounts] = useState({friends: 0, groups: 0,});
+    const [Counts, setCounts] = useState({ friends: 0, groups: 0, });
 
     const { data: userPhotoLiabary, isLoading } = useQuery({
         queryKey: ["userPhotoLiabary"],
@@ -67,10 +70,21 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
         "https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_1280.jpg"
     ];
 
+    //**Menu Items*/
     const mainMenuItems = [
-        { key: "block", label: "Block User", Icon: BanIcon, onClick: () => handleClick(data?.id, "block")},
-        { key: "report", label: "Report User", Icon: ReportUserIcon, onClick: () => handleClick(data?.id, "report")},
-    ];
+        data?.isFriend && {
+            key: "block",
+            label: "Block User",
+            Icon: BanIcon,
+            onClick: () => handleClick(data?.id, "block"),
+        },
+        {
+            key: "report",
+            label: "Report User",
+            Icon: ReportUserIcon,
+            onClick: () => handleClick(data?.id, "report"),
+        },
+    ].filter(Boolean);
 
     const GenderInfo = ({ Icon, color, age }: { Icon: any; color: string; age: number }) => (
         <View style={styles.dt_edit_container}>
@@ -127,8 +141,8 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                                     <MenuBox
                                         {...{
                                             MenuData: mainMenuItems,
-                                            isVisible:isVisible,
-                                            setIsVisible:setIsVisible
+                                            isVisible: isVisible,
+                                            setIsVisible: setIsVisible
                                         }}
                                     />
                                 )
@@ -157,14 +171,15 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                         />
                     </View>
                     <View style={styles.dt_profile_content}>
-                        {profileButtons(data?.friendCount).map(({ id, label, icon: Icon, onPress, size }) => (
+                        {profileButtons(data, isUser, Navigation, setTopMenuKey).map(({ id, label, icon: Icon, onPress, size, count }) => (
                             <TouchableOpacity key={id} style={styles.dt_button_two} onPress={onPress}>
                                 <Icon {...IconProps(ms(size))} fill={Colors.dt_white} />
                                 <Text style={styles.dt_button_text}>{label}</Text>
+
                                 {
-                                    label !== "Share" && (
+                                    count !== null && (
                                         <View style={styles.dt_count_container}>
-                                            <Text style={[styles.dt_button_text, { fontSize: ms(10) }]}>{0}</Text>
+                                            <Text style={[styles.dt_button_text, { fontSize: ms(10) }]}>{count}</Text>
                                         </View>
                                     )
                                 }
@@ -187,7 +202,7 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                 MenuData: userType ? ProfileUserMenuItems(Counts) : ProfileExtraMenuItems(Counts),
                 activeKey,
                 setActiveKey,
-                isTwoItem:  true,
+                isTwoItem: true,
                 type: "profile"
             }} />
 
@@ -196,7 +211,7 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                     userType,
                     activeKey: activeKey,
                     setCounts,
-                    ID:data?._id
+                    ID: data?._id
                 }}
             />
             <GalleryModal
@@ -206,7 +221,7 @@ const ProfileContent: React.FC<Props> = ({ data, type }) => {
                     photos: ProfilePhotos ?? images
                 }}
             />
-      
+
         </ScrollView>
 
     )

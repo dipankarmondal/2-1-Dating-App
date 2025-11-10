@@ -29,7 +29,7 @@ const VideoScreen: React.FC = () => {
     const [showDropdown, setShowDropdown] = React.useState(false)
     const [selected, setSelected] = useState<string>("");
     const [visible, setVisible] = useState(false);
-    const [source, setSource] = useState({link: "", id: ""});
+    const [source, setSource] = useState({ link: "", id: "" });
 
     const Navigation = useNavigation<any>()
     const isFocused = useIsFocused();
@@ -84,9 +84,6 @@ const VideoScreen: React.FC = () => {
             <ScreenHeader>
                 <Text style={CommonStyles.dt_header_title}>Videos</Text>
                 <View style={CommonStyles.dt_filter_container_btn}>
-                    <TouchableOpacity style={[CommonStyles.dt_filter, { borderColor: Colors.dt_error }]} onPress={() => { setShowDropdown((prev) => !prev); }}>
-                        <Text style={[CommonStyles.dt_filter_text, { color: Colors.dt_error }]}>Filter</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={CommonStyles.dt_speed_date} onPress={() => { Navigation.navigate("AddVideoScreen") }}>
                         <Text style={CommonStyles.dt_speed_date_text}>Add Videos</Text>
                     </TouchableOpacity>
@@ -103,16 +100,18 @@ const VideoScreen: React.FC = () => {
                     ) : userPhotoLiabary?.pages?.[0]?.data?.videos?.length > 0 ? (
                         <>
                             {userPhotoLiabary?.pages?.map((page, pageIndex) =>
-                                page?.data?.videos?.map((item: any, index: number) => (
-                                    <VideoCard
-                                        key={`${pageIndex}-${index}`}
-                                        {...{
-                                            setVisible,
-                                            item,
-                                            setSource
-                                        }}
-                                    />
-                                ))
+                                page?.data?.videos?.map((item: any, index: number) => {
+                                    return (
+                                        <VideoCard
+                                            key={`${pageIndex}-${index}`}
+                                            {...{
+                                                setVisible,
+                                                item,
+                                                setSource
+                                            }}
+                                        />
+                                    )
+                                })
                             )}
 
                             {isFetchingNextPage &&

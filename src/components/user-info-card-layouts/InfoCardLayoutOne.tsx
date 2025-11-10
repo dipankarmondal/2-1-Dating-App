@@ -26,8 +26,6 @@ const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, h
     const PartnerAge = getAge(item?.profile?.partner?.dateOfBirth) ?? item?.partnerAge
     const Age = item?.profile?.age ?? item?.age
 
-    console.log("object", item)
-
     return (
         <View>
             <View style={styles.dt_intrest}>

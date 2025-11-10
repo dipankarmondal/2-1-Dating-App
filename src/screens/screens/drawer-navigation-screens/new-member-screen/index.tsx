@@ -71,6 +71,8 @@ const NewMemberScreen: React.FC = () => {
         enabled: isFocused && !!Token ,
     });
 
+    console.log("object", data)
+
     // here also add tags for like, isFreind, dislike 
 
     const allUsers = data?.pages?.flatMap((page) => page?.data) || [];
@@ -182,7 +184,7 @@ const NewMemberScreen: React.FC = () => {
                             search,
                             setSearch
                         }}
-                    />
+                    /> 
                     {isLoading ? <Loader /> :
                         allUsers?.length > 0 ? (
                             allUsers?.map((item: any, index: number) => {

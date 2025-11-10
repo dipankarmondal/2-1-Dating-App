@@ -1268,3 +1268,18 @@ export const ReportChatroom = async (token: any, id: any, data: any) => {
         throw error;
     }
 };
+
+// Get My Certifications
+export const GetMyCertifications = async (token: any) => {
+    try {
+        const res = await API.get("/certifications", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
