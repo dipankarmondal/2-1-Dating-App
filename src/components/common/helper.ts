@@ -283,10 +283,10 @@ export const WellfameActions = [
     { id: 5, icon: ViewsIcon, size: ms(17), count: 0 },
 ];
 export const NewMemberActions = (data: any) => [
-    { id: 1, icon: CameraIcon, size: ms(13), count: data?.profile?.photos?.length ?? 0 },
-    { id: 2, icon: LikeThumbIcon, size: ms(17), count: 0 },
+    { id: 1, icon: CameraIcon, size: ms(13), count: data?.imageCount ?? 0 },
+    { id: 2, icon: LikeThumbIcon, size: ms(17), count: data?.likeCount ?? 0 },
     { id: 4, icon: UserIcon, size: ms(14), count: data?.friends?.length ?? 0 },
-    { id: 3, icon: PlayIcon, size: ms(13), count: 0 },
+    { id: 3, icon: PlayIcon, size: ms(13), count: data?.videoCount ?? 0 },
 ];
 
 export const TABS = [

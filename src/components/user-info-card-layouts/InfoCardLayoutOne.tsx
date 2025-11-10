@@ -26,6 +26,8 @@ const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, h
     const PartnerAge = getAge(item?.profile?.partner?.dateOfBirth) ?? item?.partnerAge
     const Age = item?.profile?.age ?? item?.age
 
+    console.log("object", item)
+
     return (
         <View>
             <View style={styles.dt_intrest}>
@@ -44,12 +46,12 @@ const InfoCardLayoutOne: React.FC<InfoCardLayoutOnetype> = ({ item = [], type, h
                     ) : Gender === "female" ? (
                         <View style={styles.dt_age}>
                             <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                            <Text style={styles.dt_age_text}>{item?.profile?.age ? item?.profile?.age : "0"}</Text>
+                            <Text style={styles.dt_age_text}>{Age ? Age : "0"}</Text>
                         </View>
                     ) : (
                         <View style={styles.dt_age}>
                             <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                            <Text style={styles.dt_age_text}>{item?.profile?.age ? item?.profile?.age : "0"}</Text>
+                            <Text style={styles.dt_age_text}>{Age ? Age : "0"}</Text>
                         </View>
                     )}
                 </View>

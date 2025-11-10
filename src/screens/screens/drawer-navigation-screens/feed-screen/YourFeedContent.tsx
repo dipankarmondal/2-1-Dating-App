@@ -88,7 +88,8 @@ const YourFeedContent: React.FC<Props> = ({ activeKey }) => {
     const FriendRequestData = FeedData?.data?.filter((item: any) =>
         item?.type === "friend_request" ||
         item?.type === "profile_view" ||
-        item?.type === "group_joined"
+        item?.type === "group_joined" ||
+        item?.type === "friend_request_accepted"
     ) ?? [];
 
     return (
@@ -114,6 +115,8 @@ const YourFeedContent: React.FC<Props> = ({ activeKey }) => {
                                             ) : item?.type === "profile_view" ? (
                                                 <FeedCardInfoHeader title={item.title} subtext={formattedTime} />
                                             ) : item?.type === "group_joined" ? (
+                                                <FeedCardInfoHeader title={item.title} subtext={formattedTime} />
+                                            ) : item?.type === "friend_request_accepted" ? (
                                                 <FeedCardInfoHeader title={item.title} subtext={formattedTime} />
                                             ) : null
                                         }
@@ -181,6 +184,24 @@ const YourFeedContent: React.FC<Props> = ({ activeKey }) => {
                                                             Data: item
                                                         }}
                                                     />
+                                                ) : item?.type === "friend_request_accepted" ? (
+                                                    <UserInfoCard
+                                                        {...{
+                                                            type: "user",
+                                                            isMore: true,
+                                                            isFilterOption: true,
+                                                            isGallery: photos?.length > 0 ? true : false,
+                                                            profileImages: photos,
+                                                            UserName: item?.metadata?.username,
+                                                            userId: item?.metadata?.accepterId,
+                                                        }}
+                                                    >
+                                                        <InfoCardLayoutOne
+                                                            {...{
+                                                                item: item?.metadata,
+                                                            }}
+                                                        />
+                                                    </UserInfoCard>
                                                 ) : null
                                             }
                                         </View>

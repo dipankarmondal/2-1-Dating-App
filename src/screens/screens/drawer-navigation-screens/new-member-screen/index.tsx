@@ -71,7 +71,6 @@ const NewMemberScreen: React.FC = () => {
         enabled: isFocused && !!Token ,
     });
 
-
     // here also add tags for like, isFreind, dislike 
 
     const allUsers = data?.pages?.flatMap((page) => page?.data) || [];
