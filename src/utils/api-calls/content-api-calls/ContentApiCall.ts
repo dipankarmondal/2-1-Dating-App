@@ -1179,12 +1179,15 @@ export const JoinRoom = async (token: any, id: any) => {
 };
 
 //Get Room Messages
-export const GetRoomMessages = async (token: any, id: any) => {
+export const GetRoomMessages = async (token: any, id: any,limit: any) => {
     try {
         const res = await API.get(`/chatrooms/${id}/messages`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            params: {
+                limit: limit
+            }
         });
 
         return res?.data;

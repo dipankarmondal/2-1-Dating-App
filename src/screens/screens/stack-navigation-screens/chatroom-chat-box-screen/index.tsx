@@ -171,9 +171,11 @@ const ChatroomChatboxScreen: React.FC<Props> = ({ route }) => {
 
     const { data, isLoading } = useQuery({
         queryKey: ["chatroom_message", RoomData?._id],
-        queryFn: () => GetRoomMessages(Token, RoomData?._id),
+        queryFn: () => GetRoomMessages(Token, RoomData?._id, 200),
         enabled: !!Token,
     })
+
+    console.log("object", data)
 
     //* 🔹 Send image message
     const sendImageMessage = () => {

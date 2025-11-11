@@ -217,7 +217,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         queryKey: ['messages', conversationId],
         initialPageParam: 1,
         queryFn: ({ pageParam = 1 }) =>
-            GetConversationWithUser(Token, conversationId, 10, pageParam, type),
+            GetConversationWithUser(Token, conversationId, 50, pageParam, type),
         getNextPageParam: (lastPage) => {
             // adjust based on your backend response
             const currentPage = lastPage?.meta?.pagination?.page;
