@@ -878,7 +878,7 @@ export const SendBroadcastMessage = async (token: any, data: any,) => {
 
 //Get Personal Conversations List
 
-export const GetPersonalConversationsList = async (token: any, url: any,search: any) => {
+export const GetPersonalConversationsList = async (token: any, url: any, search: any) => {
     try {
         const res = await API.get(url, {
             headers: {
@@ -1093,7 +1093,7 @@ export const GetUserFriends = async (token: any, id: any) => {
         });
         return res?.data;
     } catch (error) {
-        toast("error", { title: "Something went wrong pratik" });
+        // toast("error", { title: "Something went wrong pratik" });
         throw error;
     }
 };
@@ -1270,16 +1270,49 @@ export const ReportChatroom = async (token: any, id: any, data: any) => {
 };
 
 // Get My Certifications
-export const GetMyCertifications = async (token: any) => {
+export const GetMyCertifications = async (token: any, search: any) => {
     try {
+        // Base URL (depends on your API setup)
+        const baseURL = API.defaults.baseURL || "";
+        const fullURL = `${baseURL}/certifications${search ? `?search=${encodeURIComponent(search)}` : ""}`;
+
+        console.log("➡️ API Request URL:", fullURL);
+
         const res = await API.get("/certifications", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                ...(search ? { search } : {})
+            }
+        });
+
+        return res?.data;
+    } catch (error) {
+        console.error("❌ API Error:", error);
+        toast("error", { title: "Something went wrong" });
+        throw error;
+    }
+};
+
+//Group Chatroom
+export const GroupReportChatroom = async (token: any, id: any, data: any) => {
+    try {
+        const res = await API.post(`/groups/${id}/report`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         return res?.data;
     } catch (error) {
-        toast("error", { title: "Something went wrong" });
+        const errorData = error?.response?.data?.error;
+        console.log("Error Response Data:", error?.response?.data);
+
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
         throw error;
     }
 };

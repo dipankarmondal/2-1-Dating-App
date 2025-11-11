@@ -96,7 +96,7 @@ export const ChatScreenStyles = StyleSheet.create({
     },
     dt_btn_text: {
         fontFamily: Fonts.Font_600,
-        fontSize: ms(16),
+        fontSize: ms(15),
         color: Colors.dt_white
     },
     dt_modal_input_Container: {
@@ -132,7 +132,12 @@ export const ChatScreenStyles = StyleSheet.create({
         padding: ms(10),
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
         gap: ms(15)
+    },
+     dt_btn_wrapper:{
+        alignItems:"center",
+        gap:ms(5),
     },
     dt_admin_text: {
         fontFamily: Fonts.Font_600,

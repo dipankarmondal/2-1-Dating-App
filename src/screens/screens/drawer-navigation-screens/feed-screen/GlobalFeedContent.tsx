@@ -50,8 +50,6 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
         item?.type === "friend_request_accepted"
     ) ?? [];
 
-    console.log("object", GlobalFeedDataSet)
-
     return (
         <ScrollContent
             contentContainerStyle={{ flexGrow: 1, }}

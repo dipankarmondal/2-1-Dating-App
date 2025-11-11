@@ -24,6 +24,7 @@ import ModalSelectContent from '../../../../components/modal/modal-content/modal
 import { useQuery } from '@tanstack/react-query'
 import { useIsFocused } from '@react-navigation/native'
 import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/InfoCardLayoutOne'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 /**Main export*/
 const OnlineNowScreen: React.FC = () => {
@@ -32,6 +33,7 @@ const OnlineNowScreen: React.FC = () => {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [selected, setSelected] = useState<string>("");
+    const [search, setSearch] = useState("");
 
     const { data, isLoading, refetch } = useQuery({
         queryKey: ["searchUser"],
@@ -64,6 +66,12 @@ const OnlineNowScreen: React.FC = () => {
                 onRefresh={refetch} // just pass refetch here
             >
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch
+                        }}
+                    />
                     {isLoading ? (
                         <Loader />
                     ) : data?.data?.length > 0 ? (
@@ -73,7 +81,7 @@ const OnlineNowScreen: React.FC = () => {
                                 {...{
                                     type: "user",
                                     isMore: true,
-                                    isOption: true,
+                                    // isOption: true,
                                     isFilterOption: true,
                                     isGallery: item?.profile?.photos?.length > 0 ? true : false,
                                     profileImages: item?.profile?.photos,

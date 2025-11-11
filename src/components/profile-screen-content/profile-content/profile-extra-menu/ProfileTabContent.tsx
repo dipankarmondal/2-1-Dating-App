@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { ProfileContentStyles as styles } from '../styles'
 import { ms, toast } from '../../../../utils/helpers/responsive'
 import { ProfileExtraMenuItems, ProfileUserMenuItems } from '../../../common/helper'
-import { DeleteGroup, GetMyFriendsList, GetMyGroups, GetUserFriends, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { DeleteGroup, GetMyGroups, GetUserFriends, LeaveGroup } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
 import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
 import { Colors } from '../../../../utils/constant/Constant'
 

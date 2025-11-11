@@ -71,7 +71,7 @@ const NewMemberScreen: React.FC = () => {
         enabled: isFocused && !!Token ,
     });
 
-    console.log("object", data)
+    console.log("data", data)
 
     // here also add tags for like, isFreind, dislike 
 

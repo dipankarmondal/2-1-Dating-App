@@ -17,47 +17,43 @@ import InfoCardLayoutOne from '../../../../components/user-info-card-layouts/Inf
 import { ms } from 'react-native-size-matters'
 import Loader from '../../../../components/loader/Loader'
 import NotFound from '../../../../components/notfound/NotFound'
+import SearchBox from '../../../../components/search-box/SearchBox'
 
 const CertificationsScreen: React.FC = () => {
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [selected, setSelected] = useState<string>("");
+
+    const [search, setSearch] = useState<string>("");
 
     const { Token } = useAuth()
 
     const Navigation = useNavigation<any>();
     const isFocused = useIsFocused();
 
-    useEffect(() => {
-        if (isFocused) {
-            setSelected("");
-        }
-    }, [isFocused]);
-
     const { data, refetch, isLoading } = useQuery({
-        queryKey: ["certifications_data"],
-        queryFn: () => GetMyCertifications(Token),
+        queryKey: ["certifications_data",search],
+        queryFn: () => GetMyCertifications(Token,search),
         enabled: isFocused && !!Token
     });
 
-    const OnModalFormClick = () => {
-        setShowDropdown(false);
-    };
-    
+    const Refresh = () =>{
+        refetch()
+    }
+
     return (
         <ScreenLayout>
             <ScreenHeader>
                 <Text style={CommonStyles.dt_header_title}>Certification</Text>
-                <View style={CommonStyles.dt_filter_container_btn}>
-                    <TouchableOpacity style={[CommonStyles.dt_filter, { borderColor: Colors.dt_error }]} onPress={() => { setShowDropdown((prev) => !prev); }}>
-                        <Text style={[CommonStyles.dt_filter_text, { color: Colors.dt_error }]}>Filter</Text>
-                    </TouchableOpacity>
-                </View>
             </ScreenHeader>
             <ScrollContent
                 contentContainerStyle={{ flexGrow: 1 }}
-                onRefresh={() => { }} // just pass refetch here
+                onRefresh={Refresh} // just pass refetch here
             >
                 <View style={CommonStyles.dt_container}>
+                    <SearchBox
+                        {...{
+                            search,
+                            setSearch
+                        }}
+                    />
                     {isLoading ? <Loader /> :
                         data?.data?.length > 0 ? (
                             data?.data?.map((item: any, index: number) => {
@@ -83,33 +79,15 @@ const CertificationsScreen: React.FC = () => {
                                 )
                             })
                         ) : (
-                                <NotFound
-                                    {...{
-                                        title: "No Certifications Found",
-                                        photo: require("@images/notFound/certification-not.png")
-                                    }}
-                                />
+                            <NotFound
+                                {...{
+                                    title: "No certifications found at the moment. Give one to appreciate this user’s efforts!",
+                                    photo: require("@images/notFound/certification-not.png")
+                                }}
+                            />
                         )}
                 </View>
             </ScrollContent>
-            <ModalAction
-                isModalVisible={showDropdown}
-                setModalVisible={setShowDropdown}
-                headerText="Filters"
-                type="filters"
-                onModalClick={OnModalFormClick}
-                selected={selected}
-                setSelected={setSelected}
-            >
-                <ModalSelectContent
-                    {...{
-                        filterData: TravelOptions,
-                        setModalVisible: setShowDropdown,
-                        selected: selected,
-                        setSelected: setSelected
-                    }}
-                />
-            </ModalAction>
         </ScreenLayout>
     )
 }
