@@ -25,6 +25,7 @@ const ViewScreen: React.FC = () => {
     const { Token } = useAuth()
 
     const [search, setSearch] = useState<string>("")
+    const [filterModal, setSetFilterModal] = useState(false);
 
     const { data: UserViewData, isLoading, refetch } = useQuery({
         queryKey: ["user_view_data",search],
@@ -50,7 +51,7 @@ const ViewScreen: React.FC = () => {
                             search,
                             setSearch,
                             placeholder: "Search chatrooms here...",
-                            isFilter: true,
+                            isFilter: false,
                         }}
                     />
                     {

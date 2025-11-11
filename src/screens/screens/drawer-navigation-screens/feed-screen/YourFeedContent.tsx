@@ -31,48 +31,8 @@ type Props = {
 /**Main export*/
 const YourFeedContent: React.FC<Props> = ({ activeKey }) => {
 
-    const { Token } = useAuth()
+    const { Token } = useAuth() 
 
-    const feedData = [
-        // {
-        //     title: "CPLSUEPAUL has joined Georgia For Chocolate ??",
-        //     subtext: "Dec 12, 2024 | 24 Members",
-        //     components: [<UserInfoCard Icon={FriendIcon} isUserContent={true}/>, <GroupInfoCard />],
-        // },
-        // {
-        //     title: "CLUBELATION would like you to join their event.",
-        //     subtext: "Dec 12, 2024 | 24 Members",
-        //     components: [<EventCard Icon={GroupIcon} />, <CommonBox />],
-        // },
-        // {
-        //     title: "MEMB3RSONLY would like you to join their event.",
-        //     subtext: "Dec 12, 2024 | 24 Members",
-        //     components: [<EventCard />, <CommonBox />],
-        // },
-        // {
-        //     title: "ANASDF2020 in your area has a birthday",
-        //     subtext: "08 hours, 22 min",
-        //     components: [<UserInfoCard isUserContent={true} />, <CommonBox type="birthday" />],
-        // },
-        // {
-        //     title: "ANASDF2020 in your area has a birthday",
-        //     subtext: "08 hours, 22 min",
-        //     components: [
-        //         <UserInfoCard Icon={LikeIcon} isUserContent={true} />,
-        //         <UserInfoCard type="friend_request" isUserContent={true} />,
-        //     ],
-        // },
-        // {
-        //     title: "ANASDF2020 is posted a Hotdate",
-        //     subtext: "08 hours, 22 min",
-        //     components: [<UserInfoCard isUserContent={true} />, <CommonBox type="hotdate" />],
-        // },
-        // {
-        //     title: "ANASDF2020 started livestream",
-        //     subtext: "08 hours, 22 min",
-        //     components: [<UserInfoCard isUserContent={true} />, <CommonBox type="livestream" />],
-        // },
-    ];
 
     const { data: FeedData, isLoading: feedloading, refetch } = useQuery({
         queryKey: ["FeedData", activeKey === "your_feeds"],

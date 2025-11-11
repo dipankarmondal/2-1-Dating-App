@@ -60,7 +60,7 @@ const VideoScreen: React.FC = () => {
         getNextPageParam: (lastPage) => {
             const pagination = lastPage?.data?.pagination;
             if (pagination?.hasNextPage) {
-                return pagination.currentPage + 1;
+                return pagination?.currentPage + 1;
             }
             return undefined;
         },

@@ -394,7 +394,7 @@ export const MessengerItems = [
 ];
 
 export const FeedTabs = [
-    // { key: 'global_feeds', label: 'Global Feeds' },
+    { key: 'global_feeds', label: 'Global Feeds' },
     { key: 'your_feeds', label: 'Your Feeds' },
     { key: 'notifications', label: 'Notifications' },
 ];

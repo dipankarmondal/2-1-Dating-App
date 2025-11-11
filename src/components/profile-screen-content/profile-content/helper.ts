@@ -14,7 +14,6 @@ import FriendsFollowIcon from '@svgs/following.svg'
 import { getAge } from '../../../utils/constant/Constant'
 
 export const profileButtons = (data: any, isUser: boolean, Navigation: any, setActiveKey: (key: string) => void) => [
-    // console.log("data",data)
 
     ...(isUser
         ? [
@@ -34,7 +33,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 size: 13,
                 onPress: () => setActiveKey("pictures"),
                 count: 0,
-                
+
             },
             {
                 id: 3,
@@ -42,7 +41,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 icon: VideoIcon,
                 size: 16,
                 onPress: () => setActiveKey("videos"),
-                count: 0,   
+                count: 0,
 
             },
             {
@@ -67,6 +66,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 icon: ShareIcon,
                 size: 13,
                 onPress: () => console.log("Share pressed"),
+                count: null,
             },
             {
                 id: 9,

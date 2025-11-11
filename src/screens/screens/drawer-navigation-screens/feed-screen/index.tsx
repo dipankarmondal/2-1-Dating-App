@@ -20,8 +20,7 @@ import YourFeedContent from './YourFeedContent'
 
 /**Main export*/
 const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
-    // const [activeKey, setActiveKey] = React.useState("global_feeds");
-    const [activeKey, setActiveKey] = React.useState("your_feeds");
+    const [activeKey, setActiveKey] = React.useState("global_feeds");
     const [showDropdown, setShowDropdown] = useState(false);
     const [filterType, setFilterType] = useState<"general" | "friend" | null>(null);
     const [selected, setSelected] = useState<string>("");
@@ -67,17 +66,16 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
+            <TopMenu {...{
+                MenuData: FeedTabs,
+                activeKey,
+                setActiveKey,
+                isThreeItem: true
+            }} />
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ flexGrow: 1 }}
             >
-                <TopMenu {...{
-                    MenuData: FeedTabs,
-                    activeKey,
-                    setActiveKey,
-                    // isThreeItem: true
-                    isTwoItem: true
-                }} />
                 {
                     activeKey === "your_feeds" ?
                         <YourFeedContent
@@ -87,10 +85,10 @@ const FeedScreen: React.FC<{ route: any }> = ({ route }) => {
                         /> :
                         activeKey === "global_feeds" ?
                             <GlobalFeedContent
-                            {...{
-                                activeKey: activeKey
-                            }}
-                        />
+                                {...{
+                                    activeKey: activeKey
+                                }}
+                            />
                             :
                             <Notification />
                 }
