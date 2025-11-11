@@ -25,7 +25,7 @@ import EditIcon from '@svgs/edit.svg'
 
 /** Liabary*/
 import { useIsFocused } from '@react-navigation/native'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { LoaderKitView } from 'react-native-loader-kit';
 import { pick, types } from '@react-native-documents/picker'
 import Loader from '../../../../components/loader/Loader'
@@ -206,12 +206,27 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         />
     );
 
-    //* 🔹 Get messages
-    const { data: messadeData, isLoading } = useQuery({
-        queryKey: ["messages", conversationId],
-        queryFn: () => GetConversationWithUser(Token, conversationId, 100, 1, type),
-        enabled: !!Token
-    })
+    /** 🔹 Fetch messages with pagination */
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+    } = useInfiniteQuery({
+        queryKey: ['messages', conversationId],
+        initialPageParam: 1,
+        queryFn: ({ pageParam = 1 }) =>
+            GetConversationWithUser(Token, conversationId, 10, pageParam, type),
+        getNextPageParam: (lastPage) => {
+            // adjust based on your backend response
+            const currentPage = lastPage?.meta?.pagination?.page;
+            const hasNext = lastPage?.meta?.pagination?.hasNext;
+
+            return hasNext ? currentPage + 1 : undefined;
+        },
+        enabled: !!Token && !!conversationId,
+    });
 
     //* 🔹 Delete message
     const DeleteMessageMutation = useMutation({
@@ -275,6 +290,10 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
         setImageInput('');
     };
 
+    const allMessages = data?.pages
+        ?.flatMap((page) => page?.data || [])
+        ?.reverse();
+
     return (
         <View style={styles.dt_container}>
             <ChatHeader
@@ -294,11 +313,21 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
                     <>
                         <FlatList
                             ref={flatListRef}
-                            data={[...(messadeData?.data || [])].reverse()}
+                            data={[...(allMessages || [])].reverse()}
                             renderItem={renderItem}
                             keyExtractor={item => item?._id}
                             contentContainerStyle={{ paddingVertical: 10 }}
                             inverted
+                            onEndReached={() => {
+                                if (hasNextPage && !isFetchingNextPage) {
+                                    fetchNextPage();
+                                }
+                            }}
+                            ListFooterComponent={
+                                isFetchingNextPage ? (
+                                    <ActivityIndicator size={ms(20)} color={Colors.dt_white} style={{ marginVertical: 10 }} />
+                                ) : null
+                            }
                         />
 
                         {isTyping && (
