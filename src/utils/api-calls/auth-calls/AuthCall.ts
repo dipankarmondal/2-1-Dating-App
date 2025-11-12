@@ -192,25 +192,4 @@ export const ResetPassword = async (data: any) => {
     }
 };
 
-//create livestreams
-export const CreateLivestream = async (token: any, data: any,) => {
-    try {
-        const res = await API.post("/livestreams", data,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        return res?.data;
-    } catch (error) {
-        const errorData = error?.response?.data?.error;
-        console.log("adsfasd", error?.response?.data?.message);
-        // If it's an array of objects
-        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
-        if (Array.isArray(errorData) && errorData.length > 0) {
-            firstMessage = errorData[0]?.message || firstMessage;
-        }
-        toast("error", { title: firstMessage });
-        throw error;
-    }
-};
+

@@ -1179,7 +1179,7 @@ export const JoinRoom = async (token: any, id: any) => {
 };
 
 //Get Room Messages
-export const GetRoomMessages = async (token: any, id: any,limit: any) => {
+export const GetRoomMessages = async (token: any, id: any, limit: any) => {
     try {
         const res = await API.get(`/chatrooms/${id}/messages`, {
             headers: {
@@ -1316,6 +1316,49 @@ export const GroupReportChatroom = async (token: any, id: any, data: any) => {
             firstMessage = errorData[0]?.message || firstMessage;
         }
         toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+//create livestreams
+export const CreateLivestream = async (token: any, data: any,) => {
+    try {
+        const res = await API.post("/livestreams", data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        const errorData = error?.response?.data?.error;
+        console.log("adsfasd", error?.response?.data);
+        // If it's an array of objects
+        let firstMessage = error?.response?.data?.message ?? "Something went wrong";
+        if (Array.isArray(errorData) && errorData.length > 0) {
+            firstMessage = errorData[0]?.message || firstMessage;
+        }
+        toast("error", { title: firstMessage });
+        throw error;
+    }
+};
+
+// Get All Live Streams
+export const GetAllLiveStreams = async (token: any, page: any, limit: any) => {
+    try {
+        const res = await API.get("/livestreams",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    ...(page ? { page } : {}),
+                    ...(limit ? { limit } : {})
+                }
+            });
+        return res?.data;
+    } catch (error) {
+        toast("error", { title: "Something went wrong" });
         throw error;
     }
 };

@@ -1096,7 +1096,7 @@
         },
         "age_restriction": {
             "label": "Age Restriction",
-            "placeholder": "Age Restriction",
+            "placeholder": "Age Restriction (20+)",
             "errors": {
                 "required": "age restriction is required"
             }

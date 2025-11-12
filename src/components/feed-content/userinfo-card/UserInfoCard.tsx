@@ -26,7 +26,7 @@ import { useNavigation } from '@react-navigation/native'
 import MulteImage from '../../multeimage/MulteImage'
 import GalleryModal from '../../modal/gallery-modal/GalleryModal'
 
-const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore,isOption, isFilterOption, isGallery, isChecked, children, profileImages = [], UserName,isBroadcastCheck,handleBroadcast,userId,menuData,openDropdown,isDelete }) => {
+const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, isOption, isFilterOption, isGallery, isChecked, children, profileImages = [], UserName, isBroadcastCheck, handleBroadcast, userId, menuData, openDropdown, isDelete,isStream }) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [DropdownType, setDropdownType] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,7 +35,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore,isOption
     const Navigation = useNavigation<any>()
 
     const UserInfoContent = () => {
-        return ( 
+        return (
             <>
                 <View style={styles.dt_image_container}>
                     <Image
@@ -68,20 +68,24 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore,isOption
                     <View style={styles.dt_name_container}>
                         <Text style={styles.dt_name}>{UserName}</Text>
                         <View style={styles.dt_button_container}>
-                            <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("info") }}>
-                                <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
-                            </TouchableOpacity>
+                            {
+                                !isStream && (
+                                    <TouchableOpacity style={styles.dt_button} onPress={() => { setShowDropdown(true), setDropdownType("info") }}>
+                                        <TvIcon {...IconProps(ms(17))} fill={Colors.dt_card_blue} />
+                                    </TouchableOpacity>
+                                )
+                            }
                             {/* <TouchableOpacity style={styles.dt_button} onPress={() => Navigation.navigate("DrawerNavigator","MessengerScreen")}>
                                 <MessageIcon {...IconProps(ms(16))} fill={Colors.dt_card_blue} />
                             </TouchableOpacity> */}
                             {
                                 isDelete && (
-                                    <TouchableOpacity style={[styles.dt_button,{backgroundColor:Colors.dt_error}]} onPress={openDropdown}>
+                                    <TouchableOpacity style={[styles.dt_button, { backgroundColor: Colors.dt_error }]} onPress={openDropdown}>
                                         <CrossIcon {...IconProps(ms(22))} fill={Colors.dt_white} />
                                     </TouchableOpacity>
                                 )
                             }
-                   
+
                             {/* {
                                 (type === "hotdate" || type === "travel") && (
                                     <>
@@ -244,13 +248,21 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore,isOption
         )
     }
 
+    const handleNavigation = () =>{
+        if(isStream){
+            console.log("object","stream click")
+        }else{
+            Navigation.navigate("ProfileScreen", { userId: userId, type: "friends" })
+        }
+    }
+
     return (
         <View>
             {
                 type === "user" ? (
                     <TouchableOpacity
                         style={styles.dt_user_info_card}
-                        onPress={() => Navigation.navigate("ProfileScreen", { userId: userId, type: "friends" })}
+                        onPress={handleNavigation}
                         activeOpacity={0.5}
                     >
                         <UserInfoContent />

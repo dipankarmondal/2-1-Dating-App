@@ -1,6 +1,6 @@
 /**React Imports */
-import { View,Text, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useCallback } from 'react'
 
 /**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
@@ -22,11 +22,50 @@ import MaleIcon from '@svgs/male.svg'
 import FemaleIcon from '@svgs/female.svg'
 import ViewIcon from '@svgs/setting/views.svg'
 import TimeIcon from '@svgs/setting/time.svg'
+import { useAuth } from '../../../../utils/context/auth-context/AuthContext'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { GetAllLiveStreams } from '../../../../utils/api-calls/content-api-calls/ContentApiCall'
+import { NewMemberActions, StreamStats } from '../../../../components/common/helper'
+import ScrollContent from '../../../../components/scrollcontent/ScrollContent'
+import Loader from '../../../../components/loader/Loader'
+import NotFound from '../../../../components/notfound/NotFound'
 
 /**Main export*/
 const LivestreamScreen: React.FC = () => {
     const Navigation = useNavigation<any>();
-    
+    const { Token } = useAuth()
+
+    const {
+        data,
+        isLoading,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        refetch
+    } = useInfiniteQuery({
+        queryKey: ['getAllLiveStreams'],
+        queryFn: ({ pageParam = 1 }) => GetAllLiveStreams(Token, pageParam, 5),
+        getNextPageParam: (lastPage) => {
+            const { currentPage, totalPages } = lastPage.pagination;
+            return currentPage < totalPages ? currentPage + 1 : undefined;
+        },
+        initialPageParam: 1,
+    });
+
+    const allStreams = data?.pages?.flatMap(page => page.streams) ?? [];
+
+    const handleScroll = useCallback(
+        ({ nativeEvent }: any) => {
+            const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+            const isCloseToBottom =
+                layoutMeasurement.height + contentOffset.y >= contentSize.height - 100;
+            if (isCloseToBottom && hasNextPage && !isFetchingNextPage) {
+                fetchNextPage();
+            }
+        },
+        [hasNextPage, isFetchingNextPage]
+    );
+
     return (
         <ScreenLayout>
             <ScreenHeader>
@@ -37,52 +76,85 @@ const LivestreamScreen: React.FC = () => {
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollContent
+                contentContainerStyle={{ flexGrow: 1 }}
+                onRefresh={refetch}
+                onScroll={handleScroll}
+            >
                 <View style={CommonStyles.dt_container}>
-                    <UserInfoCard
-                        {...{
-                            type: "livestream",
-                            isMore: true,
-                            isOption: true,
-                            isFilterOption: true,
-                        }}
-                    >
-                        <View style={styles.dt_intrest}>
-                            <View style={styles.dt_intrest}>
-                                <View style={[styles.dt_age_container, { marginTop: ms(10) }]}>
-                                    <View style={styles.dt_age}>
-                                        <FemaleIcon {...IconProps(ms(20))} fill={Colors.dt_error} />
-                                        <Text style={styles.dt_age_text}>5</Text>
-                                    </View>
-                                    <View style={styles.dt_age}>
-                                        <MaleIcon {...IconProps(ms(20))} fill={Colors.dt_card_blue} />
-                                        <Text style={styles.dt_age_text}>2</Text>
-                                    </View>
-                                </View>
-                                <View style={[styles.dt_intrest_container, { alignItems: "flex-end" }]}>
-                                    <Text style={[styles.dt_intrest_text, { textAlign: "right" }]}>Location</Text>
-                                    <View style={[styles.dt_location_container]}>
-                                        <Text style={[styles.dt_location_text, { color: Colors.dt_error }]}>
-                                            helo
-                                        </Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={[styles.dt_age_container, { marginTop: ms(5), gap: ms(8) }]}>
-                            <View style={styles.dt_live_info_container}>
-                                <ViewIcon {...IconProps(ms(20))} fill={Colors.dt_gray} />
-                                <Text style={styles.dt_location_text}>56</Text>
-                            </View>
-                            <View style={styles.dt_live_info_container}>
-                                <TimeIcon {...IconProps(ms(16))} fill={Colors.dt_gray} />
-                                <Text style={styles.dt_location_text}>55 min</Text>
-                            </View>
-                        </View>
-                    </UserInfoCard>
+                    {
+                        isLoading ? <Loader /> :
+                            allStreams.length > 0 ? (
+                                allStreams.map((item: any, index: number) => {
+                                    return (
+                                        <UserInfoCard
+                                            key={index}
+                                            {...{
+                                                type: "user",
+                                                UserName: item?.streamerId?.username,
+                                                isStream: true,
+                                            }}
+                                        >
+                                            <View>
 
+                                                <View style={[styles.dt_view_content,]}>
+                                                    <ViewIcon {...IconProps(ms(15))} fill={Colors.dt_gray} />
+                                                    <Text style={styles.dt_view_text}>{item?.currentViewerCount}</Text>
+                                                    <View style={[styles.dt_live_status, { backgroundColor: item?.isLive ? "#b1ffb1" : Colors.dt_gray }]} >
+                                                        <View style={[styles.dt_live_status_dot, { backgroundColor: item?.isLive ? Colors.dt_success_green : Colors.dt_gray }]} />
+                                                    </View>
+                                                </View>
+                                                <View style={styles.dt_stream_info}>
+                                                    <Text style={styles.dt_stream_title}>{item?.title ?? "--"}</Text>
+                                                    <Text style={styles.dt_stream_description}>{item?.description ?? "--"}</Text>
+                                                </View>
+                                                <View style={styles.dt_stream_info}>
+                                                    <Text style={styles.dt_stream_title}>Tags:</Text>
+                                                    <View style={styles.dt_stream_tags}>
+                                                        {
+                                                            item?.tags?.map((t: any, tIndex: number) => {
+                                                                return (
+                                                                    <View key={tIndex} style={styles.dt_stream_tag_item}>
+                                                                        <Text style={styles.dt_stream_tag_text}>{t} </Text>
+                                                                    </View>
+                                                                )
+                                                            })
+                                                        }
+                                                    </View>
+                                                </View>
+                                                <View style={[styles.dt_profile_content, { marginTop: ms(10) }]}>
+                                                    {StreamStats(item).map(({ id, icon: Icon, size, count }) => (
+                                                        <TouchableOpacity
+                                                            key={id}
+                                                            style={[styles.dt_button_two, { backgroundColor: Colors.dt_gray + '33' }]}
+                                                        >
+                                                            <Icon {...IconProps(size)} fill={Colors.dt_card_blue} />
+                                                            <Text style={styles.dt_profile_text}>{count}</Text>
+                                                        </TouchableOpacity>
+                                                    ))}
+                                                </View>
+                                            </View>
+                                        </UserInfoCard>
+
+                                    )
+                                })
+                            ) : (
+                                <NotFound
+                                    {...{
+                                        title: "Oops! No live streams are available right now. Please check back later or explore other exciting content nearby.",
+                                        photo: require("@images/notFound/live_not.png")
+                                    }}
+                                />
+                            )
+                    }
+
+                    {isFetchingNextPage &&
+                        <View style={{ marginVertical: 16 }}>
+                            <Loader />
+                        </View>
+                    }
                 </View>
-            </ScrollView>
+            </ScrollContent>
         </ScreenLayout>
     )
 }

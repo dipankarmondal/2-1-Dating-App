@@ -1509,16 +1509,16 @@ export const SteramCreateBuilder = (control: Control<any>) => {
             control: control,
             selectionData: Category
         },
-        {
-            name: 'language',
-            parent: 'create_stream',
-            styles: FormStyle,
-            type: "dropdown",
-            label: false,
-            placeholder: true,
-            control: control,
-            selectionData: languages
-        },
+        // {
+        //     name: 'language',
+        //     parent: 'create_stream',
+        //     styles: FormStyle,
+        //     type: "dropdown",
+        //     label: false,
+        //     placeholder: true,
+        //     control: control,
+        //     selectionData: languages
+        // },
         {
             name: 'max_viewers',
             parent: 'create_stream',
@@ -1537,25 +1537,25 @@ export const SteramCreateBuilder = (control: Control<any>) => {
             placeholder: true,
             control: control,
         },
-        {
-            name: 'settings',
-            parent: 'create_stream',
-            styles: FormStyle,
-            type: "multi",
-            label: false,
-            placeholder: true,
-            control: control,
-            option: createStream
-        },
-        {
-            name: 'age_restriction',
-            parent: 'create_stream',
-            styles: FormStyle,
-            type: "text",
-            label: false,
-            placeholder: true,
-            control: control,
-        },
+        // {
+        //     name: 'settings',
+        //     parent: 'create_stream',
+        //     styles: FormStyle,
+        //     type: "multi",
+        //     label: false,
+        //     placeholder: true,
+        //     control: control,
+        //     option: createStream
+        // },
+        // {
+        //     name: 'age_restriction',
+        //     parent: 'create_stream',
+        //     styles: FormStyle,
+        //     type: "text",
+        //     label: false,
+        //     placeholder: true,
+        //     control: control,
+        // },
         {
             name: 'file',
             parent: 'create_stream',
