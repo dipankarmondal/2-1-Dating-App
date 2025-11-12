@@ -170,6 +170,10 @@ export const looksOptions = [
     { key: "medium_importance", value: "Medium Importance" },
     { key: "very_important", value: "Very Important" }
 ];
+export const createStream = [
+    { key: "comments", value: "Comments" },
+    { key: "gifts", value: "Gifts" },
+];
 
 export const sexualityOptions = [
     { key: 'prefer_not_to_say', value: 'Prefer not to say' },

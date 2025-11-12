@@ -3,9 +3,9 @@ import { KeyboardTypeOptions } from "react-native"
 import { FormStyle } from "../constant/Constant"
 import { AlreadyMemberOptions, BlockUserOptions, CategoryOptions, ChooseInterst, DateTypeOptions, Distance, GoliveOptions, GroupForOptions, GroupTypeOptions, ModeOptions, PromotionOptions, ReferalOptions, SexualityOptions } from "../../components/common/helper"
 import { From, Hours, Minutes, PrivatePartyOptions } from "../../screens/screens/stack-navigation-screens/private-party-screen/helper"
-import { bodyHairOptions, bodyTypeOptions, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
+import { bodyHairOptions, bodyTypeOptions, createStream, ethnicOptions, experienceLevel, heightOptions, languagesOptions, looksOptions, piercingsOptions, relationshipOptions, sexualityOptions, smokingOptions, tattoosOptions, WeightOptions } from "../../components/profile-screen-content/edit-content/helper"
 import { CategoriesFilter, GroupTypesFilter, SortOptionsFilter, TargetAudienceFilter } from "../../screens/screens/drawer-navigation-screens/groups-screen/helper"
-import { PlaceTypeFilter, ReportReasons, SpeedDateUserFilter } from "../../screens/screens/drawer-navigation-screens/hot-date-screen/helper"
+import { Category, languages, PlaceTypeFilter, ReportReasons, SpeedDateUserFilter } from "../../screens/screens/drawer-navigation-screens/hot-date-screen/helper"
 
 export const LoginBuilder = (control: Control<any>) => {
     return [
@@ -1228,7 +1228,6 @@ export const NonAudltPhotoBuilder = (control: Control<any>) => {
         },
     ]
 }
-
 export const CreateAlbumBuilder = (control: Control<any>) => {
     return [
         {
@@ -1457,7 +1456,6 @@ export const HotdateFilter = (control: Control<any>) => {
         },
     ]
 }
-
 export const ChatroomReport = (control: Control<any>) => {
     return [
         {
@@ -1475,6 +1473,94 @@ export const ChatroomReport = (control: Control<any>) => {
             parent: 'chatroom_report',
             styles: FormStyle,
             type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+    ]
+}
+export const SteramCreateBuilder = (control: Control<any>) => {
+    return [
+        {
+            name: 'title',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'description',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "textarea",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'category',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: Category
+        },
+        {
+            name: 'language',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "dropdown",
+            label: false,
+            placeholder: true,
+            control: control,
+            selectionData: languages
+        },
+        {
+            name: 'max_viewers',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'tags',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'settings',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "multi",
+            label: false,
+            placeholder: true,
+            control: control,
+            option: createStream
+        },
+        {
+            name: 'age_restriction',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "text",
+            label: false,
+            placeholder: true,
+            control: control,
+        },
+        {
+            name: 'file',
+            parent: 'create_stream',
+            styles: FormStyle,
+            type: "photo",
             label: false,
             placeholder: true,
             control: control,

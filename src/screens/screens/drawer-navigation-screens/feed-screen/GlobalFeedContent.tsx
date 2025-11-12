@@ -45,8 +45,8 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
 
     const GlobalFeedDataSet = GlobalFeedData?.data?.filter((item: any) =>
         item?.type === "friend_request" ||
-        item?.type === "profile_view" ||
-        item?.type === "group_joined" ||
+        // item?.type === "profile_view" ||
+        // item?.type === "group_joined" ||
         item?.type === "friend_request_accepted"
     ) ?? [];
 
@@ -62,8 +62,8 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
                     ) : GlobalFeedDataSet?.length > 0 ? (
                         GlobalFeedDataSet.map((item: any, index: number) => {
                             const formattedTime = moment(item?.createdAt).format("HH [hours], mm [min]");
-                            const photos = [item?.metadata?.profileImage];
-
+                            const SenderPhotos = item?.metadata?.actor?.photos;
+                            const ReceverPhotos = item?.metadata?.target?.photos;
                             return (
                                 <View key={index}>
                                     {
@@ -88,10 +88,10 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
                                                             type: "user",
                                                             isMore: true,
                                                             isFilterOption: true,
-                                                            isGallery: photos?.length > 0,
-                                                            profileImages: item?.metadata?.profileImage,
-                                                            UserName: item?.metadata?.username,
-                                                            userId: item?.relatedUserId?._id,
+                                                            isGallery: SenderPhotos?.length > 0,
+                                                            profileImages: SenderPhotos,
+                                                            UserName: item?.metadata?.actor?.username,
+                                                            userId: item?.metadata?.actor?.userId,
                                                         }}
                                                     >
                                                         <InfoCardLayoutOne item={item?.metadata} />
@@ -102,10 +102,10 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
                                                             type: "user",
                                                             isMore: true,
                                                             isFilterOption: true,
-                                                            isGallery: data?.data?.profile?.photos?.length > 0,
-                                                            profileImages: data?.data?.profile?.photos,
-                                                            UserName: data?.data?.username,
-                                                            userId: data?.data?._id,
+                                                            isGallery: ReceverPhotos?.length > 0,
+                                                            profileImages: ReceverPhotos,
+                                                            UserName: item?.metadata?.target?.username,
+                                                            userId: item?.metadata?.target?.userId,
                                                         }}
                                                     >
                                                         <InfoCardLayoutOne item={data?.data} />
@@ -117,8 +117,8 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
                                                         type: "user",
                                                         isMore: true,
                                                         isFilterOption: true,
-                                                        isGallery: photos?.length > 0,
-                                                        profileImages: photos,
+                                                        isGallery: item?.metadata?.actorId?.photos?.length > 0,
+                                                        profileImages: item?.metadata?.actorId?.photos,
                                                         UserName: item?.metadata?.username,
                                                         userId: item?.metadata?.senderId,
                                                     }}
@@ -133,8 +133,8 @@ const GlobalFeedContent: React.FC<Props> = ({ activeKey }) => {
                                                         type: "user",
                                                         isMore: true,
                                                         isFilterOption: true,
-                                                        isGallery: photos?.length > 0,
-                                                        profileImages: photos,
+                                                        isGallery: item?.metadata?.actorId?.photos?.length > 0,
+                                                        profileImages: item?.metadata?.actorId?.photos,
                                                         UserName: item?.metadata?.username,
                                                         userId: item?.metadata?.accepterId,
                                                     }}

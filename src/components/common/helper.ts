@@ -192,6 +192,11 @@ export const PromotionOptions = [
     { key: false, value: "Sell a product / service" },
     { key: false, value: "Interest in paid advertising" },
 ];
+export const CreateStreamOptions = [
+    { key: false, value: "Promote events / parties" },
+    { key: false, value: "Build an audience / community" },
+
+];
 export const ReferalOptions = [
     { key: "Friend / Word of Mouth", value: "Friend / Word of Mouth" },
     { key: "Social Media (Facebook, Instagram, etc.)", value: "Social Media (Facebook, Instagram, etc.)" },

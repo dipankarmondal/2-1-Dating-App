@@ -234,7 +234,7 @@ export type MenuItems = {
 }
 
 export type ScrollContentProps = {
-    onRefresh: () => void; // async refresh callback
+    onRefresh?: () => void; // async refresh callback
     children: React.ReactNode;
     onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
 } & ScrollViewProps;

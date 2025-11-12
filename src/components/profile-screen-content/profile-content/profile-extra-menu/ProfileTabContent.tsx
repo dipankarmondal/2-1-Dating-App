@@ -32,6 +32,8 @@ type Props = {
 /**Main export*/
 const ProfileTabContent: React.FC<Props> = ({ activeKey, userType, setCounts,ID }) => {
 
+    console.log("sdfgsdfgsdfgsd",ID)
+
     const { Token } = useAuth()
     const Navigation = useNavigation()
     const QueryInvalidater = useQueryClient();

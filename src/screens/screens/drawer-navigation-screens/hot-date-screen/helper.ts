@@ -21,3 +21,16 @@ export const ReportReasons = [
     { key: "underage", value: "Underage" },
     { key: "other", value: "Other" }
 ];
+export const languages = [
+    { key: "en", value: "English" },
+    { key: "hi", value: "Hindi" },
+    { key: "es", value: "Spanish" },
+    { key: "fr", value: "French" }
+];
+export const Category = [
+    { key: "dating", value: "Dating" },
+    { key: "lifestyle", value: "Lifestyle" },
+    { key: "entertainment", value: "Entertainment" },
+    { key: "education", value: "Education" },
+    { key: "other", value: "Other" }
+];

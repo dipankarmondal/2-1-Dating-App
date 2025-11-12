@@ -1,29 +1,39 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+/**React Imports */
+import { View,Text, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import ScreenLayout from '../../common/ScreenLayout'
+
+/**Local imports*/
 import { CommonStyles } from '../../common/CommonStyle'
-import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
-import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
-import { useNavigation } from '@react-navigation/native'
 import { LivestreamScreenStyles as styles } from './styles'
-import MaleIcon from '@svgs/male.svg'
-import FemaleIcon from '@svgs/female.svg'
 import { IconProps } from '../../../../utils/helpers/Iconprops'
 import { ms } from '../../../../utils/helpers/responsive'
 import { Colors } from '../../../../utils/constant/Constant'
+
+/**Components */
+import ScreenLayout from '../../common/ScreenLayout'
+import UserInfoCard from '../../../../components/feed-content/userinfo-card/UserInfoCard'
+import ScreenHeader from '../../../../components/screen-header/ScreenHeader'
+
+/** Liabary*/
+import { useNavigation } from '@react-navigation/native'
+
+/**Icons*/
+import MaleIcon from '@svgs/male.svg'
+import FemaleIcon from '@svgs/female.svg'
 import ViewIcon from '@svgs/setting/views.svg'
 import TimeIcon from '@svgs/setting/time.svg'
 
+/**Main export*/
 const LivestreamScreen: React.FC = () => {
     const Navigation = useNavigation<any>();
-
+    
     return (
         <ScreenLayout>
             <ScreenHeader>
                 <Text style={CommonStyles.dt_header_title}>Live Stream</Text>
                 <View style={CommonStyles.dt_filter_container_btn}>
-                    <TouchableOpacity style={CommonStyles.dt_speed_date} >
-                        <Text style={CommonStyles.dt_speed_date_text}>Stream</Text>
+                    <TouchableOpacity style={CommonStyles.dt_speed_date} onPress={() => Navigation.navigate("StreamScreen")}>
+                        <Text style={CommonStyles.dt_speed_date_text}>Create Stream</Text>
                     </TouchableOpacity>
                 </View>
             </ScreenHeader>

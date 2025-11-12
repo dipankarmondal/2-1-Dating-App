@@ -50,6 +50,7 @@ import ContactAndHelpScreen from "../../screens/screens/stack-navigation-screens
 import SingleGroupScreen from "../../screens/screens/stack-navigation-screens/single-group-screen"
 import ChatroomChatboxScreen from "../../screens/screens/stack-navigation-screens/chatroom-chat-box-screen"
 import ChatroomInfoScreen from "../../screens/screens/stack-navigation-screens/chatroom-chat-box-screen/chatroom-info-screen/ChatroomInfoScreen"
+import StreamScreen from "../../screens/screens/stack-navigation-screens/stream-screen"
 
 export const AuthStack = () => {
     return (
@@ -103,6 +104,7 @@ export const MainStack = () => {
             <Stack.Screen name="SingleGroupScreen" component={SingleGroupScreen} />
             <Stack.Screen name="ChatroomChatboxScreen" component={ChatroomChatboxScreen} />
             <Stack.Screen name="ChatroomInfoScreen" component={ChatroomInfoScreen} />
+            <Stack.Screen name="StreamScreen" component={StreamScreen} />
         </Stack.Navigator>
     )
 }

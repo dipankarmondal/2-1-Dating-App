@@ -101,7 +101,6 @@ const ProfileContent: React.FC<Props> = ({ data, type, setTopMenuKey }) => {
         UserInteractionMutation.mutate(payload)
     };
 
-
     const UserInteractionMutation = useMutation({
         mutationFn: (data: any) => CreateInteraction(Token, data),
         onSuccess: (res) => {
@@ -180,7 +179,7 @@ const ProfileContent: React.FC<Props> = ({ data, type, setTopMenuKey }) => {
                                     count !== null && (
                                         <View style={styles.dt_count_container}>
                                             <Text style={[styles.dt_button_text, { fontSize: ms(10) }]}>{count}</Text>
-                                        </View>
+                                        </View> 
                                     )
                                 }
                             </TouchableOpacity>

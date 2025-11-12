@@ -175,8 +175,6 @@ const ChatroomChatboxScreen: React.FC<Props> = ({ route }) => {
         enabled: !!Token,
     })
 
-    console.log("object", data)
-
     //* 🔹 Send image message
     const sendImageMessage = () => {
         if (!imageInput || !imageInput.trim()) {

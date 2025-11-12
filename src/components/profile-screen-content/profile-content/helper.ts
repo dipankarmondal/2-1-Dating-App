@@ -45,7 +45,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
 
             },
             {
-                id: 7,
+                id: 4,
                 label: "Albums",
                 icon: AlbumsIcon,
                 size: 14,
@@ -53,7 +53,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: 0,
             },
             {
-                id: 14,
+                id: 5,
                 label: "All Friends",
                 icon: FriendsIcon,
                 size: 13,
@@ -61,7 +61,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: data?.friendCount ?? 0,
             },
             {
-                id: 8,
+                id: 6,
                 label: "Share",
                 icon: ShareIcon,
                 size: 13,
@@ -69,7 +69,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 9,
+                id: 7,
                 label: "Invite",
                 icon: InviteIcon,
                 size: 11,
@@ -81,7 +81,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
     ...(!isUser
         ? [
             {
-                id: 1,
+                id: 8,
                 label: "Non-Adult",
                 icon: CameraIcon,
                 size: 13,
@@ -90,7 +90,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
 
             },
             {
-                id: 2,
+                id: 9,
                 label: "Adult",
                 icon: CameraIcon,
                 size: 13,
@@ -99,7 +99,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
 
             },
             {
-                id: 3,
+                id: 10,
                 label: "Videos",
                 icon: VideoIcon,
                 size: 16,
@@ -108,7 +108,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
 
             },
             {
-                id: 3,
+                id: 11,
                 label: "Like",
                 icon: LikeIcon,
                 size: 12,
@@ -116,7 +116,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 3,
+                id: 12,
                 label: "Like",
                 icon: LikeNullIcon,
                 size: 13,
@@ -124,7 +124,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 10,
+                id: 13,
                 label: "Remembered",
                 icon: BookmarkIcon,
                 size: 13,
@@ -132,7 +132,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 12,
+                id: 14,
                 label: "Remembered",
                 icon: BookmarkNullIcon,
                 size: 13,
@@ -140,7 +140,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 5,
+                id: 15,
                 label: "Validation",
                 icon: ValidationIcon,
                 size: 13,
@@ -148,7 +148,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 6,
+                id: 16,
                 label: "Validation",
                 icon: ValidationNullIcon,
                 size: 13,
@@ -156,7 +156,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 4,
+                id: 17,
                 label: "Friends",
                 icon: FriendsIcon,
                 size: 13,
@@ -164,7 +164,7 @@ export const profileButtons = (data: any, isUser: boolean, Navigation: any, setA
                 count: null,
             },
             {
-                id: 13,
+                id: 18,
                 label: "Friends",
                 icon: FriendsFollowIcon,
                 size: 12,

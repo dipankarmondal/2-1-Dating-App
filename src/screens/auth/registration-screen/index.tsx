@@ -52,7 +52,7 @@ const RegistrationScreen: React.FC = () => {
             if (res?.success === true) {
                 setIsOtpVerified(true);
                 toast("success", { title: res?.message });
-                Alert.alert("Success", `OTP: ${res?.data?.code}`);
+                // Alert.alert("Success", `OTP: ${res?.data?.code}`);
             }
         },
     })

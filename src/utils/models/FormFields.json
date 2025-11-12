@@ -1043,5 +1043,70 @@
                 "required": "description is required"
             }
         }
+    },
+    "create_stream": {
+        "title": {
+            "label": "Title",
+            "placeholder": "Title",
+            "errors": {
+                "required": "title is required"
+            }
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "description",
+            "errors": {
+                "required": "description is required"
+            }
+        },
+        "file": {
+            "label": "Add Thumbnail",
+            "placeholder": "Add Thumbnail",
+            "errors": {
+                "required": "thumbnail is required"
+            }
+        },
+        "category": {
+            "label": "category",
+            "placeholder": "Category",
+            "errors": {
+                "required": "Category is required"
+            }
+        },
+        "max_viewers": {
+            "label": "Max Viewers",
+            "placeholder": "Max Viewers",
+            "errors": {
+                "required": "max viewers is required"
+            }
+        },
+        "tags": {
+            "label": "Tags",
+            "placeholder": "Tags",
+            "errors": {
+                "required": "tags is required"
+            }
+        },
+        "settings": {
+            "label": "Settings",
+            "placeholder": "Settings",
+            "errors": {
+                "required": "settings is required"
+            }
+        },
+        "age_restriction": {
+            "label": "Age Restriction",
+            "placeholder": "Age Restriction",
+            "errors": {
+                "required": "age restriction is required"
+            }
+        },
+        "language": {
+            "label": "Language",
+            "placeholder": "Language",
+            "errors": {
+                "required": "age restriction is required"
+            }
+        }
     }
 }

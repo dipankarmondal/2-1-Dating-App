@@ -87,13 +87,13 @@ export const DrawerScreens: DrawerScreenType[] = [
         Icon: ChatroomIcon,
         size: ms(16),
     },
-    // {
-    //     name: 'LivestreamScreen',
-    //     component: LivestreamScreen,
-    //     label: 'Live Stream',
-    //     Icon:LiveIcon,
-    //     size: ms(16),
-    // },
+    {
+        name: 'LivestreamScreen',
+        component: LivestreamScreen,
+        label: 'Live Stream',
+        Icon: LiveIcon,
+        size: ms(16),
+    },
     {
         name: 'NewMemberScreen',
         component: NewMemberScreen,
