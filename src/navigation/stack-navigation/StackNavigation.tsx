@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 
 /**Local imports*/
 import { Colors } from "../../utils/constant/Constant"
-import { GetProfile } from "../../utils/api-calls/auth-calls/AuthCall"
 import { useAuth } from "../../utils/context/auth-context/AuthContext"
 import { Stack } from "../navigation-types/NavigationTypes"
 import DrawerNavigator from "../drawer-navigation/DrawerNavigation"

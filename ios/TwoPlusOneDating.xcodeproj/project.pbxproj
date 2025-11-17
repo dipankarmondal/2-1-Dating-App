@@ -9,39 +9,40 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-TwoPlusOneDating.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-TwoPlusOneDating.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2A08F3AA64FA488E8D7C0744 /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCE9EC706B7145AA97CBEA9C /* DMSans-ExtraBold.ttf */; };
+		345EA3C71386438591EEA8F6 /* DMSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F25232117A34F92AF10802E /* DMSans-Light.ttf */; };
+		510E944F2FB0494EA44E3171 /* DMSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B819061723F43CEB060769F /* DMSans-SemiBold.ttf */; };
+		61C1A5856145442EA5D5F935 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A76A20FE1764480808FF60F /* DMSans-Bold.ttf */; };
+		62408476FB9F46D7BCE48816 /* DMSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD0A56EDBD994662A05D86C2 /* DMSans-Thin.ttf */; };
+		69E61C85059440809E41A49D /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 746990FB17234DE9B740EE6E /* DMSans-Regular.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B9F08125EC7A4DD8B0A45F9D /* DMSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19713A3598A24307843E8D9C /* DMSans-Black.ttf */; };
-		61C1A5856145442EA5D5F935 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A76A20FE1764480808FF60F /* DMSans-Bold.ttf */; };
-		2A08F3AA64FA488E8D7C0744 /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCE9EC706B7145AA97CBEA9C /* DMSans-ExtraBold.ttf */; };
 		A7242B2B2ABC454E9C078C6E /* DMSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D8AE18E1D4567BA455E6A /* DMSans-ExtraLight.ttf */; };
-		345EA3C71386438591EEA8F6 /* DMSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F25232117A34F92AF10802E /* DMSans-Light.ttf */; };
+		B9F08125EC7A4DD8B0A45F9D /* DMSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19713A3598A24307843E8D9C /* DMSans-Black.ttf */; };
 		DE7984100C9C43A18CE83819 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FE591494AD34BE3ABB74322 /* DMSans-Medium.ttf */; };
-		69E61C85059440809E41A49D /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 746990FB17234DE9B740EE6E /* DMSans-Regular.ttf */; };
-		510E944F2FB0494EA44E3171 /* DMSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B819061723F43CEB060769F /* DMSans-SemiBold.ttf */; };
-		62408476FB9F46D7BCE48816 /* DMSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD0A56EDBD994662A05D86C2 /* DMSans-Thin.ttf */; };
+		F206AF362284A9C2B81A7433 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A76A20FE1764480808FF60F /* DMSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Bold.ttf"; path = "../assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TwoPlusOneDating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoPlusOneDating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TwoPlusOneDating/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TwoPlusOneDating/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TwoPlusOneDating/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		19713A3598A24307843E8D9C /* DMSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Black.ttf"; path = "../assets/fonts/DMSans-Black.ttf"; sourceTree = "<group>"; };
+		2C7D8AE18E1D4567BA455E6A /* DMSans-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-ExtraLight.ttf"; path = "../assets/fonts/DMSans-ExtraLight.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-TwoPlusOneDating.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoPlusOneDating.debug.xcconfig"; path = "Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating.debug.xcconfig"; sourceTree = "<group>"; };
+		3B819061723F43CEB060769F /* DMSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-SemiBold.ttf"; path = "../assets/fonts/DMSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		3FE591494AD34BE3ABB74322 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Medium.ttf"; path = "../assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TwoPlusOneDating.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoPlusOneDating.release.xcconfig"; path = "Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-TwoPlusOneDating.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TwoPlusOneDating.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		746990FB17234DE9B740EE6E /* DMSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Regular.ttf"; path = "../assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TwoPlusOneDating/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TwoPlusOneDating/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8F25232117A34F92AF10802E /* DMSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Light.ttf"; path = "../assets/fonts/DMSans-Light.ttf"; sourceTree = "<group>"; };
+		CCE9EC706B7145AA97CBEA9C /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-ExtraBold.ttf"; path = "../assets/fonts/DMSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		DD0A56EDBD994662A05D86C2 /* DMSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Thin.ttf"; path = "../assets/fonts/DMSans-Thin.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		19713A3598A24307843E8D9C /* DMSans-Black.ttf */ = {isa = PBXFileReference; name = "DMSans-Black.ttf"; path = "../assets/fonts/DMSans-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0A76A20FE1764480808FF60F /* DMSans-Bold.ttf */ = {isa = PBXFileReference; name = "DMSans-Bold.ttf"; path = "../assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CCE9EC706B7145AA97CBEA9C /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "DMSans-ExtraBold.ttf"; path = "../assets/fonts/DMSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2C7D8AE18E1D4567BA455E6A /* DMSans-ExtraLight.ttf */ = {isa = PBXFileReference; name = "DMSans-ExtraLight.ttf"; path = "../assets/fonts/DMSans-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8F25232117A34F92AF10802E /* DMSans-Light.ttf */ = {isa = PBXFileReference; name = "DMSans-Light.ttf"; path = "../assets/fonts/DMSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3FE591494AD34BE3ABB74322 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; name = "DMSans-Medium.ttf"; path = "../assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		746990FB17234DE9B740EE6E /* DMSans-Regular.ttf */ = {isa = PBXFileReference; name = "DMSans-Regular.ttf"; path = "../assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3B819061723F43CEB060769F /* DMSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "DMSans-SemiBold.ttf"; path = "../assets/fonts/DMSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DD0A56EDBD994662A05D86C2 /* DMSans-Thin.ttf */ = {isa = PBXFileReference; name = "DMSans-Thin.ttf"; path = "../assets/fonts/DMSans-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,17 +108,8 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3B4392A12AC88292D35C810B /* Pods-TwoPlusOneDating.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-TwoPlusOneDating.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		9E0565F59F084E3493068164 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				19713A3598A24307843E8D9C /* DMSans-Black.ttf */,
 				0A76A20FE1764480808FF60F /* DMSans-Bold.ttf */,
@@ -131,7 +123,15 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
+		};
+		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B4392A12AC88292D35C810B /* Pods-TwoPlusOneDating.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-TwoPlusOneDating.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -204,6 +204,7 @@
 				69E61C85059440809E41A49D /* DMSans-Regular.ttf in Resources */,
 				510E944F2FB0494EA44E3171 /* DMSans-SemiBold.ttf in Resources */,
 				62408476FB9F46D7BCE48816 /* DMSans-Thin.ttf in Resources */,
+				F206AF362284A9C2B81A7433 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,9 +235,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -273,9 +278,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TwoPlusOneDating/Pods-TwoPlusOneDating-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -305,6 +314,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TwoPlusOneDating/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DesiCouplesz;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -318,8 +328,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TwoPlusOneDating;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -332,6 +347,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = TwoPlusOneDating/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DesiCouplesz;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -345,7 +361,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TwoPlusOneDating;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -419,7 +440,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -484,7 +508,9 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -1,4 +1,4 @@
-import { View, Text, LogBox } from 'react-native'
+import { LogBox } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import NetInfo from '@react-native-community/netinfo'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,6 +9,7 @@ import CustomeToast from './components/custom-toast';
 import NetworkNotConnect from './components/network-not-connect';
 import { RightDrawerProvider } from './utils/context/right-drawer/RightDrawer';
 import { SocketProvider } from './utils/context/socket-context/SocketProvider';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
     const [IsConnected, SetIsConnected] = useState(true);
@@ -36,7 +37,9 @@ const App = () => {
                             <AuthProvider>
                                 <RightDrawerProvider>
                                     <SocketProvider>
-                                        <AppNavigation />
+                                        <SafeAreaProvider>
+                                            <AppNavigation />
+                                        </SafeAreaProvider>
                                     </SocketProvider>
                                 </RightDrawerProvider>
                             </AuthProvider>
