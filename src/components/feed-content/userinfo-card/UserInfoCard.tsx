@@ -250,7 +250,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({ type, Icon, isMore, isOptio
 
     const handleNavigation = () =>{
         if(isStream){
-            console.log("object","stream click")
+            Navigation.navigate("LiveStreamScreen", { userId: userId, type: "stream" })
         }else{
             Navigation.navigate("ProfileScreen", { userId: userId, type: "friends" })
         }

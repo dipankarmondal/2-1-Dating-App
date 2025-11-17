@@ -281,7 +281,7 @@ const ChatScreen: React.FC<Props> = ({ route }) => {
             const otherUserId = chat.otherParticipant._id;
             socket.emit('send_personal_message', {
                 receiverId: otherUserId,
-                content: imageInput ?? '',
+                ...(imageInput && { content: imageInput }),
                 messageType: documentType,
                 mediaUrl: document?.mediaRecord?.url
             });

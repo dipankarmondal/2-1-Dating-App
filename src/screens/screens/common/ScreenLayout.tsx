@@ -38,7 +38,7 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, typ
 
     const handleNotification = () => {
         if (type === "feed") {
-            setUpdateKey?.("notifications"); 
+            setUpdateKey?.("notifications");
         } else {
             Navigation.navigate("FeedScreen", { key: "notifications" });
         }
@@ -57,20 +57,24 @@ const ScreenLayout: React.FC<ScreenLayoutProps> = ({ children, setUpdateKey, typ
     return (
         <View style={styles.container}>
             <AnimatedSearchBar ref={searchRef} headerHeight={50} />
-            <View style={styles.dt_header}>
-                <View style={styles.dt_left_container}>
-                    <HeaderIcon Icon={leftIcon} onPress={leftAction} />
-                    <Text style={styles.dt_header_title}>{title}</Text>
-                </View>
-                {type !== "stack" && (
-                    <View style={styles.dt_right_container}>
-                        {rightActions.map(({ Icon, onPress }, index) => (
-                            <HeaderIcon key={index} Icon={Icon} onPress={onPress} />
-                        ))}
+            {
+                type !== "stream" && (
+                    <View style={styles.dt_header}>
+                        <View style={styles.dt_left_container}>
+                            <HeaderIcon Icon={leftIcon} onPress={leftAction} />
+                            <Text style={styles.dt_header_title}>{title}</Text>
+                        </View>
+                        {type !== "stack" && (
+                            <View style={styles.dt_right_container}>
+                                {rightActions.map(({ Icon, onPress }, index) => (
+                                    <HeaderIcon key={index} Icon={Icon} onPress={onPress} />
+                                ))}
+                            </View>
+                        )}
+                        {headerChildren && headerChildren}
                     </View>
-                )}
-                {headerChildren && headerChildren}
-            </View>
+                )
+            }
             <View style={{ flex: 1 }}>{children}</View>
             <RightDrawer />
         </View>

@@ -45,6 +45,7 @@ export type RootStackParamList = {
   ChatroomChatboxScreen: undefined;
   ChatroomInfoScreen: undefined;
   StreamScreen: undefined;
+  LiveStreamScreen: undefined;
 };
 
 export const Stack = createNativeStackNavigator<RootStackParamList>();

@@ -86,6 +86,7 @@ const LivestreamScreen: React.FC = () => {
                         isLoading ? <Loader /> :
                             allStreams.length > 0 ? (
                                 allStreams.map((item: any, index: number) => {
+                                    
                                     return (
                                         <UserInfoCard
                                             key={index}
@@ -93,6 +94,7 @@ const LivestreamScreen: React.FC = () => {
                                                 type: "user",
                                                 UserName: item?.streamerId?.username,
                                                 isStream: true,
+                                                userId: item?._id
                                             }}
                                         >
                                             <View>
@@ -135,7 +137,6 @@ const LivestreamScreen: React.FC = () => {
                                                 </View>
                                             </View>
                                         </UserInfoCard>
-
                                     )
                                 })
                             ) : (

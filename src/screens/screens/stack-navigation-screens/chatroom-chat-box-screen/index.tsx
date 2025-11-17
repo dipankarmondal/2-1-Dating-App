@@ -186,7 +186,7 @@ const ChatroomChatboxScreen: React.FC<Props> = ({ route }) => {
             const otherUserId = conversationId;
             socket.emit('send_room_message', {
                 roomId: otherUserId,
-                content: imageInput ?? '',
+                ...(imageInput && { content: imageInput }),
                 messageType: documentType,
                 mediaUrl: document?.mediaRecord?.url
             });
